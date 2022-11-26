@@ -1,8 +1,5 @@
 ---
 title: "Project Proposal"
-author: "Ayako Sekiya (as6445), Daisy Yan (dxy2101), Elaine Chen (yc4017), Kasturi Bhamidipati (kb3246), Maisie Sun (ms6360)"
-output: github_document
-date: "2022-11-12"
 ---
 
 ```{r setup, include=FALSE}
