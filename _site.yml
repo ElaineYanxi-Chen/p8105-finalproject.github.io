@@ -3,14 +3,18 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
-    - text: "About"
-      href: about.html
     - text: "Overview"
       href: index.html
+    - text: "About"
+      menu: 
+        - text: "Our Team"
+          href: team.html
+        - text: "Project Proposal"
+          href: proposal.html
     - icon: fa-envelope fa-lg
       href: mailto:<you@youremail.com>
     - icon: fa-github fa-lg
-      href: http://github.com/<YOUR_GH_NAME>/
+      href: https://github.com/yandaisy/p8105_finalproject.git
 output:
   html_document:
     theme: flatly
