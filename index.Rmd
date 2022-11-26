@@ -2,13 +2,13 @@
 title: "Abortion Trends in New York City"
 ---
 
-## **Introduction** 
+## *Introduction*
 
-We (Maisie, Ayako, Daisy, Elaine and Kasturi) wanted to explore the trends in abortion rates in New York City over time (2017-2020). 
+We wanted to explore the trends in abortion rates in New York City over time (2017-2020). 
 
-## **Screencast** 
+## *Screencast* 
 
-## **Motivation** 
+## *Motivation* 
 
 In 2019, many conservative states raced to enact an unprecedented wave on bans on abortions that have severely restricted women’s reproductive rights. These restrictions have culminated with the recent Supreme Court overturning of Roe v. Wade, a landmark supreme court case granting a women’s right to an abortion. Since then, access to abortion has been significantly compromised and even banned in several states across the country. 
 
