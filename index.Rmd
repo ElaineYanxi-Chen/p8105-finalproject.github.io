@@ -1,5 +1,5 @@
 <center>
-Abortion Trends in New York City
+<font size="6"> Abortion Trends in New York City </font>
 <img src="images/abortion_background.jpeg" style = "wdith:75%">
 </center>
 
