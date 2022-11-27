@@ -1,0 +1,13 @@
+---
+title: "Explaratory Analysis of Abortion Trend in the Five "
+---
+
+## *Total*
+
+We wanted to explore the trends in abortion rates in New York City over time (2017-2020). 
+
+## *Age* 
+
+## *Race* 
+
+## *Finances* 

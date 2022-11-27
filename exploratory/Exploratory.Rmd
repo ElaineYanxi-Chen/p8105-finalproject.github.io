@@ -1,0 +1,65 @@
+---
+title: "Exploratory"
+author: "Maisie Sun"
+date: "2022-11-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggridges)
+library(patchwork)
+library(readxl)
+library(rvest)
+library(httr)
+library(dplyr)
+library(leaflet)
+
+library(tigris)
+library(sp)
+library(ggmap)
+library(maptools)
+library(broom)
+library(rgdal)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+
+```
+
+## Frequency
+
+```{r}
+abortion_final = read_csv(file = "./data/abortion_data.csv") %>%
+    janitor::clean_names()
+```
+
+Total abortion
+
+```{r}
+total_abortion = 
+  abortion_final %>%
+  ggplot((aes(x = borough, y = total))) + 
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  labs(
+    title = "Number of Induced Abortions by Borough, 2019",
+    x = "New York City Borough",
+    y = "Number of Induced Abortions"
+  )
+
+ggsave("results/abortion_total.pdf", total_abortion, width = 10, height = 5)
+```
+

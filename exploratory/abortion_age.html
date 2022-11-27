@@ -10,8 +10,9 @@
 
 
 
+<meta name="date" content="2022-11-22" />
 
-<title>index.knit</title>
+<title>Abortion by Age</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -30,7 +31,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -226,9 +226,6 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
 
 
 
@@ -269,7 +266,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="exploratory_analysis.html">Explaratory Analysis</a>
+      <a href="team.html">Explaratory Analysis</a>
     </li>
     <li>
       <a href="proposal.html">Regression</a>
@@ -316,51 +313,106 @@ $(document).ready(function () {
 
 <div id="header">
 
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
 
 
-
+<h1 class="title toc-ignore">Abortion by Age</h1>
+<h4 class="date">2022-11-22</h4>
 
 </div>
 
 
-<center>
-Abortion Trends in New York City
-<img src="images/abortion_background.jpeg" style = "wdith:75%">
-</center>
-<div id="introduction" class="section level2">
-<h2><em>Introduction</em></h2>
-<p>We wanted to explore the trends in abortion rates in New York City
-over time (2017-2020).</p>
-</div>
-<div id="screencast" class="section level2">
-<h2><em>Screencast</em></h2>
-</div>
-<div id="motivation" class="section level2">
-<h2><em>Motivation</em></h2>
-<p>In 2019, many conservative states raced to enact an unprecedented
-wave on bans on abortions that have severely restricted women’s
-reproductive rights. These restrictions have culminated with the recent
-Supreme Court overturning of Roe v. Wade, a landmark supreme court case
-granting a women’s right to an abortion. Since then, access to abortion
-has been significantly compromised and even banned in several states
-across the country.</p>
-<p>Those that are likely to be most impacted by this decision are
-individuals that belong to under-served and marginalized communities.
-Changes in policies could potentially lead to a variation in abortion
-trends in the country over time. We want to explore these trends to
-understand the implications of policy change in the country concerning
-reproductive rights.</p>
-<p>Our year of interest is 2019, which is the most recent dataset
-provided by New York State. We will be focusing on the numbers of
-induced abortions in New York City, specifically, and compare the
-differences across the boroughs.</p>
+<div id="maternal-age" class="section level2">
+<h2>Maternal Age</h2>
+<p>Get the data for age</p>
+<pre class="r"><code>url = &quot;https://www.health.ny.gov/statistics/vital_statistics/2019/table21.htm&quot;
+
+induced_abortion = 
+  read_html(url) %&gt;%
+  html_table(header = FALSE) %&gt;%
+  first() %&gt;%
+  janitor::clean_names()</code></pre>
+<p>data cleaning for age</p>
+<pre class="r"><code>clean_age = 
+  induced_abortion %&gt;%
+  select(1:8) %&gt;%
+  purrr::set_names(c(&quot;borough&quot;, &quot;total&quot;, &quot;age_less_20&quot;, &quot;age_20_24&quot;, &quot;age_25_29&quot;, &quot;age_30_34&quot;, &quot;age_35_39&quot;, &quot;age_plus_40&quot;)) %&gt;%
+  slice(6:11) %&gt;%
+  mutate(
+    borough = str_replace(borough, &quot;Kings&quot;, &quot;Brooklyn&quot;),
+    borough = str_replace(borough, &quot;New York City&quot;, &quot;New_York_City&quot;),
+    borough = str_replace(borough, &quot;New York&quot;, &quot;Manhattan&quot;),
+    borough = str_replace(borough, &quot;Richmond&quot;, &quot;Staten_Island&quot;),
+    total = str_replace(total, &quot;,&quot;, &quot;&quot;),
+    age_less_20 = str_replace(age_less_20, &quot;,&quot;, &quot;&quot;),
+    age_20_24 = str_replace(age_20_24, &quot;,&quot;, &quot;&quot;),
+    age_25_29 = str_replace(age_25_29, &quot;,&quot;, &quot;&quot;),
+    age_30_34 = str_replace(age_30_34, &quot;,&quot;, &quot;&quot;),
+    age_35_39 = str_replace(age_35_39, &quot;,&quot;, &quot;&quot;),
+    age_plus_40 = str_replace(age_plus_40, &quot;,&quot;, &quot;&quot;)
+    ) %&gt;%
+  mutate_at(c(&quot;total&quot;, &quot;age_less_20&quot;, &quot;age_20_24&quot;, &quot;age_25_29&quot;, &quot;age_30_34&quot;, &quot;age_35_39&quot;, &quot;age_plus_40&quot;), as.numeric)</code></pre>
+<p>ggplot: induced abortion in boroughs</p>
+<pre class="r"><code>total_abortion = 
+  clean_age %&gt;%
+  slice(-1) %&gt;%
+  ggplot((aes(x = borough, y = total))) + 
+  geom_bar(stat = &quot;identity&quot;, position = position_dodge()) + 
+  labs(
+    title = &quot;Number of Induced Abortions by Borough, 2019&quot;,
+    x = &quot;New York City Borough&quot;,
+    y = &quot;Number of Induced Abortions&quot;
+  )
+
+ggsave(&quot;results/abortion_total.pdf&quot;, total_abortion, width = 10, height = 5)</code></pre>
+<p>ggplot: induced abortion vs maternal age</p>
+<pre class="r"><code>total_abortion_age = 
+  clean_age %&gt;%
+  slice_head(n = 1) %&gt;%
+  select(-total) %&gt;%
+  pivot_longer(
+    age_less_20:age_plus_40,
+    names_to = &quot;age&quot;, 
+    values_to = &quot;abortion&quot;
+  )
+
+abortion_age_wtotal_plot = 
+  clean_age %&gt;%
+  select(-total) %&gt;%
+  slice(-1) %&gt;%
+  pivot_longer(
+    age_less_20:age_plus_40,
+    names_to = &quot;age&quot;, 
+    values_to = &quot;abortion&quot;
+  ) %&gt;%
+  ggplot(aes(x = age, y = abortion, fill = borough)) + 
+  geom_bar(stat = &quot;identity&quot;, position = position_dodge()) +
+  geom_point(data = total_abortion_age) +
+  labs(
+    title = &quot;Number of Induced Abortions by Woman&#39;s Age and Borough, 2019&quot;,
+    x = &quot;Woman&#39;s age categories&quot;,
+    y = &quot;Number of Induced Abortions&quot;
+  )
+
+abortion_age_plot = 
+  clean_age %&gt;%
+  select(-total) %&gt;%
+  slice(-1) %&gt;%
+  pivot_longer(
+    age_less_20:age_plus_40,
+    names_to = &quot;age&quot;, 
+    values_to = &quot;abortion&quot;
+  ) %&gt;%
+  ggplot(aes(x = age, y = abortion, fill = borough)) + 
+  geom_bar(stat = &quot;identity&quot;, position = position_dodge()) +
+  labs(
+    title = &quot;Number of Induced Abortions by Woman&#39;s Age and Borough, 2019&quot;,
+    x = &quot;Woman&#39;s age categories&quot;,
+    y = &quot;Number of Induced Abortions&quot;
+  )
+
+ggsave(&quot;results/abortion_age.pdf&quot;, abortion_age_plot, width = 10, height = 5)
+
+ggsave(&quot;results/abortion_age_wtotal.pdf&quot;, abortion_age_wtotal_plot, width = 10, height = 5)</code></pre>
 </div>
 
 
@@ -396,11 +448,6 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("show" === "show");
-});
-</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
