@@ -56,9 +56,9 @@ clean_nh =
     slice(6:11) %>%
   mutate(
     borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = str_replace(borough, "New York City", "New_York_City"),
+    borough = str_replace(borough, "New York City", "Total"),
     borough = str_replace(borough, "New York", "Manhattan"),
-    borough = str_replace(borough, "Richmond", "Staten_Island"),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
     Non_Hispanic_Total = str_replace(Non_Hispanic_Total, ",", ""),
     NH_White_Only_Number = str_replace(NH_White_Only_Number, ",", ""),
@@ -66,6 +66,8 @@ clean_nh =
     Other_Number = str_replace(Other_Number, ",", ""),
     ) %>%
   mutate_at(c("total", "Non_Hispanic_Total", "NH_White_Only_Number", "NH_Black_Only_Number", "Other_Number"), as.numeric)
+
+write_csv(clean_nh, file = "data/abortion_race.csv")
 ```
 
 ggplot: induced abortion vs race (Non-Hispanic)
@@ -130,9 +132,9 @@ clean_h =
     slice(6:11) %>%
   mutate(
     borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = str_replace(borough, "New York City", "New_York_City"),
+    borough = str_replace(borough, "New York City", "Total"),
     borough = str_replace(borough, "New York", "Manhattan"),
-    borough = str_replace(borough, "Richmond", "Staten_Island"),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
     Hispanic_Total = str_replace(Hispanic_Total, ",", ""),
     H_White_Only_Number = str_replace(H_White_Only_Number, ",", ""),

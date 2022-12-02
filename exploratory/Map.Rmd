@@ -44,7 +44,7 @@ scale_fill_discrete = scale_fill_viridis_d
 Get the data
 
 ```{r data_import}
-abortion_final = read_csv(file = "./data/abortion_data.csv") %>%
+abortion_final = read_csv(file = "data/abortion_data.csv") %>%
     janitor::clean_names()
 ```
 

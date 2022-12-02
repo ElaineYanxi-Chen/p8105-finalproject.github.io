@@ -74,7 +74,7 @@ borough_year
 
 We want to investigate the relationship between induced abortion and maternal age.
 
-```{r}
+```{r age total}
 clean_age = read_csv("data/clean_age.csv")
 
 total_abortion_age_plot = 
@@ -122,7 +122,7 @@ matrix_age_total
 
 Induced abortion by age and borough.
 
-```{r}
+```{r age by borough}
 age_bronx = 
 clean_age %>%
   select(-total) %>%
@@ -231,5 +231,115 @@ matrix_age
 
 
 ## *Race* 
+
+Abortion numbers in the five boroughs in non-Hispanic population. (which year?)
+
+```{r race non-hispanic}
+clean_nh = read_csv("data/abortion_race_nh.csv")
+
+total_abortion_nhrace = 
+  clean_nh %>%
+  slice_head(n = 1) %>%
+  pivot_longer(
+    total:Other_Number,
+    names_to = "race", 
+    values_to = "abortion"
+  )
+
+abortion_race_nhplot = 
+  clean_nh %>%
+  select(-total) %>%
+  slice(-1) %>%
+  pivot_longer(
+    Non_Hispanic_Total:Other_Number,
+    names_to = "race", 
+    values_to = "abortion"
+  ) %>%
+  ggplot(aes(x = race, y = abortion, fill = borough)) + 
+  geom_bar(stat = "identity", position = position_dodge()) +
+  labs(
+    title = "Number of Induced Abortions by Race (Non-Hispanic) and Borough, 2019",
+    x = "Woman's Race",
+    y = "Number of Induced Abortions"
+  )
+
+abortion_race_nhplot
+
+abortion_race_nhtotal = 
+  clean_nh %>%
+  select(-total) %>%
+  slice(-1) %>%
+  pivot_longer(
+    Non_Hispanic_Total:Other_Number,
+    names_to = "race", 
+    values_to = "abortion"
+  ) %>%
+  ggplot(aes(x = race, y = abortion, fill = borough)) + 
+  geom_bar(stat = "identity", position = position_dodge()) +
+  geom_point(data = total_abortion_nhrace) +
+  labs(
+    title = "Number of Induced Abortions by Race (Non-Hispanic) and Borough, 2019",
+    x = "Woman's Finance Plan",
+    y = "Number of Induced Abortions"
+  )
+
+abortion_race_nhtotal
+```
+
+
+Next we investigate the trend in non-Hispanic population.
+
+```{r}
+clean_h = read_csv("data/abortion_race_h.csv")
+
+total_abortion_hrace = 
+  clean_h %>%
+  slice_head(n = 1) %>%
+  pivot_longer(
+    Hispanic_Total:H_Black_Only_Number,
+    names_to = "race", 
+    values_to = "abortion"
+  )
+
+abortion_race_h = 
+  clean_h %>%
+  select(-total) %>%
+  slice(-1) %>%
+  pivot_longer(
+    Hispanic_Total:H_Black_Only_Number,
+    names_to = "race", 
+    values_to = "abortion"
+  ) %>%
+  ggplot(aes(x = race, y = abortion, fill = borough)) + 
+  geom_bar(stat = "identity", position = position_dodge()) +
+  labs(
+    title = "Number of Induced Abortions by Race (Hispanic) and Borough, 2019",
+    x = "Woman's Race (Non-Hispanic)",
+    y = "Number of Induced Abortions"
+  )
+
+abortion_race_h
+
+abortion_race_htotal = 
+  clean_h %>%
+  select(-total) %>%
+  slice(-1) %>%
+  pivot_longer(
+    Hispanic_Total:H_Black_Only_Number,
+    names_to = "race", 
+    values_to = "abortion"
+  ) %>%
+  ggplot(aes(x = race, y = abortion, fill = borough)) + 
+  geom_bar(stat = "identity", position = position_dodge()) +
+  geom_point(data = total_abortion_hrace) +
+  labs(
+    title = "Number of Induced Abortions by Race (Hispanic) and Borough, 2019",
+    x = "Woman's Race (Hispanic)",
+    y = "Number of Induced Abortions"
+  )
+
+abortion_race_htotal
+```
+
 
 ## *Finances* 
