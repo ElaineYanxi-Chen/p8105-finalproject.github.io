@@ -11,7 +11,8 @@ library(patchwork)
 library(plotly)
 
 knitr::opts_chunk$set(
-	echo = TRUE,
+	echo = FALSE,
+	message = FALSE,
 	warning = FALSE,
 	fig.width = 8, 
   fig.height = 6,
@@ -31,7 +32,7 @@ scale_fill_discrete = scale_fill_viridis_d
 
 First, we want to look at the overall trends in abortion rates in New York City over time (2017-2020). 
 
-```{r, message = FALSE, echo = FALSE}
+```{r}
 abortion_year = read_csv("data/abortion_year_borough.csv")
 
 abortion_year %>% 
@@ -49,7 +50,7 @@ city_year
 ```
 
 
-```{r, message = FALSE, echo = FALSE}
+```{r}
 abortion_year %>% 
   filter(!borough == "Total") %>% 
   mutate(borough = fct_reorder(borough, total)) %>% 
