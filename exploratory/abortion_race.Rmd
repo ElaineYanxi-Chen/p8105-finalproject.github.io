@@ -67,7 +67,7 @@ clean_nh =
     ) %>%
   mutate_at(c("total", "Non_Hispanic_Total", "NH_White_Only_Number", "NH_Black_Only_Number", "Other_Number"), as.numeric)
 
-write_csv(clean_nh, file = "data/abortion_race.csv")
+write_csv(clean_nh, file = "data/abortion_race_nh.csv")
 ```
 
 ggplot: induced abortion vs race (Non-Hispanic)
@@ -141,6 +141,8 @@ clean_h =
     H_Black_Only_Number = str_replace(H_Black_Only_Number, ",", "")
     ) %>%
   mutate_at(c("total", "Hispanic_Total", "H_White_Only_Number", "H_Black_Only_Number"), as.numeric)
+
+write_csv(clean_h, file = "data/abortion_race_h.csv")
 ```
 
 ggplot: induced abortion vs race (Hispanic)

@@ -58,9 +58,9 @@ clean_finance =
   slice(6:11) %>%
   mutate(
     borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = str_replace(borough, "New York City", "New_York_City"),
+    borough = str_replace(borough, "New York City", "Total"),
     borough = str_replace(borough, "New York", "Manhattan"),
-    borough = str_replace(borough, "Richmond", "Staten_Island"),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
     Medicaid = str_replace(Medicaid, ",", ""),
     HMO = str_replace(HMO, ",", ""),
@@ -71,7 +71,7 @@ clean_finance =
     ) %>%
   mutate_at(c("total", "Medicaid", "HMO", "Other_Insurance", "Self_Pay", "Multiple_Payor", "Not_Stated"), as.numeric)
   
-
+write_csv(clean_finance, file = "data/clean_finance.csv")
 ```
 
 ggplot: induced abortion vs financial plans

@@ -343,3 +343,57 @@ abortion_race_htotal
 
 
 ## *Finances* 
+
+```{r finance}
+clean_finance = read_csv("data/clean_finance.csv")
+
+total_abortion_finance = 
+  clean_finance %>%
+  slice_head(n = 1) %>%
+  select(-total) %>%
+  pivot_longer(
+    Medicaid:Not_Stated,
+    names_to = "finance_plan", 
+    values_to = "abortion"
+  )
+
+abortion_finance_plot = 
+  clean_finance %>%
+  select(-total) %>%
+  slice(-1) %>%
+  pivot_longer(
+    Medicaid:Not_Stated,
+    names_to = "finance_plan", 
+    values_to = "abortion"
+  ) %>%
+  ggplot(aes(x = finance_plan, y = abortion, fill = borough)) + 
+  geom_bar(stat = "identity", position = position_dodge()) +
+  labs(
+    title = "Number of Induced Abortions by Woman's Finance Plan and Borough, 2019",
+    x = "Woman's finance plan",
+    y = "Number of Induced Abortions"
+  )
+
+abortion_finance_plot
+
+abortion_finance_total = 
+  clean_finance %>%
+  select(-total) %>%
+  slice(-1) %>%
+  pivot_longer(
+    Medicaid:Not_Stated,
+    names_to = "finance_plan", 
+    values_to = "abortion"
+  ) %>%
+  ggplot(aes(x = finance_plan, y = abortion, fill = borough)) + 
+  geom_bar(stat = "identity", position = position_dodge()) +
+  geom_point(data = total_abortion_finance) +
+  labs(
+    title = "Number of Induced Abortions by Woman's Finance Plan and Borough, 2019",
+    x = "Woman's finance plan",
+    y = "Number of Induced Abortions"
+  )
+
+abortion_finance_total
+```
+
