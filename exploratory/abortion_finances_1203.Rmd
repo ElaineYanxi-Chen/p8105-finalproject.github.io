@@ -97,11 +97,11 @@ merged_data=
   full_join(clean_lb_finance,clean_ia_finance, by="borough") %>%
   janitor::clean_names() %>%
   mutate(
-    medicaid = (medicaid_x / medicaid_y)*1000,
-    self_pay = (self_pay_x / self_pay_y)*1000,
-    other_insurance = (other_insurance_x / other_insurance_y)*1000,
-    not_stated = (not_stated_x / not_stated_y)*1000,
-    total = (total_x / total_y)*1000) %>% 
+    medicaid = (medicaid_y / medicaid_x)*1000,
+    self_pay = (self_pay_y / self_pay_x)*1000,
+    other_insurance = (other_insurance_y / other_insurance_x)*1000,
+    not_stated = (not_stated_y / not_stated_x)*1000,
+    total = (total_y / total_x)*1000) %>% 
 select(borough, medicaid, self_pay, other_insurance, not_stated, total)  
 
 write_csv(merged_data, file = "data/abortion_finance.csv")
