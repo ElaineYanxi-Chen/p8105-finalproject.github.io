@@ -111,8 +111,3 @@ abortion_age_wtotal_plot
 
 ```
 
-```{r plot_matrix_state_city_borough}
-matrix_age_total = 
-  total_abortion_age_plot + abortion_age_wtotal_plot
-```
-
