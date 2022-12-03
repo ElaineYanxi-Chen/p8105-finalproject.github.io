@@ -72,7 +72,7 @@ clean_age =
     ) %>%
   mutate_at(c("total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40"), as.numeric) 
 
-write_csv(clean_age, file = "data/clean_age.csv")
+write_csv(clean_age, file = "data/abortion_age.csv")
 ```
 
 Total induced abortion rate vs maternal age in NYC boroughs

@@ -103,6 +103,9 @@ merged_data=
     not_stated = (not_stated_x / not_stated_y)*1000,
     total = (total_x / total_y)*1000) %>% 
 select(borough, medicaid, self_pay, other_insurance, not_stated, total)  
+
+write_csv(merged_data, file = "data/abortion_finance.csv")
+
 ```
 
 ggplot: induced abortion vs financial plans
