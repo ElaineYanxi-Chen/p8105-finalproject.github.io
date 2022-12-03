@@ -57,11 +57,10 @@ clean_age =
   induced_abortion %>%
   select(1:8) %>%
   purrr::set_names(c("borough", "total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40")) %>%
-  slice(6:11) %>%
+  slice(4,6:11) %>%
   mutate(
     borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = str_replace(borough, "New York City", "New York City"),
-    borough = str_replace(borough, "New York", "Manhattan"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
     borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
     age_less_20 = str_replace(age_less_20, ",", ""),
@@ -78,10 +77,9 @@ write_csv(clean_age, file = "data/clean_age.csv")
 
 Total induced abortion rate vs maternal age in NYC boroughs
 
-```{r age_total_plot}
-total_abortion_age_plot = 
+```{r age_borough_plot}
+abortion_age_wtotal_plot = 
   clean_age %>%
-  slice_head(n = 1) %>%
   select(-total) %>%
   pivot_longer(
     age_less_20:age_plus_40,
@@ -89,164 +87,31 @@ total_abortion_age_plot =
     values_to = "abortion"
   ) %>%
   mutate(age = factor(age, levels = c("age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40"))) %>% 
-plot_ly(
-    x = ~age, y = ~abortion, type = "scatter", mode = "line", alpha = 0.5)
+  plot_ly(x = ~age, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   layout(title = 'Abortion Ratios by Age for Boroughs and New York State', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
 
-total_abortion_age_plot
+abortion_age_wtotal_plot
 
 ```
 
 
+```{r abortion_age_NY_state}
 
-
-```{r}
 abortion_age_wtotal_plot = 
   clean_age %>%
-  select(-total) %>%
-  slice(-1) %>%
   pivot_longer(
     age_less_20:age_plus_40,
     names_to = "age", 
     values_to = "abortion"
   ) %>%
-  ggplot(aes(x = age, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  geom_point(data = total_abortion_age) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) + 
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10) )
+  mutate(age = factor(age, levels = c("age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40"))) %>% 
+  plot_ly(x = ~age, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   layout(title = 'Abortion Ratios by Age for Boroughs and New York State', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
 
+abortion_age_wtotal_plot
+
+```
+
+```{r plot_matrix_state_city_borough}
 matrix_age_total = 
   total_abortion_age_plot + abortion_age_wtotal_plot
-
-abortion_age_plot = 
-  clean_age %>%
-  select(-total) %>%
-  slice(-1) %>%
-  pivot_longer(
-    age_less_20:age_plus_40,
-    names_to = "age", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = age, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10) )
-
-age_bronx = 
-clean_age %>%
-  select(-total) %>%
-  filter(borough == "Bronx") %>%
-  pivot_longer(
-    age_less_20:age_plus_40,
-    names_to = "age", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = age, y = abortion)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10) )
-
-age_bronx
-
-age_brooklyn = 
-clean_age %>%
-  select(-total) %>%
-  filter(borough == "Brooklyn") %>%
-  pivot_longer(
-    age_less_20:age_plus_40,
-    names_to = "age", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = age, y = abortion)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10) )
-
-age_brooklyn
-
-age_manhattan = 
-clean_age %>%
-  select(-total) %>%
-  filter(borough == "Manhattan") %>%
-  pivot_longer(
-    age_less_20:age_plus_40,
-    names_to = "age", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = age, y = abortion)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10) )
-
-age_manhattan
-
-age_queens = 
-clean_age %>%
-  select(-total) %>%
-  filter(borough == "Queens") %>%
-  pivot_longer(
-    age_less_20:age_plus_40,
-    names_to = "age", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = age, y = abortion)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10) )
-
-age_queens
-
-age_si = 
-clean_age %>%
-  select(-total) %>%
-  filter(borough == "Staten_Island") %>%
-  pivot_longer(
-    age_less_20:age_plus_40,
-    names_to = "age", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = age, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10) )
-
-age_si
-
-matrix_age = 
-  (abortion_age_plot + age_bronx)/(age_brooklyn + age_manhattan) / (age_queens + age_si)
-
-ggsave("results/abortion_age.pdf", abortion_age_plot, width = 10, height = 5)
-
-ggsave("results/abortion_age_wtotal.pdf", abortion_age_wtotal_plot, width = 10, height = 5)
-
-ggsave("results/matrix_age.pdf", matrix_age, width = 15, height = 15)
 ```
 
