@@ -50,7 +50,7 @@ induced_abortion =
 
 ```
 
-data cleaning for age
+data cleaning for age 
 
 ```{r data_cleaning_age}
 clean_age = 
