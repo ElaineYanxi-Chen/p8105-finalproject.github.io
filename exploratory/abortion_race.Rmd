@@ -15,6 +15,8 @@ library("writexl")
 library(rvest)
 library(httr)
 library(dplyr)
+library(plotly)
+
 
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -46,28 +48,49 @@ induced_abortion =
 
 ```
 
-data cleaning
+data cleaning NH
 
 ```{r data_cleaning_nhrace}
 clean_nh = 
   induced_abortion %>%
-  select(1,2,4,6,8,10) %>% 
-  purrr::set_names(c("borough", "total", "Non_Hispanic_Total", "NH_White_Only_Number", "NH_Black_Only_Number", "Other_Number")) %>% 
-    slice(6:11) %>%
+  select(1,3,5,7,9,11) %>% 
+  purrr::set_names(c("borough", "total", "Non_Hispanic_Ratio", "NH_White_Only_Ratio", "NH_Black_Only_Ratio", "NH_Other_Ratio")) %>% 
+    slice(4, 6:11) %>%
   mutate(
     borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = str_replace(borough, "New York City", "Total"),
-    borough = str_replace(borough, "New York", "Manhattan"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
     borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
-    Non_Hispanic_Total = str_replace(Non_Hispanic_Total, ",", ""),
-    NH_White_Only_Number = str_replace(NH_White_Only_Number, ",", ""),
-    NH_Black_Only_Number = str_replace(NH_Black_Only_Number, ",", ""),
-    Other_Number = str_replace(Other_Number, ",", ""),
+    Non_Hispanic_Ratio = str_replace(Non_Hispanic_Ratio, ",", ""),
+    NH_White_Only_Ratio = str_replace(NH_White_Only_Ratio, ",", ""),
+    NH_Black_Only_Ratio = str_replace(NH_Black_Only_Ratio, ",", ""),
+    NH_Other_Ratio = str_replace(NH_Other_Ratio, ",", ""),
     ) %>%
-  mutate_at(c("total", "Non_Hispanic_Total", "NH_White_Only_Number", "NH_Black_Only_Number", "Other_Number"), as.numeric)
+  mutate_at(c("total", "Non_Hispanic_Ratio", "NH_White_Only_Ratio", "NH_Black_Only_Ratio", "NH_Other_Ratio"), as.numeric)
 
 write_csv(clean_nh, file = "data/abortion_race_nh.csv")
+```
+
+data cleaning H
+
+```{r data_cleaning_hrace}
+clean_h = 
+  induced_abortion %>%
+  select(1,3,13,15,17) %>% 
+  purrr::set_names(c("borough", "total", "Hispanic_Ratio", "H_White_Only_Ratio", "H_Black_Only_Ratio")) %>% 
+    slice(4, 6:11) %>%
+  mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
+    total = str_replace(total, ",", ""),
+    Hispanic_Ratio = str_replace(Hispanic_Ratio, ",", ""),
+    H_White_Only_Ratio = str_replace(H_White_Only_Ratio, ",", ""),
+    H_Black_Only_Ratio = str_replace(H_Black_Only_Ratio, ",", "")
+    ) %>%
+  mutate_at(c("total", "Hispanic_Ratio", "H_White_Only_Ratio", "H_Black_Only_Ratio"), as.numeric)
+
+write_csv(clean_h, file = "data/abortion_race_h.csv")
 ```
 
 ggplot: induced abortion vs race (Non-Hispanic)
@@ -77,7 +100,7 @@ total_abortion_nhrace =
   clean_nh %>%
   slice_head(n = 1) %>%
   pivot_longer(
-    total:Other_Number,
+    total:NH_Other_Ratio,
     names_to = "race", 
     values_to = "abortion"
   )
@@ -85,65 +108,18 @@ total_abortion_nhrace =
 abortion_race_nhplot = 
   clean_nh %>%
   select(-total) %>%
-  slice(-1) %>%
   pivot_longer(
-    Non_Hispanic_Total:Other_Number,
+    Non_Hispanic_Ratio:NH_Other_Ratio,
     names_to = "race", 
     values_to = "abortion"
   ) %>%
-  ggplot(aes(x = race, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Race (Non-Hispanic) and Borough, 2019",
-    x = "Woman's Race",
-    y = "Number of Induced Abortions"
-  )
+plot_ly(x = ~race, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   layout(title = 'Abortion Ratios by Non-Hispanic Race for Boroughs and New York State', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
 
-ggsave("results/abortion_nhrace.pdf", abortion_race_nhplot, width = 10, height = 5)
+abortion_race_nhplot
 
-abortion_race_nhtotal = 
-  clean_nh %>%
-  select(-total) %>%
-  slice(-1) %>%
-  pivot_longer(
-    Non_Hispanic_Total:Other_Number,
-    names_to = "race", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = race, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  geom_point(data = total_abortion_nhrace) +
-  labs(
-    title = "Number of Induced Abortions by Race (Non-Hispanic) and Borough, 2019",
-    x = "Woman's Finance Plan",
-    y = "Number of Induced Abortions"
-  )
-
-ggsave("results/abortion_race_nhtotal.pdf", abortion_race_nhtotal, width = 10, height = 5)
 ```
 
-data cleaning (Hispanic)
 
-```{r data_cleaning_hrace}
-clean_h = 
-  induced_abortion %>%
-  select(1,2,12,14,16) %>% 
-  purrr::set_names(c("borough", "total", "Hispanic_Total", "H_White_Only_Number", "H_Black_Only_Number")) %>% 
-    slice(6:11) %>%
-  mutate(
-    borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = str_replace(borough, "New York City", "Total"),
-    borough = str_replace(borough, "New York", "Manhattan"),
-    borough = str_replace(borough, "Richmond", "Staten Island"),
-    total = str_replace(total, ",", ""),
-    Hispanic_Total = str_replace(Hispanic_Total, ",", ""),
-    H_White_Only_Number = str_replace(H_White_Only_Number, ",", ""),
-    H_Black_Only_Number = str_replace(H_Black_Only_Number, ",", "")
-    ) %>%
-  mutate_at(c("total", "Hispanic_Total", "H_White_Only_Number", "H_Black_Only_Number"), as.numeric)
-
-write_csv(clean_h, file = "data/abortion_race_h.csv")
-```
 
 ggplot: induced abortion vs race (Hispanic)
 
@@ -152,7 +128,7 @@ total_abortion_hrace =
   clean_h %>%
   slice_head(n = 1) %>%
   pivot_longer(
-    Hispanic_Total:H_Black_Only_Number,
+    Hispanic_Ratio:H_Black_Only_Ratio,
     names_to = "race", 
     values_to = "abortion"
   )
@@ -160,57 +136,14 @@ total_abortion_hrace =
 abortion_race_h = 
   clean_h %>%
   select(-total) %>%
-  slice(-1) %>%
   pivot_longer(
-    Hispanic_Total:H_Black_Only_Number,
+    Hispanic_Ratio:H_Black_Only_Ratio,
     names_to = "race", 
     values_to = "abortion"
   ) %>%
-  ggplot(aes(x = race, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Race (Hispanic) and Borough, 2019",
-    x = "Woman's Race (Non-Hispanic)",
-    y = "Number of Induced Abortions"
-  )
+  plot_ly(x = ~race, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   layout(title = 'Abortion Ratios by Hispanic Race for Boroughs and New York State', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
 
-ggsave("results/abortion_hrace.pdf", abortion_race_h, width = 10, height = 5)
+abortion_race_h
 
-abortion_race_htotal = 
-  clean_h %>%
-  select(-total) %>%
-  slice(-1) %>%
-  pivot_longer(
-    Hispanic_Total:H_Black_Only_Number,
-    names_to = "race", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = race, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  geom_point(data = total_abortion_hrace) +
-  labs(
-    title = "Number of Induced Abortions by Race (Hispanic) and Borough, 2019",
-    x = "Woman's Race (Hispanic)",
-    y = "Number of Induced Abortions"
-  )
-
-ggsave("results/abortion_race_htotal.pdf", abortion_race_htotal, width = 10, height = 5)
-```
-
-#### Summary Statistics
-
-```{r summary}
-boro_amount = parking %>% 
-  drop_na(fine_amount, borough)%>%
-  select(borough, fine_amount)%>%
-  group_by(borough) 
-
-parking %>% 
-  drop_na(fine_amount, borough)%>%
-  select(borough, fine_amount)%>%
-  group_by(borough) %>% 
-  summarize(mean = mean(fine_amount),
-            standard_error = sd(fine_amount)) %>% 
-  knitr::kable(caption = "Fine Amount in borough")
 ```
 
