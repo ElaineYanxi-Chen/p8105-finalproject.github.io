@@ -1,0 +1,100 @@
+---
+title: "NY_finances"
+author: "Maisie Sun"
+date: "2022-12-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(data.table)
+library(janitor)
+library(ggridges)
+library(patchwork)
+library(readxl)
+library("writexl")
+library(rvest)
+library(httr)
+library(dplyr)
+library(plotly)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+
+```
+
+## Livebirth 2019
+
+```{r}
+url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table13.htm"
+
+live_birth_finance = 
+  read_html(url) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+
+```
+
+```{r}
+clean_lb_finance = 
+  live_birth_finance %>% 
+  select(-c(4,6:8)) %>%
+  purrr::set_names(c("borough", "total", "Medicaid", "Self_Pay", "Other_Insurance", "Not_Stated")) %>%
+  slice(14:70) %>% 
+  mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten_Island"),
+    total = str_replace(total, ",", ""),
+    Medicaid = str_replace(Medicaid, ",", ""),
+    Other_Insurance = str_replace(Other_Insurance, ",", ""),
+    Self_Pay = str_replace(Self_Pay, ",", ""),
+    Not_Stated = str_replace(Not_Stated, ",", "")
+    ) %>%
+  mutate_at(c("total", "Medicaid", "Self_Pay","Other_Insurance", "Not_Stated"), as.numeric) %>%
+  janitor::clean_names()
+```
+
+```{r}
+clean_lb_finance_1 = 
+  clean_lb_finance %>%
+  transform(borough = gsub(pattern = "Albany|Columbia|Fulton|Greene|Montgomery|Rensselaer|Saratoga|Schenectady|Schoharie|Warren|Washington", replacement = "Saratoga", borough)) %>%
+  transform(borough = gsub(pattern = "Franklin|Clinton|Essex|Hamilton", replacement = "Eastern Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Herkimer|Jefferson|Lewis|Oneida|Oswego|St Lawrence", replacement = "Western Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Broome|Cayuga|Chenango|Cortland|Madison|Onondaga|Otsego|Tioga|Tompkins", replacement = "Central New York", borough)) %>%
+  transform(borough=gsub(pattern ="Chemung|Genesee|Livingston|Monroe|Ontario|Schuyler|Seneca|Steuben|Wayne|Yates",replacement = "Finger Lakes", borough)) %>%
+  transform(borough=gsub(pattern = "Allegany|Cattaraugus|Chautauqua|Erie|Niagara|Orleans|Wyoming",replacement = "Western New York", borough)) %>%
+  transform(borough = gsub(pattern = "Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement = "Hudson Valley", borough)) %>%
+  transform(borough=gsub(pattern ="Rockland|Westchester", replacement =  "Westchester/Rockland", borough)) %>%
+  transform(borough=gsub(pattern = "Suffolk|Nassau", replacement = "Long Island", borough))
+
+```
+
+```{r}
+clean_lb_finance_2 = 
+  clean_lb_finance_1 %>%
+  group_by(borough) %>%
+  summarize(
+    total_rate = sum(total),
+    total_medicaid = sum(medicaid),
+    total_self = sum(self_pay),
+    total_other = sum(other_insurance),
+    total_not_stated = sum(not_stated)
+  )
+
+```
+

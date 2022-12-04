@@ -11,7 +11,7 @@
 
 
 
-<title>About the Team</title>
+<title>Abortion by Year in NY State</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -33,6 +33,13 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -326,32 +333,85 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">About the Team</h1>
+<h1 class="title toc-ignore">Abortion by Year in NY State</h1>
 
 </div>
 
 
-<div id="members" class="section level1">
-<h1>Members</h1>
-<p>We are all second year Masters of Public Health (MPH) students at
-Columbia Mailman School of Public Health in the Department of
-Epidemiology.</p>
-<p>** Add descriptions for yourselves** - have link to email and your
-own githubs too!</p>
-<div id="maisie-sun" class="section level3">
-<h3>Maisie Sun</h3>
+<div id="induced-abortions-in-years-2019" class="section level2">
+<h2>Induced Abortions in Years (2019)</h2>
+<pre class="r"><code>url = &quot;https://www.health.ny.gov/statistics/vital_statistics/2019/table22.htm&quot;
+induced_abortion_2019 = 
+  read_html(url) %&gt;%
+  html_table(header = FALSE) %&gt;%
+  first() %&gt;%
+  janitor::clean_names()</code></pre>
+<p>data cleaning</p>
 </div>
-<div id="ayako-sekiya" class="section level3">
-<h3>Ayako Sekiya</h3>
+<div id="induced-abortions-in-years-2018" class="section level2">
+<h2>Induced Abortions in Years (2018)</h2>
+<pre class="r"><code>url = &quot;https://www.health.ny.gov/statistics/vital_statistics/2018/table22.htm&quot;
+induced_abortion_2018 = 
+  read_html(url) %&gt;%
+  html_table(header = FALSE) %&gt;%
+  first() %&gt;%
+  janitor::clean_names()</code></pre>
+<p>data cleaning</p>
 </div>
-<div id="elaine-yanxi-chen" class="section level3">
-<h3>Elaine Yanxi Chen</h3>
+<div id="induced-abortions-in-years-2017" class="section level2">
+<h2>Induced Abortions in Years (2017)</h2>
+<pre class="r"><code>url = &quot;https://www.health.ny.gov/statistics/vital_statistics/2018/table22.htm&quot;
+induced_abortion_2017 = 
+  read_html(url) %&gt;%
+  html_table(header = FALSE) %&gt;%
+  first() %&gt;%
+  janitor::clean_names()</code></pre>
+<p>data cleaning</p>
 </div>
-<div id="daisy-yan" class="section level3">
-<h3>Daisy Yan</h3>
+<div id="induced-abortions-in-years-2016" class="section level2">
+<h2>Induced Abortions in Years (2016)</h2>
+<pre class="r"><code>url = &quot;https://www.health.ny.gov/statistics/vital_statistics/2016/table22.htm&quot;
+induced_abortion_2016 = 
+  read_html(url) %&gt;%
+  html_table(header = FALSE) %&gt;%
+  first() %&gt;%
+  janitor::clean_names()</code></pre>
+<p>data cleaning</p>
 </div>
-<div id="kasturi-bhamidipati" class="section level3">
-<h3>Kasturi Bhamidipati</h3>
+<div id="induced-abortions-in-years-2015" class="section level2">
+<h2>Induced Abortions in Years (2015)</h2>
+<pre class="r"><code>url = &quot;https://www.health.ny.gov/statistics/vital_statistics/2015/table22.htm&quot;
+induced_abortion_2015 = 
+  read_html(url) %&gt;%
+  html_table(header = FALSE) %&gt;%
+  first() %&gt;%
+  janitor::clean_names()</code></pre>
+<p>data cleaning</p>
+</div>
+<div id="induced-abortions-in-years-2014" class="section level2">
+<h2>Induced Abortions in Years (2014)</h2>
+<pre class="r"><code>url = &quot;https://www.health.ny.gov/statistics/vital_statistics/2014/table22.htm&quot;
+induced_abortion_2014 = 
+  read_html(url) %&gt;%
+  html_table(header = FALSE) %&gt;%
+  first() %&gt;%
+  janitor::clean_names()</code></pre>
+<p>data cleaning</p>
+<p>Merge all datasets</p>
+<pre class="r"><code>year_final = 
+rbind(clean_2019, clean_2018, clean_2017, clean_2016, clean_2015, clean_2014, by=c(&quot;borough&quot;, &quot;total&quot;, &quot;year&quot;)) %&gt;% 
+select(year, everything()) %&gt;% 
+filter(!year==&quot;year&quot;) %&gt;% 
+mutate_at(c(&quot;total&quot;, &quot;year&quot;), as.numeric)</code></pre>
+<div id="line-chart-by-year-and-borough" class="section level4">
+<h4>Line chart by Year and Borough</h4>
+<pre class="r"><code>plot_borough_year=year_final %&gt;% 
+  mutate(borough = fct_reorder(borough, total)) %&gt;% 
+plot_ly(y = ~total, x=~year, color = ~borough, type = &quot;scatter&quot;, mode=&quot;line&quot;, colors = &quot;viridis&quot;) %&gt;% 
+   layout(title = &#39;Induced Abortions Year by Borough&#39;, yaxis = list(title = &#39;Number of Induced Abortions per 1,000 Live Births&#39;))
+plot_borough_year</code></pre>
+<div id="htmlwidget-2f870a932a117eaae375" style="width:90%;height:576px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2f870a932a117eaae375">{"x":{"visdat":{"db0f2aa7de03":["function () ","plotlyVisDat"]},"cur_data":"db0f2aa7de03","attrs":{"db0f2aa7de03":{"y":{},"x":{},"mode":"line","color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Induced Abortions Year by Borough","yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Induced Abortions per 1,000 Live Births"},"xaxis":{"domain":[0,1],"automargin":true,"title":"year"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[275.6,251.3,251.3,474.8,309.1,338.3],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Staten_Island","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"line":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[336.5,322.2,322.2,353.3,367.1,392],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"New York State","marker":{"color":"rgba(68,58,131,1)","line":{"color":"rgba(68,58,131,1)"}},"textfont":{"color":"rgba(68,58,131,1)"},"error_y":{"color":"rgba(68,58,131,1)"},"error_x":{"color":"rgba(68,58,131,1)"},"line":{"color":"rgba(68,58,131,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[351.7,321.7,321.7,407.1,434.2,459.3],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Brooklyn","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"line":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[445.7,418.7,418.7,445,451,483.6],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Queens","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"line":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[450.5,434,434,494.8,505.2,543.8],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"New York City","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"line":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[537.5,567.4,567.4,581.7,579.1,632.3],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Manhattan","marker":{"color":"rgba(143,214,68,1)","line":{"color":"rgba(143,214,68,1)"}},"textfont":{"color":"rgba(143,214,68,1)"},"error_y":{"color":"rgba(143,214,68,1)"},"error_x":{"color":"rgba(143,214,68,1)"},"line":{"color":"rgba(143,214,68,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[623.3,608.5,608.5,673.2,709.5,770.1],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Bronx","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"line":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 
