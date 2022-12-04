@@ -61,9 +61,6 @@ clean_lb_finance= live_birth_finance %>%
   purrr::set_names(c("borough", "total", "Medicaid", "Self_Pay", "Other_Insurance", "Not_Stated")) %>%
   slice(14:70) %>% 
   mutate(
-    borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
-    borough = str_replace(borough, "Richmond", "Staten_Island"),
     total = str_replace(total, ",", ""),
     Medicaid = str_replace(Medicaid, ",", ""),
     Other_Insurance = str_replace(Other_Insurance, ",", ""),
@@ -83,9 +80,6 @@ induced_abortion_finance %>%
   purrr::set_names(c("borough", "total", "Medicaid", "Other_Insurance", "Self_Pay", "Not_Stated")) %>%
   slice(14:70) %>% 
   mutate(
-    borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
-    borough = str_replace(borough, "Richmond", "Staten_Island"),
     total = str_replace(total, ",", ""),
     Medicaid = str_replace(Medicaid, ",", ""),
     Other_Insurance = str_replace(Other_Insurance, ",", ""),

@@ -61,9 +61,6 @@ clean_lb_age =
   purrr::set_names(c("borough", "total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40")) %>%
   slice(14:70) %>% 
   mutate(
-    borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
-    borough = str_replace(borough, "Richmond", "Staten_Island"),
     total = str_replace(total, ",", ""),
     age_less_20 = str_replace(age_less_20, ",", ""),
     age_20_24 = str_replace(age_20_24, ",", ""),
@@ -84,9 +81,6 @@ induced_abortion_age %>%
   purrr::set_names(c("borough", "total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40")) %>%
   slice(14:70) %>% 
   mutate(
-    borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
-    borough = str_replace(borough, "Richmond", "Staten_Island"),
     total = str_replace(total, ",", ""),
     age_less_20 = str_replace(age_less_20, ",", ""),
     age_20_24 = str_replace(age_20_24, ",", ""),
