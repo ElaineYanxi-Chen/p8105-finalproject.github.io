@@ -16,7 +16,6 @@ library(rvest)
 library(httr)
 library(dplyr)
 library(plotly)
-
 knitr::opts_chunk$set(
 	echo = TRUE,
 	warning = FALSE,
@@ -34,192 +33,158 @@ scale_fill_discrete = scale_fill_viridis_d
 
 ```
 
-## Induced Abortions in Years (2019)
+## Data Import
 
 ```{r data_import_2019}
-url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table22.htm"
-induced_abortion_2019 = 
+url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table21.htm"
+url1 = "https://www.health.ny.gov/statistics/vital_statistics/2014/table07.htm"
+induced_abortion_age = 
   read_html(url) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+live_birth_age = 
+  read_html(url1) %>%
   html_table(header = FALSE) %>%
   first() %>%
   janitor::clean_names()
 ```
 
-data cleaning
+## Data cleaning
+
+data cleaning live birth data
 
 ```{r data_cleaning_2019, echo = FALSE}
-clean_2019 = 
-  induced_abortion_2019 %>%
-  select(1:2) %>%
-  purrr::set_names(c("borough", "total")) %>%
-  slice(4, 6:11) %>%
+clean_lb_age = 
+  live_birth_age %>% 
+  select(1:8) %>%
+  purrr::set_names(c("borough", "total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40")) %>%
+  slice(14:70) %>% 
   mutate(
     borough = str_replace(borough, "Kings", "Brooklyn"),
     borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
     borough = str_replace(borough, "Richmond", "Staten_Island"),
     total = str_replace(total, ",", ""),
-    year="2019"
+    age_less_20 = str_replace(age_less_20, ",", ""),
+    age_20_24 = str_replace(age_20_24, ",", ""),
+    age_25_29 = str_replace(age_25_29, ",", ""),
+    age_35_39 = str_replace(age_30_34, ",", ""),
+    age_plus_40 = str_replace(age_plus_40, ",", "")
     ) %>%
-  mutate_at(c("total", "year"), as.numeric)
-```
-
-## Induced Abortions in Years (2018)
-```{r data_import_2018}
-url = "https://www.health.ny.gov/statistics/vital_statistics/2018/table22.htm"
-induced_abortion_2018 = 
-  read_html(url) %>%
-  html_table(header = FALSE) %>%
-  first() %>%
+  mutate_at(c("total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40"), as.numeric) %>%
   janitor::clean_names()
 ```
 
-data cleaning
-
-```{r data_cleaning_2018, echo = FALSE}
-clean_2018 = 
-  induced_abortion_2018 %>%
-  select(1:2) %>%
-  purrr::set_names(c("borough", "total")) %>%
-  slice(4, 6:11) %>%
-  mutate(
-    borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
-    borough = str_replace(borough, "Richmond", "Staten_Island"),
-    total = str_replace(total, ",", ""),
-    year="2018"
-    ) %>%
-  mutate_at(c("total", "year"), as.numeric)
-```
-
-## Induced Abortions in Years (2017)
-```{r data_import_2017}
-url = "https://www.health.ny.gov/statistics/vital_statistics/2018/table22.htm"
-induced_abortion_2017 = 
-  read_html(url) %>%
-  html_table(header = FALSE) %>%
-  first() %>%
-  janitor::clean_names()
-```
-
-data cleaning
-
-```{r data_cleaning_2017, echo = FALSE}
-clean_2017 = 
-  induced_abortion_2017 %>%
-  select(1:2) %>%
-  purrr::set_names(c("borough", "total")) %>%
-  slice(4, 6:11) %>%
-  mutate(
-    borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
-    borough = str_replace(borough, "Richmond", "Staten_Island"),
-    total = str_replace(total, ",", ""),
-    year="2017"
-    ) %>%
-  mutate_at(c("total", "year"), as.numeric)
-```
-
-## Induced Abortions in Years (2016)
-```{r data_import_2016}
-url = "https://www.health.ny.gov/statistics/vital_statistics/2016/table22.htm"
-induced_abortion_2016 = 
-  read_html(url) %>%
-  html_table(header = FALSE) %>%
-  first() %>%
-  janitor::clean_names()
-```
-
-data cleaning
-
-```{r data_cleaning_2016, echo = FALSE}
-clean_2016 = 
-  induced_abortion_2016 %>%
-  select(1:2) %>%
-  purrr::set_names(c("borough", "total")) %>%
-  slice(4, 6:11) %>%
-  mutate(
-    borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
-    borough = str_replace(borough, "Richmond", "Staten_Island"),
-    total = str_replace(total, ",", ""),
-    year="2016"
-    ) %>%
-  mutate_at(c("total", "year"), as.numeric)
-```
-
-## Induced Abortions in Years (2015)
-```{r data_import_2015}
-url = "https://www.health.ny.gov/statistics/vital_statistics/2015/table22.htm"
-induced_abortion_2015 = 
-  read_html(url) %>%
-  html_table(header = FALSE) %>%
-  first() %>%
-  janitor::clean_names()
-```
-
-data cleaning
-
-```{r data_cleaning_2015, echo = FALSE}
-clean_2015 = 
-  induced_abortion_2015 %>%
-  select(1:2) %>%
-  purrr::set_names(c("borough", "total")) %>%
-  slice(4, 6:11) %>%
-  mutate(
-    borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
-    borough = str_replace(borough, "Richmond", "Staten_Island"),
-    total = str_replace(total, ",", ""),
-    year="2015"
-    ) %>%
-  mutate_at(c("total", "year"), as.numeric)
-```
-
-## Induced Abortions in Years (2014)
-```{r data_import_2014}
-url = "https://www.health.ny.gov/statistics/vital_statistics/2014/table22.htm"
-induced_abortion_2014 = 
-  read_html(url) %>%
-  html_table(header = FALSE) %>%
-  first() %>%
-  janitor::clean_names()
-```
-
-data cleaning
-
-```{r data_cleaning_2014, echo = FALSE}
-clean_2014 = 
-  induced_abortion_2014 %>%
-  select(1:2) %>%
-  purrr::set_names(c("borough", "total")) %>%
-  slice(4, 6:11) %>%
-  mutate(
-    borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
-    borough = str_replace(borough, "Richmond", "Staten_Island"),
-    total = str_replace(total, ",", ""),
-    year="2014"
-    ) %>%
-  mutate_at(c("total", "year"), as.numeric)
-```
-
-Merge all datasets
-
-```{r join}
-year_final = 
-rbind(clean_2019, clean_2018, clean_2017, clean_2016, clean_2015, clean_2014, by=c("borough", "total", "year")) %>% 
-select(year, everything()) %>% 
-filter(!year=="year") %>% 
-mutate_at(c("total", "year"), as.numeric)
-```
-
-#### Line chart by Year and Borough
+data cleaning induced abortions data
 
 ```{r}
-plot_borough_year=year_final %>% 
-  mutate(borough = fct_reorder(borough, total)) %>% 
-plot_ly(y = ~total, x=~year, color = ~borough, type = "scatter", mode="line", colors = "viridis") %>% 
-   layout(title = 'Induced Abortions Year by Borough', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
-plot_borough_year
+clean_ia_age=
+induced_abortion_age %>%
+  select(1:8) %>%
+  purrr::set_names(c("borough", "total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40")) %>%
+  slice(14:70) %>% 
+  mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten_Island"),
+    total = str_replace(total, ",", ""),
+    age_less_20 = str_replace(age_less_20, ",", ""),
+    age_20_24 = str_replace(age_20_24, ",", ""),
+    age_25_29 = str_replace(age_25_29, ",", ""),
+    age_35_39 = str_replace(age_30_34, ",", ""),
+    age_plus_40 = str_replace(age_plus_40, ",", "")
+    ) %>%
+  mutate_at(c("total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40"), as.numeric) %>%
+    janitor::clean_names()
 ```
 
+#### Renaming
+
+created regions based on this website: https://statejobs.ny.gov/assets/help/regionMapText.cfm
+
+renaming live births data of counties into regions.
+
+```{r rename live births}
+rename_lb_age= clean_lb_age %>% 
+  transform(borough = gsub(pattern = "Albany|Columbia|Fulton|Greene|Montgomery|Rensselaer|Saratoga|Schenectady|Schoharie|Warren|Washington", replacement = "Saratoga", borough)) %>%
+  transform(borough = gsub(pattern = "Franklin|Clinton|Essex|Hamilton", replacement = "Eastern Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Herkimer|Jefferson|Lewis|Oneida|Oswego|St Lawrence", replacement = "Western Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Broome|Cayuga|Chenango|Cortland|Madison|Onondaga|Otsego|Tioga|Tompkins", replacement = "Central New York", borough)) %>% 
+  transform(borough=gsub(pattern="Chemung|Genesee|Livingston|Monroe|Ontario|Schuyler|Seneca|Steuben|Wayne|Yates",replacement="Finger Lakes", borough)) %>% 
+  transform(borough=gsub(pattern="Allegany|Cattaraugus|Chautauqua|Erie|Niagara|Orleans|Wyoming",replacement="Western New York", borough)) %>% 
+  transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
+  transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
+  transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
+  group_by(borough) %>% 
+  summarize (
+    total_rate= sum(total), 
+    age_less_20= sum(age_less_20),
+    age_20_24= sum(age_20_24), 
+    age_25_29= sum(age_25_29),
+    age_30_34= sum(age_30_34),
+    age_35_39 = sum(age_35_39),
+    age_plus_40 = sum(age_plus_40))
+```
+
+renaming induced abortion data of counties into regions.
+
+```{r rename induced abortions}
+rename_ia_age= clean_ia_age %>% 
+  transform(borough = gsub(pattern = "Albany|Columbia|Fulton|Greene|Montgomery|Rensselaer|Saratoga|Schenectady|Schoharie|Warren|Washington", replacement = "Saratoga", borough)) %>%
+  transform(borough = gsub(pattern = "Franklin|Clinton|Essex|Hamilton|Essex/Hamilton|Hamilton/Essex", replacement = "Eastern Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Herkimer|Jefferson|Lewis|Oneida|Oswego|St Lawrence", replacement = "Western Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Broome|Cayuga|Chenango|Cortland|Madison|Onondaga|Otsego|Tioga|Tompkins", replacement = "Central New York", borough)) %>% 
+  transform(borough=gsub(pattern="Chemung|Genesee|Livingston|Monroe|Ontario|Schuyler|Seneca|Steuben|Wayne|Yates",replacement="Finger Lakes", borough)) %>% 
+  transform(borough=gsub(pattern="Allegany|Cattaraugus|Chautauqua|Erie|Niagara|Orleans|Wyoming",replacement="Western New York", borough)) %>% 
+  transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
+  transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
+  transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
+  group_by(borough) %>% 
+  summarize (
+    total_rate= sum(total), 
+    age_less_20= sum(age_less_20),
+    age_20_24= sum(age_20_24), 
+    age_25_29= sum(age_25_29),
+    age_30_34= sum(age_30_34),
+    age_35_39 = sum(age_35_39),
+    age_plus_40 = sum(age_plus_40))
+```
+
+#### Merging
+
+merging data to get rates from count data
+
+```{r merge}
+merged_data =
+  full_join(rename_lb_age, rename_ia_age, by = "borough") %>%
+  janitor::clean_names() %>%
+  mutate(
+    age_less_20 = (age_less_20_y / age_less_20_x)*1000,
+    age_20_24 = (age_20_24_y / age_20_24_x)*1000,
+    age_25_29 = (age_25_29_y / age_25_29_x)*1000,
+    age_30_34 = (age_30_34_y / age_30_34_x)*1000,
+    age_35_39 = (age_35_39_y / age_35_39_x)*1000,
+    age_plus_40 = (age_plus_40_y / age_plus_40_x)*1000,
+    total = (total_rate_y / total_rate_x)*1000) %>% 
+select(borough, age_less_20, age_20_24, age_25_29, age_30_34, age_35_39, age_plus_40, total)
+
+```
+
+#### Plotting
+
+ggplot: induced abortion rates vs financial plans
+
+```{r viz_finance}
+abortion_age_plot = 
+  merged_data %>%
+  select(-total) %>% 
+  pivot_longer(
+    age_less_20:age_plus_40,
+    names_to = "age", 
+    values_to = "abortion"
+  ) %>% 
+  plot_ly(x = ~age, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>% 
+  layout(title = 'Abortions in NY State by Age', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
+
+abortion_age_plot
+```
