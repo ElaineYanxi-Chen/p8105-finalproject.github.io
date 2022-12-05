@@ -346,58 +346,245 @@ abortion_totals =
   abortion_data %&gt;%
   select(borough, total) %&gt;%
   head(2) %&gt;%
-  pivot_wider(
-    names_from = &quot;borough&quot;,
-    values_from = &quot;total&quot;) %&gt;%
-  janitor::clean_names()
+  mutate(
+    n = total,
+    total = 1000)
 
-# Run prop t-test
-prop.test(abortion_totals$new_york_state, abortion_totals$new_york_city,
-          p = NULL, alternative = &quot;two.sided&quot;) %&gt;%
-  broom::tidy() %&gt;%
-  knitr::kable(digits = 3)</code></pre>
-<table style="width:100%;">
-<colgroup>
-<col width="7%" />
-<col width="8%" />
-<col width="6%" />
-<col width="8%" />
-<col width="7%" />
-<col width="8%" />
-<col width="43%" />
-<col width="9%" />
-</colgroup>
+abortion_totals %&gt;% 
+  knitr::kable(caption = &quot;Results Table&quot;)</code></pre>
+<table>
+<caption>Results Table</caption>
 <thead>
 <tr class="header">
-<th align="right">estimate</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
-<th align="right">parameter</th>
-<th align="right">conf.low</th>
-<th align="right">conf.high</th>
-<th align="left">method</th>
-<th align="left">alternative</th>
+<th align="left">borough</th>
+<th align="right">total</th>
+<th align="right">n</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.747</td>
-<td align="right">108.906</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0.704</td>
-<td align="right">0.786</td>
-<td align="left">1-sample proportions test with continuity
-correction</td>
-<td align="left">two.sided</td>
+<td align="left">New York State</td>
+<td align="right">1000</td>
+<td align="right">336.5</td>
+</tr>
+<tr class="even">
+<td align="left">New York City</td>
+<td align="right">1000</td>
+<td align="right">450.5</td>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code># Run prop t-test
+prop.test(abortion_totals$n, abortion_totals$total,
+          p = NULL, alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  2-sample test for equality of proportions with continuity correction
+## 
+## data:  abortion_totals$n out of abortion_totals$total
+## X-squared = 26.752, df = 1, p-value = 2.313e-07
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.15752794 -0.07047206
+## sample estimates:
+## prop 1 prop 2 
+## 0.3365 0.4505</code></pre>
+<p>From the above results, the p-value is less than the 5% level of
+significance. Therefore, we reject the null hypothesis. The data
+provides sufficient evidence to support the hypothesis that the number
+of abortions per 1000 births differs between NYC and NY state.</p>
 </div>
 <div id="abortion-trends-in-nyc" class="section level2">
 <h2><em>Abortion Trends in NYC</em></h2>
+<p><em>Proportion Test</em></p>
+<p>Do overall abortion rates differ across boroughs?</p>
+<p>H0: The number of abortions per 1000 births is the same across all
+boroughs.</p>
+<p>H1: The number of abortions per 1000 births is not the same across
+all boroughs.</p>
+<pre class="r"><code># Tidy data
+abortion_totals_borough =
+  abortion_data %&gt;%
+  select(borough, total) %&gt;%
+  slice(3:7) %&gt;%
+  mutate(
+    n = total,
+    total = 1000)
+
+abortion_totals_borough %&gt;% 
+  knitr::kable(caption = &quot;Results Table&quot;)</code></pre>
+<table>
+<caption>Results Table</caption>
+<thead>
+<tr class="header">
+<th align="left">borough</th>
+<th align="right">total</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="right">1000</td>
+<td align="right">623.3</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="right">1000</td>
+<td align="right">351.7</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="right">1000</td>
+<td align="right">537.5</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="right">1000</td>
+<td align="right">445.7</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="right">1000</td>
+<td align="right">275.6</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Run 5 prop t-test
+prop.test(abortion_totals_borough$n, abortion_totals_borough$total,
+          p = NULL, alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  5-sample test for equality of proportions without continuity correction
+## 
+## data:  abortion_totals_borough$n out of abortion_totals_borough$total
+## X-squared = 314.5, df = 4, p-value &lt; 2.2e-16
+## alternative hypothesis: two.sided
+## sample estimates:
+## prop 1 prop 2 prop 3 prop 4 prop 5 
+## 0.6233 0.3517 0.5375 0.4457 0.2756</code></pre>
+<p>From the above results, the p-value is less than the 5% level of
+significance. Therefore, we reject the null hypothesis. The data
+provides sufficient evidence to support the hypothesis that the number
+of abortions per 1000 births differs across boroughs.</p>
 <p><em>Chi Square Test - Race and Boroughs</em></p>
-<p>H0: Abortions rates</p>
+<p>Do overall abortion rates differ across boroughs, controlling for
+race?</p>
+<p>H0: The number of abortions per 1000 births is the same across all
+boroughs, controlling for race.</p>
+<p>H1: The number of abortions per 1000 births is not the same across
+all boroughs, controlling for race.</p>
+<pre class="r"><code># Tidy data
+abortion_race_clean = 
+  abortion_race %&gt;%
+  slice(3:7) %&gt;%
+  mutate(
+    hispanic = hispanic_ratio*1000,
+    h_white_only = h_white_only_ratio*1000,
+    h_black_only = h_black_only_ratio*1000,
+    non_hispanic = non_hispanic_ratio*1000,
+    nh_white_only = nh_white_only_ratio*1000,
+    nh_black_only = nh_black_only_ratio*1000,
+    nh_other = nh_other_ratio*1000
+  ) %&gt;%
+  select(-(hispanic_ratio:nh_other_ratio)) %&gt;% select(-total)
+
+abortion_race_clean %&gt;% 
+  knitr::kable(caption = &quot;Results Table&quot;)</code></pre>
+<table>
+<caption>Results Table</caption>
+<colgroup>
+<col width="14%" />
+<col width="9%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="14%" />
+<col width="14%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">borough</th>
+<th align="right">hispanic</th>
+<th align="right">h_white_only</th>
+<th align="right">h_black_only</th>
+<th align="right">non_hispanic</th>
+<th align="right">nh_white_only</th>
+<th align="right">nh_black_only</th>
+<th align="right">nh_other</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="right">500200</td>
+<td align="right">172200</td>
+<td align="right">684600</td>
+<td align="right">786600</td>
+<td align="right">369800</td>
+<td align="right">734300</td>
+<td align="right">419300</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="right">393100</td>
+<td align="right">214200</td>
+<td align="right">432000</td>
+<td align="right">343700</td>
+<td align="right">88600</td>
+<td align="right">837700</td>
+<td align="right">162500</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="right">519800</td>
+<td align="right">220600</td>
+<td align="right">601400</td>
+<td align="right">542900</td>
+<td align="right">320800</td>
+<td align="right">1228300</td>
+<td align="right">253200</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="right">329400</td>
+<td align="right">80400</td>
+<td align="right">287400</td>
+<td align="right">494200</td>
+<td align="right">155000</td>
+<td align="right">895100</td>
+<td align="right">273100</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="right">311700</td>
+<td align="right">377900</td>
+<td align="right">311800</td>
+<td align="right">264700</td>
+<td align="right">137900</td>
+<td align="right">692200</td>
+<td align="right">142900</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>abortion_race_clean =
+  abortion_race_clean %&gt;%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(abortion_race_clean)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  abortion_race_clean
+## X-squared = 934143, df = 24, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 24)
+x_crit</code></pre>
+<pre><code>## [1] 36.41503</code></pre>
+<p>From the above results, X^2 is greater than the test-statistic at the
+5% level of significance. Therefore, we reject the null hypothesis. The
+data provides sufficient evidence to support the hypothesis that the
+number of abortions 1000 births is not the same across all boroughs,
+controlling for race.</p>
 </div>
 
 
