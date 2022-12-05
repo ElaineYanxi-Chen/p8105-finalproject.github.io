@@ -1,0 +1,44 @@
+---
+title: "Statistical Analysis of Abortion Trends Among NYC and Compared to NY State"
+---
+
+```{r setup, message=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r data, message=FALSE, include=FALSE}
+abortion_data = read_csv("data/abortion_data.csv")
+abortion_race = read_csv("data/abortion_race.csv")
+abortion_finance = read_csv("data/abortion_finance.csv")
+```
+
+## *Abortions Rates Comparing NYC and NY State*
+
+*Two Proportion T-test*
+
+Do overall abortion rates differ between NYC and NY state?
+
+H0: The number of abortions per 1000 births is the same between NYC and NY state.
+H1: The number of abortions per 1000 births differs between NYC and NY state.
+
+```{r prop}
+abortion_totals =
+  abortion_data %>%
+  group_by(borough)
+
+prop.test(boro_population$n, boro_population$population)
+```
+
+
+## *Abortion Trends in NYC*
+
+*Chi Square Test - Race and Boroughs*
+
+H0: Abortions rates
+
+```{r chi-sq, }
+
+```
+
+
