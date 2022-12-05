@@ -466,12 +466,11 @@ significance. Therefore, we reject the null hypothesis. The data
 provides sufficient evidence to support the hypothesis that the number
 of abortions per 1000 births differs across boroughs.</p>
 <p><em>Chi Square Test - Race and Boroughs</em></p>
-<p>Do overall abortion rates differ across boroughs, controlling for
-race?</p>
-<p>H0: The number of abortions per 1000 births is the same across all
-boroughs, controlling for race.</p>
-<p>H1: The number of abortions per 1000 births is not the same across
-all boroughs, controlling for race.</p>
+<p>Do overall abortion rates differ across boroughs by race?</p>
+<p>H0: The expected counts of abortions in each race category are the
+same across all boroughs.</p>
+<p>H1: The expected counts of abortions in each race category are not
+the same across all boroughs.</p>
 <pre class="r"><code># Tidy data
 abortion_race_clean = 
   abortion_race %&gt;%
@@ -583,8 +582,96 @@ x_crit</code></pre>
 <p>From the above results, X^2 is greater than the test-statistic at the
 5% level of significance. Therefore, we reject the null hypothesis. The
 data provides sufficient evidence to support the hypothesis that the
-number of abortions 1000 births is not the same across all boroughs,
-controlling for race.</p>
+number of abortions in each race category across broughts is
+different.</p>
+<p><em>Chi Square Test - Finance Plan and Boroughs</em></p>
+<p>Do overall abortion rates differ across boroughs by finance plan?</p>
+<p>H0: The expected counts of abortions in each finance plan category
+are the same across all boroughs.</p>
+<p>H1: The expected counts of abortions in each finance plan category
+are not the same across all boroughs.</p>
+<pre class="r"><code># Tidy data
+abortion_finance_clean = 
+  abortion_finance %&gt;%
+  slice(3:7) %&gt;%
+  mutate(
+    medicaid = medicaid*1000,
+    self_pay = self_pay*1000,
+    other_insurance = other_insurance*1000,
+    not_stated = not_stated*1000
+  ) %&gt;%
+  select(-total)
+
+abortion_finance_clean %&gt;% 
+  knitr::kable(caption = &quot;Results Table&quot;)</code></pre>
+<table>
+<caption>Results Table</caption>
+<thead>
+<tr class="header">
+<th align="left">borough</th>
+<th align="right">medicaid</th>
+<th align="right">self_pay</th>
+<th align="right">other_insurance</th>
+<th align="right">not_stated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="right">488454.1</td>
+<td align="right">6150943</td>
+<td align="right">31915094</td>
+<td align="right">1498069.5</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="right">286998.5</td>
+<td align="right">8644444</td>
+<td align="right">19678414</td>
+<td align="right">2058823.5</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="right">708360.2</td>
+<td align="right">31285714</td>
+<td align="right">62864407</td>
+<td align="right">576576.6</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="right">408648.3</td>
+<td align="right">6299180</td>
+<td align="right">33990991</td>
+<td align="right">3519480.5</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten_Island</td>
+<td align="right">323994.6</td>
+<td align="right">7259259</td>
+<td align="right">1676976</td>
+<td align="right">2142857.1</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>abortion_finance_clean =
+  abortion_finance_clean %&gt;%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(abortion_finance_clean)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  abortion_finance_clean
+## X-squared = 28441079, df = 12, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 12)
+x_crit</code></pre>
+<pre><code>## [1] 21.02607</code></pre>
+<p>From the above results, X^2 is greater than the test-statistic at the
+5% level of significance. Therefore, we reject the null hypothesis. The
+data provides sufficient evidence to support the hypothesis that the
+number of abortions in each finance category across borough is
+different.</p>
 </div>
 
 
