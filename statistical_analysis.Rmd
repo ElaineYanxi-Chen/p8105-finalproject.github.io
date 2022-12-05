@@ -15,19 +15,30 @@ abortion_finance = read_csv("data/abortion_finance.csv")
 
 ## *Abortions Rates Comparing NYC and NY State*
 
-*Two Proportion T-test*
+*Proportion T-test*
 
 Do overall abortion rates differ between NYC and NY state?
 
 H0: The number of abortions per 1000 births is the same between NYC and NY state.
+
 H1: The number of abortions per 1000 births differs between NYC and NY state.
 
 ```{r prop}
+# Tidy data
 abortion_totals =
   abortion_data %>%
-  group_by(borough)
+  select(borough, total) %>%
+  head(2) %>%
+  pivot_wider(
+    names_from = "borough",
+    values_from = "total") %>%
+  janitor::clean_names()
 
-prop.test(boro_population$n, boro_population$population)
+# Run prop t-test
+prop.test(abortion_totals$new_york_state, abortion_totals$new_york_city,
+          p = NULL, alternative = "two.sided") %>%
+  broom::tidy() %>%
+  knitr::kable(digits = 3)
 ```
 
 

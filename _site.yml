@@ -10,7 +10,7 @@ navbar:
         - text: "Explaratory Analysis"
           href: exploratory_analysis.html
         - text: "Regression"
-          href: proposal.html
+          href: statistical_analysis.html
     - text: "Report"
       href: index.html
     - text: "About"
