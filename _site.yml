@@ -7,7 +7,7 @@ navbar:
       href: index.html
     - text: "Analysis"
       menu: 
-        - text: "Explaratory Analysis"
+        - text: "Exploratory Analysis"
           href: exploratory_analysis.html
         - text: "Regression"
           href: statistical_analysis.html

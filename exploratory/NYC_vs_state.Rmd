@@ -40,7 +40,7 @@ scale_fill_discrete = scale_fill_viridis_d
 
 ```{r}
 url1 = "https://www.health.ny.gov/statistics/vital_statistics/2019/table22.htm"
-induced_abortion_NY = 
+induced_abortion_age = 
   read_html(url1) %>%
   html_table(header = FALSE) %>%
   first() %>%
@@ -52,12 +52,10 @@ Cleaning age variable
 
 ```{r}
 NY_age=
-induced_abortion_NY %>%
+induced_abortion_age %>%
   select(1:8) %>%
   purrr::set_names(c("borough", "total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40")) %>%
-  slice(3:13) %>%
-  filter(!row_number() %in% c(1, 3, 5:10))
-
+  slice(4, 6, 13)
 ```
 
 Plotting
@@ -74,7 +72,7 @@ age_NYC_vs_state =
   mutate(age = factor(age, levels = c("age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40")),
          abortion = str_replace(abortion, ",", ""),
          abortion = as.numeric(abortion)) %>% 
-  plot_ly(x = ~age, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>% 
+  plot_ly(x = ~age, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%
   layout(
     title = 'Abortion Rate by Age comparing NYC to NY State and Rest of NY', 
     yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
@@ -84,24 +82,28 @@ age_NYC_vs_state
 
 ## Race
 
+### race_nh
+
 ```{r}
 url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table23.htm"
 
-induced_abortion = 
+induced_abortion_race = 
   read_html(url) %>%
   html_table(header = FALSE) %>%
   first() %>%
   janitor::clean_names()
 ```
 
-Cleaning age variable
+Cleaning race_NH variable
 
 ```{r}
 clean_nh = 
-  induced_abortion %>%
+  induced_abortion_race %>%
   select(1,3,5,7,9,11) %>% 
   purrr::set_names(c("borough", "total", "Non_Hispanic_Ratio", "NH_White_Only_Ratio", "NH_Black_Only_Ratio", "NH_Other_Ratio")) %>% 
-  slice(4, 6, 13)
+  slice(4, 6, 13) %>%
+  janitor::clean_names()
+
 ```
 
 Plotting
@@ -111,17 +113,153 @@ race_nh_NYC_vs_state =
   clean_nh %>%
   select(-total) %>%
   pivot_longer(
-    Non_Hispanic_Ratio:NH_Other_Ratio,
-    names_to = "age", 
+    non_hispanic_ratio:nh_other_ratio,
+    names_to = "race_nh", 
     values_to = "abortion"
   ) %>% 
-  mutate(age = factor(age, levels = c("age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40")),
-         abortion = str_replace(abortion, ",", ""),
+  mutate(abortion = str_replace(abortion, ",", ""),
          abortion = as.numeric(abortion)) %>% 
-  plot_ly(x = ~age, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>% 
+  plot_ly(x = ~race_nh, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%
   layout(
-    title = 'Abortion Rate by Age comparing NYC to NY State and Rest of NY', 
+    title = 'Abortion Rate by Race (Non-Hispanic) comparing NYC to NY State and Rest of NY', 
     yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
 
-age_NYC_vs_state
+race_nh_NYC_vs_state
 ```
+
+### race_h
+
+Cleaning race_H variable
+
+```{r}
+clean_h = 
+  induced_abortion_race %>%
+  select(1,3,13,15,17) %>% 
+  purrr::set_names(c("borough", "total", "Hispanic_Ratio", "H_White_Only_Ratio", "H_Black_Only_Ratio")) %>% 
+  slice(4, 6, 13) %>%
+  janitor::clean_names()
+
+```
+
+Plotting
+
+```{r}
+race_h_NYC_vs_state = 
+  clean_h %>%
+  select(-total) %>%
+  pivot_longer(
+    hispanic_ratio:h_black_only_ratio,
+    names_to = "race_h", 
+    values_to = "abortion"
+  ) %>% 
+  mutate(abortion = str_replace(abortion, ",", ""),
+         abortion = as.numeric(abortion)) %>% 
+  plot_ly(x = ~race_h, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%
+  layout(
+    title = 'Abortion Rate by Race (Hispanic) comparing NYC to NY State and Rest of NY', 
+    yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
+
+race_nh_NYC_vs_state
+```
+
+## Financial Plans
+
+Get the data
+
+```{r data_import_finance}
+url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table24.htm"
+url1 = "https://www.health.ny.gov/statistics/vital_statistics/2019/table13.htm"
+
+induced_abortion_finance = 
+  read_html(url) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+
+live_birth_finance = 
+  read_html(url1) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+```
+
+#### Data Cleaning
+
+data cleaning live birth data
+
+```{r data_cleaning_livebirths}
+clean_lb_finance= live_birth_finance %>% 
+  select(-c(4,6:8)) %>%
+  purrr::set_names(c("borough", "total", "Medicaid", "Self_Pay", "Other_Insurance", "Not_Stated")) %>%
+  slice(4, 6, 13) %>%
+  janitor::clean_names() %>%
+  mutate(
+    total = str_replace(total, ",", ""),
+    medicaid = str_replace(medicaid, ",", ""),
+    other_insurance = str_replace(other_insurance, ",", ""),
+    self_pay = str_replace(self_pay, ",", ""),
+    not_stated = str_replace(not_stated, ",", "")
+  )
+```
+
+data cleaning induced abortions data
+
+```{r data_cleaning_abortions}
+clean_ia_finance= induced_abortion_finance %>% 
+  select(c(1:3,5,6,8)) %>%
+  purrr::set_names(c("borough", "total", "Medicaid", "Other_Insurance", "Self_Pay", "Not_Stated")) %>%
+  slice(4, 6, 13) %>%
+  janitor::clean_names() %>%
+  mutate(
+    total = str_replace(total, ",", ""),
+    medicaid = str_replace(medicaid, ",", ""),
+    other_insurance = str_replace(other_insurance, ",", ""),
+    self_pay = str_replace(self_pay, ",", ""),
+    not_stated = str_replace(not_stated, ",", "")
+  )
+```
+
+#### Merging
+
+merging data to get rates from count data
+
+```{r merge}
+merged_data=
+  full_join(clean_lb_finance,clean_ia_finance, by="borough") %>%
+  janitor::clean_names() %>%
+  mutate(
+    across(2:11, as.numeric),
+    medicaid = (medicaid_y / medicaid_x)*1000,
+    self_pay = (self_pay_y / self_pay_x)*1000,
+    other_insurance = (other_insurance_y / other_insurance_x)*1000,
+    not_stated = (not_stated_y / not_stated_x)*1000,
+    total = (total_y / total_x)*1000) %>% 
+select(borough, medicaid, self_pay, other_insurance, not_stated, total) %>% 
+  drop_na()
+
+```
+
+Plotting
+
+```{r}
+finance_NYC_vs_state = 
+  merged_data %>%
+  select(-total) %>%
+  pivot_longer(
+    medicaid:not_stated,
+    names_to = "financial", 
+    values_to = "abortion"
+  ) %>% 
+  mutate(abortion = str_replace(abortion, ",", ""),
+         abortion = as.numeric(abortion)) %>% 
+  plot_ly(x = ~financial, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%
+  layout(
+    title = 'Abortion Rate by Financial Plans comparing NYC to NY State and Rest of NY', 
+    yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
+
+finance_NYC_vs_state
+```
+
+## Years
+
+
