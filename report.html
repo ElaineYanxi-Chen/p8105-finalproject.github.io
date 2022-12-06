@@ -11,7 +11,7 @@
 
 
 
-<title>Explaratory Analysis of Abortion Trend in the Five</title>
+<title>Project Report</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -33,13 +33,6 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="site_libs/plotly-binding-4.10.0/plotly.js"></script>
-<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<link href="site_libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="site_libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -333,136 +326,150 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Explaratory Analysis of Abortion Trend in
-the Five</h1>
+<h1 class="title toc-ignore">Project Report</h1>
 
 </div>
 
 
-<div id="total" class="section level2">
-<h2><em>Total</em></h2>
-<p>First, we want to look at the overall trends in abortion rates in New
-York City over time (2017-2020).</p>
-<table>
-<thead>
-<tr class="header">
-<th align="right">year</th>
-<th align="right">total</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">2019</td>
-<td align="right">46981</td>
-</tr>
-<tr class="even">
-<td align="right">2018</td>
-<td align="right">46796</td>
-</tr>
-<tr class="odd">
-<td align="right">2017</td>
-<td align="right">46796</td>
-</tr>
-<tr class="even">
-<td align="right">2016</td>
-<td align="right">56607</td>
-</tr>
-<tr class="odd">
-<td align="right">2015</td>
-<td align="right">58627</td>
-</tr>
-<tr class="even">
-<td align="right">2014</td>
-<td align="right">63673</td>
-</tr>
-</tbody>
-</table>
-<div id="htmlwidget-323a03cfdc616e4a56bb" style="width:90%;height:576px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-323a03cfdc616e4a56bb">{"x":{"visdat":{"75be10e7fbd9":["function () ","plotlyVisDat"]},"cur_data":"75be10e7fbd9","attrs":{"75be10e7fbd9":{"y":{},"x":{},"mode":"line","color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"year"},"yaxis":{"domain":[0,1],"automargin":true,"title":"total"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[46981,46796,46796,56607,58627,63673],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Total","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"line":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-<table>
-<thead>
-<tr class="header">
-<th align="right">year</th>
-<th align="right">Bronx</th>
-<th align="right">Brooklyn</th>
-<th align="right">Manhattan</th>
-<th align="right">Queens</th>
-<th align="right">Staten Island</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">2019</td>
-<td align="right">11820</td>
-<td align="right">13024</td>
-<td align="right">8738</td>
-<td align="right">11968</td>
-<td align="right">1431</td>
-</tr>
-<tr class="even">
-<td align="right">2018</td>
-<td align="right">12035</td>
-<td align="right">12366</td>
-<td align="right">9450</td>
-<td align="right">11666</td>
-<td align="right">1279</td>
-</tr>
-<tr class="odd">
-<td align="right">2017</td>
-<td align="right">12035</td>
-<td align="right">12366</td>
-<td align="right">9450</td>
-<td align="right">11666</td>
-<td align="right">1279</td>
-</tr>
-<tr class="even">
-<td align="right">2016</td>
-<td align="right">14024</td>
-<td align="right">16610</td>
-<td align="right">9919</td>
-<td align="right">13479</td>
-<td align="right">2575</td>
-</tr>
-<tr class="odd">
-<td align="right">2015</td>
-<td align="right">14992</td>
-<td align="right">18026</td>
-<td align="right">10294</td>
-<td align="right">13681</td>
-<td align="right">1634</td>
-</tr>
-<tr class="even">
-<td align="right">2014</td>
-<td align="right">16410</td>
-<td align="right">19173</td>
-<td align="right">11606</td>
-<td align="right">14682</td>
-<td align="right">1802</td>
-</tr>
-</tbody>
-</table>
-<div id="htmlwidget-6e549589337180ff707c" style="width:90%;height:576px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6e549589337180ff707c">{"x":{"visdat":{"75be13128c66":["function () ","plotlyVisDat"]},"cur_data":"75be13128c66","attrs":{"75be13128c66":{"y":{},"x":{},"mode":"line","color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"year"},"yaxis":{"domain":[0,1],"automargin":true,"title":"total"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[1431,1279,1279,2575,1634,1802],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Staten Island","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"line":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[8738,9450,9450,9919,10294,11606],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Manhattan","marker":{"color":"rgba(59,82,139,1)","line":{"color":"rgba(59,82,139,1)"}},"textfont":{"color":"rgba(59,82,139,1)"},"error_y":{"color":"rgba(59,82,139,1)"},"error_x":{"color":"rgba(59,82,139,1)"},"line":{"color":"rgba(59,82,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[11968,11666,11666,13479,13681,14682],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Queens","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"line":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[11820,12035,12035,14024,14992,16410],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Bronx","marker":{"color":"rgba(93,200,99,1)","line":{"color":"rgba(93,200,99,1)"}},"textfont":{"color":"rgba(93,200,99,1)"},"error_y":{"color":"rgba(93,200,99,1)"},"error_x":{"color":"rgba(93,200,99,1)"},"line":{"color":"rgba(93,200,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[13024,12366,12366,16610,18026,19173],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Brooklyn","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"line":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div id="motivation" class="section level1">
+<h1><em>Motivation</em></h1>
+<p>In 2019, many conservative states raced to enact an unprecedented
+wave on bans on abortions that have severely restricted women’s
+reproductive rights. These restrictions have culminated with the recent
+Supreme Court overturning of Roe v. Wade, a landmark supreme court case
+granting a women’s right to an abortion.</p>
+<p>Since then, access to abortion has been significantly compromised and
+even banned in several states across the country. Those that are likely
+to be most impacted by this decision are individuals that belong to
+underserved and marginalized communities. Changes in policies could
+potentially lead to a variation in abortion trends in the country over
+time.</p>
+<p>We want to explore these trends to understand the implications of
+policy change in the country concerning reproductive rights. Our year of
+interest is 2019, which is the most recent dataset provided by New York
+State. We will be focusing on the numbers of induced abortions in New
+York City, specifically, and compare the differences across the
+boroughs.</p>
 </div>
-<div id="age" class="section level2">
-<h2><em>Age</em></h2>
-<p>We want to investigate the relationship between induced abortion and
-maternal age.</p>
-<p><img src="exploratory_analysis_files/figure-html/age%20total-1.png" width="90%" /></p>
-<p>Induced abortion by age and borough.</p>
-<p><img src="exploratory_analysis_files/figure-html/age%20by%20borough-1.png" width="90%" /><img src="exploratory_analysis_files/figure-html/age%20by%20borough-2.png" width="90%" /><img src="exploratory_analysis_files/figure-html/age%20by%20borough-3.png" width="90%" /><img src="exploratory_analysis_files/figure-html/age%20by%20borough-4.png" width="90%" /><img src="exploratory_analysis_files/figure-html/age%20by%20borough-5.png" width="90%" /><img src="exploratory_analysis_files/figure-html/age%20by%20borough-6.png" width="90%" /></p>
+<div id="related-work" class="section level1">
+<h1><em>Related work</em></h1>
+<p>Anything that inspired you, such as a paper, a web site, or something
+we discussed in class.</p>
 </div>
-<div id="race" class="section level2">
-<h2><em>Race</em></h2>
-<p>Abortion numbers in the five boroughs in non-Hispanic population.
-(which year?)</p>
-<p><img src="exploratory_analysis_files/figure-html/race%20non-hispanic-1.png" width="90%" /><img src="exploratory_analysis_files/figure-html/race%20non-hispanic-2.png" width="90%" /></p>
-<p>Next we investigate the trend in non-Hispanic population.</p>
-<p><img src="exploratory_analysis_files/figure-html/unnamed-chunk-4-1.png" width="90%" /><img src="exploratory_analysis_files/figure-html/unnamed-chunk-4-2.png" width="90%" /></p>
+<div id="initial-questions" class="section level1">
+<h1><em>Initial questions</em></h1>
+<p>Originally, we wanted to conduct a comparative analysis of abortion
+rates in New York and Mississppi from 2017-2020 with the following
+questions:</p>
+<div id="initial-questions-1" class="section level3">
+<h3>Initial Questions:</h3>
+<ul>
+<li>Has abortion rate changed over time (2017 to 2020)?</li>
+<li>What does the distribution of abortion rate between counties within
+New York and Mississippi look like?</li>
+<li>Is abortion rate different in New York compared to Mississippi while
+accounting for age, race/ethnicity, method, and insurance plan?</li>
+</ul>
+<p>We were unable to find a comprehensive dataset that included every
+factor we were looking for, and decided to focus on conducting an
+analysis of abortion numbers between boroughs in New York City in 2019.
+As a result we have developed new research questions as listed as
+following for our project:</p>
 </div>
-<div id="finances" class="section level2">
-<h2><em>Finances</em></h2>
-<p><img src="exploratory_analysis_files/figure-html/finance-1.png" width="90%" /><img src="exploratory_analysis_files/figure-html/finance-2.png" width="90%" /></p>
+<div id="final-research-questions" class="section level3">
+<h3>Final Research Questions:</h3>
+<ul>
+<li>What does the distribution of abortion between boroughs within New
+York City look like?</li>
+<li>Is abortion rate different in New York City while accounting for
+age, race/ethnicity, method, and insurance plan?</li>
+<li>How does abortion rates differ between New York City and New York
+State?</li>
+<li>How does abortion rates differ within regions of New York
+State?</li>
+<li>Is abortion rate different in New York City while accounting for
+age, race/ethnicity, method, and insurance plan?</li>
+</ul>
+</div>
+</div>
+<div id="data-source-scraping-method-cleaning-etc."
+class="section level1">
+<h1><em>Data: Source, scraping method, cleaning, etc.</em></h1>
+<div id="vital-statistics-of-new-york-state" class="section level2">
+<h2>Vital Statistics of New York State</h2>
+<p>For this project, we will use data from <a
+href="https://www.health.ny.gov/statistics/vital_statistics/">Vital
+Statistics of New York State 2014-2019</a> (Individual data sets) which
+consists of group-level data from New York City and New York State. The
+data was collected from the New York State Bureau of Vital Records who
+maintains a registry of all births, marriages, divorces/disolutions of
+marriage, deaths, induced termination of pregnancy/abortions, and fetal
+deaths that have occurred in New York State.</p>
+<p>The <a
+href="https://www.health.ny.gov/health_care/medicaid/redesign/ehr/registry/nycdohmh.htm">New
+York City Department of Health and Mental Hygiene</a> sends data on on
+live births, deaths, fetal deaths, induced terminations of
+pregnancy/abortions (abortion), marriages, and divorces/disolutions of
+marriage recorded in New York City to the New York State Department of
+Health. The New York State Department of Health receives data on live
+births and deaths recorded outside of New York State to residents of New
+York State from other states and Canada.</p>
+<p>The two regions are categorized as follows:</p>
+<ul>
+<li>New York City includes five counties: Bronx, Kings (Brooklyn), New
+York (Manhattan), Queens and Richmond (Staten Island).</li>
+<li>New York State outside of New York City, which encompasses the
+remaining 57 counties.</li>
+</ul>
+<p>From the Vital Statistics of New York State 2019, we will use data
+from the Induced Abortions section, and will specifically focus on data
+collected from New York City.</p>
+</div>
+<div id="data-scraping-and-cleaning" class="section level2">
+<h2>Data Scraping and Cleaning</h2>
+<p>We first imported the datasets from the internet and then cleaned
+each dataset individually. For each dataset, we selected the variables
+that were the most relevant and appropriate in exploring our research
+question. We renamed variable names for the different counties in New
+York City to the name of the boroughs. Final variable names in our
+dataset for the boroughs include Manhattan, Bronx, Brooklyn, Queens, and
+Staten_Island. The variable names for age, race, and financial plan
+variables were not comprehensive, so they were renamed after importing
+the dataset as well. The original dataset included commas in the values,
+so we changed the values to not include the commas, and all of the
+numbers were converted to numerical values. After individual datasets
+were tidied, they were merged into a final dataset which was then saved
+and exported to our project repository. These steps were necessary to
+ensure that the code was readable and reproducible.</p>
+<p>Rates were created manually by using abortion count data as the
+numerator over the number of live births as the denominator multiplied
+by 1000. As a result the outcome is operationalized as the abortion rate
+per 1000 live births. These rates were provided in some of the datasets
+but were not provided for financial plans and had to be calculated on
+the borough level.</p>
+<p>Data on New York was obtained from the same dataset, and counties
+were recoded into regions based on categories set by New York State
+using <code>transform</code>. Some counties had very few abortion
+numbers, which would not provide a sufficient sample size when adjusting
+the model for covariates. As a result, the categories helped ensure a
+sufficient sample size.</p>
+</div>
+<div id="exploratory-analysis" class="section level2">
+<h2>Exploratory analysis</h2>
+<p>Visualizations, summaries, and exploratory statistical analyses.
+Justify the steps you took, and show any major changes to your ideas.
+(Maisie?)</p>
+</div>
+<div id="statistical-analysis" class="section level2">
+<h2>Statistical Analysis</h2>
+<p>If you undertake formal statistical analyses, describe these in
+detail</p>
+</div>
+<div id="discussion" class="section level2">
+<h2>Discussion</h2>
+<p>What were your findings? Are they what you expect? What insights into
+the data can you make?</p>
+</div>
 </div>
 
 

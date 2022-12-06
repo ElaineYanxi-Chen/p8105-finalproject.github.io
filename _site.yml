@@ -12,7 +12,7 @@ navbar:
         - text: "Regression"
           href: statistical_analysis.html
     - text: "Report"
-      href: index.html
+      href: report.html
     - text: "About"
       menu: 
         - text: "Our Team"
