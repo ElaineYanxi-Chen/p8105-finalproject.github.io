@@ -2,6 +2,7 @@
 title: "Abortion Trends in New York City"
 ---
 
+
 ## *Introduction*
 
 We wanted to explore the trends in abortion rates in New York City over time (2017-2020). 
