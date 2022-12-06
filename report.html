@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Project Report</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Overview</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="exploratory_analysis.html">Explaratory Analysis</a>
+    </li>
+    <li>
+      <a href="statistical_analysis.html">Regression</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="report.html">Report</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="team.html">Our Team</a>
+    </li>
+    <li>
+      <a href="proposal.html">Project Proposal</a>
+    </li>
+    <li>
+      <a href="index.html">Data</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="mailto:&lt;you@youremail.com&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/ElaineYanxi-Chen/p8105-finalproject.github.io.git">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Project Report</h1>
+
+</div>
+
+
+<div id="motivation" class="section level1">
+<h1><em>Motivation</em></h1>
+<p>In 2019, many conservative states raced to enact an unprecedented
+wave on bans on abortions that have severely restricted women’s
+reproductive rights. These restrictions have culminated with the recent
+Supreme Court overturning of Roe v. Wade, a landmark supreme court case
+granting a women’s right to an abortion.</p>
+<p>Since then, access to abortion has been significantly compromised and
+even banned in several states across the country. Those that are likely
+to be most impacted by this decision are individuals that belong to
+underserved and marginalized communities. Changes in policies could
+potentially lead to a variation in abortion trends in the country over
+time.</p>
+<p>We want to explore these trends to understand the implications of
+policy change in the country concerning reproductive rights. Our year of
+interest is 2019, which is the most recent dataset provided by New York
+State. We will be focusing on the numbers of induced abortions in New
+York City, specifically, and compare the differences across the
+boroughs.</p>
+</div>
+<div id="related-work" class="section level1">
+<h1><em>Related work</em></h1>
+<p>Anything that inspired you, such as a paper, a web site, or something
+we discussed in class.</p>
+</div>
+<div id="initial-questions" class="section level1">
+<h1><em>Initial questions</em></h1>
+<p>Originally, we wanted to conduct a comparative analysis of abortion
+rates in New York and Mississppi from 2017-2020 with the following
+questions:</p>
+<div id="initial-questions-1" class="section level3">
+<h3>Initial Questions:</h3>
+<ul>
+<li>Has abortion rate changed over time (2017 to 2020)?</li>
+<li>What does the distribution of abortion rate between counties within
+New York and Mississippi look like?</li>
+<li>Is abortion rate different in New York compared to Mississippi while
+accounting for age, race/ethnicity, method, and insurance plan?</li>
+</ul>
+<p>We were unable to find a comprehensive dataset that included every
+factor we were looking for, and decided to focus on conducting an
+analysis of abortion numbers between boroughs in New York City in 2019.
+As a result we have developed new research questions as listed as
+following for our project:</p>
+</div>
+<div id="final-research-questions" class="section level3">
+<h3>Final Research Questions:</h3>
+<ul>
+<li>What does the distribution of abortion between boroughs within New
+York City look like?</li>
+<li>Is abortion rate different in New York City while accounting for
+age, race/ethnicity, method, and insurance plan?</li>
+<li>How does abortion rates differ between New York City and New York
+State?</li>
+<li>How does abortion rates differ within regions of New York
+State?</li>
+<li>Is abortion rate different in New York City while accounting for
+age, race/ethnicity, method, and insurance plan?</li>
+</ul>
+</div>
+</div>
+<div id="data-source-scraping-method-cleaning-etc."
+class="section level1">
+<h1><em>Data: Source, scraping method, cleaning, etc.</em></h1>
+<div id="vital-statistics-of-new-york-state" class="section level2">
+<h2>Vital Statistics of New York State</h2>
+<p>For this project, we will use data from <a
+href="https://www.health.ny.gov/statistics/vital_statistics/">Vital
+Statistics of New York State 2014-2019</a> (Individual data sets) which
+consists of group-level data from New York City and New York State. The
+data was collected from the New York State Bureau of Vital Records who
+maintains a registry of all births, marriages, divorces/disolutions of
+marriage, deaths, induced termination of pregnancy/abortions, and fetal
+deaths that have occurred in New York State.</p>
+<p>The <a
+href="https://www.health.ny.gov/health_care/medicaid/redesign/ehr/registry/nycdohmh.htm">New
+York City Department of Health and Mental Hygiene</a> sends data on on
+live births, deaths, fetal deaths, induced terminations of
+pregnancy/abortions (abortion), marriages, and divorces/disolutions of
+marriage recorded in New York City to the New York State Department of
+Health. The New York State Department of Health receives data on live
+births and deaths recorded outside of New York State to residents of New
+York State from other states and Canada.</p>
+<p>The two regions are categorized as follows:</p>
+<ul>
+<li>New York City includes five counties: Bronx, Kings (Brooklyn), New
+York (Manhattan), Queens and Richmond (Staten Island).</li>
+<li>New York State outside of New York City, which encompasses the
+remaining 57 counties.</li>
+</ul>
+<p>From the Vital Statistics of New York State 2019, we will use data
+from the Induced Abortions section, and will specifically focus on data
+collected from New York City.</p>
+</div>
+<div id="data-scraping-and-cleaning" class="section level2">
+<h2>Data Scraping and Cleaning</h2>
+<p>We first imported the datasets from the internet and then cleaned
+each dataset individually. For each dataset, we selected the variables
+that were the most relevant and appropriate in exploring our research
+question. We renamed variable names for the different counties in New
+York City to the name of the boroughs. Final variable names in our
+dataset for the boroughs include Manhattan, Bronx, Brooklyn, Queens, and
+Staten_Island. The variable names for age, race, and financial plan
+variables were not comprehensive, so they were renamed after importing
+the dataset as well. The original dataset included commas in the values,
+so we changed the values to not include the commas, and all of the
+numbers were converted to numerical values. After individual datasets
+were tidied, they were merged into a final dataset which was then saved
+and exported to our project repository. These steps were necessary to
+ensure that the code was readable and reproducible.</p>
+<p>Rates were created manually by using abortion count data as the
+numerator over the number of live births as the denominator multiplied
+by 1000. As a result the outcome is operationalized as the abortion rate
+per 1000 live births. These rates were provided in some of the datasets
+but were not provided for financial plans and had to be calculated on
+the borough level.</p>
+<p>Data on New York was obtained from the same dataset, and counties
+were recoded into regions based on categories set by New York State
+using <code>transform</code>. Some counties had very few abortion
+numbers, which would not provide a sufficient sample size when adjusting
+the model for covariates. As a result, the categories helped ensure a
+sufficient sample size.</p>
+</div>
+<div id="exploratory-analysis" class="section level2">
+<h2>Exploratory analysis</h2>
+<p>Visualizations, summaries, and exploratory statistical analyses.
+Justify the steps you took, and show any major changes to your ideas.
+(Maisie?)</p>
+</div>
+<div id="statistical-analysis" class="section level2">
+<h2>Statistical Analysis</h2>
+<p>If you undertake formal statistical analyses, describe these in
+detail</p>
+</div>
+<div id="discussion" class="section level2">
+<h2>Discussion</h2>
+<p>What were your findings? Are they what you expect? What insights into
+the data can you make?</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

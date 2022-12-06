@@ -1,0 +1,70 @@
+---
+title: " Project Report"
+---
+
+# **Motivation**
+
+In 2019, many conservative states raced to enact an unprecedented wave on bans on abortions that have severely restricted women’s reproductive rights. These restrictions have culminated with the recent Supreme Court overturning of Roe v. Wade, a landmark supreme court case granting a women’s right to an abortion. 
+
+Since then, access to abortion has been significantly compromised and even banned in several states across the country. Those that are likely to be most impacted by this decision are individuals that belong to underserved and marginalized communities. Changes in policies could potentially lead to a variation in abortion trends in the country over time.  
+
+We want to explore these trends to understand the implications of policy change in the country concerning reproductive rights. Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the numbers of induced abortions in New York City, specifically, and compare the differences across the boroughs. 
+
+# *Related work* 
+
+Anything that inspired you, such as a paper, a web site, or something we discussed in class.
+
+# **Initial questions**
+
+Originally, we wanted to conduct a comparative analysis of abortion rates in New York and Mississppi from 2017-2020 with the following questions:
+
+### Initial Questions:
+* Has abortion rate changed over time (2017 to 2020)?
+* What does the distribution of abortion rate between counties within New York and Mississippi look like?
+* Is abortion rate different in New York compared to Mississippi while accounting for age, race/ethnicity, method, and insurance plan?
+
+We were unable to find a comprehensive dataset that included every factor we were looking for, and decided to focus on conducting an analysis of abortion numbers between boroughs in New York City in 2019. As a result we have developed new research questions as listed as following for our project:
+
+### Final Research Questions:
+
+* What does the distribution of abortion between boroughs within New York City look like?
+* Is abortion rate different in New York City while accounting for age, race/ethnicity, method, and insurance plan?
+* How does abortion rates differ between New York City and New York State?
+* How does abortion rates differ within regions of New York State?
+* Is abortion rate different in New York City while accounting for age, race/ethnicity, method, and insurance plan?
+
+# **Data: Source, scraping method, cleaning, etc.**
+
+## Vital Statistics of New York State
+
+For this project, we will use data from [Vital Statistics of New York State 2014-2019](https://www.health.ny.gov/statistics/vital_statistics/) (Individual data sets) which consists of group-level data from New York City and New York State. The data was collected from the New York State Bureau of Vital Records who maintains a registry of all births, marriages, divorces/disolutions of marriage, deaths, induced termination of pregnancy/abortions, and fetal deaths that have occurred in New York State. 
+
+The [New York City Department of Health and Mental Hygiene](https://www.health.ny.gov/health_care/medicaid/redesign/ehr/registry/nycdohmh.htm) sends data on on live births, deaths, fetal deaths, induced terminations of pregnancy/abortions (abortion), marriages, and divorces/disolutions of marriage recorded in New York City to the New York State Department of Health. The New York State Department of Health receives data on live births and deaths recorded outside of New York State to residents of New York State from other states and Canada.
+
+The two regions are categorized as follows:
+
+- New York City includes five counties: Bronx, Kings (Brooklyn), New York (Manhattan), Queens and Richmond (Staten Island). 
+- New York State outside of New York City, which encompasses the remaining 57 counties.
+
+From the Vital Statistics of New York State 2019, we will use data from the Induced Abortions section, and will specifically focus on data collected from New York City. 
+
+## Data Scraping and Cleaning 
+
+We first imported the datasets from the internet and then cleaned each dataset individually. For each dataset, we selected the variables that were the most relevant and appropriate in exploring our research question. We renamed variable names for the different counties in New York City to the name of the boroughs. Final variable names in our dataset for the boroughs include Manhattan, Bronx, Brooklyn, Queens, and Staten_Island. The variable names for age, race, and financial plan variables were not comprehensive, so they were renamed after importing the dataset as well. The original dataset included commas in the values, so we changed the values to not include the commas, and all of the numbers were converted to numerical values. After individual datasets were tidied, they were merged into a final dataset which was then saved and exported to our project repository. These steps were necessary to ensure that the code was readable and reproducible. 
+
+Rates were created manually by using abortion count data as the numerator over the number of live births as the denominator multiplied by 1000. As a result the outcome is operationalized as the abortion rate per 1000 live births. These rates were provided in some of the datasets but were not provided for financial plans and had to be calculated on the borough level.
+
+Data on New York was obtained from the same dataset, and counties were recoded into regions based on categories set by New York State using `transform`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when adjusting the model for covariates. As a result, the categories helped ensure a sufficient sample size. 
+
+## Exploratory analysis
+
+Visualizations, summaries, and exploratory statistical analyses. Justify the steps you took, and show any major changes to your ideas. (Maisie?)
+
+## Statistical Analysis
+
+If you undertake formal statistical analyses, describe these in detail
+
+
+## Discussion
+What were your findings? Are they what you expect? What insights into the data can you make?
+

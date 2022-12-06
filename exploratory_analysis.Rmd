@@ -75,7 +75,7 @@ borough_year
 We want to investigate the relationship between induced abortion and maternal age.
 
 ```{r age total}
-clean_age = read_csv("data/clean_age.csv")
+clean_age = read_csv("data/abortion_age.csv")
 
 total_abortion_age_plot = 
   clean_age %>%
@@ -241,7 +241,7 @@ total_abortion_nhrace =
   clean_nh %>%
   slice_head(n = 1) %>%
   pivot_longer(
-    total:Other_Number,
+    total:NH_Other_Ratio,
     names_to = "race", 
     values_to = "abortion"
   )
@@ -251,7 +251,7 @@ abortion_race_nhplot =
   select(-total) %>%
   slice(-1) %>%
   pivot_longer(
-    Non_Hispanic_Total:Other_Number,
+    Non_Hispanic_Ratio:NH_Other_Ratio,
     names_to = "race", 
     values_to = "abortion"
   ) %>%
@@ -270,7 +270,7 @@ abortion_race_nhtotal =
   select(-total) %>%
   slice(-1) %>%
   pivot_longer(
-    Non_Hispanic_Total:Other_Number,
+    Non_Hispanic_Ratio:NH_Other_Ratio,
     names_to = "race", 
     values_to = "abortion"
   ) %>%
@@ -296,7 +296,7 @@ total_abortion_hrace =
   clean_h %>%
   slice_head(n = 1) %>%
   pivot_longer(
-    Hispanic_Total:H_Black_Only_Number,
+    Hispanic_Ratio:H_Black_Only_Ratio,
     names_to = "race", 
     values_to = "abortion"
   )
@@ -306,7 +306,7 @@ abortion_race_h =
   select(-total) %>%
   slice(-1) %>%
   pivot_longer(
-    Hispanic_Total:H_Black_Only_Number,
+    Hispanic_Ratio:H_Black_Only_Ratio,
     names_to = "race", 
     values_to = "abortion"
   ) %>%
@@ -325,7 +325,7 @@ abortion_race_htotal =
   select(-total) %>%
   slice(-1) %>%
   pivot_longer(
-    Hispanic_Total:H_Black_Only_Number,
+    Hispanic_Ratio:H_Black_Only_Ratio,
     names_to = "race", 
     values_to = "abortion"
   ) %>%
@@ -345,14 +345,14 @@ abortion_race_htotal
 ## *Finances* 
 
 ```{r finance}
-clean_finance = read_csv("data/clean_finance.csv")
+clean_finance = read_csv("data/abortion_finance.csv")
 
 total_abortion_finance = 
   clean_finance %>%
   slice_head(n = 1) %>%
   select(-total) %>%
   pivot_longer(
-    Medicaid:Not_Stated,
+    medicaid:not_stated,
     names_to = "finance_plan", 
     values_to = "abortion"
   )
@@ -362,7 +362,7 @@ abortion_finance_plot =
   select(-total) %>%
   slice(-1) %>%
   pivot_longer(
-    Medicaid:Not_Stated,
+    medicaid:not_stated,
     names_to = "finance_plan", 
     values_to = "abortion"
   ) %>%
@@ -381,7 +381,7 @@ abortion_finance_total =
   select(-total) %>%
   slice(-1) %>%
   pivot_longer(
-    Medicaid:Not_Stated,
+    medicaid:not_stated,
     names_to = "finance_plan", 
     values_to = "abortion"
   ) %>%

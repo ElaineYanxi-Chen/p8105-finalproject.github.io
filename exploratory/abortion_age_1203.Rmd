@@ -1,0 +1,113 @@
+---
+title: "Abortion by Age"
+date: "2022-11-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(data.table)
+library(janitor)
+library(ggridges)
+library(patchwork)
+library(readxl)
+library("writexl")
+library(rvest)
+library(httr)
+library(dplyr)
+library(plotly)
+
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+
+```
+
+## Maternal Age
+Get the data for age
+
+```{r data_import_age}
+url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table22.htm"
+
+induced_abortion = 
+  read_html(url) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+
+```
+
+data cleaning for age 
+
+```{r data_cleaning_age}
+clean_age = 
+  induced_abortion %>%
+  select(1:8) %>%
+  purrr::set_names(c("borough", "total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40")) %>%
+  slice(4,6:11) %>%
+  mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"), 5656/28878 = 
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
+    total = str_replace(total, ",", ""),
+    age_less_20 = str_replace(age_less_20, ",", ""),
+    age_20_24 = str_replace(age_20_24, ",", ""),
+    age_25_29 = str_replace(age_25_29, ",", ""),
+    age_30_34 = str_replace(age_30_34, ",", ""),
+    age_35_39 = str_replace(age_35_39, ",", ""),
+    age_plus_40 = str_replace(age_plus_40, ",", "")
+    ) %>%
+  mutate_at(c("total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40"), as.numeric) 
+
+write_csv(clean_age, file = "data/abortion_age.csv")
+```
+
+Total induced abortion rate vs maternal age in NYC boroughs
+
+```{r age_borough_plot}
+abortion_age_wtotal_plot = 
+  clean_age %>%
+  select(-total) %>%
+  pivot_longer(
+    age_less_20:age_plus_40,
+    names_to = "age", 
+    values_to = "abortion"
+  ) %>%
+  mutate(age = factor(age, levels = c("age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40"))) %>% 
+  plot_ly(x = ~age, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   layout(title = 'Abortion Ratios by Age for Boroughs and New York State', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
+
+abortion_age_wtotal_plot
+
+```
+
+
+```{r abortion_age_NY_state}
+
+abortion_age_wtotal_plot = 
+  clean_age %>%
+  select(-total) %>%
+  pivot_longer(
+    age_less_20:age_plus_40,
+    names_to = "age", 
+    values_to = "abortion"
+  ) %>%
+  mutate(age = factor(age, levels = c("age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40"))) %>% 
+  plot_ly(x = ~age, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   layout(title = 'Abortion Ratios by Age for Boroughs and New York State', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
+
+abortion_age_wtotal_plot
+
+```
+
