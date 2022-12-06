@@ -71,7 +71,7 @@ merged_data_4 = full_join(merged_data_3, NY_race_nh)
 merged_data_5 = full_join(merged_data_4, NY_finance)
 merged_data_6 = full_join(merged_data_4, NY_age)
 
-write_csv(merged_data_2, file = "data/abortion_data.csv")
+write_csv(merged_data_6, file = "data/abortion_data.csv")
 
 ```
 
