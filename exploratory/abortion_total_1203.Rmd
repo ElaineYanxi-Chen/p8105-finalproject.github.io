@@ -47,6 +47,14 @@ abortion_age = read_csv("./data/abortion_age.csv") %>%
 abortion_finance = read_csv("./data/abortion_finance.csv") %>%
   janitor::clean_names()
 
+NY_age = read_csv("./data/NY_age.csv") %>%
+  janitor::clean_names()
+NY_finance = read_csv("./data/NY_finance.csv") %>%
+  janitor::clean_names()
+NY_race_h = read_csv("./data/NY_race_h.csv") %>%
+  janitor::clean_names()
+NY_race_nh = read_csv("./data/NY_race_nh.csv") %>%
+  janitor::clean_names()
 ```
 
 ## Merge Datasets
@@ -55,10 +63,15 @@ abortion_finance = read_csv("./data/abortion_finance.csv") %>%
 abortion_race = full_join(abortion_race_h, abortion_race_nh)
 write_csv(abortion_race, file = "data/abortion_race.csv")
 
-merged_data = full_join(abortion_race, abortion_age)
-merged_data_final = full_join(merged_data, abortion_finance)
+merged_data_1 = full_join(abortion_race, abortion_age)
+merged_data_2 = full_join(merged_data_1, abortion_finance)
 
-write_csv(merged_data_final, file = "data/abortion_data.csv")
+merged_data_3 = full_join(merged_data_2, NY_race_h)
+merged_data_4 = full_join(merged_data_3, NY_race_nh)
+merged_data_5 = full_join(merged_data_4, NY_finance)
+merged_data_6 = full_join(merged_data_4, NY_age)
+
+write_csv(merged_data_2, file = "data/abortion_data.csv")
 
 ```
 
