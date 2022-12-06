@@ -1,0 +1,282 @@
+---
+title: "NY_race"
+author: "Maisie Sun"
+date: "2022-12-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(data.table)
+library(janitor)
+library(ggridges)
+library(patchwork)
+library(readxl)
+library("writexl")
+library(rvest)
+library(httr)
+library(dplyr)
+library(plotly)
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+
+```
+
+## Financial Plans
+
+Get the data
+
+```{r}
+url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table23.htm"
+url1 = "https://www.health.ny.gov/statistics/vital_statistics/2019/table09.htm"
+
+induced_abortion_race = 
+  read_html(url) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+live_birth_race = 
+  read_html(url1) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+```
+
+data cleaning NH
+
+```{r data_cleaning_nhrace}
+clean_nh = 
+  induced_abortion_race %>%
+  select(1,2,4,6,8,10) %>% 
+  purrr::set_names(c("borough", "total", "Non_Hispanic_Count", "NH_White_Only_Count", "NH_Black_Only_Count", "NH_Other_Count")) %>% 
+  slice(14:70) %>% 
+  mutate(
+    total = str_replace(total, ",", ""),
+    Non_Hispanic_Count = str_replace(Non_Hispanic_Count, ",", ""),
+    NH_White_Only_Count = str_replace(NH_White_Only_Count, ",", ""),
+    NH_Black_Only_Count = str_replace(NH_Black_Only_Count, ",", ""),
+    NH_Other_Count = str_replace(NH_Other_Count, ",", "")
+    ) %>%
+  mutate_at(c("total", "Non_Hispanic_Count", "NH_White_Only_Count", "NH_Black_Only_Count", "NH_Other_Count"), as.numeric)
+
+```
+
+data cleaning H
+
+```{r data_cleaning_hrace}
+clean_h = 
+  induced_abortion_race %>%
+  select(1,2,12,14,16) %>% 
+  purrr::set_names(c("borough", "total", "Hispanic_Count", "H_White_Only_Count", "H_Black_Only_Count")) %>% 
+  slice(14:70) %>% 
+  mutate(
+    total = str_replace(total, ",", ""),
+    Hispanic_Count = str_replace(Hispanic_Count, ",", ""),
+    H_White_Only_Count = str_replace(H_White_Only_Count, ",", ""),
+    H_Black_Only_Count = str_replace(H_Black_Only_Count, ",", "")
+    ) %>%
+  mutate_at(c("total", "Hispanic_Count", "H_White_Only_Count", "H_Black_Only_Count"), as.numeric)
+```
+
+data cleaning lb NH
+
+```{r data_cleaning_nhrace}
+clean_lb_nh = 
+  live_birth_race %>%
+  select(1:6) %>% 
+  purrr::set_names(c("borough", "total", "Non_Hispanic_Count", "NH_White_Only_Count", "NH_Black_Only_Count", "NH_Other_Count")) %>% 
+  slice(14:70) %>% 
+  mutate(
+    total = str_replace(total, ",", ""),
+    Non_Hispanic_Count = str_replace(Non_Hispanic_Count, ",", ""),
+    NH_White_Only_Count = str_replace(NH_White_Only_Count, ",", ""),
+    NH_Black_Only_Count = str_replace(NH_Black_Only_Count, ",", ""),
+    NH_Other_Count = str_replace(NH_Other_Count, ",", "")
+    ) %>%
+  mutate_at(c("total", "Non_Hispanic_Count", "NH_White_Only_Count", "NH_Black_Only_Count", "NH_Other_Count"), as.numeric)
+
+```
+
+data cleaning lb H
+
+```{r data_cleaning_hrace}
+clean_lb_h = 
+  live_birth_race %>%
+  select(1,2,7:9) %>% 
+  purrr::set_names(c("borough", "total", "Hispanic_Count", "H_White_Only_Count", "H_Black_Only_Count")) %>% 
+  slice(14:70) %>% 
+  mutate(
+    total = str_replace(total, ",", ""),
+    Hispanic_Count = str_replace(Hispanic_Count, ",", ""),
+    H_White_Only_Count = str_replace(H_White_Only_Count, ",", ""),
+    H_Black_Only_Count = str_replace(H_Black_Only_Count, ",", "")
+    ) %>%
+  mutate_at(c("total", "Hispanic_Count", "H_White_Only_Count", "H_Black_Only_Count"), as.numeric)
+```
+
+#### Renaming
+
+created regions based on this website: https://statejobs.ny.gov/assets/help/regionMapText.cfm
+
+renaming abortion H data of counties into regions.
+
+```{r rename abortion H}
+rename_ia_h= clean_h %>% 
+  transform(borough = gsub(pattern = "Albany|Columbia|Fulton|Greene|Montgomery|Rensselaer|Saratoga|Schenectady|Schoharie|Warren|Washington", replacement = "Saratoga", borough)) %>%
+  transform(borough = gsub(pattern = "Franklin|Clinton|Essex|Hamilton|Essex/Hamilton|Hamilton/Essex", replacement = "Eastern Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Herkimer|Jefferson|Lewis|Oneida|Oswego|St Lawrence", replacement = "Western Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Broome|Cayuga|Chenango|Cortland|Madison|Onondaga|Otsego|Tioga|Tompkins", replacement = "Central New York", borough)) %>% 
+  transform(borough=gsub(pattern="Chemung|Genesee|Livingston|Monroe|Ontario|Schuyler|Seneca|Steuben|Wayne|Yates",replacement="Finger Lakes", borough)) %>% 
+  transform(borough=gsub(pattern="Allegany|Cattaraugus|Chautauqua|Erie|Niagara|Orleans|Wyoming",replacement="Western New York", borough)) %>% 
+  transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
+  transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
+  transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
+  group_by(borough) %>% 
+  summarize (
+    total_rate= sum(total), 
+    Hispanic_Count= sum(Hispanic_Count),
+    H_White_Only_Count= sum(H_White_Only_Count), 
+    H_Black_Only_Count= sum(H_Black_Only_Count))
+```
+
+renaming abortion NH data of counties into regions.
+
+```{r rename abortion NH}
+rename_ia_nh= clean_nh %>% 
+  transform(borough = gsub(pattern = "Albany|Columbia|Fulton|Greene|Montgomery|Rensselaer|Saratoga|Schenectady|Schoharie|Warren|Washington", replacement = "Saratoga", borough)) %>%
+  transform(borough = gsub(pattern = "Franklin|Clinton|Essex|Hamilton|Essex/Hamilton|Hamilton/Essex", replacement = "Eastern Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Herkimer|Jefferson|Lewis|Oneida|Oswego|St Lawrence", replacement = "Western Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Broome|Cayuga|Chenango|Cortland|Madison|Onondaga|Otsego|Tioga|Tompkins", replacement = "Central New York", borough)) %>% 
+  transform(borough=gsub(pattern="Chemung|Genesee|Livingston|Monroe|Ontario|Schuyler|Seneca|Steuben|Wayne|Yates",replacement="Finger Lakes", borough)) %>% 
+  transform(borough=gsub(pattern="Allegany|Cattaraugus|Chautauqua|Erie|Niagara|Orleans|Wyoming",replacement="Western New York", borough)) %>% 
+  transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
+  transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
+  transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
+  group_by(borough) %>% 
+  summarize (
+    total_rate= sum(total), 
+    Non_Hispanic_Count= sum(Non_Hispanic_Count),
+    NH_White_Only_Count= sum(NH_White_Only_Count), 
+    NH_Black_Only_Count= sum(NH_Black_Only_Count),
+    NH_Other_Count = sum(NH_Other_Count))
+```
+
+renaming live birth H data of counties into regions.
+
+```{r rename induced abortions}
+rename_lb_h = clean_lb_h %>% 
+  transform(borough = gsub(pattern = "Albany|Columbia|Fulton|Greene|Montgomery|Rensselaer|Saratoga|Schenectady|Schoharie|Warren|Washington", replacement = "Saratoga", borough)) %>%
+  transform(borough = gsub(pattern = "Franklin|Clinton|Essex|Hamilton|Essex/Hamilton|Hamilton/Essex", replacement = "Eastern Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Herkimer|Jefferson|Lewis|Oneida|Oswego|St Lawrence", replacement = "Western Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Broome|Cayuga|Chenango|Cortland|Madison|Onondaga|Otsego|Tioga|Tompkins", replacement = "Central New York", borough)) %>% 
+  transform(borough=gsub(pattern="Chemung|Genesee|Livingston|Monroe|Ontario|Schuyler|Seneca|Steuben|Wayne|Yates",replacement="Finger Lakes", borough)) %>% 
+  transform(borough=gsub(pattern="Allegany|Cattaraugus|Chautauqua|Erie|Niagara|Orleans|Wyoming",replacement="Western New York", borough)) %>% 
+  transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
+  transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
+  transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
+  group_by(borough) %>% 
+  summarize (
+    total_rate= sum(total), 
+    Hispanic_Count= sum(Hispanic_Count),
+    H_White_Only_Count= sum(H_White_Only_Count), 
+    H_Black_Only_Count= sum(H_Black_Only_Count))
+```
+
+renaming live birth NH data of counties into regions.
+
+```{r rename abortion NH}
+rename_lb_nh= clean_lb_nh %>% 
+  transform(borough = gsub(pattern = "Albany|Columbia|Fulton|Greene|Montgomery|Rensselaer|Saratoga|Schenectady|Schoharie|Warren|Washington", replacement = "Saratoga", borough)) %>%
+  transform(borough = gsub(pattern = "Franklin|Clinton|Essex|Hamilton|Essex/Hamilton|Hamilton/Essex", replacement = "Eastern Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Herkimer|Jefferson|Lewis|Oneida|Oswego|St Lawrence", replacement = "Western Adirondacks", borough)) %>%
+  transform(borough = gsub(pattern = "Broome|Cayuga|Chenango|Cortland|Madison|Onondaga|Otsego|Tioga|Tompkins", replacement = "Central New York", borough)) %>% 
+  transform(borough=gsub(pattern="Chemung|Genesee|Livingston|Monroe|Ontario|Schuyler|Seneca|Steuben|Wayne|Yates",replacement="Finger Lakes", borough)) %>% 
+  transform(borough=gsub(pattern="Allegany|Cattaraugus|Chautauqua|Erie|Niagara|Orleans|Wyoming",replacement="Western New York", borough)) %>% 
+  transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
+  transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
+  transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
+  group_by(borough) %>% 
+  summarize (
+    total_rate= sum(total), 
+    Non_Hispanic_Count= sum(Non_Hispanic_Count),
+    NH_White_Only_Count= sum(NH_White_Only_Count), 
+    NH_Black_Only_Count= sum(NH_Black_Only_Count),
+    NH_Other_Count = sum(NH_Other_Count))
+```
+
+#### Merging
+
+merging data to get rates from count data
+
+```{r merge_h}
+merged_data_h =
+  full_join(rename_lb_h, rename_ia_h, by = "borough") %>%
+  janitor::clean_names() %>%
+  mutate(
+    hispanic_count = (hispanic_count_y / hispanic_count_x)*1000,
+    h_white_only_count = (h_white_only_count_y / h_white_only_count_x)*1000,
+    h_black_only_count = (h_black_only_count_y / h_black_only_count_x)*1000,
+    total = (total_rate_y / total_rate_x)*1000) %>% 
+select(borough, hispanic_count, h_white_only_count, h_black_only_count, total)
+
+```
+
+```{r merge_nh}
+merged_data_nh =
+  full_join(rename_lb_nh, rename_ia_nh, by = "borough") %>%
+  janitor::clean_names() %>%
+  mutate(
+    non_hispanic_count = (non_hispanic_count_y / non_hispanic_count_x)*1000,
+    nh_white_only_count = (nh_white_only_count_y / nh_white_only_count_x)*1000,
+    nh_black_only_count = (nh_black_only_count_y / nh_black_only_count_x)*1000,
+    nh_other_count = (nh_other_count_y / nh_other_count_x)*1000,
+    total = (total_rate_y / total_rate_x)*1000) %>% 
+select(borough, non_hispanic_count, nh_white_only_count, nh_black_only_count, nh_other_count, total)
+
+```
+
+#### Plotting
+
+ggplot: induced abortion rates vs financial plans
+
+```{r viz_finance}
+abortion_race_hplot = 
+  merged_data_h %>%
+  select(-total) %>%
+  pivot_longer(
+    hispanic_count:h_black_only_count,
+    names_to = "race", 
+    values_to = "abortion"
+  ) %>%
+plot_ly(x = ~race, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   layout(title = 'Abortion Ratios by Hispanic Race for NY Sate', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
+
+abortion_race_hplot
+```
+
+```{r}
+abortion_race_nhplot = 
+  merged_data_nh %>%
+  select(-total) %>%
+  pivot_longer(
+    non_hispanic_count:nh_other_count,
+    names_to = "race", 
+    values_to = "abortion"
+  ) %>%
+plot_ly(x = ~race, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   layout(title = 'Abortion Ratios by Non-Hispanic Race for Boroughs and New York State', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
+
+abortion_race_nhplot
+```
+

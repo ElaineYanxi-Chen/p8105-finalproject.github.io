@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Explaratory Analysis of Abortion Trend in the Five</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Overview</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="exploratory_analysis.html">Explaratory Analysis</a>
+    </li>
+    <li>
+      <a href="statistical_analysis.html">Regression</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="index.html">Report</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="team.html">Our Team</a>
+    </li>
+    <li>
+      <a href="proposal.html">Project Proposal</a>
+    </li>
+    <li>
+      <a href="index.html">Data</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="mailto:&lt;you@youremail.com&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/ElaineYanxi-Chen/p8105-finalproject.github.io.git">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Explaratory Analysis of Abortion Trend in
+the Five</h1>
+
+</div>
+
+
+<div id="total" class="section level2">
+<h2><em>Total</em></h2>
+<p>First, we want to look at the overall trends in abortion rates in New
+York City over time (2017-2020).</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">year</th>
+<th align="right">total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2019</td>
+<td align="right">46981</td>
+</tr>
+<tr class="even">
+<td align="right">2018</td>
+<td align="right">46796</td>
+</tr>
+<tr class="odd">
+<td align="right">2017</td>
+<td align="right">46796</td>
+</tr>
+<tr class="even">
+<td align="right">2016</td>
+<td align="right">56607</td>
+</tr>
+<tr class="odd">
+<td align="right">2015</td>
+<td align="right">58627</td>
+</tr>
+<tr class="even">
+<td align="right">2014</td>
+<td align="right">63673</td>
+</tr>
+</tbody>
+</table>
+<div id="htmlwidget-49c53fbacc0e5b26996f" style="width:90%;height:576px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-49c53fbacc0e5b26996f">{"x":{"visdat":{"fc06cde76d6":["function () ","plotlyVisDat"]},"cur_data":"fc06cde76d6","attrs":{"fc06cde76d6":{"y":{},"x":{},"mode":"line","color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"year"},"yaxis":{"domain":[0,1],"automargin":true,"title":"total"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[46981,46796,46796,56607,58627,63673],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Total","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"line":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<table>
+<thead>
+<tr class="header">
+<th align="right">year</th>
+<th align="right">Bronx</th>
+<th align="right">Brooklyn</th>
+<th align="right">Manhattan</th>
+<th align="right">Queens</th>
+<th align="right">Staten Island</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2019</td>
+<td align="right">11820</td>
+<td align="right">13024</td>
+<td align="right">8738</td>
+<td align="right">11968</td>
+<td align="right">1431</td>
+</tr>
+<tr class="even">
+<td align="right">2018</td>
+<td align="right">12035</td>
+<td align="right">12366</td>
+<td align="right">9450</td>
+<td align="right">11666</td>
+<td align="right">1279</td>
+</tr>
+<tr class="odd">
+<td align="right">2017</td>
+<td align="right">12035</td>
+<td align="right">12366</td>
+<td align="right">9450</td>
+<td align="right">11666</td>
+<td align="right">1279</td>
+</tr>
+<tr class="even">
+<td align="right">2016</td>
+<td align="right">14024</td>
+<td align="right">16610</td>
+<td align="right">9919</td>
+<td align="right">13479</td>
+<td align="right">2575</td>
+</tr>
+<tr class="odd">
+<td align="right">2015</td>
+<td align="right">14992</td>
+<td align="right">18026</td>
+<td align="right">10294</td>
+<td align="right">13681</td>
+<td align="right">1634</td>
+</tr>
+<tr class="even">
+<td align="right">2014</td>
+<td align="right">16410</td>
+<td align="right">19173</td>
+<td align="right">11606</td>
+<td align="right">14682</td>
+<td align="right">1802</td>
+</tr>
+</tbody>
+</table>
+<div id="htmlwidget-acaf642d761f46a5e981" style="width:90%;height:576px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-acaf642d761f46a5e981">{"x":{"visdat":{"fc029906061":["function () ","plotlyVisDat"]},"cur_data":"fc029906061","attrs":{"fc029906061":{"y":{},"x":{},"mode":"line","color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"year"},"yaxis":{"domain":[0,1],"automargin":true,"title":"total"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[1431,1279,1279,2575,1634,1802],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Staten Island","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"line":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[8738,9450,9450,9919,10294,11606],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Manhattan","marker":{"color":"rgba(59,82,139,1)","line":{"color":"rgba(59,82,139,1)"}},"textfont":{"color":"rgba(59,82,139,1)"},"error_y":{"color":"rgba(59,82,139,1)"},"error_x":{"color":"rgba(59,82,139,1)"},"line":{"color":"rgba(59,82,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[11968,11666,11666,13479,13681,14682],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Queens","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"line":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[11820,12035,12035,14024,14992,16410],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Bronx","marker":{"color":"rgba(93,200,99,1)","line":{"color":"rgba(93,200,99,1)"}},"textfont":{"color":"rgba(93,200,99,1)"},"error_y":{"color":"rgba(93,200,99,1)"},"error_x":{"color":"rgba(93,200,99,1)"},"line":{"color":"rgba(93,200,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[13024,12366,12366,16610,18026,19173],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Brooklyn","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"line":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="age" class="section level2">
+<h2><em>Age</em></h2>
+<p>We want to investigate the relationship between induced abortion and
+maternal age.</p>
+<p><img src="exploratory_analysis_files/figure-html/age%20total-1.png" width="90%" /></p>
+<p>Induced abortion by age and borough.</p>
+<p><img src="exploratory_analysis_files/figure-html/age%20by%20borough-1.png" width="90%" /><img src="exploratory_analysis_files/figure-html/age%20by%20borough-2.png" width="90%" /><img src="exploratory_analysis_files/figure-html/age%20by%20borough-3.png" width="90%" /><img src="exploratory_analysis_files/figure-html/age%20by%20borough-4.png" width="90%" /><img src="exploratory_analysis_files/figure-html/age%20by%20borough-5.png" width="90%" /><img src="exploratory_analysis_files/figure-html/age%20by%20borough-6.png" width="90%" /></p>
+</div>
+<div id="race" class="section level2">
+<h2><em>Race</em></h2>
+<p>Abortion numbers in the five boroughs in non-Hispanic population.
+(which year?)</p>
+<p><img src="exploratory_analysis_files/figure-html/race%20non-hispanic-1.png" width="90%" /><img src="exploratory_analysis_files/figure-html/race%20non-hispanic-2.png" width="90%" /></p>
+<p>Next we investigate the trend in non-Hispanic population.</p>
+<p><img src="exploratory_analysis_files/figure-html/unnamed-chunk-4-1.png" width="90%" /><img src="exploratory_analysis_files/figure-html/unnamed-chunk-4-2.png" width="90%" /></p>
+</div>
+<div id="finances" class="section level2">
+<h2><em>Finances</em></h2>
+<p><img src="exploratory_analysis_files/figure-html/finance-1.png" width="90%" /><img src="exploratory_analysis_files/figure-html/finance-2.png" width="90%" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
