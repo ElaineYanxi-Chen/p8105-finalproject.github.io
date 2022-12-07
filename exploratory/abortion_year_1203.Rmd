@@ -215,6 +215,8 @@ mutate_at(c("total", "year"), as.numeric)
 
 #### Line chart by Year and Borough
 
+We wanted to see how abortion rates differed across the years for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used plotly to create a line plot to output the rates by the different regions.
+
 ```{r}
 plot_borough_year=year_final %>% 
   mutate(borough = fct_reorder(borough, total)) %>% 
@@ -223,3 +225,4 @@ plot_ly(y = ~total, x=~year, color = ~borough, type = "scatter", mode="line", co
 plot_borough_year
 ```
 
+From the plot, it is evident that rates are generally decreasing from 2014-2019. It is important to note that Staten Island had a noticeable increase and decrease of rates in 2016. This is likely due to an external factor, like a policy change. However, Staten Island had the lowest rates for most years in relation to the other boroughs overall. Bronx had the highest rates between 2014-2019. 
