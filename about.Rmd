@@ -1,0 +1,7 @@
+---
+title: "About"
+---
+
+### About this site
+
+This is the website for the final project for p8105 Data Science I course. 

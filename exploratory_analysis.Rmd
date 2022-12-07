@@ -78,47 +78,37 @@ We want to investigate the relationship between induced abortion and maternal ag
 ```{r age total}
 clean_age = read_csv("data/abortion_age.csv")
 
-total_abortion_age_plot = 
-  clean_age %>%
-  slice_head(n = 1) %>%
-  select(-total) %>%
-  pivot_longer(
-    age_less_20:age_plus_40,
-    names_to = "age", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = age, y = abortion)) + 
-  geom_point() + geom_line(aes(group = abortion)) + 
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) + 
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10))
-
 abortion_age_wtotal_plot = 
   clean_age %>%
   select(-total) %>%
-  slice(-1) %>%
   pivot_longer(
     age_less_20:age_plus_40,
     names_to = "age", 
-    values_to = "abortion"
+    values_to = "abortion",
+    names_prefix = "age_"
   ) %>%
-  ggplot(aes(x = age, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) + 
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10) )
+  mutate(
+    age = replace(age, age == "less_20", "<20"),
+    age = replace(age, age == "20_24", "20-24"),
+    age = replace(age, age == "25_29", "25-29"),
+    age = replace(age, age == "30_34", "30-34"),
+    age = replace(age, age == "35_39", "35-39"),
+    age = replace(age, age == "plus_40", "40+"),
+    age = factor(age)
+    ) %>% 
+  plot_ly(
+    x = ~age, y = ~abortion, color = ~borough, 
+    type = "bar", colors = "viridis") %>% 
+  layout(
+    title = 'Abortion Ratios by Age for Boroughs and New York State', 
+    xaxis = list(title = "Age"),
+    yaxis = list(title = 'Number of Induced Abortions 
+                 per 1,000 Live Births'))
 
-matrix_age_total = 
-  total_abortion_age_plot + abortion_age_wtotal_plot
-
-matrix_age_total
+abortion_age_wtotal_plot
 ```
+
+The highest rates is found among those in Manhattan among those who are less than 20 years old with a rate of 1964.9 induced abortions to 1000 live births. The second highest rates is similarly found among those less than 20 year olds in Queens with a rate of 1780.1 induced abortions to 1000 live births. Overall, the rate of abortion seems to decrease with age. Across the age categories, it seems that Staten Island, New York State, and Brooklyn seemed to have lower abortion rates. 
 
 
 Induced abortion by age and borough.
@@ -225,7 +215,7 @@ clean_age %>%
 age_si
 
 matrix_age = 
-  (total_abortion_age_plot + age_bronx)/(age_brooklyn + age_manhattan) / (age_queens + age_si)
+  (age_bronx)/(age_brooklyn + age_manhattan) / (age_queens + age_si)
 
 matrix_age
 ```
@@ -235,7 +225,7 @@ matrix_age
 
 Abortion numbers in the five boroughs in non-Hispanic population. (which year?)
 
-```{r race non-hispanic}
+```{r eval=FALSE }
 clean_nh = read_csv("data/abortion_race_nh.csv")
 
 total_abortion_nhrace = 
@@ -290,7 +280,7 @@ abortion_race_nhtotal
 
 Next we investigate the trend in non-Hispanic population.
 
-```{r}
+```{r eval=FALSE}
 clean_h = read_csv("data/abortion_race_h.csv")
 
 total_abortion_hrace = 
