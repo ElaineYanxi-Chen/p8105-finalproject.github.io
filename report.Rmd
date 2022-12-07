@@ -1,8 +1,10 @@
 ---
 title: " Project Report"
+ toc: true
+    toc_float: true
 ---
 
-# **Motivation**
+# Motivation
 
 In 2019, many conservative states raced to enact an unprecedented wave on bans on abortions that have severely restricted women’s reproductive rights. These restrictions have culminated with the recent Supreme Court overturning of Roe v. Wade, a landmark supreme court case granting a women’s right to an abortion. 
 
@@ -10,7 +12,7 @@ Since then, access to abortion has been significantly compromised and even banne
 
 We want to explore these trends to understand the implications of policy change in the country concerning reproductive rights. Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the numbers of induced abortions in New York City, specifically, and compare the differences across the boroughs. 
 
-# *Related work* 
+# Related work 
 
 Anything that inspired you, such as a paper, a web site, or something we discussed in class.
 
@@ -18,7 +20,6 @@ Anything that inspired you, such as a paper, a web site, or something we discuss
 
 Originally, we wanted to conduct a comparative analysis of abortion rates in New York and Mississppi from 2017-2020 with the following questions:
 
-### Initial Questions:
 * Has abortion rate changed over time (2017 to 2020)?
 * What does the distribution of abortion rate between counties within New York and Mississippi look like?
 * Is abortion rate different in New York compared to Mississippi while accounting for age, race/ethnicity, method, and insurance plan?
@@ -33,7 +34,7 @@ We were unable to find a comprehensive dataset that included every factor we wer
 * How does abortion rates differ within regions of New York State?
 * Is abortion rate different in New York City while accounting for age, race/ethnicity, method, and insurance plan?
 
-# **Data: Source, scraping method, cleaning, etc.**
+# Data: Source, scraping method, cleaning, etc.
 
 ## Vital Statistics of New York State
 
@@ -50,7 +51,7 @@ From the Vital Statistics of New York State 2019, we will use data from the Indu
 
 ## Data Scraping and Cleaning 
 
-We first imported the datasets from the internet and then cleaned each dataset individually. For each dataset, we selected the variables that were the most relevant and appropriate in exploring our research question. We renamed variable names for the different counties in New York City to the name of the boroughs. Final variable names in our dataset for the boroughs include Manhattan, Bronx, Brooklyn, Queens, and Staten_Island. The variable names for age, race, and financial plan variables were not comprehensive, so they were renamed after importing the dataset as well. The original dataset included commas in the values, so we changed the values to not include the commas, and all of the numbers were converted to numerical values. After individual datasets were tidied, they were merged into a final dataset which was then saved and exported to our project repository. These steps were necessary to ensure that the code was readable and reproducible. 
+We first imported the datasets from the internet and then cleaned each dataset individually. For each dataset, we selected the variables that were the most relevant and appropriate in exploring our research question. We renamed variable names for the different counties in New York City to the name of the boroughs. Final variable names in our dataset for the boroughs include `Manhattan`, `Bronx`, `Brooklyn`, `Queens`, and `Staten_Island`. The variable names for age, race, and financial plan variables were not comprehensive, so they were renamed after importing the dataset as well. The original dataset included commas in the values, so we changed the values to not include the commas, and all of the numbers were converted to numerical values. After individual datasets were tidied, they were merged into a final dataset which was then saved and exported to our project repository. These steps were necessary to ensure that the code was readable and reproducible. 
 
 Rates were created manually by using abortion count data as the numerator over the number of live births as the denominator multiplied by 1000. As a result the outcome is operationalized as the abortion rate per 1000 live births. These rates were provided in some of the datasets but were not provided for financial plans and had to be calculated on the borough level.
 

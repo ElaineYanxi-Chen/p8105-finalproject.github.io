@@ -6,7 +6,7 @@ title: "Project Proposal"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Abortion trends in New York and Mississippi (2017-2020): A Comparative Analysis
+## **Abortion trends in New York and Mississippi (2017-2020): A Comparative Analysis**
 
 ### Motivation
 

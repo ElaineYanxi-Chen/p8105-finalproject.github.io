@@ -1,21 +1,23 @@
+---
+title: "Abortion Trends in New York City"
+code_folding: hide
+---
 <center>
-<font size="10"> Abortion Trends in New York City </font>
 <img src="images/abortion_background.jpeg" style = "wdith:75%">
 </center>
 Source: [AP Photo/Wong Maye-E](https://www.ny1.com/nyc/all-boroughs/news/2022/05/12/how-new-york-is-preparing-for-a-potential-dismantling-of-roe-v--wade)
 
 
-## *Introduction*
+## **Introduction**
 
 We wanted to explore the trends in abortion rates in New York City over time (2017-2020). 
 
-## *Screencast* 
+## **Screencast**
 
-## *Motivation* 
+## **Motivation** 
 
 In 2019, many conservative states raced to enact an unprecedented wave on bans on abortions that have severely restricted women’s reproductive rights. These restrictions have culminated with the recent Supreme Court overturning of Roe v. Wade, a landmark supreme court case granting a women’s right to an abortion. 
 
 Since then, access to abortion has been significantly compromised and even banned in several states across the country. Those that are likely to be most impacted by this decision are individuals that belong to underserved and marginalized communities. Changes in policies could potentially lead to a variation in abortion trends in the country over time.  
 
 We want to explore these trends to understand the implications of policy change in the country concerning reproductive rights. Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the numbers of induced abortions in New York City, specifically, and compare the differences across the boroughs. 
-
