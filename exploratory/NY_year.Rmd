@@ -548,6 +548,8 @@ write_csv(merged_data, file = "data/NY_year.csv")
 
 #### Line chart by Year and Borough
 
+We wanted to see how abortion rates differed across the years between the different regions in NY. To do so, we used plotly to create a line plot to output the rates by the different regions.
+
 ```{r}
 plot_borough_year=merged_data %>% 
   mutate(borough = fct_reorder(borough, total)) %>% 
@@ -555,3 +557,5 @@ plot_ly(y = ~total, x=~year, color = ~borough, type = "scatter", mode="line", co
    layout(title = 'Induced Abortions Year by Borough', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
 plot_borough_year
 ```
+
+From the plot, it seems that Eastern Adirondacks and Western Adirondacks had some of the lowest rates between 2014 and 2019. There seems to be notable changes in rates for the Richmond Region in 2016. Additionally, it seems like the Westchester/ Rockland region had a noticeable increase in rates between 2018 and 2019.
