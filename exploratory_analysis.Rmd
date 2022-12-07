@@ -111,227 +111,78 @@ abortion_age_wtotal_plot
 The highest rates is found among those in Manhattan among those who are less than 20 years old with a rate of 1964.9 induced abortions to 1000 live births. The second highest rates is similarly found among those less than 20 year olds in Queens with a rate of 1780.1 induced abortions to 1000 live births. Overall, the rate of abortion seems to decrease with age. Across the age categories, it seems that Staten Island, New York State, and Brooklyn seemed to have lower abortion rates. 
 
 
-Induced abortion by age and borough.
-
-```{r age by borough}
-age_bronx = 
-clean_age %>%
-  select(-total) %>%
-  filter(borough == "Bronx") %>%
-  pivot_longer(
-    age_less_20:age_plus_40,
-    names_to = "age", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = age, y = abortion)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10) )
-
-age_bronx
-
-age_brooklyn = 
-clean_age %>%
-  select(-total) %>%
-  filter(borough == "Brooklyn") %>%
-  pivot_longer(
-    age_less_20:age_plus_40,
-    names_to = "age", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = age, y = abortion)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10) )
-
-age_brooklyn
-
-age_manhattan = 
-clean_age %>%
-  select(-total) %>%
-  filter(borough == "Manhattan") %>%
-  pivot_longer(
-    age_less_20:age_plus_40,
-    names_to = "age", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = age, y = abortion)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10) )
-
-age_manhattan
-
-age_queens = 
-clean_age %>%
-  select(-total) %>%
-  filter(borough == "Queens") %>%
-  pivot_longer(
-    age_less_20:age_plus_40,
-    names_to = "age", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = age, y = abortion)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10) )
-
-age_queens
-
-age_si = 
-clean_age %>%
-  select(-total) %>%
-  filter(borough == "Staten Island") %>%
-  pivot_longer(
-    age_less_20:age_plus_40,
-    names_to = "age", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = age, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Age and Borough, 2019",
-    x = "Woman's age categories",
-    y = "Number of Induced Abortions"
-  ) +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 10) )
-
-age_si
-
-matrix_age = 
-  (age_bronx)/(age_brooklyn + age_manhattan) / (age_queens + age_si)
-
-matrix_age
-```
-
-
 ## *Race* 
 
 Abortion numbers in the five boroughs in non-Hispanic population. (which year?)
 
-```{r eval=FALSE }
+```{r}
 clean_nh = read_csv("data/abortion_race_nh.csv")
-
-total_abortion_nhrace = 
-  clean_nh %>%
-  slice_head(n = 1) %>%
-  pivot_longer(
-    total:NH_Other_Ratio,
-    names_to = "race", 
-    values_to = "abortion"
-  )
 
 abortion_race_nhplot = 
   clean_nh %>%
   select(-total) %>%
-  slice(-1) %>%
   pivot_longer(
-    Non_Hispanic_Ratio:NH_Other_Ratio,
+    Non_Hispanic_Total:NH_Other_Ratio,
     names_to = "race", 
     values_to = "abortion"
   ) %>%
-  ggplot(aes(x = race, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Race (Non-Hispanic) and Borough, 2019",
-    x = "Woman's Race",
-    y = "Number of Induced Abortions"
-  )
+  mutate(
+    race = replace(race, race == "Non_Hispanic_Total", "Total"),
+    race = replace(race, race == "NH_White_Only_Ratio", "White Only"),
+    race = replace(race, race == "NH_Black_Only_Ratio", "Black Only"),
+    race = replace(race, race == "NH_Other_Ratio", "Other"),
+    race = factor(race)
+    ) %>% 
+  plot_ly(
+    x = ~race, y = ~abortion, color = ~borough, 
+    type = "bar", colors = "viridis") %>% 
+  layout(title = 'Abortion Ratios by Non-Hispanic Race 
+         for Boroughs and New York State', 
+         xaxis = list(title = "Race"),
+         yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
 
 abortion_race_nhplot
-
-abortion_race_nhtotal = 
-  clean_nh %>%
-  select(-total) %>%
-  slice(-1) %>%
-  pivot_longer(
-    Non_Hispanic_Ratio:NH_Other_Ratio,
-    names_to = "race", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = race, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  geom_point(data = total_abortion_nhrace) +
-  labs(
-    title = "Number of Induced Abortions by Race (Non-Hispanic) and Borough, 2019",
-    x = "Woman's Finance Plan",
-    y = "Number of Induced Abortions"
-  )
-
-abortion_race_nhtotal
 ```
+
+How was race determined? Self-report? 
+Also need to figure out a way to reorder...
+
+The highest rate is found among those in the Bronx among those who are Non-Hispanic-Black Only with a rate of 1228.3 induced abortions per 1000 live births. The lowest rate was found among Non-Hispanic White-Only in Brooklyn with a rate of 88.6 induced abortions per 1000 live births. The rates were highest among those who were Non-Hispanic-Black Only. 
 
 
 Next we investigate the trend in non-Hispanic population.
 
-```{r eval=FALSE}
+```{r}
 clean_h = read_csv("data/abortion_race_h.csv")
-
-total_abortion_hrace = 
-  clean_h %>%
-  slice_head(n = 1) %>%
-  pivot_longer(
-    Hispanic_Ratio:H_Black_Only_Ratio,
-    names_to = "race", 
-    values_to = "abortion"
-  )
 
 abortion_race_h = 
   clean_h %>%
   select(-total) %>%
-  slice(-1) %>%
   pivot_longer(
-    Hispanic_Ratio:H_Black_Only_Ratio,
+    Hispanic_Total:H_Black_Only_Ratio,
     names_to = "race", 
     values_to = "abortion"
   ) %>%
-  ggplot(aes(x = race, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Race (Hispanic) and Borough, 2019",
-    x = "Woman's Race (Non-Hispanic)",
-    y = "Number of Induced Abortions"
-  )
+   mutate(
+    race = replace(race, race == "Hispanic_Total", "Total"),
+    race = replace(race, race == "H_White_Only_Ratio", "White Only"),
+    race = replace(race, race == "H_Black_Only_Ratio", "Black Only"),
+    race = factor(race)
+    ) %>% 
+  plot_ly(
+    x = ~race, y = ~abortion, color = ~borough, 
+    type = "bar", colors = "viridis") %>% 
+  layout(
+    title = 'Abortion Ratios by Hispanic Race for Boroughs and New York State',
+    xaxis = list(title = "Race"),
+    yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
 
 abortion_race_h
-
-abortion_race_htotal = 
-  clean_h %>%
-  select(-total) %>%
-  slice(-1) %>%
-  pivot_longer(
-    Hispanic_Ratio:H_Black_Only_Ratio,
-    names_to = "race", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = race, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  geom_point(data = total_abortion_hrace) +
-  labs(
-    title = "Number of Induced Abortions by Race (Hispanic) and Borough, 2019",
-    x = "Woman's Race (Hispanic)",
-    y = "Number of Induced Abortions"
-  )
-
-abortion_race_htotal
 ```
 
+So no other category for Hispanic Race?
+
+The highest rate is found among those in the Bronx among those who are Hispanic-Black Only with a rate of 684.6 induced abortions per 1000 live births. The lowest rate was found among Hispanic White-Only in Queens with a rate of 80.4 induced abortions per 1000 live births. The rates were generally higher among those who were Hispanic-Black Only in comparison to those who were Hispanic White-Only. 
 
 ## *Finances* 
 
