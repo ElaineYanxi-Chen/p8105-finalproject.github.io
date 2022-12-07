@@ -28,9 +28,11 @@ scale_fill_discrete = scale_fill_viridis_d
 ```
 
 
-## *Total*
+## Five Boroughs of New York City
 
-First, we want to look at the overall trends in abortion rates in New York City over time (2014-2019). 
+### *Total*
+
+First, we want to look at the overall trends in abortion rates in the five boroughs of New York City (Manhattan, Bronx, Queens, Brooklyn, Staten Island) over the years of 2014 - 2019.
 
 ```{r}
 abortion_year = read_csv("data/abortion_year_borough.csv")
@@ -73,7 +75,7 @@ borough_year
 
 ## *Age* 
 
-We want to investigate the relationship between induced abortion and maternal age.
+We wanted to see how the abortion rates differed across different age categories for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. 
 
 ```{r age total}
 clean_age = read_csv("data/abortion_age.csv")
@@ -111,9 +113,9 @@ abortion_age_wtotal_plot
 The highest rates is found among those in Manhattan among those who are less than 20 years old with a rate of 1964.9 induced abortions to 1000 live births. The second highest rates is similarly found among those less than 20 year olds in Queens with a rate of 1780.1 induced abortions to 1000 live births. Overall, the rate of abortion seems to decrease with age. Across the age categories, it seems that Staten Island, New York State, and Brooklyn seemed to have lower abortion rates. 
 
 
-## *Race* 
+### *Race* 
 
-Abortion numbers in the five boroughs in non-Hispanic population. (which year?)
+We wanted to see how abortion rates differed across races for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used plotly to create two barchart to output the rates by the different regions. The two plots are divided by those who are Hispanic vs. Non-Hispanic. Two plots were created for a cleaner output and better see the differences with each race. (What year was the data from?)
 
 ```{r}
 clean_nh = read_csv("data/abortion_race_nh.csv")
@@ -184,58 +186,62 @@ So no other category for Hispanic Race?
 
 The highest rate is found among those in the Bronx among those who are Hispanic-Black Only with a rate of 684.6 induced abortions per 1000 live births. The lowest rate was found among Hispanic White-Only in Queens with a rate of 80.4 induced abortions per 1000 live births. The rates were generally higher among those who were Hispanic-Black Only in comparison to those who were Hispanic White-Only. 
 
-## *Finances* 
+### *Finances* 
 
-```{r finance}
+We wanted to see how abortion rates differed across different financial plans for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used plotly to create a barchart to output the rates by the different regions. 
+
+```{r fiance}
 clean_finance = read_csv("data/abortion_finance.csv")
-
-total_abortion_finance = 
-  clean_finance %>%
-  slice_head(n = 1) %>%
-  select(-total) %>%
-  pivot_longer(
-    medicaid:not_stated,
-    names_to = "finance_plan", 
-    values_to = "abortion"
-  )
 
 abortion_finance_plot = 
   clean_finance %>%
-  select(-total) %>%
-  slice(-1) %>%
+  select(-total) %>% 
   pivot_longer(
     medicaid:not_stated,
     names_to = "finance_plan", 
     values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = finance_plan, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Finance Plan and Borough, 2019",
-    x = "Woman's finance plan",
-    y = "Number of Induced Abortions"
-  )
+  ) %>% 
+  mutate(
+    finance_plan = replace(finance_plan, finance_plan == "medicaid", "Medicaid"),
+    finance_plan = replace(finance_plan, finance_plan == "self_pay", "Self Pay"),
+    finance_plan = replace(finance_plan, finance_plan == "other_insurance", "Other Insurance"),
+    finance_plan = replace(finance_plan, finance_plan == "not_stated", "Not Stated"),
+    finance_plan = factor(finance_plan)
+    ) %>% 
+  plot_ly(
+    x = ~finance_plan, y = ~abortion, color = ~borough, 
+    type = "bar", colors = "viridis") %>% 
+  layout(
+    title = "Abortion Ratios by Financial Plans for Boroughs and New York State", 
+    xaxis = list(title = "Type of Financial Plan"),
+    yaxis = list(title = "Number of Induced Abortions per 1,000 Live Births"))
 
 abortion_finance_plot
+```
 
-abortion_finance_total = 
-  clean_finance %>%
-  select(-total) %>%
-  slice(-1) %>%
-  pivot_longer(
-    medicaid:not_stated,
-    names_to = "finance_plan", 
-    values_to = "abortion"
-  ) %>%
-  ggplot(aes(x = finance_plan, y = abortion, fill = borough)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  geom_point(data = total_abortion_finance) +
-  labs(
-    title = "Number of Induced Abortions by Woman's Finance Plan and Borough, 2019",
-    x = "Woman's finance plan",
-    y = "Number of Induced Abortions"
-  )
+What does it mean other insurance? Employer insurance? Or self-thought insurance plans on the market? Are there any breakdowns?
 
-abortion_finance_total
+The highest rates is found among those in Manhattan among those with "Other insurance" with a rate of 62.86k induced abortions per 1000 live births. The rates were highest among those with "Other insurance" and second highest among those with "self_pay." Rates were lowest among those with Medicaid. 
+
+
+## New York State
+
+### *Total*
+
+```{r}
+NY_year = read_csv("data/NY_year.csv")
+
+plot_borough_year = 
+  NY_year %>% 
+  mutate(borough = fct_reorder(borough, total)) %>% 
+  plot_ly(
+    y = ~total, x = ~year, color = ~borough, 
+    type = "scatter", mode = "line", colors = "viridis") %>% 
+   layout(
+     title = 'Induced Abortions Year by Borough', 
+     xaxis = list(title = "Year"),
+     yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
+
+plot_borough_year
 ```
 
