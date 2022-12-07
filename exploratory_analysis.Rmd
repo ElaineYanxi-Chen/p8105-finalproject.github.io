@@ -1,5 +1,5 @@
 ---
-title: "Explaratory Analysis of Abortion Trend in the Five "
+title: "Exploratory Analysis of Abortion Trend in the Five Boroughs of NYC "
 ---
 
 ```{r, message = FALSE, echo = FALSE}
@@ -30,7 +30,7 @@ scale_fill_discrete = scale_fill_viridis_d
 
 ## *Total*
 
-First, we want to look at the overall trends in abortion rates in New York City over time (2017-2020). 
+First, we want to look at the overall trends in abortion rates in New York City over time (2014-2019). 
 
 ```{r}
 abortion_year = read_csv("data/abortion_year_borough.csv")
@@ -49,6 +49,7 @@ city_year = abortion_year %>%
 city_year
 ```
 
+From the data points and graph, it is evident that abortion rates are overall decreasing over the years. For our project, we will be analyzing data from 2019 which is the most recent dataset. 
 
 ```{r}
 abortion_year %>% 

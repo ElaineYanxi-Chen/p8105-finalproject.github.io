@@ -62,8 +62,12 @@ clean_nh =
   induced_abortion_race %>%
   select(1,2,4,6,8,10) %>% 
   purrr::set_names(c("borough", "total", "Non_Hispanic_Count", "NH_White_Only_Count", "NH_Black_Only_Count", "NH_Other_Count")) %>% 
-  slice(14:70) %>% 
+  slice(7:70) %>% 
+  filter(!row_number() %in% c(6, 7)) %>%
   mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
     Non_Hispanic_Count = str_replace(Non_Hispanic_Count, ",", ""),
     NH_White_Only_Count = str_replace(NH_White_Only_Count, ",", ""),
@@ -81,8 +85,12 @@ clean_h =
   induced_abortion_race %>%
   select(1,2,12,14,16) %>% 
   purrr::set_names(c("borough", "total", "Hispanic_Count", "H_White_Only_Count", "H_Black_Only_Count")) %>% 
-  slice(14:70) %>% 
+  slice(7:70) %>% 
+  filter(!row_number() %in% c(6, 7)) %>%
   mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
     Hispanic_Count = str_replace(Hispanic_Count, ",", ""),
     H_White_Only_Count = str_replace(H_White_Only_Count, ",", ""),
@@ -98,8 +106,12 @@ clean_lb_nh =
   live_birth_race %>%
   select(1:6) %>% 
   purrr::set_names(c("borough", "total", "Non_Hispanic_Count", "NH_White_Only_Count", "NH_Black_Only_Count", "NH_Other_Count")) %>% 
-  slice(14:70) %>% 
+  slice(7:70) %>% 
+  filter(!row_number() %in% c(6, 7)) %>%
   mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
     Non_Hispanic_Count = str_replace(Non_Hispanic_Count, ",", ""),
     NH_White_Only_Count = str_replace(NH_White_Only_Count, ",", ""),
@@ -117,8 +129,12 @@ clean_lb_h =
   live_birth_race %>%
   select(1,2,7:9) %>% 
   purrr::set_names(c("borough", "total", "Hispanic_Count", "H_White_Only_Count", "H_Black_Only_Count")) %>% 
-  slice(14:70) %>% 
+  slice(7:70) %>% 
+  filter(!row_number() %in% c(6, 7)) %>%
   mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
     Hispanic_Count = str_replace(Hispanic_Count, ",", ""),
     H_White_Only_Count = str_replace(H_White_Only_Count, ",", ""),
@@ -144,6 +160,7 @@ rename_ia_h= clean_h %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
+    transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
   group_by(borough) %>% 
   summarize (
     total_rate= sum(total), 
@@ -165,6 +182,7 @@ rename_ia_nh= clean_nh %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
+    transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
   group_by(borough) %>% 
   summarize (
     total_rate= sum(total), 
@@ -187,6 +205,7 @@ rename_lb_h = clean_lb_h %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
+    transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
   group_by(borough) %>% 
   summarize (
     total_rate= sum(total), 
@@ -208,6 +227,7 @@ rename_lb_nh= clean_lb_nh %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
+    transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
   group_by(borough) %>% 
   summarize (
     total_rate= sum(total), 
@@ -232,6 +252,8 @@ merged_data_h =
     total = (total_rate_y / total_rate_x)*1000) %>% 
 select(borough, hispanic_count, h_white_only_count, h_black_only_count, total)
 
+write_csv(merged_data_h, file = "data/NY_race_h.csv")
+
 ```
 
 ```{r merge_nh}
@@ -245,6 +267,8 @@ merged_data_nh =
     nh_other_count = (nh_other_count_y / nh_other_count_x)*1000,
     total = (total_rate_y / total_rate_x)*1000) %>% 
 select(borough, non_hispanic_count, nh_white_only_count, nh_black_only_count, nh_other_count, total)
+
+write_csv(merged_data_nh, file = "data/NY_race_nh.csv")
 
 ```
 

@@ -110,6 +110,8 @@ write_csv(merged_data, file = "data/abortion_finance.csv")
 
 ggplot: induced abortion vs financial plans
 
+We wanted to see how abortion rates differed across different financial plans for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used plotly to create a barchart to output the rates by the different regions. 
+
 ```{r viz_finance}
 abortion_finance_plot = 
   merged_data %>%
@@ -123,3 +125,5 @@ abortion_finance_plot =
   layout(title = 'Abortions in NYC by Financial Plan', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
 abortion_finance_plot
 ```
+
+The highest rates is found among those in Manhattan among those with "Other insurance" with a rate of 62.86k induced abortions per 1000 live births. The rates were highest among those with "Other insurance" and second highest among those with "self_pay." Rates were lowest among those with Medicaid. 

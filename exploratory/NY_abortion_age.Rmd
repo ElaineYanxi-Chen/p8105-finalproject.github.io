@@ -59,8 +59,12 @@ clean_lb_age =
   live_birth_age %>% 
   select(1:8) %>%
   purrr::set_names(c("borough", "total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40")) %>%
-  slice(14:70) %>% 
+  slice(7:70) %>% 
+  filter(!row_number() %in% c(6, 7)) %>%
   mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
     age_less_20 = str_replace(age_less_20, ",", ""),
     age_20_24 = str_replace(age_20_24, ",", ""),
@@ -79,8 +83,12 @@ clean_ia_age=
 induced_abortion_age %>%
   select(1:8) %>%
   purrr::set_names(c("borough", "total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40")) %>%
-  slice(14:70) %>% 
+  slice(7:70) %>% 
+  filter(!row_number() %in% c(6, 7)) %>%
   mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
     age_less_20 = str_replace(age_less_20, ",", ""),
     age_20_24 = str_replace(age_20_24, ",", ""),
@@ -109,6 +117,7 @@ rename_lb_age= clean_lb_age %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
+    transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
   group_by(borough) %>% 
   summarize (
     total_rate= sum(total), 
@@ -133,6 +142,7 @@ rename_ia_age= clean_ia_age %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
+  transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
   group_by(borough) %>% 
   summarize (
     total_rate= sum(total), 
@@ -161,6 +171,8 @@ merged_data =
     age_plus_40 = (age_plus_40_y / age_plus_40_x)*1000,
     total = (total_rate_y / total_rate_x)*1000) %>% 
 select(borough, age_less_20, age_20_24, age_25_29, age_30_34, age_35_39, age_plus_40, total)
+
+write_csv(merged_data, file = "data/NY_age.csv")
 
 ```
 

@@ -54,19 +54,19 @@ data cleaning NH
 clean_nh = 
   induced_abortion %>%
   select(1,3,5,7,9,11) %>% 
-  purrr::set_names(c("borough", "total", "Non_Hispanic_Ratio", "NH_White_Only_Ratio", "NH_Black_Only_Ratio", "NH_Other_Ratio")) %>% 
+  purrr::set_names(c("borough", "total", "Non_Hispanic_Total", "NH_White_Only_Ratio", "NH_Black_Only_Ratio", "NH_Other_Ratio")) %>% 
     slice(4, 6:11) %>%
   mutate(
     borough = str_replace(borough, "Kings", "Brooklyn"),
     borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
     borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
-    Non_Hispanic_Ratio = str_replace(Non_Hispanic_Ratio, ",", ""),
+    Non_Hispanic_Total = str_replace(Non_Hispanic_Total, ",", ""),
     NH_White_Only_Ratio = str_replace(NH_White_Only_Ratio, ",", ""),
     NH_Black_Only_Ratio = str_replace(NH_Black_Only_Ratio, ",", ""),
     NH_Other_Ratio = str_replace(NH_Other_Ratio, ",", ""),
     ) %>%
-  mutate_at(c("total", "Non_Hispanic_Ratio", "NH_White_Only_Ratio", "NH_Black_Only_Ratio", "NH_Other_Ratio"), as.numeric)
+  mutate_at(c("total", "Non_Hispanic_Total", "NH_White_Only_Ratio", "NH_Black_Only_Ratio", "NH_Other_Ratio"), as.numeric)
 
 write_csv(clean_nh, file = "data/abortion_race_nh.csv")
 ```
@@ -77,23 +77,25 @@ data cleaning H
 clean_h = 
   induced_abortion %>%
   select(1,3,13,15,17) %>% 
-  purrr::set_names(c("borough", "total", "Hispanic_Ratio", "H_White_Only_Ratio", "H_Black_Only_Ratio")) %>% 
+  purrr::set_names(c("borough", "total", "Hispanic_Total", "H_White_Only_Ratio", "H_Black_Only_Ratio")) %>% 
     slice(4, 6:11) %>%
   mutate(
     borough = str_replace(borough, "Kings", "Brooklyn"),
     borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
     borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
-    Hispanic_Ratio = str_replace(Hispanic_Ratio, ",", ""),
+    Hispanic_Total = str_replace(Hispanic_Total, ",", ""),
     H_White_Only_Ratio = str_replace(H_White_Only_Ratio, ",", ""),
     H_Black_Only_Ratio = str_replace(H_Black_Only_Ratio, ",", "")
     ) %>%
-  mutate_at(c("total", "Hispanic_Ratio", "H_White_Only_Ratio", "H_Black_Only_Ratio"), as.numeric)
+  mutate_at(c("total", "Hispanic_Total", "H_White_Only_Ratio", "H_Black_Only_Ratio"), as.numeric)
 
 write_csv(clean_h, file = "data/abortion_race_h.csv")
 ```
 
 ggplot: induced abortion vs race (Non-Hispanic)
+
+We wanted to see how abortion rates differed across races for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used plotly to create two barchart to output the rates by the different regions. The two plots are divided by those who are Hispanic vs. Non-Hispanic. Two plots were created for a cleaner output and better see the differences with each race. 
 
 ```{r viz_nhrace}
 total_abortion_nhrace = 
@@ -109,7 +111,7 @@ abortion_race_nhplot =
   clean_nh %>%
   select(-total) %>%
   pivot_longer(
-    Non_Hispanic_Ratio:NH_Other_Ratio,
+    Non_Hispanic_Total:NH_Other_Ratio,
     names_to = "race", 
     values_to = "abortion"
   ) %>%
@@ -119,7 +121,7 @@ abortion_race_nhplot
 
 ```
 
-
+The highest rate is found among those in the Bronx among those who are Non-Hispanic-Black Only with a rate of 1228.3 induced abortions per 1000 live births. The lowest rate was found among Non-Hispanic White-Only in Brooklyn with a rate of 88.6 induced abortions per 1000 live births. The rates were highest among those who were Non-Hispanic-Black Only. 
 
 ggplot: induced abortion vs race (Hispanic)
 
@@ -128,7 +130,7 @@ total_abortion_hrace =
   clean_h %>%
   slice_head(n = 1) %>%
   pivot_longer(
-    Hispanic_Ratio:H_Black_Only_Ratio,
+    Hispanic_Total:H_Black_Only_Ratio,
     names_to = "race", 
     values_to = "abortion"
   )
@@ -137,7 +139,7 @@ abortion_race_h =
   clean_h %>%
   select(-total) %>%
   pivot_longer(
-    Hispanic_Ratio:H_Black_Only_Ratio,
+    Hispanic_Total:H_Black_Only_Ratio,
     names_to = "race", 
     values_to = "abortion"
   ) %>%
@@ -147,3 +149,4 @@ abortion_race_h
 
 ```
 
+The highest rate is found among those in the Bronx among those who are Hispanic-Black Only with a rate of 684.6 induced abortions per 1000 live births. The lowest rate was found among Hispanic White-Only in Queens with a rate of 80.4 induced abortions per 1000 live births. The rates were generally higher among those who were Hispanic-Black Only in comparison to those who were Hispanic White-Only. 

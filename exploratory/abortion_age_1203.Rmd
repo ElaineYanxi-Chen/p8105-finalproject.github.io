@@ -18,7 +18,6 @@ library(httr)
 library(dplyr)
 library(plotly)
 
-
 knitr::opts_chunk$set(
 	echo = TRUE,
 	warning = FALSE,
@@ -59,7 +58,7 @@ clean_age =
   purrr::set_names(c("borough", "total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40")) %>%
   slice(4,6:11) %>%
   mutate(
-    borough = str_replace(borough, "Kings", "Brooklyn"), 5656/28878 = 
+    borough = str_replace(borough, "Kings", "Brooklyn"),
     borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
     borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
@@ -93,6 +92,9 @@ abortion_age_wtotal_plot
 
 ```
 
+#### Abortion Rates by Age in NYC
+
+We wanted to see how the abortion rates differed across different age categories for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. 
 
 ```{r abortion_age_NY_state}
 
@@ -111,3 +113,4 @@ abortion_age_wtotal_plot
 
 ```
 
+The highest rates is found among those in Manhattan among those who are less than 20 years old with a rate of 1964.9 induced abortions to 1000 live births. The second highest rates is similarly found among those less than 20 year olds in Queens with a rate of 1780.1 induced abortions to 1000 live births. Overall, the rate of abortion seems to decrease with age. Across the age categories, it seems that Staten Islan, New York State, and Brooklyn seemed to have lower abortion rates. 
