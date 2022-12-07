@@ -92,6 +92,9 @@ abortion_age_wtotal_plot
 
 ```
 
+#### Abortion Rates by Age in NYC
+
+We wanted to see how the abortion rates differed across different age categories for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. 
 
 ```{r abortion_age_NY_state}
 
@@ -110,3 +113,4 @@ abortion_age_wtotal_plot
 
 ```
 
+The highest rates is found among those in Manhattan among those who are less than 20 years old with a rate of `r result_Baltimore[,"abortion"]`, induced abortions to 1000 live births. The second highest rates is similarly found among those less than 20 year olds in Queens with a rate of 1780.1 induced abortions to 1000 live births. Overall, the rate of abortion seems to decrease with age. Across the age categories, it seems that Staten Islan, New York State, and Brooklyn seemed to have lower abortion rates. 
