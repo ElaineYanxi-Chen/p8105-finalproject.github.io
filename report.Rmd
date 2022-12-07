@@ -1,73 +1,193 @@
 ---
 title: " Project Report"
- toc: true
+output: 
+  html_document: 
+    toc: true
     toc_float:
-      collapsed: false
+      collapsed: true
       smooth_scroll: true
 ---
 
+
 # Motivation
+
 
 In 2019, many conservative states raced to enact an unprecedented wave on bans on abortions that have severely restricted women’s reproductive rights. These restrictions have culminated with the recent Supreme Court overturning of Roe v. Wade, a landmark supreme court case granting a women’s right to an abortion. 
 
-Since then, access to abortion has been significantly compromised and even banned in several states across the country. Those that are likely to be most impacted by this decision are individuals that belong to underserved and marginalized communities. Changes in policies could potentially lead to a variation in abortion trends in the country over time.  
+Since then, access to abortion has been significantly compromised and even banned in several states across the country. Those that are likely to be most impacted by this decision are individuals that belong to under-served and marginalized communities. Changes in policies could potentially lead to a variation in abortion trends in the country over time.  We want to explore these trends to understand the implications of policy change in the country concerning reproductive rights. 
 
-We want to explore these trends to understand the implications of policy change in the country concerning reproductive rights. Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the numbers of induced abortions in New York City, specifically, and compare the differences across the boroughs. 
+Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the numbers of induced abortions in New York City, specifically, and compare the differences across the boroughs. 
+
 
 # Related work 
 
+
 Anything that inspired you, such as a paper, a web site, or something we discussed in class.
 
-# **Initial questions**
+
+# Initial questions
+
 
 Originally, we wanted to conduct a comparative analysis of abortion rates in New York and Mississppi from 2017-2020 with the following questions:
 
-* Has abortion rate changed over time (2017 to 2020)?
-* What does the distribution of abortion rate between counties within New York and Mississippi look like?
-* Is abortion rate different in New York compared to Mississippi while accounting for age, race/ethnicity, method, and insurance plan?
+* Have abortion rates changed over time (2017 to 2020)?
+* What does the distribution of abortion rates between counties within New York and Mississippi look like?
+* Are abortion rates different in New York compared to Mississippi while accounting for age, race/ethnicity, method, and insurance plan?
 
 We were unable to find a comprehensive dataset that included every factor we were looking for, and decided to focus on conducting an analysis of abortion numbers between boroughs in New York City in 2019. As a result we have developed new research questions as listed as following for our project:
 
-### Final Research Questions:
 
-* What does the distribution of abortion between boroughs within New York City look like?
-* Is abortion rate different in New York City while accounting for age, race/ethnicity, method, and insurance plan?
-* How does abortion rates differ between New York City and New York State?
-* How does abortion rates differ within regions of New York State?
-* Is abortion rate different in New York City while accounting for age, race/ethnicity, method, and insurance plan?
+## Final Research Questions:
 
-# Data: Source, scraping method, cleaning, etc.
 
-## Vital Statistics of New York State
+* What does the distribution of abortion between boroughs within New York City look like in 2019?
+  * Are abortion rates different in New York City while accounting for age, race/ethnicity, method, and insurance plan in 2019?
+* How do abortion rates differ between New York City and New York State in 2019?
+* How do abortion rates differ within regions of New York State in 2019?
+  * Are abortion rates different in New York City while accounting for age, race/ethnicity, method, and insurance plan?
 
-For this project, we will use data from [Vital Statistics of New York State 2014-2019](https://www.health.ny.gov/statistics/vital_statistics/) (Individual data sets) which consists of group-level data from New York City and New York State. The data was collected from the New York State Bureau of Vital Records who maintains a registry of all births, marriages, divorces/disolutions of marriage, deaths, induced termination of pregnancy/abortions, and fetal deaths that have occurred in New York State. 
+# Data
 
-The [New York City Department of Health and Mental Hygiene](https://www.health.ny.gov/health_care/medicaid/redesign/ehr/registry/nycdohmh.htm) sends data on on live births, deaths, fetal deaths, induced terminations of pregnancy/abortions (abortion), marriages, and divorces/disolutions of marriage recorded in New York City to the New York State Department of Health. The New York State Department of Health receives data on live births and deaths recorded outside of New York State to residents of New York State from other states and Canada.
 
-The two regions are categorized as follows:
+## Source: Vital Statistics of New York State
 
-- New York City includes five counties: Bronx, Kings (Brooklyn), New York (Manhattan), Queens and Richmond (Staten Island). 
-- New York State outside of New York City, which encompasses the remaining 57 counties.
 
-From the Vital Statistics of New York State 2019, we will use data from the Induced Abortions section, and will specifically focus on data collected from New York City. 
+For this project, we will use data from [Vital Statistics of New York State 2014-2019](https://www.health.ny.gov/statistics/vital_statistics/) (Individual data sets) which consists of group-level data from New York City and New York State. 
+
+- The data was collected from the New York State Bureau of Vital Records who maintains a registry of all births, marriages, divorces/disolutions of marriage, deaths, induced termination of pregnancy/abortions, and fetal deaths that have occurred in New York State. 
+
+- The [New York City Department of Health and Mental Hygiene](https://www.health.ny.gov/health_care/medicaid/redesign/ehr/registry/nycdohmh.htm) sends data on on live births, deaths, fetal deaths, induced terminations of pregnancy/abortions (abortion), marriages, and divorces/disolutions of marriage recorded in New York City to the New York State Department of Health. 
+
+- The New York State Department of Health receives data on live births and deaths recorded outside of New York State to residents of New York State from other states and Canada.
+
+- The two regions are categorized as follows:
+
+  - New York City includes five counties: Bronx, Kings (Brooklyn), New York (Manhattan), Queens and Richmond (Staten Island). 
+
+  - New York State outside of New York City, which encompasses the remaining 57 counties.
+
+From the Vital Statistics of New York State 2019, we will use data from the *Induced Abortions* section, and will specifically focus on data collected from New York City. 
 
 ## Data Scraping and Cleaning 
 
-We first imported the datasets from the internet and then cleaned each dataset individually. For each dataset, we selected the variables that were the most relevant and appropriate in exploring our research question. We renamed variable names for the different counties in New York City to the name of the boroughs. Final variable names in our dataset for the boroughs include `Manhattan`, `Bronx`, `Brooklyn`, `Queens`, and `Staten_Island`. The variable names for age, race, and financial plan variables were not comprehensive, so they were renamed after importing the dataset as well. The original dataset included commas in the values, so we changed the values to not include the commas, and all of the numbers were converted to numerical values. After individual datasets were tidied, they were merged into a final dataset which was then saved and exported to our project repository. These steps were necessary to ensure that the code was readable and reproducible. 
+We first imported the datasets from the internet and then cleaned each dataset individually. For each dataset, we selected the variables that were the most relevant and appropriate in exploring our research question. 
 
-Rates were created manually by using abortion count data as the numerator over the number of live births as the denominator multiplied by 1000. As a result the outcome is operationalized as the abortion rate per 1000 live births. These rates were provided in some of the datasets but were not provided for financial plans and had to be calculated on the borough level.
+We renamed variable names for the different counties in New York City to the name of the boroughs. Final variable names in our dataset for the boroughs include:
 
-Data on New York was obtained from the same dataset, and counties were recoded into regions based on categories set by New York State using `transform`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when adjusting the model for covariates. As a result, the categories helped ensure a sufficient sample size. 
+- `Manhattan`
+- `Bronx`
+- `Brooklyn`
+- `Queens`
+- `Staten Island` 
+
+Data on New York was obtained from the same dataset, and counties were recoded into regions based on categories set by New York State using `transform`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when adjusting the model for covariates. As a result, the categories helped ensure a sufficient sample size. The final regions included in the dataset for New York State includes:
+
+- `Central New York`
+- `Eastern Adirondacks`
+- `Western Adirondacks`
+- `Saratoga`
+- `Finger Lakes`
+- `Western New York`
+- `Hudson Valley`
+- `Westchester/Rockland`
+- `Long Island`
+- `New York City`
+
+The regions were created based on this [website](https://statejobs.ny.gov/assets/help/regionMapText.cfm)
+
+Specific data cleaning processes for each covariate is listed below.
+
+#### Age
+
+Abortion Ratios had to be manually calculated for Regions in NY, but did not have to be calculated manually for boroughs in NYC. We operationalized regions in NY differently from the original dataset. Rates were calculated by using abortion count data as the numerator over the number of live births as the denominator multiplied by 1000. As a result the outcome is operationalized as the abortion rate per 1000 live births, stratified by age categories. Age was categorized as follows:
+
+- `age_less_20`
+- `age_20_24`
+- `age_25_29`
+- `age_30_34`
+- `age_35_39`
+- `age_plus_40`
+
+#### Race
+
+Abortion Ratios had to be manually calculated for Regions in NY, but did not have to be calculated manually for boroughs in NYC. We operationalized regions in NY differently from the original dataset. Rates were calculated by using abortion count data as the numerator over the number of live births as the denominator multiplied by 1000. As a result the outcome is operationalized as the abortion rate per 1000 live births, stratified by race. Race was broken down into Non-Hispanic vs. Hispanic. Variable names for race is listed as follows:
+
+In the original dataset, there was no Hispanic-Other category. Ethnicity is distinguished from race and is based on the ethnicity of the mother. Ethnicity distinguishes individuals of Spanish origin regardless of race. Race was self-reported. 
+ 
+#### Financial Plans
+
+Financial Plan categories were determined by the categories that were found in both the Induced Abortion and Live Birth data. Ratios were not calculated in the original dataset, so the rates had to be calculated ourselves. Rates were calculated by using abortion count data as the numerator over the number of live births as the denominator multiplied by 1000. As a result the outcome is operationalized as the abortion rate per 1000 live births. The final variable names include:
+
+- `Medicaid`
+- `Other_insurance`
+- `self_pay`
+- `not stated`
+
+The technical notes in the dataset did not specify which plans were included under `other_insurance`. 
+
+After individual datasets were tidied, they were merged into a final dataset which was then saved and exported to our project repository. These steps were necessary to ensure that the code was readable and reproducible. 
+
 
 ## Exploratory analysis
 
-Visualizations, summaries, and exploratory statistical analyses. Justify the steps you took, and show any major changes to your ideas. (Maisie?)
+
+
+## NYC Analysis:
+
+
+
+#### Age:
+
+We wanted to see how the abortion rates differed across different age categories for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used `plotly` to create a bar chart to output the different regions besides each other. 
+
+- The highest rates was found in Manhattan among those who are less than 20 years old with a rate of 1964.9 induced abortions per 1000 live births. 
+- The second highest rate is was found among those less than 20 year old in Queens with a rate of 1780.1 induced abortions per 1000 live births. 
+- **Overall, the rate of abortions seem to decrease with age. Across the age categories, it appears that Staten Island, New York State, and Brooklyn seemed to have lower abortion rates. **
+
+Originally, we created individual plots for each borough, but we decided to combine all of the graphs in `plotly` to create a more cohesive website. The selection feature of `plotly` allows users to select regions they would like to compare. Additionally, we decided to add totals for both New York City and New York State to visually see the differences between boroughs and the totals. 
+
+#### Finance:
+
+We wanted to see how abortion rates differed across different financial plans for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used `plotly` to create a bar chart to output the rates by the different regions. 
+
+- The highest rates were found in Manhattan among those with "Other insurance" with a rate of 62.86k induced abortions per 1000 live births. 
+- **The rates were highest among those with "Other insurance" and second highest among those with "self_pay." Rates were lowest among those with Medicaid. **
+
+#### Race:
+
+We wanted to see how abortion rates differed across races for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used `plotly` to create two bar charts to output the rates by the different regions. The two plots are divided by those who are Hispanic vs. Non-Hispanic. Two plots were created for a cleaner output and better see the differences with each race.
+
+- Non-Hispanic Individuals: 
+
+  - The highest rates were found in the Bronx among those who identify as Non-Hispanic-Black Only with a rate of 1228.3 induced abortions per 1000 live births. 
+  - The lowest rate was found among Non-Hispanic White Only individuals in Brooklyn with a rate of 88.6 induced abortions per 1000 live births. 
+  - **The rates were highest among those who were Non-Hispanic-Black Only.** 
+
+- Hispanic Individuals: 
+
+  - The highest rates were found in the Bronx among those who are Hispanic-Black Only with a rate of 684.6 induced abortions per 1000 live births. 
+  - The lowest rate was found among Hispanic White-Only in Queens with a rate of 80.4 induced abortions per 1000 live births. 
+  - **The rates were generally higher among those who were Hispanic-Black Only in comparison to those who were Hispanic White-Only. **
+
+#### Year:
+
+We wanted to see how abortion rates differed across the years for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used `plotly` to create a line plot to output the rates by the different regions.
+
+- From the plot, it is evident that **rates are generally decreasing from 2014-2019.** 
+
+It is important to note that Staten Island had a noticeable increase and decrease of rates in 2016. This is likely due to an external factor, like a policy change. However, Staten Island had the lowest rates for most years in relation to the other boroughs overall. Bronx had the highest rates between 2014-2019. 
+
+## NY State Analysis 
+
 
 ## Statistical Analysis
+
 
 If you undertake formal statistical analyses, describe these in detail
 
 
 ## Discussion
+
+
 What were your findings? Are they what you expect? What insights into the data can you make?
 

@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
@@ -232,6 +235,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -239,6 +305,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -341,15 +417,14 @@ granting a women’s right to an abortion.</p>
 <p>Since then, access to abortion has been significantly compromised and
 even banned in several states across the country. Those that are likely
 to be most impacted by this decision are individuals that belong to
-underserved and marginalized communities. Changes in policies could
+under-served and marginalized communities. Changes in policies could
 potentially lead to a variation in abortion trends in the country over
-time.</p>
-<p>We want to explore these trends to understand the implications of
-policy change in the country concerning reproductive rights. Our year of
-interest is 2019, which is the most recent dataset provided by New York
-State. We will be focusing on the numbers of induced abortions in New
-York City, specifically, and compare the differences across the
-boroughs.</p>
+time. We want to explore these trends to understand the implications of
+policy change in the country concerning reproductive rights.</p>
+<p>Our year of interest is 2019, which is the most recent dataset
+provided by New York State. We will be focusing on the numbers of
+induced abortions in New York City, specifically, and compare the
+differences across the boroughs.</p>
 </div>
 <div id="related-work" class="section level1">
 <h1>Related work</h1>
@@ -357,107 +432,275 @@ boroughs.</p>
 we discussed in class.</p>
 </div>
 <div id="initial-questions" class="section level1">
-<h1><strong>Initial questions</strong></h1>
+<h1>Initial questions</h1>
 <p>Originally, we wanted to conduct a comparative analysis of abortion
 rates in New York and Mississppi from 2017-2020 with the following
 questions:</p>
 <ul>
-<li>Has abortion rate changed over time (2017 to 2020)?</li>
-<li>What does the distribution of abortion rate between counties within
+<li>Have abortion rates changed over time (2017 to 2020)?</li>
+<li>What does the distribution of abortion rates between counties within
 New York and Mississippi look like?</li>
-<li>Is abortion rate different in New York compared to Mississippi while
-accounting for age, race/ethnicity, method, and insurance plan?</li>
+<li>Are abortion rates different in New York compared to Mississippi
+while accounting for age, race/ethnicity, method, and insurance
+plan?</li>
 </ul>
 <p>We were unable to find a comprehensive dataset that included every
 factor we were looking for, and decided to focus on conducting an
 analysis of abortion numbers between boroughs in New York City in 2019.
 As a result we have developed new research questions as listed as
 following for our project:</p>
-<div id="final-research-questions" class="section level3">
-<h3>Final Research Questions:</h3>
+<div id="final-research-questions" class="section level2">
+<h2>Final Research Questions:</h2>
 <ul>
 <li>What does the distribution of abortion between boroughs within New
-York City look like?</li>
-<li>Is abortion rate different in New York City while accounting for
+York City look like in 2019?
+<ul>
+<li>Are abortion rates different in New York City while accounting for
+age, race/ethnicity, method, and insurance plan in 2019?</li>
+</ul></li>
+<li>How do abortion rates differ between New York City and New York
+State in 2019?</li>
+<li>How do abortion rates differ within regions of New York State in
+2019?
+<ul>
+<li>Are abortion rates different in New York City while accounting for
 age, race/ethnicity, method, and insurance plan?</li>
-<li>How does abortion rates differ between New York City and New York
-State?</li>
-<li>How does abortion rates differ within regions of New York
-State?</li>
-<li>Is abortion rate different in New York City while accounting for
-age, race/ethnicity, method, and insurance plan?</li>
+</ul></li>
 </ul>
 </div>
 </div>
-<div id="data-source-scraping-method-cleaning-etc."
-class="section level1">
-<h1>Data: Source, scraping method, cleaning, etc.</h1>
-<div id="vital-statistics-of-new-york-state" class="section level2">
-<h2>Vital Statistics of New York State</h2>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<div id="source-vital-statistics-of-new-york-state"
+class="section level2">
+<h2>Source: Vital Statistics of New York State</h2>
 <p>For this project, we will use data from <a
 href="https://www.health.ny.gov/statistics/vital_statistics/">Vital
 Statistics of New York State 2014-2019</a> (Individual data sets) which
-consists of group-level data from New York City and New York State. The
-data was collected from the New York State Bureau of Vital Records who
-maintains a registry of all births, marriages, divorces/disolutions of
-marriage, deaths, induced termination of pregnancy/abortions, and fetal
-deaths that have occurred in New York State.</p>
-<p>The <a
+consists of group-level data from New York City and New York State.</p>
+<ul>
+<li><p>The data was collected from the New York State Bureau of Vital
+Records who maintains a registry of all births, marriages,
+divorces/disolutions of marriage, deaths, induced termination of
+pregnancy/abortions, and fetal deaths that have occurred in New York
+State.</p></li>
+<li><p>The <a
 href="https://www.health.ny.gov/health_care/medicaid/redesign/ehr/registry/nycdohmh.htm">New
 York City Department of Health and Mental Hygiene</a> sends data on on
 live births, deaths, fetal deaths, induced terminations of
 pregnancy/abortions (abortion), marriages, and divorces/disolutions of
 marriage recorded in New York City to the New York State Department of
-Health. The New York State Department of Health receives data on live
+Health.</p></li>
+<li><p>The New York State Department of Health receives data on live
 births and deaths recorded outside of New York State to residents of New
-York State from other states and Canada.</p>
-<p>The two regions are categorized as follows:</p>
+York State from other states and Canada.</p></li>
+<li><p>The two regions are categorized as follows:</p>
 <ul>
-<li>New York City includes five counties: Bronx, Kings (Brooklyn), New
-York (Manhattan), Queens and Richmond (Staten Island).</li>
-<li>New York State outside of New York City, which encompasses the
-remaining 57 counties.</li>
+<li><p>New York City includes five counties: Bronx, Kings (Brooklyn),
+New York (Manhattan), Queens and Richmond (Staten Island).</p></li>
+<li><p>New York State outside of New York City, which encompasses the
+remaining 57 counties.</p></li>
+</ul></li>
 </ul>
 <p>From the Vital Statistics of New York State 2019, we will use data
-from the Induced Abortions section, and will specifically focus on data
-collected from New York City.</p>
+from the <em>Induced Abortions</em> section, and will specifically focus
+on data collected from New York City.</p>
 </div>
 <div id="data-scraping-and-cleaning" class="section level2">
 <h2>Data Scraping and Cleaning</h2>
 <p>We first imported the datasets from the internet and then cleaned
 each dataset individually. For each dataset, we selected the variables
 that were the most relevant and appropriate in exploring our research
-question. We renamed variable names for the different counties in New
-York City to the name of the boroughs. Final variable names in our
-dataset for the boroughs include <code>Manhattan</code>,
-<code>Bronx</code>, <code>Brooklyn</code>, <code>Queens</code>, and
-<code>Staten_Island</code>. The variable names for age, race, and
-financial plan variables were not comprehensive, so they were renamed
-after importing the dataset as well. The original dataset included
-commas in the values, so we changed the values to not include the
-commas, and all of the numbers were converted to numerical values. After
-individual datasets were tidied, they were merged into a final dataset
-which was then saved and exported to our project repository. These steps
-were necessary to ensure that the code was readable and
-reproducible.</p>
-<p>Rates were created manually by using abortion count data as the
-numerator over the number of live births as the denominator multiplied
-by 1000. As a result the outcome is operationalized as the abortion rate
-per 1000 live births. These rates were provided in some of the datasets
-but were not provided for financial plans and had to be calculated on
-the borough level.</p>
+question.</p>
+<p>We renamed variable names for the different counties in New York City
+to the name of the boroughs. Final variable names in our dataset for the
+boroughs include:</p>
+<ul>
+<li><code>Manhattan</code></li>
+<li><code>Bronx</code></li>
+<li><code>Brooklyn</code></li>
+<li><code>Queens</code></li>
+<li><code>Staten Island</code></li>
+</ul>
 <p>Data on New York was obtained from the same dataset, and counties
 were recoded into regions based on categories set by New York State
 using <code>transform</code>. Some counties had very few abortion
 numbers, which would not provide a sufficient sample size when adjusting
 the model for covariates. As a result, the categories helped ensure a
-sufficient sample size.</p>
+sufficient sample size. The final regions included in the dataset for
+New York State includes:</p>
+<ul>
+<li><code>Central New York</code></li>
+<li><code>Eastern Adirondacks</code></li>
+<li><code>Western Adirondacks</code></li>
+<li><code>Saratoga</code></li>
+<li><code>Finger Lakes</code></li>
+<li><code>Western New York</code></li>
+<li><code>Hudson Valley</code></li>
+<li><code>Westchester/Rockland</code></li>
+<li><code>Long Island</code></li>
+<li><code>New York City</code></li>
+</ul>
+<p>The regions were created based on this <a
+href="https://statejobs.ny.gov/assets/help/regionMapText.cfm">website</a></p>
+<p>Specific data cleaning processes for each covariate is listed
+below.</p>
+<div id="age" class="section level4">
+<h4>Age</h4>
+<p>Abortion Ratios had to be manually calculated for Regions in NY, but
+did not have to be calculated manually for boroughs in NYC. We
+operationalized regions in NY differently from the original dataset.
+Rates were calculated by using abortion count data as the numerator over
+the number of live births as the denominator multiplied by 1000. As a
+result the outcome is operationalized as the abortion rate per 1000 live
+births, stratified by age categories. Age was categorized as
+follows:</p>
+<ul>
+<li><code>age_less_20</code></li>
+<li><code>age_20_24</code></li>
+<li><code>age_25_29</code></li>
+<li><code>age_30_34</code></li>
+<li><code>age_35_39</code></li>
+<li><code>age_plus_40</code></li>
+</ul>
+</div>
+<div id="race" class="section level4">
+<h4>Race</h4>
+<p>Abortion Ratios had to be manually calculated for Regions in NY, but
+did not have to be calculated manually for boroughs in NYC. We
+operationalized regions in NY differently from the original dataset.
+Rates were calculated by using abortion count data as the numerator over
+the number of live births as the denominator multiplied by 1000. As a
+result the outcome is operationalized as the abortion rate per 1000 live
+births, stratified by race. Race was broken down into Non-Hispanic
+vs. Hispanic. Variable names for race is listed as follows:</p>
+<p>In the original dataset, there was no Hispanic-Other category.
+Ethnicity is distinguished from race and is based on the ethnicity of
+the mother. Ethnicity distinguishes individuals of Spanish origin
+regardless of race. Race was self-reported.</p>
+</div>
+<div id="financial-plans" class="section level4">
+<h4>Financial Plans</h4>
+<p>Financial Plan categories were determined by the categories that were
+found in both the Induced Abortion and Live Birth data. Ratios were not
+calculated in the original dataset, so the rates had to be calculated
+ourselves. Rates were calculated by using abortion count data as the
+numerator over the number of live births as the denominator multiplied
+by 1000. As a result the outcome is operationalized as the abortion rate
+per 1000 live births. The final variable names include:</p>
+<ul>
+<li><code>Medicaid</code></li>
+<li><code>Other_insurance</code></li>
+<li><code>self_pay</code></li>
+<li><code>not stated</code></li>
+</ul>
+<p>The technical notes in the dataset did not specify which plans were
+included under <code>other_insurance</code>.</p>
+<p>After individual datasets were tidied, they were merged into a final
+dataset which was then saved and exported to our project repository.
+These steps were necessary to ensure that the code was readable and
+reproducible.</p>
+</div>
 </div>
 <div id="exploratory-analysis" class="section level2">
 <h2>Exploratory analysis</h2>
-<p>Visualizations, summaries, and exploratory statistical analyses.
-Justify the steps you took, and show any major changes to your ideas.
-(Maisie?)</p>
+</div>
+<div id="nyc-analysis" class="section level2">
+<h2>NYC Analysis:</h2>
+<div id="age-1" class="section level4">
+<h4>Age:</h4>
+<p>We wanted to see how the abortion rates differed across different age
+categories for the different boroughs in NYC, in relation to the NYC
+total as well as the NY state total. To do so, we used
+<code>plotly</code> to create a bar chart to output the different
+regions besides each other.</p>
+<ul>
+<li>The highest rates was found in Manhattan among those who are less
+than 20 years old with a rate of 1964.9 induced abortions per 1000 live
+births.</li>
+<li>The second highest rate is was found among those less than 20 year
+old in Queens with a rate of 1780.1 induced abortions per 1000 live
+births.</li>
+<li><strong>Overall, the rate of abortions seem to decrease with age.
+Across the age categories, it appears that Staten Island, New York
+State, and Brooklyn seemed to have lower abortion rates. </strong></li>
+</ul>
+<p>Originally, we created individual plots for each borough, but we
+decided to combine all of the graphs in <code>plotly</code> to create a
+more cohesive website. The selection feature of <code>plotly</code>
+allows users to select regions they would like to compare. Additionally,
+we decided to add totals for both New York City and New York State to
+visually see the differences between boroughs and the totals.</p>
+</div>
+<div id="finance" class="section level4">
+<h4>Finance:</h4>
+<p>We wanted to see how abortion rates differed across different
+financial plans for the different boroughs in NYC, in relation to the
+NYC total as well as the NY state total. To do so, we used
+<code>plotly</code> to create a bar chart to output the rates by the
+different regions.</p>
+<ul>
+<li>The highest rates were found in Manhattan among those with “Other
+insurance” with a rate of 62.86k induced abortions per 1000 live
+births.</li>
+<li><strong>The rates were highest among those with “Other insurance”
+and second highest among those with “self_pay.” Rates were lowest among
+those with Medicaid. </strong></li>
+</ul>
+</div>
+<div id="race-1" class="section level4">
+<h4>Race:</h4>
+<p>We wanted to see how abortion rates differed across races for the
+different boroughs in NYC, in relation to the NYC total as well as the
+NY state total. To do so, we used <code>plotly</code> to create two bar
+charts to output the rates by the different regions. The two plots are
+divided by those who are Hispanic vs. Non-Hispanic. Two plots were
+created for a cleaner output and better see the differences with each
+race.</p>
+<ul>
+<li><p>Non-Hispanic Individuals:</p>
+<ul>
+<li>The highest rates were found in the Bronx among those who identify
+as Non-Hispanic-Black Only with a rate of 1228.3 induced abortions per
+1000 live births.</li>
+<li>The lowest rate was found among Non-Hispanic White Only individuals
+in Brooklyn with a rate of 88.6 induced abortions per 1000 live
+births.</li>
+<li><strong>The rates were highest among those who were
+Non-Hispanic-Black Only.</strong></li>
+</ul></li>
+<li><p>Hispanic Individuals:</p>
+<ul>
+<li>The highest rates were found in the Bronx among those who are
+Hispanic-Black Only with a rate of 684.6 induced abortions per 1000 live
+births.</li>
+<li>The lowest rate was found among Hispanic White-Only in Queens with a
+rate of 80.4 induced abortions per 1000 live births.</li>
+<li><strong>The rates were generally higher among those who were
+Hispanic-Black Only in comparison to those who were Hispanic White-Only.
+</strong></li>
+</ul></li>
+</ul>
+</div>
+<div id="year" class="section level4">
+<h4>Year:</h4>
+<p>We wanted to see how abortion rates differed across the years for the
+different boroughs in NYC, in relation to the NYC total as well as the
+NY state total. To do so, we used <code>plotly</code> to create a line
+plot to output the rates by the different regions.</p>
+<ul>
+<li>From the plot, it is evident that <strong>rates are generally
+decreasing from 2014-2019.</strong></li>
+</ul>
+<p>It is important to note that Staten Island had a noticeable increase
+and decrease of rates in 2016. This is likely due to an external factor,
+like a policy change. However, Staten Island had the lowest rates for
+most years in relation to the other boroughs overall. Bronx had the
+highest rates between 2014-2019.</p>
+</div>
+</div>
+<div id="ny-state-analysis" class="section level2">
+<h2>NY State Analysis</h2>
 </div>
 <div id="statistical-analysis" class="section level2">
 <h2>Statistical Analysis</h2>
@@ -473,6 +716,8 @@ the data can you make?</p>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -510,6 +755,35 @@ $(document).ready(function () {
 });
 </script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
