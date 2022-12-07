@@ -126,4 +126,4 @@ abortion_finance_plot =
 abortion_finance_plot
 ```
 
-The highest rates is found among those in Manhattan among those who are less than 20 years old with a rate of  induced abortions to 1000 live births. The second highest rates is similarly found among those less than 20 year olds in Queens with a rate of 1780.1 induced abortions to 1000 live births. Overall, the rate of abortion seems to decrease with age. Across the age categories, it seems that Staten Islan, New York State, and Brooklyn seemed to have lower abortion rates. 
+The highest rates is found among those in Manhattan among those with "Other insurance" with a rate of 62.86k induced abortions per 1000 live births. The rates were highest among those with "Other insurance" and second highest among those with "self_pay." Rates were lowest among those with Medicaid. 
