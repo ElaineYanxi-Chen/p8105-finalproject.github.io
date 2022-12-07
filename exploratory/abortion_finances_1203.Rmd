@@ -110,6 +110,8 @@ write_csv(merged_data, file = "data/abortion_finance.csv")
 
 ggplot: induced abortion vs financial plans
 
+We wanted to see how abortion rates differed across different financial plans for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used plotly to create a barchart to output the rates by the different regions. 
+
 ```{r viz_finance}
 abortion_finance_plot = 
   merged_data %>%
@@ -123,3 +125,5 @@ abortion_finance_plot =
   layout(title = 'Abortions in NYC by Financial Plan', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
 abortion_finance_plot
 ```
+
+The highest rates is found among those in Manhattan among those who are less than 20 years old with a rate of  induced abortions to 1000 live births. The second highest rates is similarly found among those less than 20 year olds in Queens with a rate of 1780.1 induced abortions to 1000 live births. Overall, the rate of abortion seems to decrease with age. Across the age categories, it seems that Staten Islan, New York State, and Brooklyn seemed to have lower abortion rates. 
