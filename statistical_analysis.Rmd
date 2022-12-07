@@ -3,7 +3,9 @@ title: "Statistical Analysis of Abortion Trends Among NYC and Compared to NY Sta
 output: 
   html_document:
     toc: true
-    toc_float: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
 
 ```{r setup, message=FALSE, include=FALSE}
@@ -183,4 +185,5 @@ x_crit
 - From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** 
 
 - The data provides sufficient evidence to support the hypothesis that the number of abortions in each finance category across borough is different.
+
 

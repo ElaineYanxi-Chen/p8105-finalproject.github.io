@@ -1,6 +1,5 @@
 ---
 title: "Abortion Trends in New York City"
-code_folding: hide
 ---
 <center>
 <img src="images/abortion_background.jpeg" style = "wdith:75%">
