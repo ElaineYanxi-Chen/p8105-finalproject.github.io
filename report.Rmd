@@ -49,8 +49,7 @@ We were unable to find a comprehensive dataset that included every factor we wer
 # Data
 
 
-## Source: Vital Statistics of New York State
-
+## Source
 
 For this project, we will use data from [Vital Statistics of New York State 2014-2019](https://www.health.ny.gov/statistics/vital_statistics/) (Individual data sets) which consists of group-level data from New York City and New York State. 
 
@@ -128,7 +127,7 @@ The technical notes in the dataset did not specify which plans were included und
 After individual datasets were tidied, they were merged into a final dataset which was then saved and exported to our project repository. These steps were necessary to ensure that the code was readable and reproducible. 
 
 
-## Exploratory analysis
+# Exploratory analysis
 
 
 
@@ -180,13 +179,13 @@ It is important to note that Staten Island had a noticeable increase and decreas
 ## NY State Analysis 
 
 
-## Statistical Analysis
+# Statistical Analysis
 
 
 If you undertake formal statistical analyses, describe these in detail
 
 
-## Discussion
+# Discussion
 
 
 What were your findings? Are they what you expect? What insights into the data can you make?
