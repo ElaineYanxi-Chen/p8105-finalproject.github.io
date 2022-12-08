@@ -186,7 +186,12 @@ merge_age_race =
 
 merge_final = 
   full_join(merge_age_race, merged_data, by = "borough") %>%
-  select(-total.x)
+  select(-total.x) %>%
+  filter(!row_number() %in% c(25, 63, 64)) %>%
+  mutate(
+    other_insurance = na_if(other_insurance, "Inf"),
+    not_stated = na_if(not_stated, "Inf")
+  )
 
 write_csv(merge_final, file = "data/master.csv")
 
