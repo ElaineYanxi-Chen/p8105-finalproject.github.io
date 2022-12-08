@@ -1,0 +1,146 @@
+---
+title: "Exploratory Analysis of Abortion Trend in the Five Boroughs of NYC "
+---
+
+```{r, message = FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(janitor)
+library(ggridges)
+library(patchwork)
+library(plotly)
+
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+### *Total*
+
+```{r NY year}
+NY_year = read_csv("data/NY_year.csv")
+
+plot_borough_year = 
+  NY_year %>% 
+  mutate(borough = fct_reorder(borough, total)) %>% 
+  plot_ly(
+    y = ~total, x = ~year, color = ~borough, 
+    type = "scatter", mode = "line", colors = "viridis") %>% 
+   layout(
+     title = 'Induced Abortions Year by Borough', 
+     xaxis = list(title = "Year"),
+     yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
+
+plot_borough_year
+```
+
+
+### *Age*
+
+```{r NY age}
+ny_age = read_csv("data/NY_age.csv")
+
+abortion_age_plot = 
+  ny_age %>%
+  select(-total) %>% 
+  pivot_longer(
+    age_less_20:age_plus_40,
+    names_to = "age", 
+    values_to = "abortion",
+    names_prefix = "age_"
+  ) %>% 
+  mutate(
+    age = replace(age, age == "less_20", "<20"),
+    age = replace(age, age == "20_24", "20-24"),
+    age = replace(age, age == "25_29", "25-29"),
+    age = replace(age, age == "30_34", "30-34"),
+    age = replace(age, age == "35_39", "35-39"),
+    age = replace(age, age == "plus_40", "40+"),
+    age = factor(age)
+    ) %>% 
+  plot_ly(
+    x = ~age, y = ~abortion, color = ~borough, 
+    type = "bar", colors = "viridis") %>% 
+  layout(
+    title = 'Abortions in NY State by Age', 
+    xaxis = list(title = "Age (Years)"),
+    yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
+
+abortion_age_plot
+```
+
+
+### Race
+
+```{r}
+ny_race_nh = read_csv("data/NY_race_nh.csv")
+
+abortion_race_nhplot = 
+  ny_race_nh %>%
+  select(-total) %>%
+  pivot_longer(
+    non_hispanic_count:nh_other_count,
+    names_to = "race", 
+    values_to = "abortion"
+  ) %>%
+  mutate(
+    race = replace(race, race == "non_hispanic_count", "Total"),
+    race = replace(race, race == "nh_white_only_count", "White Only"),
+    race = replace(race, race == "nh_black_only_count", "Black Only"),
+    race = replace(race, race == "nh_other_count", "Other"),
+    race = factor(race)
+    ) %>% 
+  plot_ly(
+    x = ~race, y = ~abortion, color = ~borough, 
+    type = "bar", colors = "viridis") %>% 
+  layout(
+    title = "Abortion Ratios by Non-Hispanic Race for Boroughs and New York State", 
+    xaxis = list(title = "Race"),
+    yaxis = list(title = "Number of Induced Abortions per 1,000 Live Births"))
+
+abortion_race_nhplot
+```
+
+
+
+```{r}
+ny_race_h = read_csv("data/NY_race_h.csv")
+
+abortion_race_hplot = 
+  ny_race_h %>%
+  select(-total) %>%
+  pivot_longer(
+    hispanic_count:h_black_only_count,
+    names_to = "race", 
+    values_to = "abortion"
+  ) %>%
+   mutate(
+    race = replace(race, race == "hispanic_count", "Total"),
+    race = replace(race, race == "h_white_only_count", "White Only"),
+    race = replace(race, race == "H_black_only_count", "Black Only"),
+    race = factor(race)
+    ) %>% 
+  plot_ly(
+    x = ~race, y = ~abortion, color = ~borough, 
+    type = "bar", colors = "viridis") %>% 
+  layout(
+    title = "Abortion Ratios by Hispanic Race for NY Sate", 
+    xaxis = list(title = "Race"),
+    yaxis = list(title = "Number of Induced Abortions per 1,000 Live Births"))
+
+abortion_race_hplot
+```
+
+
