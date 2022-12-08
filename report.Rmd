@@ -53,9 +53,9 @@ We were unable to find a comprehensive dataset that included every factor we wer
 
 For this project, we will use data from [Vital Statistics of New York State 2014-2019](https://www.health.ny.gov/statistics/vital_statistics/) (Individual data sets) which consists of group-level data from New York City and New York State. 
 
-- The data was collected from the New York State Bureau of Vital Records who maintains a registry of all births, marriages, divorces/disolutions of marriage, deaths, induced termination of pregnancy/abortions, and fetal deaths that have occurred in New York State. 
+- The data wered collected from the New York State Bureau of Vital Records who maintains a registry of all births, marriages, divorces/dissolutions of marriage, deaths, induced termination of pregnancy/abortions, and fetal deaths that have occurred in New York State. 
 
-- The [New York City Department of Health and Mental Hygiene](https://www.health.ny.gov/health_care/medicaid/redesign/ehr/registry/nycdohmh.htm) sends data on on live births, deaths, fetal deaths, induced terminations of pregnancy/abortions (abortion), marriages, and divorces/disolutions of marriage recorded in New York City to the New York State Department of Health. 
+- The [New York City Department of Health and Mental Hygiene](https://www.health.ny.gov/health_care/medicaid/redesign/ehr/registry/nycdohmh.htm) sends data on on live births, deaths, fetal deaths, induced terminations of pregnancy/abortions (abortion), marriages, and divorces/dissolutions of marriage recorded in New York City to the New York State Department of Health. 
 
 - The New York State Department of Health receives data on live births and deaths recorded outside of New York State to residents of New York State from other states and Canada.
 
@@ -98,7 +98,7 @@ Specific data cleaning processes for each covariate is listed below.
 
 #### Age
 
-Abortion Ratios had to be manually calculated for Regions in NY, but did not have to be calculated manually for boroughs in NYC. We operationalized regions in NY differently from the original dataset. Rates were calculated by using abortion count data as the numerator over the number of live births as the denominator multiplied by 1000. As a result the outcome is operationalized as the abortion rate per 1000 live births, stratified by age categories. Age was categorized as follows:
+Abortion ratios had to be manually calculated for Regions in NY, but did not have to be calculated manually for boroughs in NYC. We operationalized regions in NY differently from the original dataset. Rates were calculated by using abortion count data as the numerator over the number of live births as the denominator multiplied by 1000. As a result the outcome is operationalized as the abortion rate per 1000 live births, stratified by age categories. Age was categorized as follows:
 
 - `age_less_20`
 - `age_20_24`
