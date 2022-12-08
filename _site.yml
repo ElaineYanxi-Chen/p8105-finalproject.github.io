@@ -10,9 +10,9 @@ navbar:
     - text: "Exploratory Analysis"
       menu: 
         - text: "New York State Analysis"
-          href: exploratory_analysis.html
+          href: ny_exploratory_analysis.html
         - text: "New York City"
-          href: exploratory_analysis.html
+          href: nyc_exploratory_analysis.html
     - text: "Report"
       href: report.html
     - text: "About"
@@ -22,7 +22,7 @@ navbar:
         - text: "Project Proposal"
           href: proposal.html
     - icon: fa-envelope fa-lg
-      href: mailto:<yc4017@cumc.columbia.edu>
+      href: mailto: <yc4017@cumc.columbia.edu>
     - icon: fa-github fa-lg
       href: https://github.com/ElaineYanxi-Chen/p8105-finalproject.github.io.git
 output:
