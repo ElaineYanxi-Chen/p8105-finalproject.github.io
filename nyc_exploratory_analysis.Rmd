@@ -223,6 +223,3 @@ What does it mean other insurance? Employer insurance? Or self-thought insurance
 The highest rates is found among those in Manhattan among those with "Other insurance" with a rate of 62.86k induced abortions per 1000 live births. The rates were highest among those with "Other insurance" and second highest among those with "self_pay." Rates were lowest among those with Medicaid. 
 
 
-## New York State
-
-
