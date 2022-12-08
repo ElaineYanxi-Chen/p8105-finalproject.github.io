@@ -5,14 +5,14 @@ navbar:
   right:
     - text: "Overview"
       href: index.html
-    - text: "Statistical Analysis"
-      href: statistical_analysis.html
     - text: "Exploratory Analysis"
       menu: 
         - text: "New York State Analysis"
           href: ny_exploratory_analysis.html
         - text: "New York City"
           href: nyc_exploratory_analysis.html
+    - text: "Statistical Analysis"
+      href: statistical_analysis.html
     - text: "Report"
       href: report.html
     - text: "About"

@@ -14,6 +14,10 @@ output:
 
 In 2019, many conservative states raced to enact an unprecedented wave on bans on abortions that have severely restricted women’s reproductive rights. These restrictions have culminated with the recent Supreme Court overturning of Roe v. Wade, a landmark supreme court case granting a women’s right to an abortion. 
 
+<img src="images/2019_abortion.jpg" style = "width:70%">
+
+Source: [Guttmacher Institute](https://www.guttmacher.org/article/2019/12/state-policy-trends-2019-wave-abortion-bans-some-states-are-fighting-back)
+
 Since then, access to abortion has been significantly compromised and even banned in several states across the country. Those that are likely to be most impacted by this decision are individuals that belong to under-served and marginalized communities. Changes in policies could potentially lead to a variation in abortion trends in the country over time.  We want to explore these trends to understand the implications of policy change in the country concerning reproductive rights. 
 
 Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the numbers of induced abortions in New York City, specifically, and compare the differences across the boroughs. 
@@ -28,7 +32,7 @@ Anything that inspired you, such as a paper, a web site, or something we discuss
 # Initial questions
 
 
-Originally, we wanted to conduct a comparative analysis of abortion rates in New York and Mississppi from 2017-2020 with the following questions:
+Originally, we wanted to conduct a comparative analysis of abortion rates in New York and Mississippi from 2017-2020 with the following questions:
 
 * Have abortion rates changed over time (2017 to 2020)?
 * What does the distribution of abortion rates between counties within New York and Mississippi look like?
@@ -79,7 +83,9 @@ We renamed variable names for the different counties in New York City to the nam
 - `Queens`
 - `Staten Island` 
 
-Data on New York was obtained from the same dataset, and counties were recoded into regions based on categories set by New York State using `transform`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when adjusting the model for covariates. As a result, the categories helped ensure a sufficient sample size. The final regions included in the dataset for New York State includes:
+Data on New York State were obtained from the same dataset, and counties were recoded into regions based on categories set by New York State using `transform`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when adjusting the model for covariates. As a result, the categories helped ensure a sufficient sample size. 
+
+The final regions included in the dataset for New York State includes:
 
 - `Central New York`
 - `Eastern Adirondacks`
@@ -94,11 +100,13 @@ Data on New York was obtained from the same dataset, and counties were recoded i
 
 The regions were created based on this [website](https://statejobs.ny.gov/assets/help/regionMapText.cfm)
 
-Specific data cleaning processes for each covariate is listed below.
+Abortion rates were calculated for regions within NY State, while for NYC they were already available as rates. Rates were calculated by using the following formula: 
+$$Abortion\ Rate\ per\ 1000 = \frac{Count}{Number\ of\ Live\ Births} \times 1000$$ 
+Specific data cleaning processes for the covariates are listed below.
 
 #### Age
 
-Abortion ratios had to be manually calculated for Regions in NY, but did not have to be calculated manually for boroughs in NYC. We operationalized regions in NY differently from the original dataset. Rates were calculated by using abortion count data as the numerator over the number of live births as the denominator multiplied by 1000. As a result the outcome is operationalized as the abortion rate per 1000 live births, stratified by age categories. Age was categorized as follows:
+Age was categorized as follows:
 
 - `age_less_20`
 - `age_20_24`
@@ -107,54 +115,56 @@ Abortion ratios had to be manually calculated for Regions in NY, but did not hav
 - `age_35_39`
 - `age_plus_40`
 
-#### Race
+```{r}
+# insert table??
+```
 
-Abortion Ratios had to be manually calculated for Regions in NY, but did not have to be calculated manually for boroughs in NYC. We operationalized regions in NY differently from the original dataset. Rates were calculated by using abortion count data as the numerator over the number of live births as the denominator multiplied by 1000. As a result the outcome is operationalized as the abortion rate per 1000 live births, stratified by race. Race was broken down into Non-Hispanic vs. Hispanic. Variable names for race is listed as follows:
 
-In the original dataset, there was no Hispanic-Other category. Ethnicity is distinguished from race and is based on the ethnicity of the mother. Ethnicity distinguishes individuals of Spanish origin regardless of race. Race was self-reported. 
+#### Race/Ethnicity
+
+Race/Ethnicity was broken down into the following categories:
+
+- `Non-Hispanic White`
+- `Non-Hispanic Black` 
+
+Ethnicity is distinguished from race and is based on the ethnicity of the mother. Ethnicity distinguishes individuals of Spanish origin regardless of race. Race was self-reported. 
  
-#### Financial Plans
+#### Financial Plan Status
 
-Financial Plan categories were determined by the categories that were found in both the Induced Abortion and Live Birth data. Ratios were not calculated in the original dataset, so the rates had to be calculated ourselves. Rates were calculated by using abortion count data as the numerator over the number of live births as the denominator multiplied by 1000. As a result the outcome is operationalized as the abortion rate per 1000 live births. The final variable names include:
+The final variable names include:
 
 - `Medicaid`
 - `Other_insurance`
 - `self_pay`
 - `not stated`
 
-The technical notes in the dataset did not specify which plans were included under `other_insurance`. 
+The technical notes in the dataset did not specify which plans were included under the `other_insurance` category. 
 
 After individual datasets were tidied, they were merged into a final dataset which was then saved and exported to our project repository. These steps were necessary to ensure that the code was readable and reproducible. 
 
 
 # Exploratory analysis
 
+Our exploratory analysis was split into two categories - [New York State](ny_exploratory_analysis.html) and [New York City](nyc_exploratory_analysis.html). We analyzed how abortion rates may have different across different categories of our covariates (Age, Race/Ethnicity and Financial Plan Status), using plots. 
 
-
-## NYC Analysis:
-
+## NYC Analysis Results:
 
 
 #### Age:
 
-We wanted to see how the abortion rates differed across different age categories for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used `plotly` to create a bar chart to output the different regions besides each other. 
-
 - The highest rates was found in Manhattan among those who are less than 20 years old with a rate of 1964.9 induced abortions per 1000 live births. 
-- The second highest rate is was found among those less than 20 year old in Queens with a rate of 1780.1 induced abortions per 1000 live births. 
-- **Overall, the rate of abortions seem to decrease with age. Across the age categories, it appears that Staten Island, New York State, and Brooklyn seemed to have lower abortion rates. **
 
-Originally, we created individual plots for each borough, but we decided to combine all of the graphs in `plotly` to create a more cohesive website. The selection feature of `plotly` allows users to select regions they would like to compare. Additionally, we decided to add totals for both New York City and New York State to visually see the differences between boroughs and the totals. 
+- The second highest rate is was found among those less than 20 year old in Queens with a rate of 1780.1 induced abortions per 1000 live births. 
+
+- **Overall, the rate of abortions seem to decrease with age. Across the age categories, it appears that Staten Island, New York State, and Brooklyn seemed to have lower abortion rates. **
 
 #### Finance:
 
-We wanted to see how abortion rates differed across different financial plans for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used `plotly` to create a bar chart to output the rates by the different regions. 
-
 - The highest rates were found in Manhattan among those with "Other insurance" with a rate of 62.86k induced abortions per 1000 live births. 
+
 - **The rates were highest among those with "Other insurance" and second highest among those with "self_pay." Rates were lowest among those with Medicaid. **
 
 #### Race:
-
-We wanted to see how abortion rates differed across races for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used `plotly` to create two bar charts to output the rates by the different regions. The two plots are divided by those who are Hispanic vs. Non-Hispanic. Two plots were created for a cleaner output and better see the differences with each race.
 
 - Non-Hispanic Individuals: 
 
@@ -170,19 +180,19 @@ We wanted to see how abortion rates differed across races for the different boro
 
 #### Year:
 
-We wanted to see how abortion rates differed across the years for the different boroughs in NYC, in relation to the NYC total as well as the NY state total. To do so, we used `plotly` to create a line plot to output the rates by the different regions.
-
 - From the plot, it is evident that **rates are generally decreasing from 2014-2019.** 
 
 It is important to note that Staten Island had a noticeable increase and decrease of rates in 2016. This is likely due to an external factor, like a policy change. However, Staten Island had the lowest rates for most years in relation to the other boroughs overall. Bronx had the highest rates between 2014-2019. 
 
-## NY State Analysis 
+## NY State Analysis Results 
 
 
 # Statistical Analysis
 
 
 If you undertake formal statistical analyses, describe these in detail
+
+# Limiations 
 
 
 # Discussion
