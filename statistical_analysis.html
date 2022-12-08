@@ -414,76 +414,9 @@ Among NYC and Compared to NY State</h1>
 </div>
 
 
-<div id="abortions-rates-comparing-nyc-and-ny-state"
-class="section level2">
-<h2>Abortions Rates Comparing NYC and NY State</h2>
-<div id="proportion-t-test" class="section level3">
-<h3><em>Proportion T-test</em></h3>
-<p><strong>Do overall abortion rates differ between NYC and NY
-state?</strong></p>
-<p><strong><span class="math inline">\(H_0\)</span></strong>: The number
-of abortions per 1000 births is the same between NYC and NY state.</p>
-<p><strong><span class="math inline">\(H_1\)</span></strong>: The number
-of abortions per 1000 births differs between NYC and NY state.</p>
-<pre class="r"><code># Tidy data
-abortion_totals =
-  abortion_data %&gt;%
-  select(borough, total) %&gt;%
-  head(2) %&gt;%
-  mutate(
-    n = total,
-    total = 1000)
-
-abortion_totals %&gt;% 
-  select (-total) %&gt;%
-  knitr::kable(caption = &quot;Proportion T-Test Results for NYC and NYS&quot;, col.names = c(&quot;Region&quot;, &quot;Abortions per 1000 births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
-<table>
-<caption>Proportion T-Test Results for NYC and NYS</caption>
-<thead>
-<tr class="header">
-<th align="left">Region</th>
-<th align="center">Abortions per 1000 births</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">New York State</td>
-<td align="center">336.5</td>
-</tr>
-<tr class="even">
-<td align="left">New York City</td>
-<td align="center">450.5</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code># Run prop t-test
-prop.test(abortion_totals$n, abortion_totals$total,
-          p = NULL, alternative = &quot;two.sided&quot;)</code></pre>
-<pre><code>## 
-##  2-sample test for equality of proportions with continuity correction
-## 
-## data:  abortion_totals$n out of abortion_totals$total
-## X-squared = 26.752, df = 1, p-value = 2.313e-07
-## alternative hypothesis: two.sided
-## 95 percent confidence interval:
-##  -0.15752794 -0.07047206
-## sample estimates:
-## prop 1 prop 2 
-## 0.3365 0.4505</code></pre>
-<p><strong>Inference:</strong></p>
-<ul>
-<li><p>From the above results, the p-value is <strong>less than the 5%
-level of significance.</strong> Therefore, we <strong>reject the null
-hypothesis.</strong></p></li>
-<li><p>The data provides sufficient evidence to support the hypothesis
-that the number of abortions per 1000 births differs between NYC and NY
-state.</p></li>
-</ul>
-</div>
-</div>
 <div id="abortion-trends-in-nyc" class="section level2">
 <h2>Abortion Trends in NYC</h2>
-<div id="proportion-t-test-1" class="section level3">
+<div id="proportion-t-test" class="section level3">
 <h3><em>Proportion T-Test</em></h3>
 <p><strong>Do overall abortion rates differ across
 boroughs?</strong></p>
@@ -772,6 +705,463 @@ null hypothesis.</strong></p></li>
 <li><p>The data provides sufficient evidence to support the hypothesis
 that the number of abortions in each finance category across borough is
 different.</p></li>
+</ul>
+</div>
+</div>
+<div id="abortion-trends-in-ny-state" class="section level2">
+<h2><em>Abortion Trends in NY State</em></h2>
+<p><em>Proportion Test</em></p>
+<p>Do overall abortion rates differ across NY state regions?</p>
+<p>H0: The number of abortions per 1000 live births is the same across
+all NY state regions.</p>
+<p>H1: The number of abortions per 1000 live births is not the same
+across all NY state regions.</p>
+<pre class="r"><code># Tidy data
+NY_totals_borough =
+  NY_finance %&gt;%
+  select(borough, total) %&gt;%
+  mutate(
+    n = total,
+    total = 1000)
+
+NY_totals_borough %&gt;% 
+  knitr::kable(caption = &quot;Results Table&quot;)</code></pre>
+<table>
+<caption>Results Table</caption>
+<thead>
+<tr class="header">
+<th align="left">borough</th>
+<th align="right">total</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Central New York</td>
+<td align="right">1000</td>
+<td align="right">261.37925</td>
+</tr>
+<tr class="even">
+<td align="left">Eastern Adirondacks</td>
+<td align="right">1000</td>
+<td align="right">88.07588</td>
+</tr>
+<tr class="odd">
+<td align="left">Finger Lakes</td>
+<td align="right">1000</td>
+<td align="right">255.66224</td>
+</tr>
+<tr class="even">
+<td align="left">Hudson Valley</td>
+<td align="right">1000</td>
+<td align="right">232.98933</td>
+</tr>
+<tr class="odd">
+<td align="left">Long Island</td>
+<td align="right">1000</td>
+<td align="right">195.85844</td>
+</tr>
+<tr class="even">
+<td align="left">New York City</td>
+<td align="right">1000</td>
+<td align="right">450.46695</td>
+</tr>
+<tr class="odd">
+<td align="left">Saratoga</td>
+<td align="right">1000</td>
+<td align="right">289.10482</td>
+</tr>
+<tr class="even">
+<td align="left">Westchester/Rockland</td>
+<td align="right">1000</td>
+<td align="right">238.36949</td>
+</tr>
+<tr class="odd">
+<td align="left">Western Adirondacks</td>
+<td align="right">1000</td>
+<td align="right">164.56714</td>
+</tr>
+<tr class="even">
+<td align="left">Western New York</td>
+<td align="right">1000</td>
+<td align="right">270.46263</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Run 10 prop t-test
+prop.test(NY_totals_borough$n, NY_totals_borough$total,
+          p = NULL, alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  10-sample test for equality of proportions without continuity
+##  correction
+## 
+## data:  NY_totals_borough$n out of NY_totals_borough$total
+## X-squared = 426.85, df = 9, p-value &lt; 2.2e-16
+## alternative hypothesis: two.sided
+## sample estimates:
+##     prop 1     prop 2     prop 3     prop 4     prop 5     prop 6     prop 7 
+## 0.26137925 0.08807588 0.25566224 0.23298933 0.19585844 0.45046695 0.28910482 
+##     prop 8     prop 9    prop 10 
+## 0.23836949 0.16456714 0.27046263</code></pre>
+<p>From the above results, the p-value is less than the 5% level of
+significance. Therefore, we reject the null hypothesis. The data
+provides sufficient evidence to support the hypothesis that the number
+of abortions per 1000 live births differs across NY state regions.</p>
+<p><em>Chi Square Test - Race and NY State Regions</em></p>
+<p>Do overall abortion rates differ across NY state regions by race?</p>
+<p>H0: The expected counts of abortions per 1000 live births in each
+race category are the same across all NY state regions.</p>
+<p>H1: The expected counts of abortions per 1000 live births in each
+race category are not the same across all NY state regions.</p>
+<pre class="r"><code># Tidy data
+NY_race_clean = 
+  NY_race %&gt;%
+  slice(3:7) %&gt;%
+  mutate(
+    hispanic = hispanic*1000,
+    h_white_only = h_white_only*1000,
+    h_black_only = h_black_only*1000,
+    non_hispanic = non_hispanic*1000,
+    nh_white_only = nh_white_only*1000,
+    nh_black_only = nh_black_only*1000,
+    nh_other = nh_other*1000
+  ) %&gt;%
+  select(-total)
+
+abortion_race_clean %&gt;% 
+  knitr::kable(caption = &quot;Results Table&quot;)</code></pre>
+<table style="width:100%;">
+<caption>Results Table</caption>
+<colgroup>
+<col width="10%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="16%" />
+<col width="16%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">hispanic</th>
+<th align="right">h_white_only</th>
+<th align="right">h_black_only</th>
+<th align="right">non_hispanic</th>
+<th align="right">nh_white_only</th>
+<th align="right">nh_black_only</th>
+<th align="right">nh_other</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">500200</td>
+<td align="right">172200</td>
+<td align="right">684600</td>
+<td align="right">786600</td>
+<td align="right">369800</td>
+<td align="right">734300</td>
+<td align="right">419300</td>
+</tr>
+<tr class="even">
+<td align="right">393100</td>
+<td align="right">214200</td>
+<td align="right">432000</td>
+<td align="right">343700</td>
+<td align="right">88600</td>
+<td align="right">837700</td>
+<td align="right">162500</td>
+</tr>
+<tr class="odd">
+<td align="right">519800</td>
+<td align="right">220600</td>
+<td align="right">601400</td>
+<td align="right">542900</td>
+<td align="right">320800</td>
+<td align="right">1228300</td>
+<td align="right">253200</td>
+</tr>
+<tr class="even">
+<td align="right">329400</td>
+<td align="right">80400</td>
+<td align="right">287400</td>
+<td align="right">494200</td>
+<td align="right">155000</td>
+<td align="right">895100</td>
+<td align="right">273100</td>
+</tr>
+<tr class="odd">
+<td align="right">311700</td>
+<td align="right">377900</td>
+<td align="right">311800</td>
+<td align="right">264700</td>
+<td align="right">137900</td>
+<td align="right">692200</td>
+<td align="right">142900</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># To check:
+# Should we still run a chi-sq for RACE by NY regions and AGE by NY regions since there are so many null values?</code></pre>
+<p><em>Chi Square Test - Finance Plans and NY State Regions</em></p>
+<p>Do overall abortion rates differ across boroughs by finance plan?</p>
+<p>H0: The expected counts of abortions per 1000 lives birth in each
+finance plan category are the same across all NY state regions.</p>
+<p>H1: The expected counts of abortions per 1000 live births in each
+finance plan category are not the same across all NY state regions.</p>
+<pre class="r"><code># Tidy data
+NY_finance_clean = 
+  NY_finance %&gt;%
+  slice(3:7) %&gt;%
+  mutate(
+    medicaid = medicaid*1000,
+    self_pay = self_pay*1000,
+    other_insurance = other_insurance*1000,
+    not_stated = not_stated*1000
+  ) %&gt;%
+  select(-total)
+
+NY_finance_clean %&gt;% 
+  knitr::kable(caption = &quot;Results Table&quot;)</code></pre>
+<table>
+<caption>Results Table</caption>
+<thead>
+<tr class="header">
+<th align="left">borough</th>
+<th align="right">medicaid</th>
+<th align="right">self_pay</th>
+<th align="right">other_insurance</th>
+<th align="right">not_stated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Finger Lakes</td>
+<td align="right">240162.6</td>
+<td align="right">123173.3</td>
+<td align="right">1886076</td>
+<td align="right">20950000</td>
+</tr>
+<tr class="even">
+<td align="left">Hudson Valley</td>
+<td align="right">175379.7</td>
+<td align="right">3315789.5</td>
+<td align="right">2962085</td>
+<td align="right">9240000</td>
+</tr>
+<tr class="odd">
+<td align="left">Long Island</td>
+<td align="right">171955.0</td>
+<td align="right">6869791.7</td>
+<td align="right">10124294</td>
+<td align="right">9162162</td>
+</tr>
+<tr class="even">
+<td align="left">New York City</td>
+<td align="right">401740.7</td>
+<td align="right">8801214.0</td>
+<td align="right">19924433</td>
+<td align="right">1477876</td>
+</tr>
+<tr class="odd">
+<td align="left">Saratoga</td>
+<td align="right">375307.1</td>
+<td align="right">827338.1</td>
+<td align="right">15058824</td>
+<td align="right">3484848</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>NY_finance_clean =
+  NY_finance_clean %&gt;%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(NY_finance_clean)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  NY_finance_clean
+## X-squared = 56143959, df = 12, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 12)
+x_crit</code></pre>
+<pre><code>## [1] 21.02607</code></pre>
+<p>From the above results, X^2 is greater than the test-statistic at the
+5% level of significance. Therefore, we reject the null hypothesis. The
+data provides sufficient evidence to support the hypothesis that the
+number of abortions per 1000 live births in each finance category across
+NY state regions is different.</p>
+<p><em>Chi Square Test - Age and NY State Regions</em></p>
+<pre class="r"><code># Tidy data
+NY_age_clean = 
+  NY_age %&gt;%
+  slice(3:7) %&gt;%
+  mutate(
+    age_less_20 = age_less_20*1000,
+    age_20_24 = age_20_24*1000,
+    age_25_29 = age_25_29*1000,
+    age_30_34 = age_30_34*1000,
+    age_35_39 = age_35_39*1000,
+    age_plus_40 = age_plus_40*1000
+  ) %&gt;%
+  select(-total)
+
+NY_age_clean %&gt;% 
+  knitr::kable(caption = &quot;Results Table&quot;)</code></pre>
+<table>
+<caption>Results Table</caption>
+<colgroup>
+<col width="17%" />
+<col width="15%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">borough</th>
+<th align="right">age_less_20</th>
+<th align="right">age_20_24</th>
+<th align="right">age_25_29</th>
+<th align="right">age_30_34</th>
+<th align="right">age_35_39</th>
+<th align="right">age_plus_40</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Finger Lakes</td>
+<td align="right">28636364</td>
+<td align="right">4231884</td>
+<td align="right">1853088</td>
+<td align="right">NA</td>
+<td align="right">216478.7</td>
+<td align="right">25710.09</td>
+</tr>
+<tr class="even">
+<td align="left">Hudson Valley</td>
+<td align="right">39857143</td>
+<td align="right">7000000</td>
+<td align="right">2134897</td>
+<td align="right">NA</td>
+<td align="right">260087.5</td>
+<td align="right">32772.10</td>
+</tr>
+<tr class="odd">
+<td align="left">Long Island</td>
+<td align="right">73857143</td>
+<td align="right">6950673</td>
+<td align="right">2370258</td>
+<td align="right">NA</td>
+<td align="right">324771.2</td>
+<td align="right">24172.55</td>
+</tr>
+<tr class="even">
+<td align="left">New York City</td>
+<td align="right">85108696</td>
+<td align="right">9905201</td>
+<td align="right">4095296</td>
+<td align="right">NA</td>
+<td align="right">490085.7</td>
+<td align="right">61933.40</td>
+</tr>
+<tr class="odd">
+<td align="left">Saratoga</td>
+<td align="right">76400000</td>
+<td align="right">6025641</td>
+<td align="right">2047826</td>
+<td align="right">266180.9</td>
+<td align="right">266180.9</td>
+<td align="right">32180.85</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>NY_age_clean =
+  NY_age_clean %&gt;%
+  select(-borough) %&gt;%
+  drop_na()
+
+# Run chi-square test
+chisq.test(NY_age_clean)</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  NY_age_clean
+## X-squared = 329666288, df = 5, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 5)
+x_crit</code></pre>
+<pre><code>## [1] 11.0705</code></pre>
+<p>From the above results, X^2 is greater than the test-statistic at the
+5% level of significance. Therefore, we reject the null hypothesis. The
+data provides sufficient evidence to support the hypothesis that the
+number of abortions per 1000 live births in each age category across NY
+state regions is different.</p>
+</div>
+<div id="abortions-rates-comparing-nyc-and-ny-state"
+class="section level2">
+<h2>Abortions Rates Comparing NYC and NY State</h2>
+<div id="proportion-t-test-1" class="section level3">
+<h3><em>Proportion T-test</em></h3>
+<p><strong>Do overall abortion rates differ between NYC and NY
+state?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The number
+of abortions per 1000 births is the same between NYC and NY state.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The number
+of abortions per 1000 births differs between NYC and NY state.</p>
+<pre class="r"><code># Tidy data
+abortion_totals =
+  abortion_data %&gt;%
+  select(borough, total) %&gt;%
+  head(2) %&gt;%
+  mutate(
+    n = total,
+    total = 1000)
+
+abortion_totals %&gt;% 
+  select (-total) %&gt;%
+  knitr::kable(caption = &quot;Proportion T-Test Results for NYC and NYS&quot;, col.names = c(&quot;Region&quot;, &quot;Abortions per 1000 births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+<table>
+<caption>Proportion T-Test Results for NYC and NYS</caption>
+<thead>
+<tr class="header">
+<th align="left">Region</th>
+<th align="center">Abortions per 1000 births</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">New York State</td>
+<td align="center">336.5</td>
+</tr>
+<tr class="even">
+<td align="left">New York City</td>
+<td align="center">450.5</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Run prop t-test
+prop.test(abortion_totals$n, abortion_totals$total,
+          p = NULL, alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  2-sample test for equality of proportions with continuity correction
+## 
+## data:  abortion_totals$n out of abortion_totals$total
+## X-squared = 26.752, df = 1, p-value = 2.313e-07
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.15752794 -0.07047206
+## sample estimates:
+## prop 1 prop 2 
+## 0.3365 0.4505</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, the p-value is <strong>less than the 5%
+level of significance.</strong> Therefore, we <strong>reject the null
+hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that the number of abortions per 1000 births differs between NYC and NY
+state.</p></li>
 </ul>
 </div>
 </div>
