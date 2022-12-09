@@ -212,7 +212,6 @@ merge_final =
   mutate(
     other_insurance = na_if(other_insurance, "Inf"),
     not_stated = na_if(not_stated, "Inf")
-<<<<<<< HEAD:exploratory/Master.Rmd
   ) %>%
   mutate(
     region = 
@@ -280,10 +279,6 @@ merge_final =
         borough == "Chautauqua" ~ "Western"
       )
   )
-=======
-  ) %>% 
-  rename(name=borough)
->>>>>>> d7c66f0563d7965e43dd544e0d1c1499055019a5:exploratory/Final/Master.Rmd
 
 write_csv(merge_final, file = "data/master.csv")
 

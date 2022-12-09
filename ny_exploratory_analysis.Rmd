@@ -28,7 +28,7 @@ scale_fill_discrete = scale_fill_viridis_d
 ```
 
 ```{r merged data}
-merged = read_csv("data/master.csv")p
+merged = read_csv("data/master.csv")
 ```
 
 ## Age 
