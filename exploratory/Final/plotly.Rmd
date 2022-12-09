@@ -38,6 +38,8 @@ scale_fill_discrete = scale_fill_viridis_d
 Importing master data that has been already cleaned. 
 
 ```{r data_import}
+setwd("C:/Users/kamonohashi/OneDrive/Documents/Columbia MPH/2022-2023/Fall/P8105/p8105-finalproject.github.io")
+
 data = read_csv(file = "./data/master.csv") %>%
   janitor::clean_names()
 
@@ -82,7 +84,7 @@ age_nyc %>%
 age_nyc
 ```
 
-From the bar plots, it is evident that those who age less than 20 have the highest abortion ratios across the boroughs in NYC in 2019. These ratios eem to decrease as age categories increase. When comparing between boroughs, Manhattan had the highest abortion ratios in categories `age_less_20` to `age_25_29`. Staten Island had the lowest abortion ratios overall, except for category `age_20_24`. The highest abortion ratio across all boroughs and age categories was for Manhattan for `age_less_20` with `r age%>%pull(age_less_20) %>% max()` induced abortions per 1,000 live births for `r age %>% filter(age_less_20 == max(age_less_20)) %>% pull(borough)`. The lowest abortion ratio across all boroughs and age categories was for Manhattan for `age_less_20` with 1964.9 induced abortions per 1,000 live births. 
+From the bar plots, it is evident that those who age less than 20 have the highest abortion ratios across the boroughs in NYC in 2019. These ratios eem to decrease as age categories increase. When comparing between boroughs, Manhattan had the highest abortion ratios in categories `age_less_20` to `age_25_29`. Staten Island had the lowest abortion ratios overall, except for category `age_20_24`. The highest abortion ratio across all boroughs and age categories was for Manhattan for `age_less_20` with `r age_nyc%>%pull(age_less_20) %>% max()` induced abortions per 1,000 live births for `r age %>% filter(age_less_20 == max(age_less_20)) %>% pull(borough)`. The lowest abortion ratio across all boroughs and age categories was for Manhattan for `age_less_20` with 1964.9 induced abortions per 1,000 live births. 
 
 #### NYC Race
 
