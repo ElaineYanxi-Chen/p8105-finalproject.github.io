@@ -35,14 +35,13 @@ ny_counties <-
   janitor::clean_names()
 
 ny_abortion = 
-  read_csv(file = "data/master.csv") %>%
+  read_csv(file = "/Users/elainechen/Documents/MPH 2022 Fall/Data Science/final_project/p8105-finalproject.github.io/data/master.csv") %>%
   janitor::clean_names() %>%
   transform(borough = gsub(pattern = "Brooklyn", replacement = "Kings", borough)) %>%
   transform(borough = gsub(pattern = "Manhattan", replacement = "New York", borough)) %>%
   transform(borough = gsub(pattern = "Staten Island", replacement = "Richmond", borough)) %>%
   transform(borough = gsub(pattern = "Essex/Hamilton", replacement = "Essex", borough)) %>%
-  transform(borough = gsub(pattern = "St Lawrence", replacement = "St. Lawrence", borough)) %>%
-  select(-name) %>% 
+  transform(borough = gsub(pattern = "St Lawrence", replacement = "St. Lawrence", borough)) %>% 
   rename(name = borough) %>% 
   mutate(total = round(total, digits = 0)) %>% 
   select(name, everything())
