@@ -126,19 +126,29 @@ Clean live birth finance
 clean_lb_finance = 
   live_birth_finance %>% 
   select(-c(4,6:8)) %>%
-  purrr::set_names(c("borough", "total", "Medicaid", "Self_Pay", "Other_Insurance", "Not_Stated")) %>%
+  purrr::set_names(c("borough", "total", "medicaid", "self_pay", "other_insurance", "not_stated")) %>%
   slice(7:11,14:70) %>%
   mutate(
     borough = str_replace(borough, "Kings", "Brooklyn"),
     borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
     borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
-    Medicaid = str_replace(Medicaid, ",", ""),
-    Other_Insurance = str_replace(Other_Insurance, ",", ""),
-    Self_Pay = str_replace(Self_Pay, ",", ""),
-    Not_Stated = str_replace(Not_Stated, ",", "")
+    medicaid = str_replace(medicaid, ",", ""),
+    other_insurance = str_replace(other_insurance, ",", ""),
+    self_pay = str_replace(self_pay, ",", ""),
+    not_stated = str_replace(not_stated, ",", "")
     ) %>%
-  mutate_at(c(2:6), as.numeric)
+  transform(borough = gsub(pattern="Essex|Hamilton", replacement="Essex/Hamilton", borough)) %>% 
+  mutate_at(c(2:6), as.numeric) %>% 
+  group_by(borough) %>%
+  summarise(
+    total = sum(total),
+    medicaid = sum(medicaid),
+    other_insurance = sum(other_insurance),
+    self_pay = sum(self_pay),
+    not_stated = sum(not_stated)
+  )
+
 ```
 
 Clean abortion finance
@@ -159,6 +169,7 @@ induced_abortion_finance %>%
     Self_Pay = str_replace(Self_Pay, ",", ""),
     Not_Stated = str_replace(Not_Stated, ",", "")
     ) %>%
+  janitor::clean_names() %>%
   mutate_at(c(2:6), as.numeric)
 ```
 
@@ -174,7 +185,8 @@ merged_data=
     other_insurance = (other_insurance_y / other_insurance_x)*1000,
     not_stated = (not_stated_y / not_stated_x)*1000,
     total = (total_y / total_x)*1000) %>% 
-select(borough, medicaid, self_pay, other_insurance, not_stated, total)  
+select(borough, medicaid, self_pay, other_insurance, not_stated, total)
+
 ```
 
 merge all dataset
@@ -196,4 +208,3 @@ merge_final =
 write_csv(merge_final, file = "data/master.csv")
 
 ```
-
