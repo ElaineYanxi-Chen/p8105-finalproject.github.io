@@ -84,7 +84,8 @@ age_plot_nys =
 age_plot_nys
 ```
 
-## Race 
+## Race/Ethnicity
+
 ```{r}
 race_plot_nys =
   merged %>% 

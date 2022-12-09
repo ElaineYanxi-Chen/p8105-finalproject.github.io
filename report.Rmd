@@ -8,6 +8,35 @@ output:
       smooth_scroll: true
 ---
 
+```{r setup, message = FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(janitor)
+library(ggridges)
+library(patchwork)
+library(plotly)
+
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+```{r merged data, message = FALSE, echo = FALSE}
+merged = read_csv("data/master.csv") %>% 
+  janitor::clean_names()
+```
 
 # Motivation
 
@@ -116,12 +145,9 @@ The final regions included in the dataset for New York State includes:
 The regions were created based on this [website](https://statejobs.ny.gov/assets/help/regionMapText.cfm)
 
 Abortion rates were calculated for regions within NY State, while for NYC they were already available as rates. Rates were calculated by using the following formula: 
-<<<<<<< HEAD
-$$Abortion\ Rate\ per\ 1000\ Live\ Births\ = \frac{Count}{Number\ of\ Live\ Births} \times 1000$$ 
-=======
-$$Abortion\ Rate\ per\ 1000 = \frac{Count}{Number\ of\ Live\ Births} \times 1000$$ 
 
->>>>>>> 8091ac569673a4151665cd14ed1919d3b8a485c5
+$$Abortion\ Rate\ per\ 1000\ Live\ Births\ = \frac{Count}{Number\ of\ Live\ Births} \times 1000$$
+
 Specific data cleaning processes for the covariates are listed below.
 
 #### Age
@@ -135,17 +161,14 @@ Age was categorized as follows:
 - `age_35_39`
 - `age_plus_40`
 
-```{r}
-# insert table??
-```
-
-
 #### Race/Ethnicity
 
 Race/Ethnicity was broken down into the following categories:
 
 - `Non-Hispanic White`
 - `Non-Hispanic Black` 
+- `Non-Hispanic Others` 
+- `Hispanic`
 
 Ethnicity is distinguished from race and is based on the ethnicity of the mother. Ethnicity distinguishes individuals of Spanish origin regardless of race. Race was self-reported. 
  
@@ -161,6 +184,28 @@ The final variable names include:
 The technical notes in the dataset did not specify which plans were included under the `other_insurance` category. 
 
 After individual datasets were tidied, they were merged into a final dataset which was then saved and exported to our project repository. These steps were necessary to ensure that the code was readable and reproducible. 
+
+### Final Dataset
+
+Here is what our final, cleaned and tidied dataset looks like: 
+
+```{r}
+final= 
+  merged %>%
+  select(borough, region, total, everything()) %>%
+  mutate_if(is.numeric,
+            round,
+            digits = 1)
+
+final_table= 
+  kableExtra::kable(cbind(final), align = 'llcccccccccccccccc', col.names = c("Borough", "Region", "Total","<20","20-24","25-29","30-34","35-39","40+", "Non-Hipanic Total", "Non-Hispanic White", "Non-Hispanic Black", "Non-Hispanic Other", "Hispanic Total", "Hispanic White", "Hispanic Black", "Medicaid", "Self-Pay", "Other Insurance", "Not Stated")) %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = "800px", height = "400px")
+
+final_table
+```
+
+
 # Exploratory analysis
 
 Our exploratory analysis was split into two categories - [New York State](ny_exploratory_analysis.html) and [New York City](nyc_exploratory_analysis.html). We analyzed how abortion rates may have different across different categories of our covariates (Age, Race/Ethnicity and Financial Plan Status), using plots. 
@@ -170,19 +215,20 @@ Our exploratory analysis was split into two categories - [New York State](ny_exp
 
 #### Age:
 
+
 - The highest rates was found in Manhattan among those who are less than 20 years old with a rate of 1964.9 induced abortions per 1000 live births. 
 
 - The second highest rate is was found among those less than 20 year old in Queens with a rate of 1780.1 induced abortions per 1000 live births. 
 
 - **Overall, the rate of abortions seem to decrease with age. Across the age categories, it appears that Staten Island, New York State, and Brooklyn seemed to have lower abortion rates. **
 
-#### Finance:
+#### Financial Plan Status:
 
 - The highest rates were found in Manhattan among those with "Other insurance" with a rate of 62.86k induced abortions per 1000 live births. 
 
 - **The rates were highest among those with "Other insurance" and second highest among those with "self_pay." Rates were lowest among those with Medicaid. **
 
-#### Race:
+#### Race/Ethnicity:
 
 - Non-Hispanic Individuals: 
 
@@ -203,6 +249,103 @@ Our exploratory analysis was split into two categories - [New York State](ny_exp
 It is important to note that Staten Island had a noticeable increase and decrease of rates in 2016. This is likely due to an external factor, like a policy change. However, Staten Island had the lowest rates for most years in relation to the other boroughs overall. Bronx had the highest rates between 2014-2019. 
 
 ## NY State Analysis Results 
+
+#### Age 
+
+```{r}
+age_nys = 
+  merged %>%
+  select(region, starts_with("age")) %>% 
+  pivot_longer(
+    age_less_20:age_plus_40,
+    names_to = "age", 
+    values_to = "abortion",
+    names_prefix = "age_"
+  ) %>% 
+  mutate(
+    age = replace(age, age == "less_20", "<20"),
+    age = replace(age, age == "20_24", "20-24"),
+    age = replace(age, age == "25_29", "25-29"),
+    age = replace(age, age == "30_34", "30-34"),
+    age = replace(age, age == "35_39", "35-39"),
+    age = replace(age, age == "plus_40", "40+"),
+    age = factor(age)
+  ) %>%
+  ggplot(aes(x = age, y = abortion, fill= region, color= region)) + 
+  geom_bar(stat = "identity", 
+           position = "dodge")+
+  theme(legend.position = "right")+
+  labs(
+    title = "Induced Abortions in NY State by Age",
+    x = "Age (Years)",
+    y = "Abortions per 1,000 Live Births"
+    )
+
+age_nys  
+```
+
+#### Financial Plan Status
+
+```{r}
+finance_nys = 
+  merged %>%
+  select(region, medicaid:not_stated) %>%
+  pivot_longer(
+    medicaid:not_stated,
+    names_to = "finance_plan", 
+    values_to = "abortion"
+  ) %>% 
+  mutate(
+    finance_plan = replace(finance_plan, finance_plan == "medicaid", "Medicaid"),
+    finance_plan = replace(finance_plan, finance_plan == "self_pay", "Self Pay"),
+    finance_plan = replace(finance_plan, finance_plan == "other_insurance", "Other Insurance"),
+    finance_plan = replace(finance_plan, finance_plan == "not_stated", "Not Stated"),
+    finance_plan = factor(finance_plan)
+    ) %>% 
+  ggplot(aes(x = finance_plan, y = abortion, fill= region, color= region)) + 
+  geom_bar(stat = "identity", 
+           position = "dodge")+
+  theme(legend.position = "right")+
+  labs(
+    title = "Induced Abortions in NY State by Financial Plan Status",
+    x = "Financial Plan",
+    y = "Abortions per 1,000 Live Births"
+    )
+
+finance_nys 
+```
+
+
+#### Race/Ethnicity
+
+```{r}
+race_nys = 
+  merged %>%
+  select(region, nh_white_only_ratio:h_total) %>%
+  pivot_longer(
+    nh_white_only_ratio:h_total,
+    names_to = "race", 
+    values_to = "abortion"
+    ) %>%
+  mutate(
+    race = replace(race, race == "nh_white_only_ratio", "Non-Hispanic White Only"),
+    race = replace(race, race == "nh_black_only_ratio", "Non-Hispanic Black Only"),
+    race = replace(race, race == "nh_other_ratio", "Non-Hispanic Other"),
+    race = replace(race, race == "h_total", "Hispanic"),
+    race = factor(race)
+    ) %>%
+  ggplot(aes(x = race, y = abortion, fill= region, color= region)) + 
+  geom_bar(stat = "identity", 
+           position = "dodge")+
+  theme(legend.position = "right", axis.text.x = element_text(angle = 60, hjust = 1))+
+  labs(
+    title = "Induced Abortions in NY State by Race/Ethnicity",
+    x = "Race/Ethnicity",
+    y = "Abortions per 1,000 Live Births"
+    )
+
+race_nys 
+```
 
 
 # Statistical Analysis
