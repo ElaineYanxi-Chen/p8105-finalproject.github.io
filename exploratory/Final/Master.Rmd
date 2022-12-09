@@ -37,7 +37,7 @@ scale_fill_discrete = scale_fill_viridis_d
 
 ## Data Import and Cleaning
 
-Datasets for age and race were imported and cleaned in similar ways. Columns needed were selected using `select`, and names were changed to more understanding titles using `set_names`. Then, we use `slice`to select the rows that is necessary for our analysis. A row included a list of the headers in the middle of the dataset
+Datasets for age and race were imported and cleaned in similar ways. Columns needed were selected using `select`, and names were changed to more understanding titles using `set_names`. A row included a list of the headers in the middle of the dataset and was excluded using `slice`. The counties in NYC were renamed to borough names, and commas were removed using `mutate`. All columns with numbers were converted from characters to numbers using `as.numeric`. 
 
 #### Age 
 
@@ -107,6 +107,8 @@ clean_race =
 
 #### Finance
 
+Finance had a similar cleaning process but required importing two different datasets and cleaning the datasets in similar steps as listed above. This is due to the fact that the dataset for financial plans did not include abortion ratios and only included abortion counts. 
+
 ```{r}
 url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table24.htm"
 url1 = "https://www.health.ny.gov/statistics/vital_statistics/2019/table13.htm"
@@ -124,7 +126,9 @@ live_birth_finance =
   janitor::clean_names()
 ```
 
-Clean live birth finance
+The live birth data set was imported to be used as the denominator and the induced abortion dataset was imported to be used as the numerator. This ratio is determined by how the ratios were calculated in the other datasets.
+
+For the live birth dataset, Essex County and Hamilton County were coded seperately, while the other datasets coded them as one category. As a result, we used `transform` to create a category that combines these two counties. Then we used `group_by` and `summarise` to combine these two rows into one row named as `Essex|Hamilton`. 
 
 ```{r}
 clean_lb_finance = 
@@ -152,10 +156,9 @@ clean_lb_finance =
     self_pay = sum(self_pay),
     not_stated = sum(not_stated)
   )
-
 ```
 
-Clean abortion finance
+We cleaned the induced abortion finance dataset with similar processes as mentioned earlier. 
 
 ```{r}
 clean_ia_finance =
@@ -177,7 +180,7 @@ induced_abortion_finance %>%
   mutate_at(c(2:6), as.numeric)
 ```
 
-merge finance
+Finally, we merged the live births and induced abortion datasets together using `full_join`. After this we used `mutate` to calculate the abortion ratios manually. 
 
 ```{r}
 merged_data=
