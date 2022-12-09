@@ -54,7 +54,7 @@ clean_age =
   induced_abortion %>%
   select(1:8) %>%
   purrr::set_names(c("borough", "total", "age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40")) %>%
-  slice(7:11,14:70) %>%
+  slice(4,6:11,14:70) %>%
   mutate(
     borough = str_replace(borough, "Kings", "Brooklyn"),
     borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),

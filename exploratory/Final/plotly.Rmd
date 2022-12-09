@@ -17,6 +17,7 @@ library("writexl")
 library(rvest)
 library(httr)
 library(dplyr)
+library(plotly)
 
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -35,12 +36,19 @@ scale_fill_discrete = scale_fill_viridis_d
 ```
 
 ## Data Import
+
+Importing master data that has been already cleaned. 
+
 ```{r data_import}
 data = read_csv(file = "data/master.csv") %>%
   janitor::clean_names()
 ```
 
 ## NYC Age
+
+From the master spreadsheet, we selected the columns and rows we will be using to analyze induced abortions by age categories. 
+
+We used `pivot_longer` to 
 
 ```{r}
 age = 
@@ -55,8 +63,8 @@ age %>%
     values_to = "abortion"
   ) %>%
   mutate(age = factor(age, levels = c("age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40"))) %>% 
-  plot_ly(x = ~age, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   layout(title = 'Abortion Ratios by Age for Boroughs in New York City', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
-
+  plot_ly(x = ~age, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   
+  layout(title = 'Abortion Ratios by Age for Boroughs in New York City', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
 ```
 
 ## NYC Race
