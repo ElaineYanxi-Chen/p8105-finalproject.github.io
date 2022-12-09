@@ -32,7 +32,7 @@ abortion_data = read_csv("data/master.csv")
 abortion_totals_borough =
   abortion_data %>%
   select(borough, total) %>%
-  slice(1:5) %>%
+  slice(3:7) %>%
   mutate(
     n = total,
     total = 1000)
@@ -66,14 +66,15 @@ prop.test(abortion_totals_borough$n, abortion_totals_borough$total,
 # Tidy data
 abortion_race_clean = 
   abortion_data %>%
-  slice(1:5) %>%
+  slice(3:7) %>%
+  select(-(age_less_20:nh_total)) %>% select(-(h_white_only_ratio:region)) %>%
   mutate(
     hispanic = h_total*1000,
     nh_white_only = nh_white_only_ratio*1000,
     nh_black_only = nh_black_only_ratio*1000,
     nh_other = nh_other_ratio*1000
   ) %>%
-  select(-(age_less_20:total))
+  select(-(nh_white_only_ratio:h_total))
 
 abortion_race_clean %>% 
   knitr::kable(caption = "Chi-Square Test for Race and Boroughs", col.names = c("Borough", "Hispanic", "Non-Hispanic White", "Non-Hispanic Black", "Non-Hispanic Other"), align = c('l', 'c', 'c', 'c', 'c'), format = "simple")
@@ -111,14 +112,15 @@ x_crit
 # Tidy data
 abortion_finance_clean = 
   abortion_data %>%
-  slice(1:5) %>%
+  slice(3:7) %>%
+  select(-(age_less_20:h_black_only_ratio)) %>%
   mutate(
     medicaid = medicaid*1000,
     self_pay = self_pay*1000,
     other_insurance = other_insurance*1000,
     not_stated = not_stated*1000
   ) %>%
-  select(-(age_less_20:h_black_only_ratio)) %>% select(-total)
+  select(-(total:region))
 
 abortion_finance_clean %>% 
   knitr::kable(caption = "Chi-Square Test for Finance Plan and Boroughs", col.names = c("Borough", "Medicaid", "Self-Pay", "Other Insurance", "Not Stated"), align = c('l', 'c', 'c', 'c', 'c'), format = "simple" )
@@ -156,7 +158,8 @@ x_crit
 # Tidy data
 abortion_age_clean = 
   abortion_data %>%
-  slice(1:5) %>%
+  slice(3:7) %>%
+  select(-(nh_total:region)) %>%
   mutate(
     age_less_20 = age_less_20*1000,
     age_20_24 = age_20_24*1000,
@@ -164,8 +167,7 @@ abortion_age_clean =
     age_30_34 = age_30_34*1000,
     age_35_39 = age_35_39*1000,
     age_plus_40 = age_plus_40*1000
-  ) %>%
-  select(-(nh_total:total))
+  )
 
 abortion_age_clean %>% 
   knitr::kable(caption = "Chi-Square Test for Age and Boroughs", col.names = c("Borough", "< 20 years", "20-24 years", "25-29 years", "30-34 years", "35-39 years", "40+ years"), align = c('l', 'c', 'c', 'c', 'c', 'c', 'c'), format = "simple" )
@@ -181,7 +183,7 @@ chisq.test(abortion_age_clean)
 ```
 
 ```{r x_crit_age}
-x_crit = qchisq(0.95, 5)
+x_crit = qchisq(0.95, 20)
 x_crit
 ```
 
@@ -233,19 +235,63 @@ prop.test(NY_totals$n, NY_totals$total,
 
 - The data provides sufficient evidence to support the hypothesis that overall abortion rates differs across NY state regions.
 
-### *Chi Square Test - Race and NY State Regions*
+Because this suggests that abortion rates differs across NY state regions, we now can assess whether or not this holds true across counties.
 
-**Do overall abortion rates differ across NY state regions by race?**
+### *Proportion Test*
 
-**$H_0$**: The expected counts of abortions in each race category are the same across all NY state regions.
+**Do overall abortion rates differ across NY state counties?**
 
-**$H_1$**: The expected counts of abortions in each race category are not the same across all NY state regions.
+**$H_0$**: The number of abortions per 1000 live births is the same across all NY state counties.
+
+**$H_1$**: The number of abortions per 1000 live births is not the same across all NY state counties.
+
+```{r tidy_NY_counties}
+# Tidy data
+NY_totals_counties =
+  abortion_data %>%
+  select(borough, total) %>%
+  slice(-(1:2)) %>%
+  mutate(
+    n = total,
+    total = 1000)
+
+NY_totals_counties %>% 
+  select(-total) %>%
+  head(10) %>%
+  knitr::kable(caption = "Proportion T-Test for NY across all Counties",
+  col.names = c("County", "Abortions per 1000 live births"), align = c('l', 'c'), format = "simple")
+```
+
+Only the first 10 counties are printed.
+
+```{r prop_NY_counties}
+# Run 58 prop t-test
+prop.test(NY_totals_counties$n, NY_totals_counties$total,
+          p = NULL, alternative = "two.sided")
+```
+
+**Inference:**
+
+- From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** 
+
+- The data provides sufficient evidence to support the hypothesis that overall abortion rates differs across NY state counties.
+
+### *Chi Square Test - Race and NY State Counties*
+
+Due to missing data, a chi-squared analysis was not run for race and NY state regions.
+
+**Do overall abortion rates differ across NY state counties by race?**
+
+**$H_0$**: The expected counts of abortions in each race category are the same across all NY state counties.
+
+**$H_1$**: The expected counts of abortions in each race category are not the same across all NY state counties.
 
 ```{r NY_tidy_race}
 # Tidy data
 NY_race_clean = 
   abortion_data %>%
-  select(-(age_less_20:nh_total)) %>% select(-(h_white_only_ratio:total)) %>%
+  slice(-(1:2)) %>%
+  select(-(age_less_20:nh_total)) %>% select(-(h_white_only_ratio:region)) %>%
   drop_na() %>%
   mutate(
     hispanic = h_total*1000,
@@ -253,26 +299,34 @@ NY_race_clean =
     nh_black_only = nh_black_only_ratio*1000,
     nh_other = nh_other_ratio*1000
   ) %>%
-  select(-(nh_white_only_ratio:h_total)) %>%
-  relocate(region, .before = borough)
+  select(-(nh_white_only_ratio:h_total))
 
 NY_race_clean %>% 
-  knitr::kable(caption = "Chi-Square Test for Race and Regions", col.names = c("Region", "Borough/County", "Hispanic", "Non-Hispanic White", "Non-Hispanic Black", "Non-Hispanic Other"), align = c('l', 'c', 'c', 'c', 'c','c','c'), format = "simple")
+  head(10) %>%
+  knitr::kable(caption = "Chi-Square Test for Race and Counties", col.names = c("County", "Hispanic", "Non-Hispanic White", "Non-Hispanic Black", "Non-Hispanic Other"), align = c('l', 'c', 'c', 'c', 'c','c','c'), format = "simple")
 ```
+
+Only the first 10 counties are printed.
 
 ```{r NY_chi-sq_race}
 NY_race_clean =
   NY_race_clean %>%
-  select(-(region:borough))
+  select(-borough)
 
 # Run chi-square test
 chisq.test(NY_race_clean)
 ```
 
 ```{r NY_x_crit_race}
-x_crit = qchisq(0.95, 5)
+x_crit = qchisq(0.95, 135)
 x_crit
 ```
+
+**Inference:**
+
+- From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** 
+
+- The data provides sufficient evidence to support the hypothesis that overall abortion rates in each race category across counties is different.
 
 ### *Chi Square Test - Finance Plans and NY State Regions*
 
@@ -282,11 +336,14 @@ x_crit
 
 **$H_1$**: The expected counts of abortions in each finance plan category are not the same across all NY state regions.
 
+```{r data_NY_finance, include=FALSE, message=FALSE}
+NY_finance = read_csv("data/NY_finance.csv")
+```
+
 ```{r NY_tidy_finance}
 # Tidy data
 NY_finance_clean = 
   NY_finance %>%
-  slice(3:7) %>%
   mutate(
     medicaid = medicaid*1000,
     self_pay = self_pay*1000,
@@ -295,7 +352,7 @@ NY_finance_clean =
   ) %>%
   select(-total)
 
-NY_finance_clean %>% 
+NY_finance_clean %>%
   knitr::kable(caption = "Chi-Square Test Finance Plan and Regions", col.names = c("Region", "Medicaid", "Self-Pay", "Other Insurance", "Not Stated"), align = c('l', 'c', 'c', 'c', 'c'), format = "simple" )
 ```
 
@@ -309,7 +366,7 @@ chisq.test(NY_finance_clean)
 ```
 
 ```{r NY_x_crit_finance}
-x_crit = qchisq(0.95, 12)
+x_crit = qchisq(0.95, 27)
 x_crit
 ```
 
@@ -318,6 +375,35 @@ x_crit
 - From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** 
 
 - The data provides sufficient evidence to support the hypothesis that overall abortion rates in each finance category across regions is different.
+
+### *Chi Square Test - Finance Plan and NY State Counties*
+
+**Do overall abortion rates differ across NY state counties by finance plan?**
+
+**$H_0$**: The expected counts of abortions in each finance plan category are the same across all NY state counties.
+
+**$H_1$**: The expected counts of abortions in each finance plan category are not the same across all NY state counties.
+
+```{r NY_finance_counties}
+# Tidy data
+NY_finance_counties = 
+  abortion_data %>%
+  slice(-(1:2)) %>%
+  select(-(age_less_20:nh_total)) %>% select(-(h_white_only_ratio:region)) %>%
+  drop_na() %>%
+  mutate(
+    hispanic = h_total*1000,
+    nh_white_only = nh_white_only_ratio*1000,
+    nh_black_only = nh_black_only_ratio*1000,
+    nh_other = nh_other_ratio*1000
+  ) %>%
+  select(-(nh_white_only_ratio:h_total))
+
+NY_race_clean %>% 
+  head(10) %>%
+  knitr::kable(caption = "Chi-Square Test for Race and Counties", col.names = c("County", "Hispanic", "Non-Hispanic White", "Non-Hispanic Black", "Non-Hispanic Other"), align = c('l', 'c', 'c', 'c', 'c','c','c'), format = "simple")
+```
+
 
 ### *Chi Square Test - Age and NY State Regions*
 
@@ -330,8 +416,9 @@ x_crit
 ```{r NY_tidy_age}
 # Tidy data
 NY_age_clean = 
-  NY_age %>%
-  slice(3:7) %>%
+  abortion_data %>%
+  select(-(nh_total:total)) %>%
+  drop_na() %>%
   mutate(
     age_less_20 = age_less_20*1000,
     age_20_24 = age_20_24*1000,
@@ -340,17 +427,16 @@ NY_age_clean =
     age_35_39 = age_35_39*1000,
     age_plus_40 = age_plus_40*1000
   ) %>%
-  select(-total)
+  relocate(region, .before = borough)
 
 NY_age_clean %>% 
-  knitr::kable(caption = "Chi-Square Test for Age and Regions", col.names = c("Regions", "< 20 years", "20-24 years", "25-29 years", "30-34 years", "35-39 years", "40+ years"), align = c('l', 'c', 'c', 'c', 'c', 'c', 'c'), format = "simple" )
+  knitr::kable(caption = "Chi-Square Test for Age and Counties", col.names = c("Regions", "Borough/County", "< 20 years", "20-24 years", "25-29 years", "30-34 years", "35-39 years", "40+ years"), align = c('l', 'c', 'c', 'c', 'c', 'c', 'c'), format = "simple" )
 ```
 
 ```{r NY_chi-sq_age}
 NY_age_clean =
   NY_age_clean %>%
-  select(-borough) %>%
-  drop_na()
+  select(-(region:borough))
 
 # Run chi-square test
 chisq.test(NY_age_clean)
@@ -403,5 +489,3 @@ prop.test(abortion_totals$n, abortion_totals$total,
 - From the above results, the p-value is **less than the 5% level of significance.** Therefore, we **reject the null hypothesis.** 
 
 - The data provides sufficient evidence to support the hypothesis that the number of abortions per 1000 births differs between NYC and NY state.
-
-
