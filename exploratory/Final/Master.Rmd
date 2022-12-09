@@ -35,7 +35,10 @@ scale_fill_discrete = scale_fill_viridis_d
 
 ```
 
-## Import age
+## Data Import and Cleaning
+
+Datasets for age and race were imported and cleaned in similar ways. Columns needed were selected using `select`, and names were changed to more understanding titles using `set_names`. Then, we use `slice`to select the rows that is necessary for our analysis. A row inclu
+#### Age 
 
 ```{r data_import_age, echo = FALSE}
 url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table22.htm"
@@ -67,7 +70,7 @@ clean_age =
 
 ```
 
-## Import Race
+#### Race
 
 ```{r}
 url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table23.htm"
@@ -81,7 +84,7 @@ induced_abortion_race =
 clean_race = 
   induced_abortion_race %>%
   select(1,3,5,7,9,11,13,15,17) %>% 
-  purrr::set_names(c("borough", "total", "nh_total", "nh_white_only_Ratio", "nh_black_only_ratio", "nh_other_ratio", "h_total", "n_white_only_ratio", "n_black_only_ratio")) %>% 
+  purrr::set_names(c("borough", "total", "nh_total", "nh_white_only_Ratio", "nh_black_only_ratio", "nh_other_ratio", "h_total", "h_white_only_ratio", "h_black_only_ratio")) %>% 
   slice(7:11,14:70) %>%
   mutate(
     borough = str_replace(borough, "Kings", "Brooklyn"),
@@ -101,7 +104,7 @@ clean_race =
 
 ```
 
-## Import Finance
+#### Finance
 
 ```{r}
 url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table24.htm"
@@ -189,7 +192,9 @@ select(borough, medicaid, self_pay, other_insurance, not_stated, total)
 
 ```
 
-merge all dataset
+## Merge
+
+Merging all data set into one final data frame using `full_join` by `borough`, and rows and columns not needed were omitted. Cells that had Inf were renamed with NA using `na_if`. Final data set was exported to a csv file using `write_csv`. 
 
 ```{r}
 merge_age_race = 
