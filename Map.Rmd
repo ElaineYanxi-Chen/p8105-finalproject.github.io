@@ -73,3 +73,7 @@ test2 %>%
   style(hoverlabel = list(bgcolor = "white"), hoveron = "fill")
 ```
 
+
+## Incorporating year data
+
+

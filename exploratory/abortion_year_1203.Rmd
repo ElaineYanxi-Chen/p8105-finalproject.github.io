@@ -211,6 +211,9 @@ rbind(clean_2019, clean_2018, clean_2017, clean_2016, clean_2015, clean_2014, by
 select(year, everything()) %>% 
 filter(!year=="year") %>% 
 mutate_at(c("total", "year"), as.numeric)
+
+write_csv(merged_data, file = "data/abortion_year_borough.csv")
+
 ```
 
 #### Line chart by Year and Borough
