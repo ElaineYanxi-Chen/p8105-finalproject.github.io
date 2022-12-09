@@ -56,8 +56,7 @@ clean_ia_2019 =
   induced_abortion_2019 %>%
   select(1:2) %>%
   purrr::set_names(c("borough", "total")) %>%
-  slice(7:70) %>% 
-  filter(!row_number() %in% c(6, 7)) %>%
+  slice(7:11, 14:70) %>% 
   mutate(total = str_replace(total, ",", ""),
     year="2019") %>%
   mutate_at(c("total", "year"), as.numeric)
@@ -65,8 +64,7 @@ clean_lb_2019 =
   live_birth_2019  %>%  
   select(1:2) %>%
   purrr::set_names(c("borough", "total")) %>%
-  slice(7:70) %>% 
-  filter(!row_number() %in% c(6, 7)) %>%
+  slice(7:11, 14:70) %>% 
   mutate(total = str_replace(total, ",", ""),
     year="2019") %>%
   mutate_at(c("total", "year"), as.numeric)
@@ -89,8 +87,9 @@ rename_ia_2019= clean_ia_2019 %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
-  transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
-  group_by(borough, year) %>% 
+  transform(borough=gsub(pattern="Bronx|Kings|Queens|Richmond", replacement="New York City", borough)) %>% 
+    mutate(borough = ifelse(as.character(borough) == "New York", "New York City", as.character(borough))) %>%
+     group_by(borough, year) %>% 
   summarize(total_rate= sum(total))
 rename_lb_2019= clean_lb_2019 %>% 
   transform(borough = gsub(pattern = "Albany|Columbia|Fulton|Greene|Montgomery|Rensselaer|Saratoga|Schenectady|Schoharie|Warren|Washington", replacement = "Saratoga", borough)) %>%
@@ -102,8 +101,9 @@ rename_lb_2019= clean_lb_2019 %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
-  transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
-  group_by(borough, year) %>% 
+  transform(borough=gsub(pattern="Bronx|Kings|Queens|Richmond", replacement="New York City", borough)) %>% 
+    mutate(borough = ifelse(as.character(borough) == "New York", "New York City", as.character(borough))) %>%
+     group_by(borough, year) %>% 
   summarize(total_rate= sum(total))
 ```
 
@@ -140,8 +140,7 @@ clean_ia_2018 =
   induced_abortion_2018 %>%
   select(1:2) %>%
   purrr::set_names(c("borough", "total")) %>%
-  slice(7:70) %>% 
-  filter(!row_number() %in% c(6, 7)) %>%
+  slice(7:11, 14:70) %>% 
   mutate(total = str_replace(total, ",", ""),
     year="2018"
     ) %>%
@@ -150,12 +149,8 @@ clean_lb_2018 =
   live_birth_2018 %>%
   select(1:2) %>%
   purrr::set_names(c("borough", "total")) %>%
-  slice(7:70) %>% 
-  filter(!row_number() %in% c(6, 7)) %>%
+  slice(7:11, 14:70) %>% 
   mutate(
-    borough = str_replace(borough, "Kings", "Brooklyn"),
-    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
-    borough = str_replace(borough, "Richmond", "Staten_Island"),
     total = str_replace(total, ",", ""),
     year="2018"
     ) %>%
@@ -177,8 +172,9 @@ rename_lb_2018= clean_lb_2018 %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
-  transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
-  group_by(borough, year) %>% 
+  transform(borough=gsub(pattern="Bronx|Kings|Queens|Richmond", replacement="New York City", borough)) %>% 
+    mutate(borough = ifelse(as.character(borough) == "New York", "New York City", as.character(borough))) %>%
+     group_by(borough, year) %>% 
   summarize(total_rate= sum(total))
 rename_ia_2018= clean_ia_2018 %>% 
   transform(borough = gsub(pattern = "Albany|Columbia|Fulton|Greene|Montgomery|Rensselaer|Saratoga|Schenectady|Schoharie|Warren|Washington", replacement = "Saratoga", borough)) %>%
@@ -190,8 +186,9 @@ rename_ia_2018= clean_ia_2018 %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
-  transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
-  group_by(borough, year) %>% 
+  transform(borough=gsub(pattern="Bronx|Kings|Queens|Richmond", replacement="New York City", borough)) %>% 
+    mutate(borough = ifelse(as.character(borough) == "New York", "New York City", as.character(borough))) %>%
+     group_by(borough, year) %>% 
   summarize(total_rate= sum(total))
 ```
 
@@ -228,8 +225,7 @@ clean_ia_2017 =
   induced_abortion_2017 %>%
   select(1:2) %>%
   purrr::set_names(c("borough", "total")) %>%
-  slice(7:70) %>% 
-  filter(!row_number() %in% c(6, 7)) %>%
+  slice(7:11, 14:70) %>% 
   mutate(total = str_replace(total, ",", ""),
     year="2017"
     ) %>%
@@ -238,8 +234,7 @@ clean_lb_2017 =
   live_birth_2017%>%  
   select(1:2) %>%
   purrr::set_names(c("borough", "total")) %>%
-  slice(7:70) %>% 
-  filter(!row_number() %in% c(6, 7)) %>%
+  slice(7:11, 14:70) %>% 
   mutate(total = str_replace(total, ",", ""),
     year="2017"
     ) %>%
@@ -259,8 +254,9 @@ rename_lb_2017= clean_lb_2017 %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
-  transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
-  group_by(borough, year) %>% 
+  transform(borough=gsub(pattern="Bronx|Kings|Queens|Richmond", replacement="New York City", borough)) %>% 
+    mutate(borough = ifelse(as.character(borough) == "New York", "New York City", as.character(borough))) %>%
+     group_by(borough, year) %>% 
   summarize(total_rate= sum(total))
 rename_ia_2017= clean_ia_2017 %>% 
   transform(borough = gsub(pattern = "Albany|Columbia|Fulton|Greene|Montgomery|Rensselaer|Saratoga|Schenectady|Schoharie|Warren|Washington", replacement = "Saratoga", borough)) %>%
@@ -272,8 +268,9 @@ rename_ia_2017= clean_ia_2017 %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
-  transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
-  group_by(borough, year) %>% 
+  transform(borough=gsub(pattern="Bronx|Kings|Queens|Richmond", replacement="New York City", borough)) %>% 
+    mutate(borough = ifelse(as.character(borough) == "New York", "New York City", as.character(borough))) %>%
+     group_by(borough, year) %>% 
   summarize(total_rate= sum(total))
 ```
 
@@ -311,8 +308,7 @@ clean_ia_2016 =
   induced_abortion_2016 %>%
   select(1:2) %>%
   purrr::set_names(c("borough", "total")) %>%
-  slice(7:70) %>% 
-  filter(!row_number() %in% c(6, 7)) %>%
+  slice(7:11, 14:70) %>% 
   mutate(total = str_replace(total, ",", ""),
     year="2016"
     ) %>%
@@ -321,8 +317,7 @@ clean_lb_2016 =
   live_birth_2016 %>%
   select(1:2) %>%
   purrr::set_names(c("borough", "total")) %>%
-  slice(7:70) %>% 
-  filter(!row_number() %in% c(6, 7)) %>%
+  slice(7:11, 14:70) %>% 
   mutate(total = str_replace(total, ",", ""),
     year="2016") %>%
   mutate_at(c("total", "year"), as.numeric)
@@ -341,8 +336,9 @@ rename_lb_2016= clean_lb_2016 %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
-  transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
-  group_by(borough, year) %>% 
+  transform(borough=gsub(pattern="Bronx|Kings|Queens|Richmond", replacement="New York City", borough)) %>% 
+    mutate(borough = ifelse(as.character(borough) == "New York", "New York City", as.character(borough))) %>%
+    group_by(borough, year) %>% 
   summarize(total_rate= sum(total))
 rename_ia_2016= clean_ia_2016 %>% 
   transform(borough = gsub(pattern = "Albany|Columbia|Fulton|Greene|Montgomery|Rensselaer|Saratoga|Schenectady|Schoharie|Warren|Washington", replacement = "Saratoga", borough)) %>%
@@ -354,8 +350,9 @@ rename_ia_2016= clean_ia_2016 %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
-  transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
-  group_by(borough, year) %>% 
+  transform(borough=gsub(pattern="Bronx|Kings|Queens|Richmond", replacement="New York City", borough)) %>% 
+    mutate(borough = ifelse(as.character(borough) == "New York", "New York City", as.character(borough))) %>%
+     group_by(borough, year) %>% 
   summarize(total_rate= sum(total))
 ```
 
@@ -392,8 +389,7 @@ clean_ia_2015 =
   induced_abortion_2015 %>%
   select(1:2) %>%
   purrr::set_names(c("borough", "total")) %>%
-  slice(7:70) %>% 
-  filter(!row_number() %in% c(6, 7)) %>%
+  slice(7:11, 14:70) %>% 
   mutate(total = str_replace(total, ",", ""),
     year="2015") %>%
   mutate_at(c("total", "year"), as.numeric)
@@ -401,8 +397,7 @@ clean_lb_2015 =
   live_birth_2015 %>%
   select(1:2) %>%
   purrr::set_names(c("borough", "total")) %>%
-  slice(7:70) %>% 
-  filter(!row_number() %in% c(6, 7)) %>%
+  slice(7:11, 14:70) %>% 
   mutate(total = str_replace(total, ",", ""),
     year="2015") %>%
   mutate_at(c("total", "year"), as.numeric)
@@ -421,7 +416,8 @@ rename_lb_2015= clean_lb_2015 %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
-  transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
+  transform(borough=gsub(pattern="Bronx|Kings|Queens|Richmond", replacement="New York City", borough)) %>% 
+    mutate(borough = ifelse(as.character(borough) == "New York", "New York City", as.character(borough))) %>%
   group_by(borough, year) %>% 
   summarize(total_rate= sum(total))
 rename_ia_2015= clean_ia_2015 %>% 
@@ -434,7 +430,8 @@ rename_ia_2015= clean_ia_2015 %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
-  transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
+  transform(borough=gsub(pattern="Bronx|Kings|Queens|Richmond", replacement="New York City", borough)) %>% 
+    mutate(borough = ifelse(as.character(borough) == "New York", "New York City", as.character(borough))) %>%
   group_by(borough, year) %>% 
   summarize(total_rate= sum(total))
 ```
@@ -472,8 +469,7 @@ clean_ia_2014 =
   induced_abortion_2014 %>%
   select(1:2) %>%
   purrr::set_names(c("borough", "total")) %>%
-  slice(7:70) %>% 
-  filter(!row_number() %in% c(6, 7)) %>%
+  slice(7:11, 14:70) %>% 
   mutate(total = str_replace(total, ",", ""),
     year="2014"
     ) %>%
@@ -482,8 +478,7 @@ clean_lb_2014 =
   live_birth_2014 %>%
   select(1:2) %>%
   purrr::set_names(c("borough", "total")) %>%
-  slice(7:70) %>% 
-  filter(!row_number() %in% c(6, 7)) %>%
+  slice(7:11, 14:70) %>% 
   mutate(total = str_replace(total, ",", ""),
     year="2014"
     ) %>%
@@ -505,7 +500,8 @@ rename_lb_2014= clean_lb_2014 %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
-  transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
+  transform(borough=gsub(pattern="Bronx|Kings|Queens|Richmond", replacement="New York City", borough)) %>% 
+    mutate(borough = ifelse(as.character(borough) == "New York", "New York City", as.character(borough))) %>%
   group_by(borough, year) %>% 
   summarize(total_rate= sum(total))
 rename_ia_2014= clean_ia_2014 %>% 
@@ -518,7 +514,8 @@ rename_ia_2014= clean_ia_2014 %>%
   transform(borough=gsub(pattern="Delaware|Dutchess|Orange|Putnam|Sullivan|Ulster",replacement="Hudson Valley", borough)) %>% 
   transform(borough=gsub(pattern="Rockland|Westchester", replacement="Westchester/Rockland", borough)) %>% 
   transform(borough=gsub(pattern="Suffolk|Nassau", replacement="Long Island", borough)) %>% 
-  transform(borough=gsub(pattern="Bronx|Brooklyn|Manhattan|Queens|Staten Island", replacement="New York City", borough)) %>% 
+  transform(borough=gsub(pattern="Bronx|Kings|Queens|Richmond", replacement="New York City", borough)) %>% 
+    mutate(borough = ifelse(as.character(borough) == "New York", "New York City", as.character(borough))) %>%
   group_by(borough, year) %>% 
   summarize(total_rate= sum(total))
 ```

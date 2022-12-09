@@ -43,43 +43,12 @@ scale_fill_discrete = scale_fill_viridis_d
 
 Get the data
 
-```{r data_import}
+#```{r data_import}
 abortion_final = read_csv(file = "data/abortion_data.csv") %>%
     janitor::clean_names()
 ```
 
-```{r}
-library(rgeos)
-library(maptools)
-library(geojsonio)
-library(ggplot2)
-
-# this is the geojson of the NYC community districts
-URL <- "http://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/nycd/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=geojson"
-fil <- "nyc_community_districts.geojson"
-if (!file.exists(fil)) download.file(URL, fil)
-
-nyc_districts <- geojson_read(fil, what="sp")
-
-# the @data slot of nyc_districts has 2 fields. BoroCD is the district #
-nyc_districts_map <- fortify(nyc_districts, region="BoroCD")
-
-# let's see which id is what
-mids <- cbind.data.frame(as.data.frame(gCentroid(nyc_districts, byid=TRUE)), 
-                         id=nyc_districts$BoroCD)
-
-gg <- ggplot()
-gg <- gg + geom_map(data=nyc_districts_map, map=nyc_districts_map,
-                    aes(x=long, y=lat, map_id=id),
-                    color="#2b2b2b", size=0.15, fill=NA)
-gg <- gg + geom_text(data=mids, aes(x=x, y=y, label=id), size=2)
-gg <- gg + coord_map()
-gg <- gg + ggthemes::theme_map()
-gg
-
-```
-
-```{r}
+#```{r}
 leaflet() %>%
   addTiles() %>%
   setView(-74.00, 40.71, zoom = 10) %>%
@@ -94,7 +63,6 @@ nyc_tracts <- county_subdivisions(state = '36', county = c('061','047','081','00
 
 summary(nyc_tracts)
 plot(nyc_tracts)
-
 
 ```
 
@@ -161,8 +129,10 @@ ny_counties =
   counties(state = "36", cb = TRUE, resolution = "20m") 
 
 write_csv(ny_counties, file = "data/ny_counties_geo.csv")
+
 ```
 
+<<<<<<< HEAD
 This method seems promising, using methods described in the `tidycensus` [website](https://walker-data.com/census-r/mapping-census-data-with-r.html#cartographic-workflows-with-non-census-data), chapter 6.4. Will wait for a merged dataset with geographic and abortion information to try make an interactive map.
 
 
@@ -170,3 +140,26 @@ This method seems promising, using methods described in the `tidycensus` [websit
 merged_data = read_csv("data/master.csv")
 ```
 
+=======
+```{r}
+NY_counties = 
+  read_csv(file = "data/ny_counties_geo.csv") %>%
+  janitor::clean_names()
+
+NY_abortion = 
+  read_csv(file = "data/master.csv") %>%
+  janitor::clean_names() %>%
+  transform(borough = gsub(pattern = "Brooklyn", replacement = "Kings", borough)) %>%
+  transform(borough = gsub(pattern = "Manhattan", replacement = "New York", borough)) %>%
+  transform(borough = gsub(pattern = "Staten Island", replacement = "Richmond", borough)) %>%
+  transform(borough = gsub(pattern = "Essex/Hamilton", replacement = "Essex", borough)) %>%
+  transform(borough = gsub(pattern = "St Lawrence", replacement = "St. Lawrence", borough)) %>%
+  rename(name = borough)
+
+NY_total = full_join(NY_counties, NY_abortion, by = "name")
+
+```
+
+
+This method seems promising, using methods described in the `tidycensus` [website](https://walker-data.com/census-r/mapping-census-data-with-r.html#cartographic-workflows-with-non-census-data), chapter 6.4. Will wait for a merged dataset with geographic and abortion information to try make an interactive map.
+>>>>>>> 710d2937761582c0640023e5c1f0af346b1af8cf
