@@ -35,7 +35,7 @@ ny_counties <-
   janitor::clean_names()
 
 ny_abortion = 
-  read_csv(file = "/Users/elainechen/Documents/MPH 2022 Fall/Data Science/final_project/p8105-finalproject.github.io/data/master.csv") %>%
+  read_csv(file = "data/master.csv") %>%
   janitor::clean_names() %>%
   transform(borough = gsub(pattern = "Brooklyn", replacement = "Kings", borough)) %>%
   transform(borough = gsub(pattern = "Manhattan", replacement = "New York", borough)) %>%
