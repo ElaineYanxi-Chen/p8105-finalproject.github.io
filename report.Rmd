@@ -29,13 +29,21 @@ Reproductive rights are basic human rights, and women should be allowed to have 
 
 Here's some recent information on abortion clinics/ laws/ and facts:
 
-- In New York City, call the NYC Abortion Access Hub at 1-877-NYC-AHUB (1-877-692-2482)
-- https://www.abortionfinder.org/ 
-- https://www.plannedparenthood.org/abortion-access
-- https://reproductiverights.org/maps/abortion-laws-by-state/ 
-- https://www.guttmacher.org/state-policy/explore/overview-abortion-laws 
-- https://www.nytimes.com/2022/07/08/nyregion/abortion-new-york-roe.html
-- https://abortionfunds.org/ 
+- In New York City, call the NYC Abortion Access Hub at [1-877-NYC-AHUB](tel:18776922482) or [1-877-692-2482](tel:18776922482)
+
+- [AbortionFinder.org](https://www.abortionfinder.org/)
+
+- [Planned Parenthood](https://www.plannedparenthood.org/abortion-access)
+
+- [after Roe Fell: Abortion Laws by State](https://reproductiverights.org/maps/abortion-laws-by-state/)
+
+- [Guttmacher Institute](https://www.guttmacher.org/state-policy/explore/overview-abortion-laws)
+
+- [What's Next for Abortion Rights in New York?](https://www.nytimes.com/2022/07/08/nyregion/abortion-new-york-roe.html)
+
+- [National Network of Abortion Funds](https://abortionfunds.org/) 
+
+- [Abortion Reporting: New York City (2019)](https://lozierinstitute.org/abortion-reporting-new-york-city-2019/)
 
 # Initial questions
 
@@ -108,7 +116,7 @@ The final regions included in the dataset for New York State includes:
 The regions were created based on this [website](https://statejobs.ny.gov/assets/help/regionMapText.cfm)
 
 Abortion rates were calculated for regions within NY State, while for NYC they were already available as rates. Rates were calculated by using the following formula: 
-$$Abortion\ Rate\ per\ 1000 = \frac{Count}{Number\ of\ Live\ Births} \times 1000$$ 
+$$Abortion\ Rate\ per\ 1000\ Live\ Births\ = \frac{Count}{Number\ of\ Live\ Births} \times 1000$$ 
 Specific data cleaning processes for the covariates are listed below.
 
 #### Age
