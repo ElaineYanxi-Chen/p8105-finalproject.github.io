@@ -1,5 +1,5 @@
 ---
-title: "Exploratory Analysis of Abortion Trend in the Five Boroughs of NYC "
+title: "New York City Exploratory Analysis "
 ---
 
 ```{r, message = FALSE, echo = FALSE}

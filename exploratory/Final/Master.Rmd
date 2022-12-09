@@ -212,9 +212,76 @@ merge_final =
   mutate(
     other_insurance = na_if(other_insurance, "Inf"),
     not_stated = na_if(not_stated, "Inf")
-  ) %>% 
-  rename(name=borough)
+  ) %>%
+  mutate(
+    region =
+      case_when(
+        borough == "Albany" ~ "Capital/Saratoga", 
+        borough == "Columbia" ~ "Capital/Saratoga",
+        borough == "Fulton" ~ "Capital/Saratoga",
+        borough == "Greene" ~ "Capital/Saratoga",
+        borough == "Montgomery" ~ "Capital/Saratoga",
+        borough == "Rensselaer" ~ "Capital/Saratoga", 
+        borough == "Saratoga" ~ "Capital/Saratoga", 
+        borough == "Schenectady" ~ "Capital/Saratoga", 
+        borough == "Schoharie" ~ "Capital/Saratoga", 
+        borough == "Warren" ~ "Capital/Saratoga", 
+        borough == "Washington" ~ "Capital/Saratoga", 
+        borough == "Essex/Hamilton" ~ "Eastern Adirondacks", 
+        borough == "Franklin" ~ "Eastern Adirondacks",
+        borough == "Clinton" ~ "Eastern Adirondacks",
+        borough == "Herkimer" ~ "Western Adirondacks",
+        borough == "Jefferson" ~ "Western Adirondacks",
+        borough == "Lewis" ~ "Western Adirondacks",
+        borough == "Oneida" ~ "Western Adirondacks",
+        borough == "Oswego" ~ "Western Adirondacks",
+        borough == "St Lawrence" ~ "Western Adirondacks",
+        borough == "Broome" ~ "Central New York",
+        borough == "Cayuga" ~ "Central New York",
+        borough == "Chenango" ~ "Central New York",
+        borough == "Cortland" ~ "Central New York",
+        borough == "Madison" ~ "Central New York",
+        borough == "Onondaga" ~ "Central New York",
+        borough == "Otsego" ~ "Central New York",
+        borough == "Tioga" ~ "Central New York",
+        borough == "Tompkins" ~ "Central New York",
+        borough == "Chemung" ~ "Finger Lakes",
+        borough == "Genesee" ~ "Finger Lakes",
+        borough == "Livingston" ~ "Finger Lakes",
+        borough == "Monroe" ~ "Finger Lakes",
+        borough == "Ontario" ~ "Finger Lakes",
+        borough == "Schuyler" ~ "Finger Lakes",
+        borough == "Seneca" ~ "Finger Lakes",
+        borough == "Steuben" ~ "Finger Lakes",
+        borough == "Wayne" ~ "Finger Lakes",
+        borough == "Yates" ~ "Finger Lakes",
+        borough == "Niagara" ~ "Western New York",
+        borough == "Orleans" ~ "Western New York",
+        borough == "Erie" ~ "Western New York",
+        borough == "Wyoming" ~ "Western New York",
+        borough == "Allegany" ~ "Western New York",
+        borough == "Cattaraugus" ~ "Western New York",
+        borough == "Chautauqua" ~ "Western New York",
+        borough == "Delaware" ~ "Hudson Valley",
+        borough == "Dutchess" ~ "Hudson Valley",
+        borough == "Orange" ~ "Hudson Valley",
+        borough == "Putnam" ~ "Hudson Valley",
+        borough == "Sullivan" ~ "Hudson Valley",
+        borough == "Ulster" ~ "Hudson Valley",
+        borough == "Nassau" ~ "Long Island",
+        borough == "Suffolk" ~ "Long Island",
+        borough == "Rockland" ~ "Westchester/Rockland",
+        borough == "Westchester" ~ "Westchester/Rockland",
+        borough == "Bronx" ~ "New York City",
+        borough == "Brooklyn" ~ "New York City",
+        borough == "Manhattan" ~ "New York City",
+        borough == "Queens" ~ "New York City",
+        borough == "Staten Island" ~ "New York City"
+      )
+    )
+  
 
 write_csv(merge_final, file = "data/master.csv")
 
 ```
+
