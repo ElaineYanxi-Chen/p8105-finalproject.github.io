@@ -35,7 +35,11 @@ scale_fill_discrete = scale_fill_viridis_d
 
 ```
 
-## Import age
+## Data Import and Cleaning
+
+Datasets for age and race were imported and cleaned in similar ways. Columns needed were selected using `select`, and names were changed to more understanding titles using `set_names`. A row included a list of the headers in the middle of the dataset and was excluded using `slice`. The counties in NYC were renamed to borough names, and commas were removed using `mutate`. All columns with numbers were converted from characters to numbers using `as.numeric`. 
+
+#### Age 
 
 ```{r data_import_age, echo = FALSE}
 url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table22.htm"
@@ -67,7 +71,7 @@ clean_age =
 
 ```
 
-## Import Race
+#### Race
 
 ```{r}
 url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table23.htm"
@@ -81,7 +85,7 @@ induced_abortion_race =
 clean_race = 
   induced_abortion_race %>%
   select(1,3,5,7,9,11,13,15,17) %>% 
-  purrr::set_names(c("borough", "total", "nh_total", "nh_white_only_Ratio", "nh_black_only_ratio", "nh_other_ratio", "h_total", "n_white_only_ratio", "n_black_only_ratio")) %>% 
+  purrr::set_names(c("borough", "total", "nh_total", "nh_white_only_Ratio", "nh_black_only_ratio", "nh_other_ratio", "h_total", "h_white_only_ratio", "h_black_only_ratio")) %>% 
   slice(7:11,14:70) %>%
   mutate(
     borough = str_replace(borough, "Kings", "Brooklyn"),
@@ -93,15 +97,17 @@ clean_race =
     nh_black_only_ratio = str_replace(nh_black_only_ratio, ",", ""),
     nh_other_ratio = str_replace(nh_other_ratio, ",", ""),
     h_total = str_replace(h_total, ",", ""),
-    n_white_only_ratio = str_replace(n_white_only_ratio, ",", ""),
-    n_black_only_ratio = str_replace(n_black_only_ratio, ",", "")
+    h_white_only_ratio = str_replace(h_white_only_ratio, ",", ""),
+    h_black_only_ratio = str_replace(h_black_only_ratio, ",", "")
     ) %>%
   mutate_at(c(2:9), as.numeric) %>%
     janitor::clean_names()
 
 ```
 
-## Import Finance
+#### Finance
+
+Finance had a similar cleaning process but required importing two different datasets and cleaning the datasets in similar steps as listed above. This is due to the fact that the dataset for financial plans did not include abortion ratios and only included abortion counts. 
 
 ```{r}
 url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table24.htm"
@@ -120,28 +126,39 @@ live_birth_finance =
   janitor::clean_names()
 ```
 
-Clean live birth finance
+The live birth data set was imported to be used as the denominator and the induced abortion dataset was imported to be used as the numerator. This ratio is determined by how the ratios were calculated in the other datasets.
+
+For the live birth dataset, Essex County and Hamilton County were coded seperately, while the other datasets coded them as one category. As a result, we used `transform` to create a category that combines these two counties. Then we used `group_by` and `summarise` to combine these two rows into one row named as `Essex|Hamilton`. 
 
 ```{r}
 clean_lb_finance = 
   live_birth_finance %>% 
   select(-c(4,6:8)) %>%
-  purrr::set_names(c("borough", "total", "Medicaid", "Self_Pay", "Other_Insurance", "Not_Stated")) %>%
+  purrr::set_names(c("borough", "total", "medicaid", "self_pay", "other_insurance", "not_stated")) %>%
   slice(7:11,14:70) %>%
   mutate(
     borough = str_replace(borough, "Kings", "Brooklyn"),
     borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
     borough = str_replace(borough, "Richmond", "Staten Island"),
     total = str_replace(total, ",", ""),
-    Medicaid = str_replace(Medicaid, ",", ""),
-    Other_Insurance = str_replace(Other_Insurance, ",", ""),
-    Self_Pay = str_replace(Self_Pay, ",", ""),
-    Not_Stated = str_replace(Not_Stated, ",", "")
+    medicaid = str_replace(medicaid, ",", ""),
+    other_insurance = str_replace(other_insurance, ",", ""),
+    self_pay = str_replace(self_pay, ",", ""),
+    not_stated = str_replace(not_stated, ",", "")
     ) %>%
-  mutate_at(c(2:6), as.numeric)
+  transform(borough = gsub(pattern="Essex|Hamilton", replacement="Essex/Hamilton", borough)) %>% 
+  mutate_at(c(2:6), as.numeric) %>% 
+  group_by(borough) %>%
+  summarise(
+    total = sum(total),
+    medicaid = sum(medicaid),
+    other_insurance = sum(other_insurance),
+    self_pay = sum(self_pay),
+    not_stated = sum(not_stated)
+  )
 ```
 
-Clean abortion finance
+We cleaned the induced abortion finance dataset with similar processes as mentioned earlier. 
 
 ```{r}
 clean_ia_finance =
@@ -159,10 +176,11 @@ induced_abortion_finance %>%
     Self_Pay = str_replace(Self_Pay, ",", ""),
     Not_Stated = str_replace(Not_Stated, ",", "")
     ) %>%
+  janitor::clean_names() %>%
   mutate_at(c(2:6), as.numeric)
 ```
 
-merge finance
+Finally, we merged the live births and induced abortion datasets together using `full_join`. After this we used `mutate` to calculate the abortion ratios manually. 
 
 ```{r}
 merged_data=
@@ -174,10 +192,13 @@ merged_data=
     other_insurance = (other_insurance_y / other_insurance_x)*1000,
     not_stated = (not_stated_y / not_stated_x)*1000,
     total = (total_y / total_x)*1000) %>% 
-select(borough, medicaid, self_pay, other_insurance, not_stated, total)  
+select(borough, medicaid, self_pay, other_insurance, not_stated, total)
+
 ```
 
-merge all dataset
+## Merge
+
+Merging all data set into one final data frame using `full_join` by `borough`, and rows and columns not needed were omitted. Cells that had Inf were renamed with NA using `na_if`. Final data set was exported to a csv file using `write_csv`. 
 
 ```{r}
 merge_age_race = 
@@ -191,6 +212,7 @@ merge_final =
   mutate(
     other_insurance = na_if(other_insurance, "Inf"),
     not_stated = na_if(not_stated, "Inf")
+<<<<<<< HEAD:exploratory/Master.Rmd
   ) %>%
   mutate(
     region = 
@@ -258,8 +280,11 @@ merge_final =
         borough == "Chautauqua" ~ "Western"
       )
   )
+=======
+  ) %>% 
+  rename(name=borough)
+>>>>>>> d7c66f0563d7965e43dd544e0d1c1499055019a5:exploratory/Final/Master.Rmd
 
 write_csv(merge_final, file = "data/master.csv")
 
 ```
-
