@@ -343,9 +343,6 @@ div.tocify {
         <li>
   <a href="index.html">Overview</a>
 </li>
-<li>
-  <a href="statistical_analysis.html">Statistical Analysis</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Exploratory Analysis
@@ -354,12 +351,15 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="exploratory_analysis.html">New York State Analysis</a>
+      <a href="ny_exploratory_analysis.html">New York State Analysis</a>
     </li>
     <li>
-      <a href="exploratory_analysis.html">New York City</a>
+      <a href="nyc_exploratory_analysis.html">New York City</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="statistical_analysis.html">Statistical Analysis</a>
 </li>
 <li>
   <a href="report.html">Report</a>
@@ -416,14 +416,15 @@ Among NYC and Compared to NY State</h1>
 
 <div id="abortion-trends-in-nyc" class="section level2">
 <h2>Abortion Trends in NYC</h2>
-<div id="proportion-t-test" class="section level3">
-<h3><em>Proportion T-Test</em></h3>
+<div id="proportion-t-test---boroughs" class="section level3">
+<h3><em>Proportion T-Test - Boroughs</em></h3>
 <p><strong>Do overall abortion rates differ across
 boroughs?</strong></p>
-<p><strong><span class="math inline">\(H_0\)</span></strong>: The number
-of abortions per 1000 births is the same across all boroughs.</p>
-<p><strong><span class="math inline">\(H_1\)</span></strong>: The number
-of abortions per 1000 births is not the same across all boroughs.</p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rate per 1000 live births is the same across all boroughs.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rate per 1000 live births is not the same across all
+boroughs.</p>
 <pre class="r"><code># Tidy data
 abortion_totals_borough =
   abortion_data %&gt;%
@@ -435,35 +436,35 @@ abortion_totals_borough =
 
 abortion_totals_borough %&gt;%
   select (-total) %&gt;%
-  knitr::kable(caption = &quot;Proprotion T-Test Results for NYC across all Boroughs&quot;, col.names = c(&quot;Borough&quot;, &quot;Abortions per 1000 births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+  knitr::kable(caption = &quot;Proportion T-Test for NYC across all Boroughs&quot;, col.names = c(&quot;Borough&quot;, &quot;Abortion Rate per 1000 live births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
 <table>
-<caption>Proprotion T-Test Results for NYC across all Boroughs</caption>
+<caption>Proportion T-Test for NYC across all Boroughs</caption>
 <thead>
 <tr class="header">
 <th align="left">Borough</th>
-<th align="center">Abortions per 1000 births</th>
+<th align="center">Abortion Rate per 1000 live births</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Bronx</td>
-<td align="center">623.3</td>
+<td align="center">623.3191</td>
 </tr>
 <tr class="even">
 <td align="left">Brooklyn</td>
-<td align="center">351.7</td>
+<td align="center">351.7053</td>
 </tr>
 <tr class="odd">
 <td align="left">Manhattan</td>
-<td align="center">537.5</td>
+<td align="center">537.4915</td>
 </tr>
 <tr class="even">
 <td align="left">Queens</td>
-<td align="center">445.7</td>
+<td align="center">445.7356</td>
 </tr>
 <tr class="odd">
 <td align="left">Staten Island</td>
-<td align="center">275.6</td>
+<td align="center">275.5633</td>
 </tr>
 </tbody>
 </table>
@@ -474,18 +475,18 @@ prop.test(abortion_totals_borough$n, abortion_totals_borough$total,
 ##  5-sample test for equality of proportions without continuity correction
 ## 
 ## data:  abortion_totals_borough$n out of abortion_totals_borough$total
-## X-squared = 314.5, df = 4, p-value &lt; 2.2e-16
+## X-squared = 314.57, df = 4, p-value &lt; 2.2e-16
 ## alternative hypothesis: two.sided
 ## sample estimates:
-## prop 1 prop 2 prop 3 prop 4 prop 5 
-## 0.6233 0.3517 0.5375 0.4457 0.2756</code></pre>
-<p><strong>Infecrence:</strong></p>
+##    prop 1    prop 2    prop 3    prop 4    prop 5 
+## 0.6233191 0.3517053 0.5374915 0.4457356 0.2755633</code></pre>
+<p><strong>Inference:</strong></p>
 <ul>
 <li><p>From the above results, the p-value is <strong>less than the 5%
 level of significance</strong>. Therefore, we <strong>reject the null
 hypothesis</strong>.</p></li>
 <li><p>The data provides sufficient evidence to support the hypothesis
-that the number of abortions per 1000 births differs across
+that overall abortion rates per 1000 births live differs across
 boroughs.</p></li>
 </ul>
 </div>
@@ -494,37 +495,32 @@ boroughs.</p></li>
 <p><strong>Do overall abortion rates differ across boroughs by
 race?</strong></p>
 <p><strong><span class="math inline">\(H_0\)</span></strong>: The
-expected counts of abortions in each race category are the same across
-all boroughs.</p>
+expected abortion rate in each race category are the same across all
+boroughs.</p>
 <p><strong><span class="math inline">\(H_1\)</span></strong>: The
-expected counts of abortions in each race category are not the same
-across all boroughs.</p>
+expected abortion rate in each race category are not the same across all
+boroughs.</p>
 <pre class="r"><code># Tidy data
 abortion_race_clean = 
-  abortion_race %&gt;%
+  abortion_data %&gt;%
   slice(3:7) %&gt;%
+  select(-(age_less_20:nh_total)) %&gt;% select(-(h_white_only_ratio:region)) %&gt;%
   mutate(
-    hispanic = hispanic_ratio*1000,
-    h_white_only = h_white_only_ratio*1000,
-    h_black_only = h_black_only_ratio*1000,
-    non_hispanic = non_hispanic_ratio*1000,
+    hispanic = h_total*1000,
     nh_white_only = nh_white_only_ratio*1000,
     nh_black_only = nh_black_only_ratio*1000,
     nh_other = nh_other_ratio*1000
   ) %&gt;%
-  select(-(hispanic_ratio:nh_other_ratio)) %&gt;% select(-total)
+  select(-(nh_white_only_ratio:h_total))
 
 abortion_race_clean %&gt;% 
-  knitr::kable(caption = &quot;Chi-Square Test Results for Race and Boroughs&quot;, col.names = c(&quot;Borough&quot;, &quot;Hispanic&quot;, &quot;Hispanic White&quot;, &quot;Hispanic Black&quot;, &quot;Non-Hispanic&quot;, &quot;Non-Hispanic White&quot;, &quot;Non-Hispanic Black&quot;, &quot;Non-Hispanic Other&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;,&#39;c&#39;,&#39;c&#39;,&#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+  knitr::kable(caption = &quot;Chi-Square Test for Race and Boroughs&quot;, col.names = c(&quot;Borough&quot;, &quot;Hispanic&quot;, &quot;Non-Hispanic White&quot;, &quot;Non-Hispanic Black&quot;, &quot;Non-Hispanic Other&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
 <table>
-<caption>Chi-Square Test Results for Race and Boroughs</caption>
+<caption>Chi-Square Test for Race and Boroughs</caption>
 <thead>
 <tr class="header">
 <th align="left">Borough</th>
 <th align="center">Hispanic</th>
-<th align="center">Hispanic White</th>
-<th align="center">Hispanic Black</th>
-<th align="center">Non-Hispanic</th>
 <th align="center">Non-Hispanic White</th>
 <th align="center">Non-Hispanic Black</th>
 <th align="center">Non-Hispanic Other</th>
@@ -534,9 +530,6 @@ abortion_race_clean %&gt;%
 <tr class="odd">
 <td align="left">Bronx</td>
 <td align="center">500200</td>
-<td align="center">172200</td>
-<td align="center">684600</td>
-<td align="center">786600</td>
 <td align="center">369800</td>
 <td align="center">734300</td>
 <td align="center">419300</td>
@@ -544,9 +537,6 @@ abortion_race_clean %&gt;%
 <tr class="even">
 <td align="left">Brooklyn</td>
 <td align="center">393100</td>
-<td align="center">214200</td>
-<td align="center">432000</td>
-<td align="center">343700</td>
 <td align="center">88600</td>
 <td align="center">837700</td>
 <td align="center">162500</td>
@@ -554,9 +544,6 @@ abortion_race_clean %&gt;%
 <tr class="odd">
 <td align="left">Manhattan</td>
 <td align="center">519800</td>
-<td align="center">220600</td>
-<td align="center">601400</td>
-<td align="center">542900</td>
 <td align="center">320800</td>
 <td align="center">1228300</td>
 <td align="center">253200</td>
@@ -564,9 +551,6 @@ abortion_race_clean %&gt;%
 <tr class="even">
 <td align="left">Queens</td>
 <td align="center">329400</td>
-<td align="center">80400</td>
-<td align="center">287400</td>
-<td align="center">494200</td>
 <td align="center">155000</td>
 <td align="center">895100</td>
 <td align="center">273100</td>
@@ -574,9 +558,6 @@ abortion_race_clean %&gt;%
 <tr class="odd">
 <td align="left">Staten Island</td>
 <td align="center">311700</td>
-<td align="center">377900</td>
-<td align="center">311800</td>
-<td align="center">264700</td>
 <td align="center">137900</td>
 <td align="center">692200</td>
 <td align="center">142900</td>
@@ -593,10 +574,10 @@ chisq.test(abortion_race_clean)</code></pre>
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  abortion_race_clean
-## X-squared = 934143, df = 24, p-value &lt; 2.2e-16</code></pre>
-<pre class="r"><code>x_crit = qchisq(0.95, 24)
+## X-squared = 349146, df = 12, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 12)
 x_crit</code></pre>
-<pre><code>## [1] 36.41503</code></pre>
+<pre><code>## [1] 21.02607</code></pre>
 <p><strong>Inference:</strong></p>
 <ul>
 <li><p>From the above results, <strong><span
@@ -604,7 +585,7 @@ class="math inline">\(X^2\)</span> is greater than the test-statistic at
 the 5% level of significance</strong>. Therefore, we <strong>reject the
 null hypothesis.</strong></p></li>
 <li><p>The data provides sufficient evidence to support the hypothesis
-that the number of abortions in each race category across boroughs is
+that the abortion rate in each race category across boroughs is
 different.</p></li>
 </ul>
 </div>
@@ -614,27 +595,28 @@ class="section level3">
 <p><strong>Do overall abortion rates differ across boroughs by finance
 plan?</strong></p>
 <p><strong><span class="math inline">\(H_0\)</span></strong>: The
-expected counts of abortions in each finance plan category are the same
+expected abortion rates in each finance plan category are the same
 across all boroughs.</p>
 <p><strong><span class="math inline">\(H_1\)</span></strong>: The
-expected counts of abortions in each finance plan category are not the
-same across all boroughs.</p>
+expected abortions rates in each finance plan category are not the same
+across all boroughs.</p>
 <pre class="r"><code># Tidy data
 abortion_finance_clean = 
-  abortion_finance %&gt;%
+  abortion_data %&gt;%
   slice(3:7) %&gt;%
+  select(-(age_less_20:h_black_only_ratio)) %&gt;%
   mutate(
     medicaid = medicaid*1000,
     self_pay = self_pay*1000,
     other_insurance = other_insurance*1000,
     not_stated = not_stated*1000
   ) %&gt;%
-  select(-total)
+  select(-(total:region))
 
 abortion_finance_clean %&gt;% 
-  knitr::kable(caption = &quot;Results Table&quot;, col.names = c(&quot;Borough&quot;, &quot;Medicaid&quot;, &quot;Self-Pay&quot;, &quot;Other Insurance&quot;, &quot;Not Stated&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;), format = &quot;simple&quot; )</code></pre>
+  knitr::kable(caption = &quot;Chi-Square Test for Finance Plan and Boroughs&quot;, col.names = c(&quot;Borough&quot;, &quot;Medicaid&quot;, &quot;Self-Pay&quot;, &quot;Other Insurance&quot;, &quot;Not Stated&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;), format = &quot;simple&quot; )</code></pre>
 <table>
-<caption>Results Table</caption>
+<caption>Chi-Square Test for Finance Plan and Boroughs</caption>
 <thead>
 <tr class="header">
 <th align="left">Borough</th>
@@ -674,7 +656,7 @@ abortion_finance_clean %&gt;%
 <td align="center">3519480.5</td>
 </tr>
 <tr class="odd">
-<td align="left">Staten_Island</td>
+<td align="left">Staten Island</td>
 <td align="center">323994.6</td>
 <td align="center">7259259</td>
 <td align="center">1676976</td>
@@ -703,215 +685,498 @@ class="math inline">\(X^2\)</span> is greater than the test-statistic at
 the 5% level of significance</strong>. Therefore, <strong>we reject the
 null hypothesis.</strong></p></li>
 <li><p>The data provides sufficient evidence to support the hypothesis
-that the number of abortions in each finance category across borough is
+that the abortion rates in each finance category across borough is
+different.</p></li>
+</ul>
+</div>
+<div id="chi-square-test---age-and-boroughs" class="section level3">
+<h3><em>Chi Square Test - Age and Boroughs</em></h3>
+<p><strong>Do overall abortion rates differ across boroughs by
+age?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each age category are the same across all
+boroughs.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each age category are not the same across all
+boroughs.</p>
+<pre class="r"><code># Tidy data
+abortion_age_clean = 
+  abortion_data %&gt;%
+  slice(3:7) %&gt;%
+  select(-(nh_total:region)) %&gt;%
+  mutate(
+    age_less_20 = age_less_20*1000,
+    age_20_24 = age_20_24*1000,
+    age_25_29 = age_25_29*1000,
+    age_30_34 = age_30_34*1000,
+    age_35_39 = age_35_39*1000,
+    age_plus_40 = age_plus_40*1000
+  )
+
+abortion_age_clean %&gt;% 
+  knitr::kable(caption = &quot;Chi-Square Test for Age and Boroughs&quot;, col.names = c(&quot;Borough&quot;, &quot;&lt; 20 years&quot;, &quot;20-24 years&quot;, &quot;25-29 years&quot;, &quot;30-34 years&quot;, &quot;35-39 years&quot;, &quot;40+ years&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;), format = &quot;simple&quot; )</code></pre>
+<table>
+<caption>Chi-Square Test for Age and Boroughs</caption>
+<thead>
+<tr class="header">
+<th align="left">Borough</th>
+<th align="center">&lt; 20 years</th>
+<th align="center">20-24 years</th>
+<th align="center">25-29 years</th>
+<th align="center">30-34 years</th>
+<th align="center">35-39 years</th>
+<th align="center">40+ years</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">1291900</td>
+<td align="center">860800</td>
+<td align="center">605000</td>
+<td align="center">497100</td>
+<td align="center">443100</td>
+<td align="center">447800</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">1388400</td>
+<td align="center">515300</td>
+<td align="center">412600</td>
+<td align="center">251800</td>
+<td align="center">210500</td>
+<td align="center">242800</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">1964900</td>
+<td align="center">1768600</td>
+<td align="center">988100</td>
+<td align="center">312200</td>
+<td align="center">256500</td>
+<td align="center">312000</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">1780100</td>
+<td align="center">915600</td>
+<td align="center">476500</td>
+<td align="center">282900</td>
+<td align="center">275700</td>
+<td align="center">396400</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">1252200</td>
+<td align="center">721700</td>
+<td align="center">307000</td>
+<td align="center">145700</td>
+<td align="center">130000</td>
+<td align="center">231900</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>abortion_age_clean =
+  abortion_age_clean %&gt;%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(abortion_age_clean)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  abortion_age_clean
+## X-squared = 881655, df = 20, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 20)
+x_crit</code></pre>
+<pre><code>## [1] 31.41043</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that the overall abortion rate in each age category across borough is
 different.</p></li>
 </ul>
 </div>
 </div>
 <div id="abortion-trends-in-ny-state" class="section level2">
 <h2><em>Abortion Trends in NY State</em></h2>
-<p><em>Proportion Test</em></p>
-<p>Do overall abortion rates differ across NY state regions?</p>
-<p>H0: The number of abortions per 1000 live births is the same across
-all NY state regions.</p>
-<p>H1: The number of abortions per 1000 live births is not the same
-across all NY state regions.</p>
+<div id="proportion-test---ny-state-regions" class="section level3">
+<h3><em>Proportion Test - NY State Regions</em></h3>
+<p><strong>Do overall abortion rates differ across NY state
+regions?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rate per 1000 live births is the same across all NY state
+regions.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rate per 1000 live births is not the same across all NY state
+regions.</p>
 <pre class="r"><code># Tidy data
-NY_totals_borough =
-  NY_finance %&gt;%
+NY_totals =
+  NY_year %&gt;%
   select(borough, total) %&gt;%
+  slice(1:10) %&gt;%
   mutate(
     n = total,
     total = 1000)
 
-NY_totals_borough %&gt;% 
-  knitr::kable(caption = &quot;Results Table&quot;)</code></pre>
+NY_totals %&gt;% 
+  select(-total) %&gt;%
+  knitr::kable(caption = &quot;Proportion T-Test for NY across all Regions&quot;,
+  col.names = c(&quot;Region&quot;, &quot;Abortions per 1000 live births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
 <table>
-<caption>Results Table</caption>
+<caption>Proportion T-Test for NY across all Regions</caption>
 <thead>
 <tr class="header">
-<th align="left">borough</th>
-<th align="right">total</th>
-<th align="right">n</th>
+<th align="left">Region</th>
+<th align="center">Abortions per 1000 live births</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Central New York</td>
-<td align="right">1000</td>
-<td align="right">261.37925</td>
+<td align="center">261.3792</td>
 </tr>
 <tr class="even">
 <td align="left">Eastern Adirondacks</td>
-<td align="right">1000</td>
-<td align="right">88.07588</td>
+<td align="center">113.8211</td>
 </tr>
 <tr class="odd">
 <td align="left">Finger Lakes</td>
-<td align="right">1000</td>
-<td align="right">255.66224</td>
+<td align="center">255.6622</td>
 </tr>
 <tr class="even">
 <td align="left">Hudson Valley</td>
-<td align="right">1000</td>
-<td align="right">232.98933</td>
+<td align="center">232.9893</td>
 </tr>
 <tr class="odd">
 <td align="left">Long Island</td>
-<td align="right">1000</td>
-<td align="right">195.85844</td>
+<td align="center">195.8584</td>
 </tr>
 <tr class="even">
 <td align="left">New York City</td>
-<td align="right">1000</td>
-<td align="right">450.46695</td>
+<td align="center">450.4669</td>
 </tr>
 <tr class="odd">
 <td align="left">Saratoga</td>
-<td align="right">1000</td>
-<td align="right">289.10482</td>
+<td align="center">289.1048</td>
 </tr>
 <tr class="even">
 <td align="left">Westchester/Rockland</td>
-<td align="right">1000</td>
-<td align="right">238.36949</td>
+<td align="center">238.3695</td>
 </tr>
 <tr class="odd">
 <td align="left">Western Adirondacks</td>
-<td align="right">1000</td>
-<td align="right">164.56714</td>
+<td align="center">164.5671</td>
 </tr>
 <tr class="even">
 <td align="left">Western New York</td>
-<td align="right">1000</td>
-<td align="right">270.46263</td>
+<td align="center">270.4626</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code># Run 10 prop t-test
-prop.test(NY_totals_borough$n, NY_totals_borough$total,
+prop.test(NY_totals$n, NY_totals$total,
           p = NULL, alternative = &quot;two.sided&quot;)</code></pre>
 <pre><code>## 
 ##  10-sample test for equality of proportions without continuity
 ##  correction
 ## 
-## data:  NY_totals_borough$n out of NY_totals_borough$total
-## X-squared = 426.85, df = 9, p-value &lt; 2.2e-16
+## data:  NY_totals$n out of NY_totals$total
+## X-squared = 383.72, df = 9, p-value &lt; 2.2e-16
 ## alternative hypothesis: two.sided
 ## sample estimates:
-##     prop 1     prop 2     prop 3     prop 4     prop 5     prop 6     prop 7 
-## 0.26137925 0.08807588 0.25566224 0.23298933 0.19585844 0.45046695 0.28910482 
-##     prop 8     prop 9    prop 10 
-## 0.23836949 0.16456714 0.27046263</code></pre>
-<p>From the above results, the p-value is less than the 5% level of
-significance. Therefore, we reject the null hypothesis. The data
-provides sufficient evidence to support the hypothesis that the number
-of abortions per 1000 live births differs across NY state regions.</p>
-<p><em>Chi Square Test - Race and NY State Regions</em></p>
-<p>Do overall abortion rates differ across NY state regions by race?</p>
-<p>H0: The expected counts of abortions per 1000 live births in each
-race category are the same across all NY state regions.</p>
-<p>H1: The expected counts of abortions per 1000 live births in each
-race category are not the same across all NY state regions.</p>
+##    prop 1    prop 2    prop 3    prop 4    prop 5    prop 6    prop 7    prop 8 
+## 0.2613792 0.1138211 0.2556622 0.2329893 0.1958584 0.4504669 0.2891048 0.2383695 
+##    prop 9   prop 10 
+## 0.1645671 0.2704626</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that overall abortion rates per 1000 live births differs across NY state
+regions.</p></li>
+</ul>
+<p>Because this suggests that abortion rates differs across NY state
+regions, we now can assess whether or not this holds true across
+counties.</p>
+</div>
+<div id="proportion-test---ny-state-counties" class="section level3">
+<h3><em>Proportion Test - NY State Counties</em></h3>
+<p><strong>Do overall abortion rates differ across NY state
+counties?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rates per 1000 live births is the same across all NY state
+counties.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rates per 1000 live births is not the same across all NY state
+counties.</p>
 <pre class="r"><code># Tidy data
-NY_race_clean = 
-  NY_race %&gt;%
-  slice(3:7) %&gt;%
+NY_totals_counties =
+  abortion_data %&gt;%
+  select(borough, total) %&gt;%
+  slice(-(1:2)) %&gt;%
   mutate(
-    hispanic = hispanic*1000,
-    h_white_only = h_white_only*1000,
-    h_black_only = h_black_only*1000,
-    non_hispanic = non_hispanic*1000,
-    nh_white_only = nh_white_only*1000,
-    nh_black_only = nh_black_only*1000,
-    nh_other = nh_other*1000
-  ) %&gt;%
-  select(-total)
+    n = total,
+    total = 1000)
 
-abortion_race_clean %&gt;% 
-  knitr::kable(caption = &quot;Results Table&quot;)</code></pre>
-<table style="width:100%;">
-<caption>Results Table</caption>
-<colgroup>
-<col width="10%" />
-<col width="15%" />
-<col width="15%" />
-<col width="15%" />
-<col width="16%" />
-<col width="16%" />
-<col width="10%" />
-</colgroup>
+NY_totals_counties %&gt;% 
+  select(-total) %&gt;%
+  head(10) %&gt;%
+  knitr::kable(caption = &quot;Proportion T-Test for NY across all Counties&quot;,
+  col.names = c(&quot;County&quot;, &quot;Abortions per 1000 live births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+<table>
+<caption>Proportion T-Test for NY across all Counties</caption>
 <thead>
 <tr class="header">
-<th align="right">hispanic</th>
-<th align="right">h_white_only</th>
-<th align="right">h_black_only</th>
-<th align="right">non_hispanic</th>
-<th align="right">nh_white_only</th>
-<th align="right">nh_black_only</th>
-<th align="right">nh_other</th>
+<th align="left">County</th>
+<th align="center">Abortions per 1000 live births</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">500200</td>
-<td align="right">172200</td>
-<td align="right">684600</td>
-<td align="right">786600</td>
-<td align="right">369800</td>
-<td align="right">734300</td>
-<td align="right">419300</td>
+<td align="left">Bronx</td>
+<td align="center">623.3191</td>
 </tr>
 <tr class="even">
-<td align="right">393100</td>
-<td align="right">214200</td>
-<td align="right">432000</td>
-<td align="right">343700</td>
-<td align="right">88600</td>
-<td align="right">837700</td>
-<td align="right">162500</td>
+<td align="left">Brooklyn</td>
+<td align="center">351.7053</td>
 </tr>
 <tr class="odd">
-<td align="right">519800</td>
-<td align="right">220600</td>
-<td align="right">601400</td>
-<td align="right">542900</td>
-<td align="right">320800</td>
-<td align="right">1228300</td>
-<td align="right">253200</td>
+<td align="left">Manhattan</td>
+<td align="center">537.4915</td>
 </tr>
 <tr class="even">
-<td align="right">329400</td>
-<td align="right">80400</td>
-<td align="right">287400</td>
-<td align="right">494200</td>
-<td align="right">155000</td>
-<td align="right">895100</td>
-<td align="right">273100</td>
+<td align="left">Queens</td>
+<td align="center">445.7356</td>
 </tr>
 <tr class="odd">
-<td align="right">311700</td>
-<td align="right">377900</td>
-<td align="right">311800</td>
-<td align="right">264700</td>
-<td align="right">137900</td>
-<td align="right">692200</td>
-<td align="right">142900</td>
+<td align="left">Staten Island</td>
+<td align="center">275.5633</td>
+</tr>
+<tr class="even">
+<td align="left">Albany</td>
+<td align="center">378.9862</td>
+</tr>
+<tr class="odd">
+<td align="left">Allegany</td>
+<td align="center">137.5000</td>
+</tr>
+<tr class="even">
+<td align="left">Broome</td>
+<td align="center">307.6923</td>
+</tr>
+<tr class="odd">
+<td align="left">Cattaraugus</td>
+<td align="center">107.8788</td>
+</tr>
+<tr class="even">
+<td align="left">Cayuga</td>
+<td align="center">152.9255</td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code># To check:
-# Should we still run a chi-sq for RACE by NY regions and AGE by NY regions since there are so many null values?</code></pre>
-<p><em>Chi Square Test - Finance Plans and NY State Regions</em></p>
-<p>Do overall abortion rates differ across boroughs by finance plan?</p>
-<p>H0: The expected counts of abortions per 1000 lives birth in each
-finance plan category are the same across all NY state regions.</p>
-<p>H1: The expected counts of abortions per 1000 live births in each
-finance plan category are not the same across all NY state regions.</p>
+<p>Only the first 10 counties are printed.</p>
+<pre class="r"><code># Run 58 prop t-test
+prop.test(NY_totals_counties$n, NY_totals_counties$total,
+          p = NULL, alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  58-sample test for equality of proportions without continuity
+##  correction
+## 
+## data:  NY_totals_counties$n out of NY_totals_counties$total
+## X-squared = 4503.5, df = 57, p-value &lt; 2.2e-16
+## alternative hypothesis: two.sided
+## sample estimates:
+##     prop 1     prop 2     prop 3     prop 4     prop 5     prop 6     prop 7 
+## 0.62331910 0.35170533 0.53749154 0.44573557 0.27556326 0.37898624 0.13750000 
+##     prop 8     prop 9    prop 10    prop 11    prop 12    prop 13    prop 14 
+## 0.30769231 0.10787879 0.15292553 0.09538003 0.28187919 0.19532909 0.09695291 
+##    prop 15    prop 16    prop 17    prop 18    prop 19    prop 20    prop 21 
+## 0.15240084 0.15742794 0.25214900 0.29788811 0.33763819 0.05539359 0.14598540 
+##    prop 22    prop 23    prop 25    prop 26    prop 27    prop 28    prop 29 
+## 0.21372549 0.15833333 0.16932907 0.12652608 0.10333333 0.11796733 0.14057508 
+##    prop 30    prop 31    prop 32    prop 33    prop 34    prop 35    prop 36 
+## 0.32086440 0.20341880 0.21589681 0.23537941 0.24350260 0.31288344 0.16701031 
+##    prop 37    prop 38    prop 39    prop 40    prop 41    prop 42    prop 43 
+## 0.18778891 0.07801418 0.11021070 0.30158730 0.11292346 0.33623910 0.08110470 
+##    prop 44    prop 45    prop 46    prop 47    prop 48    prop 49    prop 50 
+## 0.11811812 0.16569201 0.41196979 0.25609756 0.09036145 0.11294766 0.18146718 
+##    prop 51    prop 52    prop 53    prop 54    prop 55    prop 56    prop 57 
+## 0.17732151 0.28620296 0.09493671 0.18402282 0.30000000 0.23264540 0.17741935 
+##    prop 58    prop 59 
+## 0.18263811 0.32919443</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that overall abortion rates per 1000 live births differs across NY state
+counties.</p></li>
+</ul>
+</div>
+<div id="chi-square-test---race-and-ny-state-counties"
+class="section level3">
+<h3><em>Chi Square Test - Race and NY State Counties</em></h3>
+<p>Due to missing data, a chi-squared analysis was not run for race and
+NY state regions.</p>
+<p><strong>Do overall abortion rates differ across NY state counties by
+race?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each race category are the same across all NY
+state counties.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each race category are not the same across
+all NY state counties.</p>
+<pre class="r"><code># Tidy data
+NY_race_clean = 
+  abortion_data %&gt;%
+  slice(-(1:2)) %&gt;%
+  select(-(age_less_20:nh_total)) %&gt;% select(-(h_white_only_ratio:region)) %&gt;%
+  drop_na() %&gt;%
+  mutate(
+    hispanic = h_total*1000,
+    nh_white_only = nh_white_only_ratio*1000,
+    nh_black_only = nh_black_only_ratio*1000,
+    nh_other = nh_other_ratio*1000
+  ) %&gt;%
+  select(-(nh_white_only_ratio:h_total))
+
+NY_race_clean %&gt;% 
+  head(10) %&gt;%
+  knitr::kable(caption = &quot;Chi-Square Test for Race and Counties&quot;, col.names = c(&quot;County&quot;, &quot;Hispanic&quot;, &quot;Non-Hispanic White&quot;, &quot;Non-Hispanic Black&quot;, &quot;Non-Hispanic Other&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;,&#39;c&#39;,&#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+<table>
+<caption>Chi-Square Test for Race and Counties</caption>
+<thead>
+<tr class="header">
+<th align="left">County</th>
+<th align="center">Hispanic</th>
+<th align="center">Non-Hispanic White</th>
+<th align="center">Non-Hispanic Black</th>
+<th align="center">Non-Hispanic Other</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">500200</td>
+<td align="center">369800</td>
+<td align="center">734300</td>
+<td align="center">419300</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">393100</td>
+<td align="center">88600</td>
+<td align="center">837700</td>
+<td align="center">162500</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">519800</td>
+<td align="center">320800</td>
+<td align="center">1228300</td>
+<td align="center">253200</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">329400</td>
+<td align="center">155000</td>
+<td align="center">895100</td>
+<td align="center">273100</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">311700</td>
+<td align="center">137900</td>
+<td align="center">692200</td>
+<td align="center">142900</td>
+</tr>
+<tr class="even">
+<td align="left">Albany</td>
+<td align="center">402700</td>
+<td align="center">257000</td>
+<td align="center">919600</td>
+<td align="center">140600</td>
+</tr>
+<tr class="odd">
+<td align="left">Broome</td>
+<td align="center">482800</td>
+<td align="center">221900</td>
+<td align="center">803900</td>
+<td align="center">152900</td>
+</tr>
+<tr class="even">
+<td align="left">Cattaraugus</td>
+<td align="center">41200</td>
+<td align="center">91500</td>
+<td align="center">625000</td>
+<td align="center">13300</td>
+</tr>
+<tr class="odd">
+<td align="left">Cayuga</td>
+<td align="center">243900</td>
+<td align="center">99200</td>
+<td align="center">500000</td>
+<td align="center">218800</td>
+</tr>
+<tr class="even">
+<td align="left">Chautauqua</td>
+<td align="center">64800</td>
+<td align="center">65900</td>
+<td align="center">333300</td>
+<td align="center">137300</td>
+</tr>
+</tbody>
+</table>
+<p>Only the first 10 counties are printed.</p>
+<pre class="r"><code>NY_race_clean =
+  NY_race_clean %&gt;%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(NY_race_clean)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  NY_race_clean
+## X-squared = 7989625, df = 135, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 135)
+x_crit</code></pre>
+<pre><code>## [1] 163.1161</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that overall abortion rates in each race category across counties is
+different.</p></li>
+</ul>
+</div>
+<div id="chi-square-test---finance-plans-and-ny-state-regions"
+class="section level3">
+<h3><em>Chi Square Test - Finance Plans and NY State Regions</em></h3>
+<p><strong>Do overall abortion rates differ across NY state regions by
+finance plan?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each finance plan category are the same
+across all NY state regions.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each finance plan category are not the same
+across all NY state regions.</p>
 <pre class="r"><code># Tidy data
 NY_finance_clean = 
   NY_finance %&gt;%
-  slice(3:7) %&gt;%
   mutate(
     medicaid = medicaid*1000,
     self_pay = self_pay*1000,
@@ -920,54 +1185,89 @@ NY_finance_clean =
   ) %&gt;%
   select(-total)
 
-NY_finance_clean %&gt;% 
-  knitr::kable(caption = &quot;Results Table&quot;)</code></pre>
+NY_finance_clean %&gt;%
+  knitr::kable(caption = &quot;Chi-Square Test Finance Plan and Regions&quot;, col.names = c(&quot;Region&quot;, &quot;Medicaid&quot;, &quot;Self-Pay&quot;, &quot;Other Insurance&quot;, &quot;Not Stated&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;), format = &quot;simple&quot; )</code></pre>
 <table>
-<caption>Results Table</caption>
+<caption>Chi-Square Test Finance Plan and Regions</caption>
 <thead>
 <tr class="header">
-<th align="left">borough</th>
-<th align="right">medicaid</th>
-<th align="right">self_pay</th>
-<th align="right">other_insurance</th>
-<th align="right">not_stated</th>
+<th align="left">Region</th>
+<th align="center">Medicaid</th>
+<th align="center">Self-Pay</th>
+<th align="center">Other Insurance</th>
+<th align="center">Not Stated</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td align="left">Central New York</td>
+<td align="center">307848.2</td>
+<td align="center">1019047.62</td>
+<td align="center">5209677</td>
+<td align="center">8481012.7</td>
+</tr>
+<tr class="even">
+<td align="left">Eastern Adirondacks</td>
+<td align="center">135566.2</td>
+<td align="center">18181.82</td>
+<td align="center">1045455</td>
+<td align="center">333333.3</td>
+</tr>
+<tr class="odd">
 <td align="left">Finger Lakes</td>
-<td align="right">240162.6</td>
-<td align="right">123173.3</td>
-<td align="right">1886076</td>
-<td align="right">20950000</td>
+<td align="center">240162.6</td>
+<td align="center">123173.28</td>
+<td align="center">1886076</td>
+<td align="center">20950000.0</td>
 </tr>
 <tr class="even">
 <td align="left">Hudson Valley</td>
-<td align="right">175379.7</td>
-<td align="right">3315789.5</td>
-<td align="right">2962085</td>
-<td align="right">9240000</td>
+<td align="center">175379.7</td>
+<td align="center">3315789.47</td>
+<td align="center">2962085</td>
+<td align="center">9240000.0</td>
 </tr>
 <tr class="odd">
 <td align="left">Long Island</td>
-<td align="right">171955.0</td>
-<td align="right">6869791.7</td>
-<td align="right">10124294</td>
-<td align="right">9162162</td>
+<td align="center">171955.0</td>
+<td align="center">6869791.67</td>
+<td align="center">10124294</td>
+<td align="center">9162162.2</td>
 </tr>
 <tr class="even">
 <td align="left">New York City</td>
-<td align="right">401740.7</td>
-<td align="right">8801214.0</td>
-<td align="right">19924433</td>
-<td align="right">1477876</td>
+<td align="center">401740.7</td>
+<td align="center">8801213.96</td>
+<td align="center">19924433</td>
+<td align="center">1477876.1</td>
 </tr>
 <tr class="odd">
 <td align="left">Saratoga</td>
-<td align="right">375307.1</td>
-<td align="right">827338.1</td>
-<td align="right">15058824</td>
-<td align="right">3484848</td>
+<td align="center">375307.1</td>
+<td align="center">827338.13</td>
+<td align="center">15058824</td>
+<td align="center">3484848.5</td>
+</tr>
+<tr class="even">
+<td align="left">Westchester/Rockland</td>
+<td align="center">162220.0</td>
+<td align="center">5190000.00</td>
+<td align="center">8300885</td>
+<td align="center">49450000.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Western Adirondacks</td>
+<td align="center">224686.3</td>
+<td align="center">206030.15</td>
+<td align="center">1729508</td>
+<td align="center">821052.6</td>
+</tr>
+<tr class="even">
+<td align="left">Western New York</td>
+<td align="center">315989.7</td>
+<td align="center">1031250.00</td>
+<td align="center">1051360</td>
+<td align="center">814433.0</td>
 </tr>
 </tbody>
 </table>
@@ -981,20 +1281,178 @@ chisq.test(NY_finance_clean)</code></pre>
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  NY_finance_clean
-## X-squared = 56143959, df = 12, p-value &lt; 2.2e-16</code></pre>
-<pre class="r"><code>x_crit = qchisq(0.95, 12)
+## X-squared = 90277426, df = 27, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 27)
 x_crit</code></pre>
-<pre><code>## [1] 21.02607</code></pre>
-<p>From the above results, X^2 is greater than the test-statistic at the
-5% level of significance. Therefore, we reject the null hypothesis. The
-data provides sufficient evidence to support the hypothesis that the
-number of abortions per 1000 live births in each finance category across
-NY state regions is different.</p>
-<p><em>Chi Square Test - Age and NY State Regions</em></p>
+<pre><code>## [1] 40.11327</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that overall abortion rates in each finance category across regions is
+different.</p></li>
+</ul>
+</div>
+<div id="chi-square-test---finance-plan-and-ny-state-counties"
+class="section level3">
+<h3><em>Chi Square Test - Finance Plan and NY State Counties</em></h3>
+<p><strong>Do overall abortion rates differ across NY state counties by
+finance plan?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each finance plan category are the same
+across all NY state counties.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each finance plan category are not the same
+across all NY state counties.</p>
+<pre class="r"><code># Tidy data
+NY_finance_counties = 
+  abortion_data %&gt;%
+  slice(-(1:2)) %&gt;%
+  select(-(age_less_20:nh_total)) %&gt;% select(-(h_white_only_ratio:region)) %&gt;%
+  drop_na() %&gt;%
+  mutate(
+    hispanic = h_total*1000,
+    nh_white_only = nh_white_only_ratio*1000,
+    nh_black_only = nh_black_only_ratio*1000,
+    nh_other = nh_other_ratio*1000
+  ) %&gt;%
+  select(-(nh_white_only_ratio:h_total))
+
+NY_finance_counties %&gt;% 
+  head(10) %&gt;%
+  knitr::kable(caption = &quot;Chi-Square Test for Race and Counties&quot;, col.names = c(&quot;County&quot;, &quot;Hispanic&quot;, &quot;Non-Hispanic White&quot;, &quot;Non-Hispanic Black&quot;, &quot;Non-Hispanic Other&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+<table>
+<caption>Chi-Square Test for Race and Counties</caption>
+<thead>
+<tr class="header">
+<th align="left">County</th>
+<th align="center">Hispanic</th>
+<th align="center">Non-Hispanic White</th>
+<th align="center">Non-Hispanic Black</th>
+<th align="center">Non-Hispanic Other</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">500200</td>
+<td align="center">369800</td>
+<td align="center">734300</td>
+<td align="center">419300</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">393100</td>
+<td align="center">88600</td>
+<td align="center">837700</td>
+<td align="center">162500</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">519800</td>
+<td align="center">320800</td>
+<td align="center">1228300</td>
+<td align="center">253200</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">329400</td>
+<td align="center">155000</td>
+<td align="center">895100</td>
+<td align="center">273100</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">311700</td>
+<td align="center">137900</td>
+<td align="center">692200</td>
+<td align="center">142900</td>
+</tr>
+<tr class="even">
+<td align="left">Albany</td>
+<td align="center">402700</td>
+<td align="center">257000</td>
+<td align="center">919600</td>
+<td align="center">140600</td>
+</tr>
+<tr class="odd">
+<td align="left">Broome</td>
+<td align="center">482800</td>
+<td align="center">221900</td>
+<td align="center">803900</td>
+<td align="center">152900</td>
+</tr>
+<tr class="even">
+<td align="left">Cattaraugus</td>
+<td align="center">41200</td>
+<td align="center">91500</td>
+<td align="center">625000</td>
+<td align="center">13300</td>
+</tr>
+<tr class="odd">
+<td align="left">Cayuga</td>
+<td align="center">243900</td>
+<td align="center">99200</td>
+<td align="center">500000</td>
+<td align="center">218800</td>
+</tr>
+<tr class="even">
+<td align="left">Chautauqua</td>
+<td align="center">64800</td>
+<td align="center">65900</td>
+<td align="center">333300</td>
+<td align="center">137300</td>
+</tr>
+</tbody>
+</table>
+<p>Only the first 10 counties are printed.</p>
+<pre class="r"><code>NY_finance_counties =
+  NY_finance_counties %&gt;%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(NY_finance_counties)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  NY_finance_counties
+## X-squared = 7989625, df = 135, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 135)
+x_crit</code></pre>
+<pre><code>## [1] 163.1161</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that overall abortion rates in each finance category across counties is
+different.</p></li>
+</ul>
+</div>
+<div id="chi-square-test---age-and-ny-state-counties"
+class="section level3">
+<h3><em>Chi Square Test - Age and NY State Counties</em></h3>
+<p>Due to missing data, a chi-squared analysis was not run for race and
+NY state regions.</p>
+<p><strong>Do overall abortion rates differ across NY state counties by
+age?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each age category are the same across all NY
+state counties.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each age category are not the same across all
+NY state counties.</p>
 <pre class="r"><code># Tidy data
 NY_age_clean = 
-  NY_age %&gt;%
-  slice(3:7) %&gt;%
+  abortion_data %&gt;%
+  slice(-(1:2)) %&gt;%
+  select(-(nh_total:region)) %&gt;%
+  drop_na() %&gt;%
   mutate(
     age_less_20 = age_less_20*1000,
     age_20_24 = age_20_24*1000,
@@ -1002,113 +1460,155 @@ NY_age_clean =
     age_30_34 = age_30_34*1000,
     age_35_39 = age_35_39*1000,
     age_plus_40 = age_plus_40*1000
-  ) %&gt;%
-  select(-total)
+  )
 
 NY_age_clean %&gt;% 
-  knitr::kable(caption = &quot;Results Table&quot;)</code></pre>
+  head(10) %&gt;%
+  knitr::kable(caption = &quot;Chi-Square Test for Age and Counties&quot;, col.names = c(&quot;County&quot;, &quot;&lt; 20 years&quot;, &quot;20-24 years&quot;, &quot;25-29 years&quot;, &quot;30-34 years&quot;, &quot;35-39 years&quot;, &quot;40+ years&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;), format = &quot;simple&quot; )</code></pre>
 <table>
-<caption>Results Table</caption>
-<colgroup>
-<col width="17%" />
-<col width="15%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
-<col width="15%" />
-</colgroup>
+<caption>Chi-Square Test for Age and Counties</caption>
 <thead>
 <tr class="header">
-<th align="left">borough</th>
-<th align="right">age_less_20</th>
-<th align="right">age_20_24</th>
-<th align="right">age_25_29</th>
-<th align="right">age_30_34</th>
-<th align="right">age_35_39</th>
-<th align="right">age_plus_40</th>
+<th align="left">County</th>
+<th align="center">&lt; 20 years</th>
+<th align="center">20-24 years</th>
+<th align="center">25-29 years</th>
+<th align="center">30-34 years</th>
+<th align="center">35-39 years</th>
+<th align="center">40+ years</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Finger Lakes</td>
-<td align="right">28636364</td>
-<td align="right">4231884</td>
-<td align="right">1853088</td>
-<td align="right">NA</td>
-<td align="right">216478.7</td>
-<td align="right">25710.09</td>
+<td align="left">Bronx</td>
+<td align="center">1291900</td>
+<td align="center">860800</td>
+<td align="center">605000</td>
+<td align="center">497100</td>
+<td align="center">443100</td>
+<td align="center">447800</td>
 </tr>
 <tr class="even">
-<td align="left">Hudson Valley</td>
-<td align="right">39857143</td>
-<td align="right">7000000</td>
-<td align="right">2134897</td>
-<td align="right">NA</td>
-<td align="right">260087.5</td>
-<td align="right">32772.10</td>
+<td align="left">Brooklyn</td>
+<td align="center">1388400</td>
+<td align="center">515300</td>
+<td align="center">412600</td>
+<td align="center">251800</td>
+<td align="center">210500</td>
+<td align="center">242800</td>
 </tr>
 <tr class="odd">
-<td align="left">Long Island</td>
-<td align="right">73857143</td>
-<td align="right">6950673</td>
-<td align="right">2370258</td>
-<td align="right">NA</td>
-<td align="right">324771.2</td>
-<td align="right">24172.55</td>
+<td align="left">Manhattan</td>
+<td align="center">1964900</td>
+<td align="center">1768600</td>
+<td align="center">988100</td>
+<td align="center">312200</td>
+<td align="center">256500</td>
+<td align="center">312000</td>
 </tr>
 <tr class="even">
-<td align="left">New York City</td>
-<td align="right">85108696</td>
-<td align="right">9905201</td>
-<td align="right">4095296</td>
-<td align="right">NA</td>
-<td align="right">490085.7</td>
-<td align="right">61933.40</td>
+<td align="left">Queens</td>
+<td align="center">1780100</td>
+<td align="center">915600</td>
+<td align="center">476500</td>
+<td align="center">282900</td>
+<td align="center">275700</td>
+<td align="center">396400</td>
 </tr>
 <tr class="odd">
-<td align="left">Saratoga</td>
-<td align="right">76400000</td>
-<td align="right">6025641</td>
-<td align="right">2047826</td>
-<td align="right">266180.9</td>
-<td align="right">266180.9</td>
-<td align="right">32180.85</td>
+<td align="left">Staten Island</td>
+<td align="center">1252200</td>
+<td align="center">721700</td>
+<td align="center">307000</td>
+<td align="center">145700</td>
+<td align="center">130000</td>
+<td align="center">231900</td>
+</tr>
+<tr class="even">
+<td align="left">Albany</td>
+<td align="center">1346900</td>
+<td align="center">825500</td>
+<td align="center">394500</td>
+<td align="center">200400</td>
+<td align="center">215200</td>
+<td align="center">381000</td>
+</tr>
+<tr class="odd">
+<td align="left">Allegany</td>
+<td align="center">357100</td>
+<td align="center">214300</td>
+<td align="center">61200</td>
+<td align="center">107100</td>
+<td align="center">109100</td>
+<td align="center">166700</td>
+</tr>
+<tr class="even">
+<td align="left">Broome</td>
+<td align="center">821100</td>
+<td align="center">463700</td>
+<td align="center">312200</td>
+<td align="center">183200</td>
+<td align="center">187800</td>
+<td align="center">172400</td>
+</tr>
+<tr class="odd">
+<td align="left">Cattaraugus</td>
+<td align="center">236800</td>
+<td align="center">82600</td>
+<td align="center">114900</td>
+<td align="center">107000</td>
+<td align="center">86000</td>
+<td align="center">187500</td>
+</tr>
+<tr class="even">
+<td align="left">Cayuga</td>
+<td align="center">620700</td>
+<td align="center">186700</td>
+<td align="center">150600</td>
+<td align="center">95200</td>
+<td align="center">76900</td>
+<td align="center">150000</td>
 </tr>
 </tbody>
 </table>
+<p>Only the first 10 counties are printed.</p>
 <pre class="r"><code>NY_age_clean =
   NY_age_clean %&gt;%
-  select(-borough) %&gt;%
-  drop_na()
+  select(-borough)
 
 # Run chi-square test
 chisq.test(NY_age_clean)</code></pre>
 <pre><code>## 
-##  Chi-squared test for given probabilities
+##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  NY_age_clean
-## X-squared = 329666288, df = 5, p-value &lt; 2.2e-16</code></pre>
-<pre class="r"><code>x_crit = qchisq(0.95, 5)
+## X-squared = 10730198, df = 275, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 275)
 x_crit</code></pre>
-<pre><code>## [1] 11.0705</code></pre>
-<p>From the above results, X^2 is greater than the test-statistic at the
-5% level of significance. Therefore, we reject the null hypothesis. The
-data provides sufficient evidence to support the hypothesis that the
-number of abortions per 1000 live births in each age category across NY
-state regions is different.</p>
+<pre><code>## [1] 314.6784</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that overall abortion rates in each age category across counties is
+different.</p></li>
+</ul>
+</div>
 </div>
 <div id="abortions-rates-comparing-nyc-and-ny-state"
 class="section level2">
 <h2>Abortions Rates Comparing NYC and NY State</h2>
-<div id="proportion-t-test-1" class="section level3">
+<div id="proportion-t-test" class="section level3">
 <h3><em>Proportion T-test</em></h3>
 <p><strong>Do overall abortion rates differ between NYC and NY
 state?</strong></p>
-<p><strong><span class="math inline">\(H_0\)</span></strong>: The number
-of abortions per 1000 births is the same between NYC and NY state.</p>
-<p><strong><span class="math inline">\(H_1\)</span></strong>: The number
-of abortions per 1000 births differs between NYC and NY state.</p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rate per 1000 births is the same between NYC and NY state.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rate per 1000 births differs between NYC and NY state.</p>
 <pre class="r"><code># Tidy data
 abortion_totals =
   abortion_data %&gt;%
@@ -1120,23 +1620,23 @@ abortion_totals =
 
 abortion_totals %&gt;% 
   select (-total) %&gt;%
-  knitr::kable(caption = &quot;Proportion T-Test Results for NYC and NYS&quot;, col.names = c(&quot;Region&quot;, &quot;Abortions per 1000 births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+  knitr::kable(caption = &quot;Proportion T-Test for NYC and NY State&quot;, col.names = c(&quot;Region&quot;, &quot;Abortion Rate per 1000 births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
 <table>
-<caption>Proportion T-Test Results for NYC and NYS</caption>
+<caption>Proportion T-Test for NYC and NY State</caption>
 <thead>
 <tr class="header">
 <th align="left">Region</th>
-<th align="center">Abortions per 1000 births</th>
+<th align="center">Abortion Rate per 1000 births</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">New York State</td>
-<td align="center">336.5</td>
+<td align="center">336.5029</td>
 </tr>
 <tr class="even">
 <td align="left">New York City</td>
-<td align="center">450.5</td>
+<td align="center">450.4669</td>
 </tr>
 </tbody>
 </table>
@@ -1147,20 +1647,20 @@ prop.test(abortion_totals$n, abortion_totals$total,
 ##  2-sample test for equality of proportions with continuity correction
 ## 
 ## data:  abortion_totals$n out of abortion_totals$total
-## X-squared = 26.752, df = 1, p-value = 2.313e-07
+## X-squared = 26.735, df = 1, p-value = 2.334e-07
 ## alternative hypothesis: two.sided
 ## 95 percent confidence interval:
-##  -0.15752794 -0.07047206
+##  -0.15749190 -0.07043623
 ## sample estimates:
-## prop 1 prop 2 
-## 0.3365 0.4505</code></pre>
+##    prop 1    prop 2 
+## 0.3365029 0.4504669</code></pre>
 <p><strong>Inference:</strong></p>
 <ul>
 <li><p>From the above results, the p-value is <strong>less than the 5%
 level of significance.</strong> Therefore, we <strong>reject the null
 hypothesis.</strong></p></li>
 <li><p>The data provides sufficient evidence to support the hypothesis
-that the number of abortions per 1000 births differs between NYC and NY
+that the abortion rate per 1000 births differs between NYC and NY
 state.</p></li>
 </ul>
 </div>

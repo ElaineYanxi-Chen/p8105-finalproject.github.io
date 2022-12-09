@@ -1,0 +1,239 @@
+---
+title: "NY_year_county"
+author: "Maisie Sun"
+date: "2022-12-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(data.table)
+library(janitor)
+library(ggridges)
+library(patchwork)
+library(readxl)
+library("writexl")
+library(rvest)
+library(httr)
+library(dplyr)
+library(plotly)
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+<<<<<<< HEAD
+## 2019
+
+```{r data_import_age, echo = FALSE}
+url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table22.htm"
+
+=======
+## Induced Abortions in Years (2019)
+
+```{r data_import_2019}
+url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table21.htm"
+url1= "https://www.health.ny.gov/statistics/vital_statistics/2019/table07.htm"
+>>>>>>> 8a59f94e14e07019243a58032660345913c9f38c
+induced_abortion_2019 = 
+  read_html(url) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+<<<<<<< HEAD
+
+clean_2019 = 
+  induced_abortion %>%
+  select(1:2) %>%
+  slice(4,6:11,14:70) %>%
+  purrr::set_names(c("borough", "total")) %>%
+  mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
+    total = str_replace(total, ",", ""), 
+    year="2019") %>%
+  mutate_at(c("total", "year"), as.numeric)
+```
+
+## 2018
+
+```{r data_import_age, echo = FALSE}
+url = "https://www.health.ny.gov/statistics/vital_statistics/2018/table22.htm"
+
+induced_abortion_2018 = 
+  read_html(url) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+
+clean_2018 = 
+  induced_abortion %>%
+  select(1:2) %>%
+  slice(4,6:11,14:70) %>%
+  purrr::set_names(c("borough", "total")) %>%
+  mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
+    total = str_replace(total, ",", ""), 
+    year="2018") %>%
+  mutate_at(c("total", "year"), as.numeric)
+```
+
+## 2017
+
+```{r data_import_age, echo = FALSE}
+url = "https://www.health.ny.gov/statistics/vital_statistics/2017/table22.htm"
+
+induced_abortion_2017 = 
+  read_html(url) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+
+clean_2017= 
+  induced_abortion %>%
+  select(1:2) %>%
+  slice(4,6:11,14:70) %>%
+  purrr::set_names(c("borough", "total")) %>%
+  mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
+    total = str_replace(total, ",", ""), 
+    year="2017") %>%
+  mutate_at(c("total", "year"), as.numeric)
+```
+
+## 2016
+
+```{r data_import_age, echo = FALSE}
+url = "https://www.health.ny.gov/statistics/vital_statistics/2016/table22.htm"
+
+induced_abortion_2016= 
+  read_html(url) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+
+clean_2016 = 
+  induced_abortion %>%
+  select(1:2) %>%
+  slice(4,6:11,14:70) %>%
+  purrr::set_names(c("borough", "total")) %>%
+  mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
+    total = str_replace(total, ",", ""), 
+    year="2016") %>%
+  mutate_at(c("total", "year"), as.numeric)
+```
+
+## 2015
+
+```{r data_import_age, echo = FALSE}
+url = "https://www.health.ny.gov/statistics/vital_statistics/2015/table22.htm"
+
+induced_abortion_2015 = 
+  read_html(url) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+
+clean_2015 = 
+  induced_abortion %>%
+  select(1:2) %>%
+  slice(4,6:11,14:70) %>%
+  purrr::set_names(c("borough", "total")) %>%
+  mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
+    total = str_replace(total, ",", ""), 
+    year="2015") %>%
+  mutate_at(c("total", "year"), as.numeric)
+```
+
+## 2014
+
+```{r data_import_age, echo = FALSE}
+url = "https://www.health.ny.gov/statistics/vital_statistics/2018/table22.htm"
+
+induced_abortion_2014 = 
+  read_html(url) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+
+clean_2014 = 
+  induced_abortion %>%
+  select(1:2) %>%
+  slice(4,6:11,14:70) %>%
+  purrr::set_names(c("borough", "total")) %>%
+  mutate(
+    borough = str_replace(borough, "Kings", "Brooklyn"),
+    borough = ifelse(as.character(borough) == "New York", "Manhattan", as.character(borough)),
+    borough = str_replace(borough, "Richmond", "Staten Island"),
+    total = str_replace(total, ",", ""), 
+    year="2014") %>% 
+  mutate_at(c("total", "year"), as.numeric)
+```
+
+Merge into one dataset.
+
+```{r}
+final_year = 
+  reduce(full_join, by='borough')
+
+  full_join(clean_2019, clean_2018, clean_2017, clean_2016, clean_2015, clean_2014, by = "borough")
+```
+
+=======
+live_birth_2019 = 
+  read_html(url1) %>%
+  html_table(header = FALSE) %>%
+  first() %>%
+  janitor::clean_names()
+```
+
+data cleaning
+
+```{r data_cleaning_2019, echo = FALSE}
+clean_ia_2019 = 
+  induced_abortion_2019 %>%
+  select(1:2) %>%
+  purrr::set_names(c("county", "total")) %>%
+  slice(7:11, 14:70) %>% 
+  mutate(total = str_replace(total, ",", ""),
+    year="2019") %>%
+  mutate_at(c("total", "year"), as.numeric) %>%
+     group_by(county, year) %>% 
+  summarize(total_rate= sum(total))
+
+clean_lb_2019 = 
+  live_birth_2019  %>%  
+  select(1:2) %>%
+  purrr::set_names(c("borough", "total")) %>%
+  slice(7:11, 14:70) %>% 
+  mutate(total = str_replace(total, ",", ""),
+    year="2019") %>%
+  mutate_at(c("total", "year"), as.numeric) %>%
+    transform(borough=gsub(pattern="", replacement="New York City", borough)) %>% 
+    group_by(county, year) %>% 
+  summarize(total_rate= sum(total))
+```
+>>>>>>> 8a59f94e14e07019243a58032660345913c9f38c

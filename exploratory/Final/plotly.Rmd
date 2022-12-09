@@ -1,7 +1,5 @@
 ---
 title: "plotly"
-author: "Maisie Sun"
-date: "2022-12-09"
 output: html_document
 ---
 
@@ -17,6 +15,7 @@ library("writexl")
 library(rvest)
 library(httr)
 library(dplyr)
+library(plotly)
 
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -35,36 +34,225 @@ scale_fill_discrete = scale_fill_viridis_d
 ```
 
 ## Data Import
+
+Importing master data that has been already cleaned. 
+
 ```{r data_import}
-data = read_csv(file = "data/master.csv") %>%
+setwd("C:/Users/kamonohashi/OneDrive/Documents/Columbia MPH/2022-2023/Fall/P8105/p8105-finalproject.github.io")
+
+data = read_csv(file = "./data/master.csv") %>%
   janitor::clean_names()
+
 ```
 
-## NYC Age
+From the master spreadsheet, we selected the columns and rows we will be using to analyze induced abortions by covariate categories.
+
+We first used `pivot_longer` to reformat the data and used `plotly` to create interactive plots. 
+
+## NYC plots
+
+#### NYC Age
 
 ```{r}
-age = 
+age_nyc = 
   data %>%
   select(1:7) %>%
-  slice(1:5)
+  slice(3:7)
 
-age %>%
+age_nyc %>%
   pivot_longer(
     age_less_20:age_plus_40,
     names_to = "age", 
-    values_to = "abortion"
+    values_to = "abortion",
+    names_prefix = "age_"
   ) %>%
-  mutate(age = factor(age, levels = c("age_less_20", "age_20_24", "age_25_29", "age_30_34", "age_35_39", "age_plus_40"))) %>% 
-  plot_ly(x = ~age, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   layout(title = 'Abortion Ratios by Age for Boroughs in New York City', yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
+  mutate(
+    age = replace(age, age == "less_20", "<20"),
+    age = replace(age, age == "20_24", "20-24"),
+    age = replace(age, age == "25_29", "25-29"),
+    age = replace(age, age == "30_34", "30-34"),
+    age = replace(age, age == "35_39", "35-39"),
+    age = replace(age, age == "plus_40", "40+"),
+    age = factor(age)
+  )%>% 
+  plot_ly(x = ~age, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   
+  layout(
+    title = 'Induced Abortions in NYC by Age', 
+    xaxis = list(title = "Age (Years)"),
+    yaxis = list(title = 'Abortions per 1,000 Live Births'))
 
+age_nyc
 ```
 
-## NYC Race
+From the bar plots, it is evident that those who age less than 20 have the highest abortion ratios across the boroughs in NYC in 2019. These ratios eem to decrease as age categories increase. When comparing between boroughs, Manhattan had the highest abortion ratios in categories `age_less_20` to `age_25_29`. Staten Island had the lowest abortion ratios overall, except for category `age_20_24`. The highest abortion ratio across all boroughs and age categories was for Manhattan for `age_less_20` with `r age_nyc%>%pull(age_less_20) %>% max()` induced abortions per 1,000 live births for `r age %>% filter(age_less_20 == max(age_less_20)) %>% pull(borough)`. The lowest abortion ratio across all boroughs and age categories was for Manhattan for `age_less_20` with 1964.9 induced abortions per 1,000 live births. 
+
+#### NYC Race
 
 ```{r}
-age = 
+race_nyc = 
   data %>%
-  select(1:7) %>%
-  slice(1:5)
+  select(1,9:12) %>%
+  slice(3:7)
+
+race_nyc %>%
+  pivot_longer(
+    nh_white_only_ratio:h_total,
+    names_to = "race", 
+    values_to = "abortion"
+  ) %>%
+    mutate(
+    race = replace(race, race == "nh_white_only_ratio", "Non-Hispanic White Only"),
+    race = replace(race, race == "nh_black_only_ratio", "Non-Hispanic Black Only"),
+    race = replace(race, race == "nh_other_ratio", "Non-Hispanic Other"),
+    race = replace(race, race == "h_total", "Hispanic"),
+    race = factor(race)
+    )  %>% 
+  plot_ly(x = ~race, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   
+  layout(
+    title = "Induced Abortions in NYC by Race/Ethnicity", 
+    xaxis = list(title = "Race"),
+    yaxis = list(title = "Abortions per 1,000 Live Births"))
+
+race_nyc
 ```
 
+From the bar plots, it is evident that those who identified as Non-Hispanic Black had the highest abortion ratios across all boroughs in NYC. Among those who identified as Non_Hispanic_Black, ratios were highest in Manhattan with 1,228.3 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion ratios in NYC. The lowest ratio across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a ratio of 88.6 induced abortions per 1,000 live births. 
+
+#### NYC Financial Plans
+
+```{r}
+finance_plan_nyc= 
+  data %>%
+  select(1,15:18) %>%
+  slice(3:7)
+
+finance_plan_nyc %>%  
+  pivot_longer(
+    medicaid:not_stated,
+    names_to = "finance_plan", 
+    values_to = "abortion"
+  ) %>%
+ mutate(
+    finance_plan = replace(finance_plan, finance_plan == "medicaid", "Medicaid"),
+    finance_plan = replace(finance_plan, finance_plan == "self_pay", "Self Pay"),
+    finance_plan = replace(finance_plan, finance_plan == "other_insurance", "Other Insurance"),
+    finance_plan = replace(finance_plan, finance_plan == "not_stated", "Not Stated"),
+    finance_plan = factor(finance_plan)
+    )  %>% 
+  plot_ly(x = ~finance_plan, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   
+  layout(
+    title = "Induced Abortions in NYC by Financial Plan Status", 
+    xaxis = list(title = "Type of Financial Plan"),
+    yaxis = list(title = "Abortions per 1,000 Live Births"))
+
+finance_plan_nyc
+```
+
+From the bar plots, those who were categorized as having other_insurance had the highest abortion ratios across all financial plans in NYC. When calculating abortion ratios for financial plans, we manually calculated these ratios from (induced abortions/ live births)*1000 as they were not provided like in other data sets. A huge flaw in these numbers is that those who have induced abortions and those who give births tend to use different insurance plans. People who give birth are unlikely to use `other_insurance` in comparison to those who have induced abortions due to the inherent differnces in procedures. Those who used `self_pay` for induced abortions had a relatively high abortion ratio as well. This would make sense as well given the nature of the procedure and possible restrictions by the health insurance plan to cover abortions. 
+
+## NY graphs
+
+#### NY Age
+
+#### NY Race
+
+#### NY Financial Plans
+
+## NY vs NYC graphs
+
+## NY vs NYC Age
+
+```{r}
+age_total = 
+  data %>%
+  select(1:7) %>%
+  slice(1:2)
+
+age_total %>%
+  pivot_longer(
+    age_less_20:age_plus_40,
+    names_to = "age", 
+    names_prefix = "age_",
+    values_to = "abortion"
+  ) %>% 
+  mutate(
+    age = replace(age, age == "less_20", "<20"),
+    age = replace(age, age == "20_24", "20-24"),
+    age = replace(age, age == "25_29", "25-29"),
+    age = replace(age, age == "30_34", "30-34"),
+    age = replace(age, age == "35_39", "35-39"),
+    age = replace(age, age == "plus_40", "40+"),
+    age = factor(age)
+  ) %>% 
+  plot_ly(x = ~age, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   
+ layout(
+    title = 'Induced Abortions in NY State & NYC by Age', 
+    xaxis = list(title = "Age (Years)"),
+    yaxis = list(title = 'Abortions per 1,000 Live Births'))
+
+age_total
+```
+
+From the bar plots, it is evident that those in New York City have a higher abortion ratio compared to those in New York State across all age categories. Generally, these ratios seem to decrease as age categories increase.Ratios were highest among those in the `age_less_20` category for both New York City and New York State.
+
+#### NY vs. NYC Race
+
+```{r}
+race_total = 
+  data %>%
+  select(1,9:12) %>%
+  slice(1:2)
+
+race_total %>%
+  pivot_longer(
+    nh_white_only_ratio:h_total,
+    names_to = "race", 
+    values_to = "abortion"
+  ) %>%
+  mutate(
+    race = replace(race, race == "nh_white_only_ratio", "Non-Hispanic White Only"),
+    race = replace(race, race == "nh_black_only_ratio", "Non-Hispanic Black Only"),
+    race = replace(race, race == "nh_other_ratio", "Non-Hispanic Other"),
+    race = replace(race, race == "h_total", "Hispanic"),
+    race = factor(race)
+    )%>% 
+  plot_ly(x = ~race, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   
+   layout(
+    title = "Induced Abortions in NY State & NYC by Race/Ethnicity", 
+    xaxis = list(title = "Race"),
+    yaxis = list(title = "Abortions per 1,000 Live Births"))
+
+race_total
+```
+
+From the bar plots, it is evident that those who identified as Non-Hispanic Black had the highest abortion ratios across all boroughs in NYC. Among those who identified as Non_Hispanic_Black, ratios were highest in Manhattan with 1,228.3 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion ratios in NYC. The lowest ratio across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a ratio of 88.6 induced abortions per 1,000 live births. 
+
+#### NY vs. NYC Financial Plans
+
+```{r}
+finance_plan_total= 
+  data %>%
+  select(1,15:18) %>%
+  slice(1:2)
+
+finance_plan_total %>%  
+  pivot_longer(
+    medicaid:not_stated,
+    names_to = "finance_plan", 
+    values_to = "abortion"
+  ) %>%
+  mutate(
+    finance_plan = replace(finance_plan, finance_plan == "medicaid", "Medicaid"),
+    finance_plan = replace(finance_plan, finance_plan == "self_pay", "Self Pay"),
+    finance_plan = replace(finance_plan, finance_plan == "other_insurance", "Other Insurance"),
+    finance_plan = replace(finance_plan, finance_plan == "not_stated", "Not Stated"),
+    finance_plan = factor(finance_plan)
+    ) %>% 
+  plot_ly(x = ~finance_plan, y = ~abortion, color = ~borough, type = "bar", colors = "viridis") %>%   
+  layout(
+    title = "Induced Abortions in NY State by Financial Plan Status", 
+    xaxis = list(title = "Type of Financial Plan"),
+    yaxis = list(title = "Abortions per 1,000 Live Births"))
+
+finance_plan_total
+```

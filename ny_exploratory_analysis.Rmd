@@ -44,13 +44,14 @@ plot_borough_year =
     y = ~total, x = ~year, color = ~borough, 
     type = "scatter", mode = "line", colors = "viridis") %>% 
    layout(
-     title = 'Induced Abortions Year by Borough', 
+     title = 'Abortion Rates from 2014-2019 by Regions in NYS', 
      xaxis = list(title = "Year"),
      yaxis = list(title = 'Abortions per 1,000 Live Births'))
 
 plot_borough_year
 ```
 
+From the plot above, it is evident that, on average, New York City has higher rates of abortions compared to the rest of the regions within New York State. 
 
 ## Age 
 
@@ -72,9 +73,11 @@ age_plot_nys =
     age = replace(age, age == "35_39", "35-39"),
     age = replace(age, age == "plus_40", "40+"),
     age = factor(age)
-  ) %>% 
+  ) %>%
+  group_by(region,age)%>%
+  summarise(total = sum(abortion)) %>% 
   plot_ly(
-    x = ~age, y = ~abortion, color = ~region, 
+    x = ~age, y = ~total, color = ~region, 
     type = "bar", colors = "viridis") %>% 
   layout(
     title = 'Induced Abortions in NY State by Age', 
@@ -84,7 +87,16 @@ age_plot_nys =
 age_plot_nys
 ```
 
-## Race 
+- From the above plot, it is evident that within different categories of age, the highest abortion rate per 1000 live births is among those that are below 20 years of age. 
+
+- We see a decline in induced abortion rates among older people across all regions within New York State. 
+
+- The highest abortion rate is found among those in New York City who are <20 years. 
+
+- While New York city has higher abortion rates across most age categories, we see that among those that are 35+, higher rates of abortion are found among those in the Finger Lakes, Capital/Saratoga, and Central New York regions.
+
+## Race/Ethnicity
+
 ```{r}
 race_plot_nys =
   merged %>% 
@@ -101,8 +113,10 @@ race_plot_nys =
     race = replace(race, race == "h_total", "Hispanic"),
     race = factor(race)
     ) %>%
+  group_by(region,race)%>%
+  summarise(total = sum(abortion)) %>% 
   plot_ly(
-    x = ~race, y = ~abortion, color = ~region, 
+    x = ~race, y = ~total, color = ~region, 
     type = "bar", colors = "viridis") %>% 
   layout(
     title = "Induced Abortions in NY State by Race/Ethnicity", 
@@ -111,6 +125,12 @@ race_plot_nys =
 
 race_plot_nys
 ```
+
+- When looking at abortion rates within different race/ethnicity categories, we observe that the highest rates of abortion are among those who identify as Non-Hispanic Black. 
+
+- The highest rate of abortion is among those residing in New York City and identify as Non-Hispanic Black. 
+
+- Hispanic individuals also seem to have high rates of abortion, and the highest rate of abortion within this category is among those that reside in the Capital/ Saratoga region. 
 
 ## Finacial Plan Status
 
@@ -129,9 +149,11 @@ finance_plot_nys=
     finance_plan = replace(finance_plan, finance_plan == "other_insurance", "Other Insurance"),
     finance_plan = replace(finance_plan, finance_plan == "not_stated", "Not Stated"),
     finance_plan = factor(finance_plan)
-    ) %>% 
+    ) %>%
+  group_by(region,finance_plan)%>%
+  summarise(total = sum(abortion)) %>% 
   plot_ly(
-    x = ~finance_plan, y = ~abortion, color = ~region, 
+    x = ~finance_plan, y = ~total, color = ~region, 
     type = "bar", colors = "viridis") %>% 
   layout(
     title = "Induced Abortions in NY State by Financial Plan Status", 
@@ -141,7 +163,13 @@ finance_plot_nys=
 finance_plot_nys
 ```
 
+- Highest rates of abortion are found among those enrolled in the `Not Stated` insurance category, followed by the `Other Insurance` category. 
 
+- The highest rate of abortion, when stratified by insurance enrollment, is found among those residing in the Capital/Saratoga region, and reporting as `Not Stated` insurance category. 
+
+- Within New York City, highest rates are found among those that are enrolled in `Other Category` insurance plans. 
+
+- Lowest rates of abortion are found among those that are enrolled in Medicaid. 
 
 
 
