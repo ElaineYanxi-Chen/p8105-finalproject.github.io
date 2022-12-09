@@ -37,7 +37,8 @@ scale_fill_discrete = scale_fill_viridis_d
 
 ## Data Import and Cleaning
 
-Datasets for age and race were imported and cleaned in similar ways. Columns needed were selected using `select`, and names were changed to more understanding titles using `set_names`. Then, we use `slice`to select the rows that is necessary for our analysis. A row inclu
+Datasets for age and race were imported and cleaned in similar ways. Columns needed were selected using `select`, and names were changed to more understanding titles using `set_names`. Then, we use `slice`to select the rows that is necessary for our analysis. A row included a list of the headers in the middle of the dataset
+
 #### Age 
 
 ```{r data_import_age, echo = FALSE}
@@ -208,7 +209,8 @@ merge_final =
   mutate(
     other_insurance = na_if(other_insurance, "Inf"),
     not_stated = na_if(not_stated, "Inf")
-  )
+  ) %>% 
+  rename(name=borough)
 
 write_csv(merge_final, file = "data/master.csv")
 

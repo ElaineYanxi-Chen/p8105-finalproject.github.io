@@ -1,4 +1,4 @@
-borough,age_less_20,age_20_24,age_25_29,age_30_34,age_35_39,age_plus_40,nh_total,nh_white_only_ratio,nh_black_only_ratio,nh_other_ratio,h_total,h_white_only_ratio,h_black_only_ratio,medicaid,self_pay,other_insurance,not_stated,total
+name,age_less_20,age_20_24,age_25_29,age_30_34,age_35_39,age_plus_40,nh_total,nh_white_only_ratio,nh_black_only_ratio,nh_other_ratio,h_total,h_white_only_ratio,h_black_only_ratio,medicaid,self_pay,other_insurance,not_stated,total
 Bronx,1291.9,860.8,605,497.1,443.1,447.8,786.6,369.8,734.3,419.3,500.2,172.2,684.6,488.45409292035396,6150.943396226415,31915.09433962264,1498.069498069498,623.3190950798925
 Brooklyn,1388.4,515.3,412.6,251.8,210.5,242.8,343.7,88.6,837.7,162.5,393.1,214.2,432,286.9984652488489,8644.444444444443,19678.414096916298,2058.8235294117644,351.7053279684589
 Manhattan,1964.9,1768.6,988.1,312.2,256.5,312,542.9,320.8,1228.3,253.2,519.8,220.6,601.4,708.3601977218998,31285.714285714286,62864.40677966102,576.5765765765766,537.4915421049394
