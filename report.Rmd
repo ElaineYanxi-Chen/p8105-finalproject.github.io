@@ -20,7 +20,7 @@ Source: [Guttmacher Institute](https://www.guttmacher.org/article/2019/12/state-
 
 Since then, access to abortion has been significantly compromised and even banned in several states across the country. Those that are likely to be most impacted by this decision are individuals that belong to under-served and marginalized communities. Changes in policies could potentially lead to a variation in abortion trends in the country over time.  We want to explore these trends to understand the implications of policy change in the country concerning reproductive rights. 
 
-Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the numbers of induced abortions in New York City, specifically, and compare the differences across the boroughs. 
+Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the numbers of induced abortions in New York City and New York State and compare the differences across the boroughs/ counties. 
 
 
 # Additional Resources/ Related Work
@@ -72,15 +72,15 @@ For this project, we will use data from [Vital Statistics of New York State 2014
 
 - The two regions are categorized as follows:
 
-  - New York City includes five counties: Bronx, Kings (Brooklyn), New York (Manhattan), Queens and Richmond (Staten Island). 
+  - New York City includes five counties: Bronx, Kings (Brooklyn), New York (Manhattan), Queens, and Richmond (Staten Island). 
 
-  - New York State outside of New York City, which encompasses the remaining 57 counties.
+  - New York State encompasses the remaining 57 counties, outside of New York City.
 
-From the Vital Statistics of New York State 2019, we will use data from the *Induced Abortions* section, and will specifically focus on data collected from New York City. 
+From the Vital Statistics of New York State 2019, we will use data from the *Induced Abortions* and *Live Births* section. 
 
 ## Data Scraping and Cleaning 
 
-We first imported the datasets from the internet and then cleaned each dataset individually. For each dataset, we selected the variables that were the most relevant and appropriate in exploring our research question. 
+We first imported the data sets from the Vital Statistics of New York State 2019 webpage. We cleaned the data and merged the data to create a final master spreadsheet, which we will be pulling from for each of our analyses.
 
 We renamed variable names for the different counties in New York City to the name of the boroughs. Final variable names in our dataset for the boroughs include:
 
@@ -90,7 +90,7 @@ We renamed variable names for the different counties in New York City to the nam
 - `Queens`
 - `Staten Island` 
 
-Data on New York State were obtained from the same dataset, and counties were recoded into regions based on categories set by New York State using `transform`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when adjusting the model for covariates. As a result, the categories helped ensure a sufficient sample size. 
+Data on New York State were obtained from the same dataset, and counties were recoded into regions based on categories set by New York State using `transform`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when stratifying based on covariates. As a result, the categorizing the regions will ensure a sufficient sample size. 
 
 The final regions included in the dataset for New York State includes:
 
@@ -109,6 +109,7 @@ The regions were created based on this [website](https://statejobs.ny.gov/assets
 
 Abortion rates were calculated for regions within NY State, while for NYC they were already available as rates. Rates were calculated by using the following formula: 
 $$Abortion\ Rate\ per\ 1000 = \frac{Count}{Number\ of\ Live\ Births} \times 1000$$ 
+
 Specific data cleaning processes for the covariates are listed below.
 
 #### Age
@@ -148,8 +149,6 @@ The final variable names include:
 The technical notes in the dataset did not specify which plans were included under the `other_insurance` category. 
 
 After individual datasets were tidied, they were merged into a final dataset which was then saved and exported to our project repository. These steps were necessary to ensure that the code was readable and reproducible. 
-
-
 # Exploratory analysis
 
 Our exploratory analysis was split into two categories - [New York State](ny_exploratory_analysis.html) and [New York City](nyc_exploratory_analysis.html). We analyzed how abortion rates may have different across different categories of our covariates (Age, Race/Ethnicity and Financial Plan Status), using plots. 
