@@ -208,7 +208,7 @@ final_table
 
 # Exploratory analysis
 
-Our exploratory analysis was split into two categories - [New York State](ny_exploratory_analysis.html) and [New York City](nyc_exploratory_analysis.html). We analyzed how abortion rates may have different across different categories of our covariates (Age, Race/Ethnicity and Financial Plan Status), using plots. 
+Our exploratory analysis was split into two categories - [New York State](ny_exploratory_analysis.html) and [New York City](nyc_exploratory_analysis.html). We analyzed how abortion rates may have different across different categories of our covariates (Age, Race/Ethnicity and Financial Plan Status), using plots created via `plotly`. In this report, all plots seen here have been made using `ggplot`. For interactive plots, head over to the individual exploratory analyses pages linked above! 
 
 ## NYC Analysis Results:
 
