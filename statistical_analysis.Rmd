@@ -430,7 +430,7 @@ x_crit
 
 Due to missing data, a chi-squared analysis was not run for race and NY state regions.
 
-**Do overall abortion rates differ across NY state regions by counties?**
+**Do overall abortion rates differ across NY state counties by age?**
 
 **$H_0$**: The expected abortion rates in each age category are the same across all NY state counties.
 
