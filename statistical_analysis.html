@@ -420,10 +420,10 @@ Among NYC and Compared to NY State</h1>
 <h3><em>Proportion T-Test - Boroughs</em></h3>
 <p><strong>Do overall abortion rates differ across
 boroughs?</strong></p>
-<p><strong><span class="math inline">\(H_0\)</span></strong>: The number
-of abortions per 1000 live births is the same across all boroughs.</p>
-<p><strong><span class="math inline">\(H_1\)</span></strong>: The number
-of abortions per 1000 live births is not the same across all
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rate per 1000 live births is the same across all boroughs.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rate per 1000 live births is not the same across all
 boroughs.</p>
 <pre class="r"><code># Tidy data
 abortion_totals_borough =
@@ -436,13 +436,13 @@ abortion_totals_borough =
 
 abortion_totals_borough %&gt;%
   select (-total) %&gt;%
-  knitr::kable(caption = &quot;Proportion T-Test for NYC across all Boroughs&quot;, col.names = c(&quot;Borough&quot;, &quot;Abortions per 1000 live births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+  knitr::kable(caption = &quot;Proportion T-Test for NYC across all Boroughs&quot;, col.names = c(&quot;Borough&quot;, &quot;Abortion Rate per 1000 live births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
 <table>
 <caption>Proportion T-Test for NYC across all Boroughs</caption>
 <thead>
 <tr class="header">
 <th align="left">Borough</th>
-<th align="center">Abortions per 1000 live births</th>
+<th align="center">Abortion Rate per 1000 live births</th>
 </tr>
 </thead>
 <tbody>
@@ -486,7 +486,8 @@ prop.test(abortion_totals_borough$n, abortion_totals_borough$total,
 level of significance</strong>. Therefore, we <strong>reject the null
 hypothesis</strong>.</p></li>
 <li><p>The data provides sufficient evidence to support the hypothesis
-that overall abortion rates differs across boroughs.</p></li>
+that overall abortion rates per 1000 births live differs across
+boroughs.</p></li>
 </ul>
 </div>
 <div id="chi-square-test---race-and-boroughs" class="section level3">
@@ -494,11 +495,11 @@ that overall abortion rates differs across boroughs.</p></li>
 <p><strong>Do overall abortion rates differ across boroughs by
 race?</strong></p>
 <p><strong><span class="math inline">\(H_0\)</span></strong>: The
-expected counts of abortions in each race category are the same across
-all boroughs.</p>
+expected abortion rate in each race category are the same across all
+boroughs.</p>
 <p><strong><span class="math inline">\(H_1\)</span></strong>: The
-expected counts of abortions in each race category are not the same
-across all boroughs.</p>
+expected abortion rate in each race category are not the same across all
+boroughs.</p>
 <pre class="r"><code># Tidy data
 abortion_race_clean = 
   abortion_data %&gt;%
@@ -584,7 +585,7 @@ class="math inline">\(X^2\)</span> is greater than the test-statistic at
 the 5% level of significance</strong>. Therefore, we <strong>reject the
 null hypothesis.</strong></p></li>
 <li><p>The data provides sufficient evidence to support the hypothesis
-that the number of abortions in each race category across boroughs is
+that the abortion rate in each race category across boroughs is
 different.</p></li>
 </ul>
 </div>
@@ -594,11 +595,11 @@ class="section level3">
 <p><strong>Do overall abortion rates differ across boroughs by finance
 plan?</strong></p>
 <p><strong><span class="math inline">\(H_0\)</span></strong>: The
-expected counts of abortions in each finance plan category are the same
+expected abortion rates in each finance plan category are the same
 across all boroughs.</p>
 <p><strong><span class="math inline">\(H_1\)</span></strong>: The
-expected counts of abortions in each finance plan category are not the
-same across all boroughs.</p>
+expected abortions rates in each finance plan category are not the same
+across all boroughs.</p>
 <pre class="r"><code># Tidy data
 abortion_finance_clean = 
   abortion_data %&gt;%
@@ -684,7 +685,7 @@ class="math inline">\(X^2\)</span> is greater than the test-statistic at
 the 5% level of significance</strong>. Therefore, <strong>we reject the
 null hypothesis.</strong></p></li>
 <li><p>The data provides sufficient evidence to support the hypothesis
-that the number of abortions in each finance category across borough is
+that the abortion rates in each finance category across borough is
 different.</p></li>
 </ul>
 </div>
@@ -693,11 +694,11 @@ different.</p></li>
 <p><strong>Do overall abortion rates differ across boroughs by
 age?</strong></p>
 <p><strong><span class="math inline">\(H_0\)</span></strong>: The
-expected counts of abortions in each age category are the same across
-all boroughs.</p>
+expected abortion rates in each age category are the same across all
+boroughs.</p>
 <p><strong><span class="math inline">\(H_1\)</span></strong>: The
-expected counts of abortions in each age category are not the same
-across all boroughs.</p>
+expected abortion rates in each age category are not the same across all
+boroughs.</p>
 <pre class="r"><code># Tidy data
 abortion_age_clean = 
   abortion_data %&gt;%
@@ -807,11 +808,11 @@ different.</p></li>
 <h3><em>Proportion Test - NY State Regions</em></h3>
 <p><strong>Do overall abortion rates differ across NY state
 regions?</strong></p>
-<p><strong><span class="math inline">\(H_0\)</span></strong>: The number
-of abortions per 1000 live births is the same across all NY state
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rate per 1000 live births is the same across all NY state
 regions.</p>
-<p><strong><span class="math inline">\(H_1\)</span></strong>: The number
-of abortions per 1000 live births is not the same across all NY state
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rate per 1000 live births is not the same across all NY state
 regions.</p>
 <pre class="r"><code># Tidy data
 NY_totals =
@@ -899,7 +900,8 @@ class="math inline">\(X^2\)</span> is greater than the test-statistic at
 the 5% level of significance</strong>. Therefore, <strong>we reject the
 null hypothesis.</strong></p></li>
 <li><p>The data provides sufficient evidence to support the hypothesis
-that overall abortion rates differs across NY state regions.</p></li>
+that overall abortion rates per 1000 live births differs across NY state
+regions.</p></li>
 </ul>
 <p>Because this suggests that abortion rates differs across NY state
 regions, we now can assess whether or not this holds true across
@@ -909,11 +911,11 @@ counties.</p>
 <h3><em>Proportion Test - NY State Counties</em></h3>
 <p><strong>Do overall abortion rates differ across NY state
 counties?</strong></p>
-<p><strong><span class="math inline">\(H_0\)</span></strong>: The number
-of abortions per 1000 live births is the same across all NY state
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rates per 1000 live births is the same across all NY state
 counties.</p>
-<p><strong><span class="math inline">\(H_1\)</span></strong>: The number
-of abortions per 1000 live births is not the same across all NY state
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rates per 1000 live births is not the same across all NY state
 counties.</p>
 <pre class="r"><code># Tidy data
 NY_totals_counties =
@@ -1017,7 +1019,8 @@ class="math inline">\(X^2\)</span> is greater than the test-statistic at
 the 5% level of significance</strong>. Therefore, <strong>we reject the
 null hypothesis.</strong></p></li>
 <li><p>The data provides sufficient evidence to support the hypothesis
-that overall abortion rates differs across NY state counties.</p></li>
+that overall abortion rates per 1000 live births differs across NY state
+counties.</p></li>
 </ul>
 </div>
 <div id="chi-square-test---race-and-ny-state-counties"
@@ -1028,11 +1031,11 @@ NY state regions.</p>
 <p><strong>Do overall abortion rates differ across NY state counties by
 race?</strong></p>
 <p><strong><span class="math inline">\(H_0\)</span></strong>: The
-expected counts of abortions in each race category are the same across
-all NY state counties.</p>
+expected abortion rates in each race category are the same across all NY
+state counties.</p>
 <p><strong><span class="math inline">\(H_1\)</span></strong>: The
-expected counts of abortions in each race category are not the same
-across all NY state counties.</p>
+expected abortion rates in each race category are not the same across
+all NY state counties.</p>
 <pre class="r"><code># Tidy data
 NY_race_clean = 
   abortion_data %&gt;%
@@ -1166,11 +1169,11 @@ class="section level3">
 <p><strong>Do overall abortion rates differ across NY state regions by
 finance plan?</strong></p>
 <p><strong><span class="math inline">\(H_0\)</span></strong>: The
-expected counts of abortions in each finance plan category are the same
+expected abortion rates in each finance plan category are the same
 across all NY state regions.</p>
 <p><strong><span class="math inline">\(H_1\)</span></strong>: The
-expected counts of abortions in each finance plan category are not the
-same across all NY state regions.</p>
+expected abortion rates in each finance plan category are not the same
+across all NY state regions.</p>
 <pre class="r"><code># Tidy data
 NY_finance_clean = 
   NY_finance %&gt;%
@@ -1299,11 +1302,11 @@ class="section level3">
 <p><strong>Do overall abortion rates differ across NY state counties by
 finance plan?</strong></p>
 <p><strong><span class="math inline">\(H_0\)</span></strong>: The
-expected counts of abortions in each finance plan category are the same
+expected abortion rates in each finance plan category are the same
 across all NY state counties.</p>
 <p><strong><span class="math inline">\(H_1\)</span></strong>: The
-expected counts of abortions in each finance plan category are not the
-same across all NY state counties.</p>
+expected abortion rates in each finance plan category are not the same
+across all NY state counties.</p>
 <pre class="r"><code># Tidy data
 NY_finance_counties = 
   abortion_data %&gt;%
@@ -1439,11 +1442,11 @@ NY state regions.</p>
 <p><strong>Do overall abortion rates differ across NY state regions by
 counties?</strong></p>
 <p><strong><span class="math inline">\(H_0\)</span></strong>: The
-expected counts of abortions in each age category are the same across
-all NY state counties.</p>
+expected abortion rates in each age category are the same across all NY
+state counties.</p>
 <p><strong><span class="math inline">\(H_1\)</span></strong>: The
-expected counts of abortions in each age category are not the same
-across all NY state counties.</p>
+expected abortion rates in each age category are not the same across all
+NY state counties.</p>
 <pre class="r"><code># Tidy data
 NY_age_clean = 
   abortion_data %&gt;%
@@ -1602,10 +1605,10 @@ class="section level2">
 <h3><em>Proportion T-test</em></h3>
 <p><strong>Do overall abortion rates differ between NYC and NY
 state?</strong></p>
-<p><strong><span class="math inline">\(H_0\)</span></strong>: The number
-of abortions per 1000 births is the same between NYC and NY state.</p>
-<p><strong><span class="math inline">\(H_1\)</span></strong>: The number
-of abortions per 1000 births differs between NYC and NY state.</p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rate per 1000 births is the same between NYC and NY state.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rate per 1000 births differs between NYC and NY state.</p>
 <pre class="r"><code># Tidy data
 abortion_totals =
   abortion_data %&gt;%
@@ -1617,13 +1620,13 @@ abortion_totals =
 
 abortion_totals %&gt;% 
   select (-total) %&gt;%
-  knitr::kable(caption = &quot;Proportion T-Test for NYC and NY State&quot;, col.names = c(&quot;Region&quot;, &quot;Abortions per 1000 births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+  knitr::kable(caption = &quot;Proportion T-Test for NYC and NY State&quot;, col.names = c(&quot;Region&quot;, &quot;Abortion Rate per 1000 births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
 <table>
 <caption>Proportion T-Test for NYC and NY State</caption>
 <thead>
 <tr class="header">
 <th align="left">Region</th>
-<th align="center">Abortions per 1000 births</th>
+<th align="center">Abortion Rate per 1000 births</th>
 </tr>
 </thead>
 <tbody>
@@ -1657,7 +1660,7 @@ prop.test(abortion_totals$n, abortion_totals$total,
 level of significance.</strong> Therefore, we <strong>reject the null
 hypothesis.</strong></p></li>
 <li><p>The data provides sufficient evidence to support the hypothesis
-that the number of abortions per 1000 births differs between NYC and NY
+that the abortion rate per 1000 births differs between NYC and NY
 state.</p></li>
 </ul>
 </div>

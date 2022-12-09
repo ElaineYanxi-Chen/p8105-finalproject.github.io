@@ -23,9 +23,9 @@ abortion_data = read_csv("data/master.csv")
 
 **Do overall abortion rates differ across boroughs?**
 
-**$H_0$**: The number of abortions per 1000 live births is the same across all boroughs.
+**$H_0$**: The abortion rate per 1000 live births is the same across all boroughs.
 
-**$H_1$**: The number of abortions per 1000 live births is not the same across all boroughs.
+**$H_1$**: The abortion rate per 1000 live births is not the same across all boroughs.
 
 ```{r tidy_borough}
 # Tidy data
@@ -39,7 +39,7 @@ abortion_totals_borough =
 
 abortion_totals_borough %>%
   select (-total) %>%
-  knitr::kable(caption = "Proportion T-Test for NYC across all Boroughs", col.names = c("Borough", "Abortions per 1000 live births"), align = c('l', 'c'), format = "simple")
+  knitr::kable(caption = "Proportion T-Test for NYC across all Boroughs", col.names = c("Borough", "Abortion Rate per 1000 live births"), align = c('l', 'c'), format = "simple")
 ```
 
 ```{r prop_boroughs}
@@ -52,15 +52,15 @@ prop.test(abortion_totals_borough$n, abortion_totals_borough$total,
 
 - From the above results, the p-value is **less than the 5% level of significance**. Therefore, we **reject the null hypothesis**. 
 
-- The data provides sufficient evidence to support the hypothesis that overall abortion rates differs across boroughs.
+- The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1000 births live differs across boroughs.
 
 ### *Chi Square Test - Race and Boroughs*
 
 **Do overall abortion rates differ across boroughs by race?**
 
-**$H_0$**: The expected counts of abortions in each race category are the same across all boroughs.
+**$H_0$**: The expected abortion rate in each race category are the same across all boroughs.
 
-**$H_1$**: The expected counts of abortions in each race category are not the same across all boroughs.
+**$H_1$**: The expected abortion rate in each race category are not the same across all boroughs.
 
 ```{r tidy_race}
 # Tidy data
@@ -98,15 +98,15 @@ x_crit
 
 - From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, we **reject the null hypothesis.** 
 
-- The data provides sufficient evidence to support the hypothesis that the number of abortions in each race category across boroughs is different. 
+- The data provides sufficient evidence to support the hypothesis that the abortion rate in each race category across boroughs is different. 
 
 ### *Chi Square Test - Finance Plan and Boroughs*
 
 **Do overall abortion rates differ across boroughs by finance plan?**
 
-**$H_0$**: The expected counts of abortions in each finance plan category are the same across all boroughs.
+**$H_0$**: The expected abortion rates in each finance plan category are the same across all boroughs.
 
-**$H_1$**: The expected counts of abortions in each finance plan category are not the same across all boroughs.
+**$H_1$**: The expected abortions rates in each finance plan category are not the same across all boroughs.
 
 ```{r tidy_finance}
 # Tidy data
@@ -144,15 +144,15 @@ x_crit
 
 - From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** 
 
-- The data provides sufficient evidence to support the hypothesis that the number of abortions in each finance category across borough is different.
+- The data provides sufficient evidence to support the hypothesis that the abortion rates in each finance category across borough is different.
 
 ### *Chi Square Test - Age and Boroughs*
 
 **Do overall abortion rates differ across boroughs by age?**
 
-**$H_0$**: The expected counts of abortions in each age category are the same across all boroughs.
+**$H_0$**: The expected abortion rates in each age category are the same across all boroughs.
 
-**$H_1$**: The expected counts of abortions in each age category are not the same across all boroughs.
+**$H_1$**: The expected abortion rates in each age category are not the same across all boroughs.
 
 ```{r tidy_age}
 # Tidy data
@@ -199,9 +199,9 @@ x_crit
 
 **Do overall abortion rates differ across NY state regions?**
 
-**$H_0$**: The number of abortions per 1000 live births is the same across all NY state regions.
+**$H_0$**: The abortion rate per 1000 live births is the same across all NY state regions.
 
-**$H_1$**: The number of abortions per 1000 live births is not the same across all NY state regions.
+**$H_1$**: The abortion rate per 1000 live births is not the same across all NY state regions.
 
 ```{r data_NY, message=FALSE, include=FALSE}
 NY_year = read_csv("data/NY_year.csv")
@@ -233,7 +233,7 @@ prop.test(NY_totals$n, NY_totals$total,
 
 - From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** 
 
-- The data provides sufficient evidence to support the hypothesis that overall abortion rates differs across NY state regions.
+- The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1000 live births differs across NY state regions.
 
 Because this suggests that abortion rates differs across NY state regions, we now can assess whether or not this holds true across counties.
 
@@ -241,9 +241,9 @@ Because this suggests that abortion rates differs across NY state regions, we no
 
 **Do overall abortion rates differ across NY state counties?**
 
-**$H_0$**: The number of abortions per 1000 live births is the same across all NY state counties.
+**$H_0$**: The abortion rates per 1000 live births is the same across all NY state counties.
 
-**$H_1$**: The number of abortions per 1000 live births is not the same across all NY state counties.
+**$H_1$**: The abortion rates per 1000 live births is not the same across all NY state counties.
 
 ```{r tidy_NY_counties}
 # Tidy data
@@ -274,7 +274,7 @@ prop.test(NY_totals_counties$n, NY_totals_counties$total,
 
 - From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** 
 
-- The data provides sufficient evidence to support the hypothesis that overall abortion rates differs across NY state counties.
+- The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1000 live births differs across NY state counties.
 
 ### *Chi Square Test - Race and NY State Counties*
 
@@ -282,9 +282,9 @@ Due to missing data, a chi-squared analysis was not run for race and NY state re
 
 **Do overall abortion rates differ across NY state counties by race?**
 
-**$H_0$**: The expected counts of abortions in each race category are the same across all NY state counties.
+**$H_0$**: The expected abortion rates in each race category are the same across all NY state counties.
 
-**$H_1$**: The expected counts of abortions in each race category are not the same across all NY state counties.
+**$H_1$**: The expected abortion rates in each race category are not the same across all NY state counties.
 
 ```{r NY_tidy_race_counties}
 # Tidy data
@@ -332,9 +332,9 @@ x_crit
 
 **Do overall abortion rates differ across NY state regions by finance plan?**
 
-**$H_0$**: The expected counts of abortions in each finance plan category are the same across all NY state regions.
+**$H_0$**: The expected abortion rates in each finance plan category are the same across all NY state regions.
 
-**$H_1$**: The expected counts of abortions in each finance plan category are not the same across all NY state regions.
+**$H_1$**: The expected abortion rates in each finance plan category are not the same across all NY state regions.
 
 ```{r data_NY_finance, include=FALSE, message=FALSE}
 NY_finance = read_csv("data/NY_finance.csv")
@@ -380,9 +380,9 @@ x_crit
 
 **Do overall abortion rates differ across NY state counties by finance plan?**
 
-**$H_0$**: The expected counts of abortions in each finance plan category are the same across all NY state counties.
+**$H_0$**: The expected abortion rates in each finance plan category are the same across all NY state counties.
 
-**$H_1$**: The expected counts of abortions in each finance plan category are not the same across all NY state counties.
+**$H_1$**: The expected abortion rates in each finance plan category are not the same across all NY state counties.
 
 ```{r NY_finance_counties}
 # Tidy data
@@ -432,9 +432,9 @@ Due to missing data, a chi-squared analysis was not run for race and NY state re
 
 **Do overall abortion rates differ across NY state regions by counties?**
 
-**$H_0$**: The expected counts of abortions in each age category are the same across all NY state counties.
+**$H_0$**: The expected abortion rates in each age category are the same across all NY state counties.
 
-**$H_1$**: The expected counts of abortions in each age category are not the same across all NY state counties.
+**$H_1$**: The expected abortion rates in each age category are not the same across all NY state counties.
 
 ```{r NY_tidy_age_counties}
 # Tidy data
@@ -485,9 +485,9 @@ x_crit
 
 **Do overall abortion rates differ between NYC and NY state?**
 
-**$H_0$**: The number of abortions per 1000 births is the same between NYC and NY state.
+**$H_0$**: The abortion rate per 1000 births is the same between NYC and NY state.
 
-**$H_1$**: The number of abortions per 1000 births differs between NYC and NY state.
+**$H_1$**: The abortion rate per 1000 births differs between NYC and NY state.
 
 ```{r tidy_totals}
 # Tidy data
@@ -501,7 +501,7 @@ abortion_totals =
 
 abortion_totals %>% 
   select (-total) %>%
-  knitr::kable(caption = "Proportion T-Test for NYC and NY State", col.names = c("Region", "Abortions per 1000 births"), align = c('l', 'c'), format = "simple")
+  knitr::kable(caption = "Proportion T-Test for NYC and NY State", col.names = c("Region", "Abortion Rate per 1000 births"), align = c('l', 'c'), format = "simple")
 ```
 
 ```{r prop}
@@ -514,4 +514,4 @@ prop.test(abortion_totals$n, abortion_totals$total,
 
 - From the above results, the p-value is **less than the 5% level of significance.** Therefore, we **reject the null hypothesis.** 
 
-- The data provides sufficient evidence to support the hypothesis that the number of abortions per 1000 births differs between NYC and NY state.
+- The data provides sufficient evidence to support the hypothesis that the abortion rate per 1000 births differs between NYC and NY state.
