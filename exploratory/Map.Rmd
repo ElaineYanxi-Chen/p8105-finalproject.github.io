@@ -164,3 +164,9 @@ write_csv(ny_counties, file = "data/ny_counties_geo.csv")
 ```
 
 This method seems promising, using methods described in the `tidycensus` [website](https://walker-data.com/census-r/mapping-census-data-with-r.html#cartographic-workflows-with-non-census-data), chapter 6.4. Will wait for a merged dataset with geographic and abortion information to try make an interactive map.
+
+
+```{r}
+merged_data = read_csv("data/master.csv")
+```
+
