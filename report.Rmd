@@ -47,14 +47,14 @@ In 2019, many conservative states raced to enact an unprecedented wave on bans o
 
 Source: [Guttmacher Institute](https://www.guttmacher.org/article/2019/12/state-policy-trends-2019-wave-abortion-bans-some-states-are-fighting-back)
 
-Since then, access to abortion has been significantly compromised and even banned in several states across the country. Those that are likely to be most impacted by this decision are individuals that belong to under-served and marginalized communities. Changes in policies could potentially lead to a variation in abortion trends in the country over time.  We want to explore these trends to understand the implications of policy change in the country concerning reproductive rights. 
+Since then, access to abortion has been significantly compromised and even banned in several states across the country. Those that are likely to be most impacted by this decision are individuals that belong to under-served and marginalized communities. Changes in policies could potentially lead to a variation in abortion trends in the country over time. We want to explore these trends to understand the implications of the policy change in the country concerning reproductive rights. 
 
-Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the numbers of induced abortions in New York City and New York State and compare the differences across the boroughs/ counties. 
+Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the numbers of induced abortions in New York City and New York State and compare the differences across the boroughs and counties. Different variables that we are interested are age, race, and financial plans. We are also interested on how the total rate of abortion changes over years from 2014 to 2019. 
 
 
 # Additional Resources/ Related Work
 
-Reproductive rights are basic human rights, and women should be allowed to have full autonomy on decisions regarding their bodies. They should be allowed to make decisions freely and responsibly and exercise their rights. Reproductive justice goes far beyond the right to abortion; the issue is inextricably bound to discrimination and inequality. As residents of New York City, we wanted to analyze the trends in abortion, and how it might be affected by factors such as race/ethnicity, financial plan status and age. 
+Reproductive rights are basic human rights, and women should be allowed to have full autonomy on decisions regarding their bodies. They should be allowed to exercise their rights and make decisions freely and responsibly. Reproductive justice goes far beyond the right to abortion; the issue is inextricably bound to discrimination and inequality. As residents of New York City, we wanted to analyze the trends in abortion, and how it might be affected by factors such as race/ethnicity, financial plan status and age. 
 
 Here's some recent information on abortion clinics/ laws/ and facts:
 
@@ -388,4 +388,3 @@ There were a couple of limitations in our project including the amount of limite
 
 
 What were your findings? Are they what you expect? What insights into the data can you make?
-
