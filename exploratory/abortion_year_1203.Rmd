@@ -212,7 +212,7 @@ select(year, everything()) %>%
 filter(!year=="year") %>% 
 mutate_at(c("total", "year"), as.numeric)
 
-write_csv(merged_data, file = "data/abortion_year_borough.csv")
+write_csv(year_final, file = "data/abortion_year_borough.csv")
 
 ```
 
