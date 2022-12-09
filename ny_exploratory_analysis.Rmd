@@ -2,7 +2,7 @@
 title: "Exploratory Analysis of Abortion Trend in the Five Boroughs of NYC "
 ---
 
-```{r, message = FALSE, echo = FALSE}
+```{r setup, message = FALSE, echo = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(janitor)
@@ -26,6 +26,138 @@ options(
 scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
+
+```{r merged data}
+merged = read_csv("data/master.csv") %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    region = 
+      case_when(
+        borough == "Albany" ~ "Capital Region", 
+        borough == "Saratoga" ~ "Capital Region",
+        borough == "Schenectady" ~ "Capital Region",
+        borough == "Greene" ~ "Capital Region",
+        borough == "Columbia" ~ "Capital Region",
+        borough == "Saratoga" ~ "Capital Region", 
+        borough == "Ulster" ~ "Mid-Hudson", 
+        borough == "Dutchess" ~ "Mid-Hudson", 
+        borough == "Sullivan" ~ "Mid-Hudson", 
+        borough == "Orange" ~ "Mid-Hudson", 
+        borough == "Putnam" ~ "Mid-Hudson", 
+        borough == "Westchester" ~ "Mid-Hudson", 
+        borough == "Rockland" ~ "Mid-Hudson",
+        borough == "Franklin" ~ "North Country",
+        borough == "Clinton" ~ "North Country",
+        borough == "Essex/Hamilton" ~ "North Country",
+        borough == "Warren" ~ "North Country",
+        borough == "Washington" ~ "North Country",
+        borough == "Oneida" ~ "Central",
+        borough == "Oswego" ~ "Central",
+        borough == "Onondaga" ~ "Central",
+        borough == "Madison" ~ "Central",
+        borough == "Cortland" ~ "Central",
+        borough == "Cayuga" ~ "Central",
+        borough == "Herkimer" ~ "Mohawk Valley",
+        borough == "Fulton" ~ "Mohawk Valley",
+        borough == "Montgomery" ~ "Mohawk Valley",
+        borough == "Otsego" ~ "Mohawk Valley",
+        borough == "Schoharie" ~ "Mohawk Valley",
+        borough == "Tompkins" ~ "Southern Tier",
+        borough == "Tioga" ~ "Southern Tier",
+        borough == "Broome" ~ "Southern Tier",
+        borough == "Chenango" ~ "Southern Tier",
+        borough == "Delaware" ~ "Southern Tier",
+        borough == "Monroe" ~ "Finger Lakes",
+        borough == "Wayne" ~ "Finger Lakes",
+        borough == "Livingston" ~ "Finger Lakes",
+        borough == "Ontario" ~ "Finger Lakes",
+        borough == "Seneca" ~ "Finger Lakes",
+        borough == "Yates" ~ "Finger Lakes",
+        borough == "Steuben" ~ "Finger Lakes",
+        borough == "Schuyler" ~ "Finger Lakes",
+        borough == "Chemung" ~ "Finger Lakes",
+        borough == "Nassau" ~ "Long Island",
+        borough == "Suffolk" ~ "Long Island",
+        borough == "Jefferson" ~ "Tug Hill Seaway",
+        borough == "Lewis" ~ "Tug Hill Seaway",
+        borough == "St Lawrence" ~ "Tug Hill Seaway",
+        borough == "Bronx" ~ "NYC",
+        borough == "Brooklyn" ~ "NYC",
+        borough == "Manhattan" ~ "NYC",
+        borough == "Queens" ~ "NYC",
+        borough == "Staten Island" ~ "NYC",
+        borough == "Niagara" ~ "Western",
+        borough == "Orleans" ~ "Western",
+        borough == "Erie" ~ "Western",
+        borough == "Genesee" ~ "Western",
+        borough == "Wyoming" ~ "Western",
+        borough == "Allegany" ~ "Western",
+        borough == "Cattaraugus" ~ "Western",
+        borough == "Chautauqua" ~ "Western"
+      )
+  )
+```
+
+## Age 
+
+```{r age nys}
+age_plot_nys =
+  merged %>% 
+  select(region, starts_with("age")) %>% 
+  pivot_longer(
+    age_less_20:age_plus_40,
+    names_to = "age", 
+    values_to = "abortion",
+    names_prefix = "age_"
+  ) %>% 
+  mutate(
+    age = replace(age, age == "less_20", "<20"),
+    age = replace(age, age == "20_24", "20-24"),
+    age = replace(age, age == "25_29", "25-29"),
+    age = replace(age, age == "30_34", "30-34"),
+    age = replace(age, age == "35_39", "35-39"),
+    age = replace(age, age == "plus_40", "40+"),
+    age = factor(age)
+  ) %>% 
+  plot_ly(
+    x = ~age, y = ~abortion, color = ~region, 
+    type = "bar", colors = "viridis") %>% 
+  layout(
+    title = 'Abortions in NY State by Age', 
+    xaxis = list(title = "Age (Years)"),
+    yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
+
+age_plot_nys
+```
+
+## Race 
+```{r}
+race_plot_nys =
+  merged %>% 
+  select(borough, nh_white_only_ratio:h_total) %>%
+  pivot_longer(
+    nh_white_only_ratio:h_total,
+    names_to = "race", 
+    values_to = "abortion"
+    ) %>%
+  mutate(
+    race = replace(race, race == "nh_white_only_ratio", "Non-Hispanic White Only"),
+    race = replace(race, race == "nh_black_only_ratio", "Non-Hispanic Black Only"),
+    race = replace(race, race == "nh_other_ratio", "Non-Hispanic Other"),
+    race = replace(race, race == "h_total", "Hispanic"),
+    race = factor(race)
+    ) %>%
+  plot_ly(
+    x = ~race, y = ~abortion, color = ~borough, 
+    type = "bar", colors = "viridis") %>% 
+  layout(
+    title = "Abortion Rates in NY State by Race/Ethnicity", 
+    xaxis = list(title = "Race"),
+    yaxis = list(title = "Number of Induced Abortions per 1,000 Live Births"))
+
+race_plot_nys
+```
+
 
 ### *Total*
 
@@ -74,7 +206,7 @@ abortion_age_plot =
     x = ~age, y = ~abortion, color = ~borough, 
     type = "bar", colors = "viridis") %>% 
   layout(
-    title = 'Abortions in NY State by Age', 
+    title = 'Abortion Rates in NY State by Age', 
     xaxis = list(title = "Age (Years)"),
     yaxis = list(title = 'Number of Induced Abortions per 1,000 Live Births'))
 
@@ -106,7 +238,7 @@ abortion_race_nhplot =
     x = ~race, y = ~abortion, color = ~borough, 
     type = "bar", colors = "viridis") %>% 
   layout(
-    title = "Abortion Ratios by Non-Hispanic Race for Boroughs and New York State", 
+    title = "Abortion Rates in NY State by Race/Ethnicity", 
     xaxis = list(title = "Race"),
     yaxis = list(title = "Number of Induced Abortions per 1,000 Live Births"))
 
