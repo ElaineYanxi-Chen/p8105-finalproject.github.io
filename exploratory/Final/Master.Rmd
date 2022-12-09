@@ -96,8 +96,8 @@ clean_race =
     nh_black_only_ratio = str_replace(nh_black_only_ratio, ",", ""),
     nh_other_ratio = str_replace(nh_other_ratio, ",", ""),
     h_total = str_replace(h_total, ",", ""),
-    n_white_only_ratio = str_replace(n_white_only_ratio, ",", ""),
-    n_black_only_ratio = str_replace(n_black_only_ratio, ",", "")
+    h_white_only_ratio = str_replace(h_white_only_ratio, ",", ""),
+    h_black_only_ratio = str_replace(h_black_only_ratio, ",", "")
     ) %>%
   mutate_at(c(2:9), as.numeric) %>%
     janitor::clean_names()
