@@ -43,19 +43,19 @@ merged = read_csv("data/master.csv") %>%
 # Motivation
 ***
 
-In 2019, many states raced to enact an unprecedented wave on bans on abortions that have severely restricted Women’s reproductive rights. These restrictions have culminated with the recent Supreme Court overturning of Roe v. Wade, a landmark supreme court case granting a Women’s right to an abortion. 
+In 2019, many states raced to enact an unprecedented wave of bans on abortions that have severely restricted Women’s reproductive rights. These restrictions have culminated to the recent Supreme Court overturning of Roe v. Wade, a landmark supreme court case granting a Women’s right to an abortion. 
 
 <img src="images/2019_abortion.jpg" style = "width:70%">
 
 Source: [Guttmacher Institute](https://www.guttmacher.org/article/2019/12/state-policy-trends-2019-wave-abortion-bans-some-states-are-fighting-back)
 
-Our year of interest is 2019, which is the most recent dataset provided by New York State and pre-COVID.  We will be focusing on the number of induced abortions per 1,000 live birth in New York City and New York State and compare the differences across the boroughs (for New York City), counties (for New York State), and between New York City and New York State. Variables we are considering are age, race/ethnicity, and financial plans. Those that are likely to be most impacted by this decision are individuals that belong to under-served and marginalized communities, and we wanted to better understand possible disparities in access to abortions. 
+Our year of interest is 2019, which is the most recent dataset provided by New York State and final year before the COVID-19 pandemic. We will be focusing on the number of induced abortions per 1,000 live births in New York City and New York State and compare the differences across boroughs (for New York City), counties (for New York State), and between New York City and New York State. Variables we are considering are age, race/ethnicity, and financial plans (a.k.a. insurance plans). Those that are likely to be most impacted by this decision are individuals that belong to under-served and marginalized communities. We wanted to better understand disparities in abortion access.
 
 &nbsp; 
 
 # Initial questions
 ***
-Originally, we wanted to conduct a comparative analysis of abortion rates in New York and Mississippi from 2017-2020 with the following questions:
+Originally, we wanted to conduct a comparative analysis of abortion rates in New York and Mississippi from 2017-2020 to answer the following questions:
 
 * Have abortion rates changed over time (2017 to 2020) in New York and Mississippi?
 * What does the distribution of abortion rates between counties within New York and Mississippi look like?
@@ -64,7 +64,7 @@ Originally, we wanted to conduct a comparative analysis of abortion rates in New
 
 # Final Research Questions
 ***
-We were unable to find a comprehensive dataset that included individual level data needed to answer these questions. Therefore, decided to focus on conducting an analysis of rates of abortion in New York City and New York State in 2019. Our research questions thus changed as follows:
+We were unable to find a comprehensive dataset that included individual level data needed to answer these questions. Therefore, we decided to focus on conducting an analysis of abortion rates in New York City and New York State in 2019. Our research questions changed to the following:
 
 * What does the distribution of rates of abortion between boroughs within New York City look like in 2019?
   * Are abortion rates different among boroughs in New York City while accounting for age, race/ethnicity, and finance plans in 2019?
@@ -87,23 +87,25 @@ For this project, we will use data from [Vital Statistics of New York State 2014
 
 - The New York State Department of Health receives data on live births and deaths recorded outside of New York State to residents of New York State from other states and Canada.
 
-- The two regions are categorized as follows:
+- The geographical units are categorized as follows:
 
-  - New York City includes five counties: Bronx, Kings (Brooklyn), New York (Manhattan), Queens, and Richmond (Staten Island). 
+  - New York City includes five counties: Bronx, Kings (Brooklyn), New York (Manhattan), Queens, and Richmond (Staten Island). Each county corresponds to a borough.
+  
+  - New York State encompasses 10 regions: Central New York, Eastern Adirondacks, Western Adirondacks, Saratoga, Finger Lakes, Western New York, Hudson Valley, Westchester/Rockland, Long Island, and New York City.
 
-  - New York State encompasses all 62 counties, including five from New York City.
+  - New York State encompasses 62 counties, including five from New York City.
 
 From the Vital Statistics of New York State 2019, we will use data from the *Induced Abortions* and *Live Births* section in order to find information on finance plans. 
 
 ## Data Scraping and Cleaning 
 
-We first imported the data sets representing rates of abortion from the Vital Statistics of New York State 2019 webpage. We cleaned and merged the data appropriately to create a final master spreadsheet, which we will be pulling from for each of our analyses.
+We first imported the data sets representing abortion rates from the Vital Statistics of New York State 2019 webpage. We cleaned and merged the data appropriately to create a final master spreadsheet, which we will be pulling from for each of our analyses.
 
-For the finance plans data set, we imported the number of induced abortion and number of live births in order to calculate the rates of abortion manually. The equation we used is as follow:
+For the finance plans data set, we imported the number of induced abortion and number of live births in order to calculate the abortion rates manually. The equation we used is as follows:
 
 $$Abortion\ Rate\ per\ 1000\ Live\ Births\ = \frac{Count}{Number\ of\ Live\ Births} \times 1000$$
 
-We renamed variable names for the different counties in New York City to the name of the boroughs. Final variable names in our dataset for the New York City include:
+We renamed variable names for the different counties in New York City to the name of the respective boroughs. Final variable names in our dataset for New York City include:
 
 - `Manhattan`
 - `Bronx`
@@ -113,9 +115,9 @@ We renamed variable names for the different counties in New York City to the nam
 
 From the same dataset, we included `New York State` total, `New York City` total and any county with released abortion rate data. Therefore, the dataset includes the following variables: `r merged %>% pull(borough)`to analyze data for New York state. 
 
-One note is that Essex County and Hamilton County data are combined in the dataset provided by New York City, thus having `Essex/Hamilton` as a combined variable, rather than seperate variables.
+One note is that Essex County and Hamilton County data are combined in the dataset provided by New York state. Therefore, `Essex/Hamilton` is used as a combined variable, rather than separate variables.
 
-Counties were recoded into regions based on categories set by New York State using `transform` or `case_when`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when stratifying based on covariates. As a result, the categorizing of the regions will ensure a sufficient sample size for some of the analyses.
+Counties were recoded into regions based on categories set by New York State using `transform` or `case_when`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when stratifying based on our covariates. As a result, the categorizing of the regions will ensure a sufficient sample size for some of the analyses.
 
 The final regions included in the dataset for New York State includes:
 
@@ -147,7 +149,7 @@ Age was categorized as follows:
 
 #### Race/Ethnicity
 
-Race/Ethnicity was broken down into the following categories:
+Race/Ethnicity was categorized as follows:
 
 - `Non-Hispanic White`
 - `Non-Hispanic Black` 
@@ -171,7 +173,7 @@ After individual datasets were tidied, they were merged into a final dataset whi
 
 ### Final Dataset
 
-Here is what our final, cleaned and tidied dataset looks like: 
+Here is our final, cleaned and tidied dataset: 
 
 ```{r}
 final= 
@@ -194,7 +196,7 @@ final_table
 # Exploratory analysis
 ***
 
-Our exploratory analysis was split into two categories - [New York State](ny_exploratory_analysis.html) and [New York City](nyc_exploratory_analysis.html). We analyzed how abortion rates may differ across different categories of our covariates (Age, Race/Ethnicity and Financial Plan Status), using plots created via `plotly`. In this report, all plots seen here have been made using `ggplot`. For interactive plots, head over to the individual exploratory analyses pages linked above! 
+Our exploratory analysis was split into two categories - [New York State](ny_exploratory_analysis.html) and [New York City](nyc_exploratory_analysis.html). We analyzed how abortion rates may differ across our covariates (Age, Race/Ethnicity and Financial Plan Status), using plots created via `plotly`. All plots seen here have been made using `ggplot`. For interactive plots, head over to the individual exploratory analyses pages linked above! 
 
 ## NYC Analysis Results:
 
@@ -235,8 +237,7 @@ age_nyc %>%
     )
 ```
 
-
-From the bar plots, it is evident that those who age less than 20 have the highest abortion ratios across the boroughs in NYC in 2019. These ratios eem to decrease as age categories increase. When comparing between boroughs, Manhattan had the highest abortion ratios in categories `<20` and `25-29`. Staten Island had the lowest abortion ratios overall, except for category `20-24`. The highest abortion rate across all boroughs and age categories was for Manhattan for `< 20` with 1964.9 induced abortions per 1,000 live births. The lowest abortion ratio across all boroughs and age categories was in Staten Island for `35-39` with 130 induced abortions per 1,000 live births. 
+From the bar plots, it is evident that those who are less than 20 years of age have the highest abortion rates across the boroughs in New York City in 2019. These rates decrease as age categories increase. When comparing between boroughs, Manhattan had the highest abortion rates in categories `<20` and `25-29`. Staten Island had the lowest abortion rates overall, except for category `20-24`. The highest abortion rate across all boroughs and age categories was for Manhattan for `< 20` with 1,964.9 induced abortions per 1,000 live births. The lowest abortion rate across all boroughs and age categories was in Staten Island for `35-39` with 130 induced abortions per 1,000 live births. 
 
 #### Race/Ethnicity:
 
@@ -270,7 +271,7 @@ race_nyc %>%
     )
 ```
 
-From the bar plots, it is evident that those who identified as Non-Hispanic Black Only had the highest abortion ratios across all boroughs in NYC. Among those who identified as Non-Hispanic Black Only, rates were highest in Manhattan with 1,228.3 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion ratios in NYC. The lowest rates across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a rates of 88.6 induced abortions per 1,000 live births. 
+From the bar plots, it is evident that those who identified as Non-Hispanic Black had the highest abortion rates across all boroughs in NYC. Among those who identified as Non-Hispanic Black, abortion rates were highest in Manhattan with 1,228.3 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion rates in NYC. The lowest rates across all boroughs and race groups was for those who identified as Non-Hispanic White and lived in Brooklyn with a rates of 88.6 induced abortions per 1,000 live births. 
 
 #### Financial Plan Status:
 
@@ -304,7 +305,7 @@ finance_plan_nyc %>%
     )
 ```
 
-From the bar plots, those who were categorized as having Other Insurance had the highest abortion rates across all financial plans in NYC with a rate of 62.86k induced abortions per 1000 live births. When calculating abortion rates for financial plans, we manually calculated these rates from (induced abortions/ live births)*1000 as they were not provided like in other data sets. A huge flaw in these numbers is that those who have induced abortions and those who give births tend to use different insurance plans. People who give birth are unlikely to use `Other Insurance` in comparison to those who have induced abortions due to the inherent differences in procedures. Those who used Self Pay for induced abortions had a relatively high abortion rates as well. This would make sense as well given the nature of the procedure and possible restrictions by the health insurance plan to cover abortions. Medicaid had the lowest abortion rates across all financial plans, and the rates were lowest with 287 induced abortions per 1000 live births.
+From the bar plots, those who were categorized as having Other Insurance had the highest abortion rates across all financial plans in NYC with a rate of 62.86k induced abortions per 1000 live births. When calculating abortion rates for financial plans, we manually calculated these rates from (induced abortions/ live births)*1000 as they were not provided like in other data sets. An noticeable trend is that those who have induced abortions and those who give births tend to use different insurance plans. People who give birth are unlikely to use `Other Insurance` in comparison to those who have induced abortions due to inherent differences in procedures. Those who used `Self Pay` for induced abortions had a relatively high abortion rates as well. This would make sense given the nature of the procedure and possible restrictions by the health insurance plan to cover abortions. Medicaid had the lowest abortion rates across all financial plans, and the rates were lowest with 287 induced abortions per 1,000 live births.
 
 &nbsp; 
 
@@ -348,7 +349,7 @@ age_nys =
 age_nys  
 ```
 
-From the above plot, it is evident that within different categories of age, the highest abortion rate per 1000 live births is among those that are below 20 years of age. We see a decline in induced abortion rates among older people across all regions within New York State. The highest abortion rate is found among those in New York City who are <20 years with 7677.5 induces abortions per 1000 live births. While New York city has higher abortion rates across most age categories, we see that among those that are 35+, higher rates of abortion are found among those in the Finger Lakes, Capital/Saratoga, and Central New York regions.
+From the above plot, it is evident that within different categories of age, the highest abortion rate per 1,000 live births is among those that are below 20 years of age. We see a decline in induced abortion rates among older people across all regions within New York State. The highest abortion rate is found among those in New York City who are less than 20 years of age with 7,677.5 induces abortions per 1,000 live births. While New York city has higher abortion rates across most age categories, we see that among those that are 35+, higher rates of abortion are found among those in the Finger Lakes, Capital/Saratoga, and Central New York regions.
 
 #### Race/Ethnicity
 
@@ -383,8 +384,7 @@ race_nys =
 race_nys 
 ```
 
-When looking at abortion rates within different race/ethnicity categories, we observe that the highest rates of abortion are among those who identify as Non-Hispanic Black. The highest rate of abortion is among those residing in New York City and identify as Non-Hispanic Black with 4638.1 induced abortions per 1000 live births. Hispanic individuals also seem to have high rates of abortion, and the highest rate of abortion within this category is among those that reside in the Capital/ Saratoga region (3698.2 per 1000 live births). 
-
+When looking at abortion rates within different race/ethnicity categories, we observe that the highest rates of abortion are among those who identify as Non-Hispanic Black. The highest abortion rate is among those residing in New York City and identify as Non-Hispanic Black with 4,638.1 induced abortions per 1,000 live births. Hispanic individuals also have high abortion rates, with the highest abortion rate within this category among those that reside in the Capital/ Saratoga region (3,698.2 per 1000 live births). 
 
 #### Financial Plan Status
 
@@ -418,7 +418,7 @@ finance_nys =
 
 ```
 
-Highest rates of abortion are found among those enrolled in the `Not Stated` insurance category, followed by the `Other Insurance` category. The highest rate of abortion, when stratified by insurance enrollment, is found among those residing in the Capital/Saratoga region, and reporting as `Not Stated` insurance category with 168.1k induced abortions per 1000 live births. Within New York City, highest rates are found among those that are enrolled in `Other Category` insurance plans with a rate of 150.1k induced abortions per 1000 live births. Lowest rates of abortion are found among those that are enrolled in Medicaid. 
+Highest abortion rates are found among those enrolled in the `Not Stated` insurance category, followed by the `Other Insurance` category. The highest abortion rate, when stratified by insurance enrollment, is found among those residing in the Capital/Saratoga region, and reporting as `Not Stated` insurance category with 168.1k induced abortions per 1,000 live births. Within New York City, highest rates are found among those that are enrolled in `Other Category` insurance plans with a rate of 150.1k induced abortions per 1,000 live births. Lowest rates of abortion are found among those that are enrolled in Medicaid. 
 
 &nbsp; 
 
@@ -462,7 +462,7 @@ age_total %>%
 
 ```
 
-From the bar plots, it is evident that those in New York City have higher abortion rates compared to those in New York State across all age categories. Rates seem to decrease as age categories increase for New York City; however, for New York State, rates decrease from the <20 to 35-39 age categories, and increase among those who are 40+. Rates were highest among those who were <20 years for both New York City and New York State. Those <20 years in New York State had the highest rates across all categories of 1491.4 abortions per 1000 live births.
+From the bar plots, it is evident that those in New York City have higher abortion rates compared to those in New York State across all age categories. Rates seem to decrease as age categories increase for New York City. However, for New York State, rates decrease from the <20 to 35-39 age categories, and increase among those who are 40+. Rates were highest among those who were <20 years for both New York City and New York State. Those <20 years in New York State had the highest rates across all categories of 1,491.4 abortions per 1,000 live births.
 
 #### NY vs. NYC Race
 
@@ -497,7 +497,7 @@ race_total %>%
 
 ```
 
-It is evident that those who identified as Non-Hispanic Black Only had the highest abortion rates across all boroughs in NYC. Among those who identified as Non_Hispanic_Black, rates were highest in Manhattan with 851.7 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion rates in NYC. The lowest rates across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a rates of 142.9 induced abortions per 1,000 live births. 
+It is evident that those who identified as Non-Hispanic Black had the highest abortion rates across all boroughs in New York City. Among those who identified as Non-Hispanic Black, rates were highest in Manhattan with 851.7 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion rates in New York City. The lowest rates across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a rates of 142.9 induced abortions per 1,000 live births. 
 
 #### NY vs. NYC Financial Plans
 
@@ -531,12 +531,14 @@ finance_plan_total %>%
     )
 ```
 
-Rates were highest for those with Other Insurance in both New York City and New York State and was higher in New York City with 19.92k induced abortions per 1000 live births. Rates were lowest for those with Medicaid in both New York City and New York State and was lower for those in New York State with 325.66 induced abortions per 1000 live births. 
+Rates were highest for those with `Other Insurance` in both New York City and New York State and was higher in New York City with 19.92k induced abortions per 1,000 live births. Rates were lowest for those with Medicaid in both New York City and New York State and was lower for those in New York State with 325.66 induced abortions per 1,000 live births. 
 
 &nbsp; 
 
 # Statistical Analysis
 ***
+In addition to conducting an exploratory analysis to assess how abortion rates may have differed across boroughs, regions, and counties and across different categories of our covariates (Age, Race/Ethnicity and Financial Plan Status), we conducted a statistical analysis to assess whether or not the differences observed in the data occurred only by chance or due to our covariates. A proportion t-test was performed to assess if abortion rates differed across geographical units. A chi-squared test was performed to assess if abortion rates differed across geographical units adjusting for our covariates.
+Because our final tidy dataset reports abortion rates standardized by 1000 live births, these points were converted back to abortion rates to run the chi-squared tests.
 
 ## Abortion Trends in NY State
 
@@ -576,8 +578,7 @@ prop.test(NY_totals$n, NY_totals$total,
           p = NULL, alternative = "two.sided")
 ```
 
-
-From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1000 live births differs across NY state regions.Because this suggests that abortion rates differs across NY state regions, we now can assess whether or not this holds true across counties.
+From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1,000 live births differs across NY state regions. Because this suggests that abortion rates differs across NY state regions, we now can assess whether or not this holds true across counties.
 
 #### Proportion Test - NY State Counties
 
@@ -612,7 +613,7 @@ prop.test(NY_totals_counties$n, NY_totals_counties$total,
           p = NULL, alternative = "two.sided")
 ```
 
-From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1000 live births differs across NY state counties.
+From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1,000 live births differs across NY state counties.
 
 #### Chi Square Test - Race and NY State Counties
 
@@ -811,9 +812,9 @@ From the above results, **$X^2$ is greater than the test-statistic at the 5% lev
 
 **Do overall abortion rates differ across boroughs?**
 
-**$H_0$**: The abortion rate per 1000 live births is the same across all boroughs.
+**$H_0$**: The abortion rate per 1,000 live births is the same across all boroughs.
 
-**$H_1$**: The abortion rate per 1000 live births is not the same across all boroughs.
+**$H_1$**: The abortion rate per 1,000 live births is not the same across all boroughs.
 
 ```{r tidy_borough}
 # Tidy data
@@ -975,9 +976,9 @@ From the above results, **$X^2$ is greater than the test-statistic at the 5% lev
 
 **Do overall abortion rates differ between NYC and NY state?**
 
-**$H_0$**: The abortion rate per 1000 births is the same between NYC and NY state.
+**$H_0$**: The abortion rate per 1,000 births is the same between NYC and NY state.
 
-**$H_1$**: The abortion rate per 1000 births differs between NYC and NY state.
+**$H_1$**: The abortion rate per 1,000 births differs between NYC and NY state.
 
 ```{r tidy_totals}
 # Tidy data
@@ -1012,7 +1013,9 @@ There were a couple of limitations in our project including the amount of limite
 # Discussion
 ***
 
-What were your findings? Are they what you expect? What insights into the data can you make?
+Based on our statistical analysis, we found that abortion rates in 2019 are significantly different across New York City boroughs, New York state regions, and New York state counties. Abortion rates in 2019 are also significantly different across the aforementioned geographical units adjusting for the covariates of interest: race, financial plan, and age. In addition, abortion rates in 2019 are significantly different between New York City and New York state. These results are what we expected due to the history of reproductive rights and existing socioeconomic disparities in the United States. More specifically, people of color, people with higher financial burdens, and people who are younger are most impacted by the state of abortion access. In New York City, where there have been policies put into place to promote reproductive rights, there are still disparities in abortion access due to deeply rooted systems of oppression. From our exploratory analysis, we found that the highest abortion rate is found among those in the Bronx among those who are Non-Hispanic Black. With respect to insurance plans, the lowest abortion rate is found among those with Medicaid, which is an insurance plan used by those with a low income. With respect to age, the highest abortion rate is found among those who are younger than 20 years of age.
+
+These insights are useful for state and local governments to determine where and to whom to allocate more social services and resources to promote reproductive health. Future analyses can focus on exploring the trends and distribution of abortion rates in New York City and New York State on a neighborhood level, mapping the locations of abortion clinics and other sexual and reproductive services, and repeating these exploratory and statistical analyses as data for recent years are released.
 
 &nbsp; 
 
