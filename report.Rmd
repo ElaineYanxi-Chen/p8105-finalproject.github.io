@@ -126,6 +126,9 @@ We renamed variable names for the different counties in New York City to the nam
 - `Queens`
 - `Staten Island` 
 
+From the same dataset, there are 62 counties in New York State, being:
+`r master %>% pull(borough) %>% rownames()`
+
 Data on New York State were obtained from the same dataset, and counties were recoded into regions based on categories set by New York State using `transform`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when stratifying based on covariates. As a result, the categorizing the regions will ensure a sufficient sample size. 
 
 The final regions included in the dataset for New York State includes:
