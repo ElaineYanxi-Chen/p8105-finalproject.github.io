@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>NY State Statistical Analaysis</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Overview</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Exploratory Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ny_exploratory_analysis.html">New York State Analysis</a>
+    </li>
+    <li>
+      <a href="nyc_exploratory_analysis.html">New York City Analysis</a>
+    </li>
+    <li>
+      <a href="comparative.html">Comparative Analysis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Statistical Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="nys_statistical_analysis.html">NYS Statistical Analysis</a>
+    </li>
+    <li>
+      <a href="nyc_statistical_analysis.html">NYC Statistical Analysis</a>
+    </li>
+    <li>
+      <a href="comparative_statistical_analysis.html">Comparative Statistical Analysis</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="report.html">Report</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="team.html">Our Team</a>
+    </li>
+    <li>
+      <a href="proposal.html">Project Proposal</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="mailto:&lt;yc4017@cumc.columbia.edu&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/ElaineYanxi-Chen/p8105-finalproject.github.io.git">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">NY State Statistical Analaysis</h1>
+
+</div>
+
+
+<div id="abortion-trends-in-ny-state" class="section level1">
+<h1>Abortion Trends in NY State</h1>
+<div id="proportion-test---ny-state-regions" class="section level2">
+<h2>Proportion Test - NY State Regions</h2>
+<p><strong>Do overall abortion rates differ across NY state
+regions?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rate per 1000 live births is the same across all NY state
+regions.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rate per 1000 live births is not the same across all NY state
+regions.</p>
+<pre class="r"><code># Tidy data
+NY_totals =
+  NY_year %&gt;%
+  select(borough, total) %&gt;%
+  slice(1:10) %&gt;%
+  mutate(
+    n = total,
+    total = 1000)
+
+NY_totals %&gt;% 
+  select(-total) %&gt;%
+  knitr::kable(caption = &quot;Proportion T-Test for NY across all Regions&quot;,
+  col.names = c(&quot;Region&quot;, &quot;Abortions per 1000 live births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+<table>
+<caption>Proportion T-Test for NY across all Regions</caption>
+<thead>
+<tr class="header">
+<th align="left">Region</th>
+<th align="center">Abortions per 1000 live births</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Central New York</td>
+<td align="center">261.3792</td>
+</tr>
+<tr class="even">
+<td align="left">Eastern Adirondacks</td>
+<td align="center">113.8211</td>
+</tr>
+<tr class="odd">
+<td align="left">Finger Lakes</td>
+<td align="center">255.6622</td>
+</tr>
+<tr class="even">
+<td align="left">Hudson Valley</td>
+<td align="center">232.9893</td>
+</tr>
+<tr class="odd">
+<td align="left">Long Island</td>
+<td align="center">195.8584</td>
+</tr>
+<tr class="even">
+<td align="left">New York City</td>
+<td align="center">450.4669</td>
+</tr>
+<tr class="odd">
+<td align="left">Saratoga</td>
+<td align="center">289.1048</td>
+</tr>
+<tr class="even">
+<td align="left">Westchester/Rockland</td>
+<td align="center">238.3695</td>
+</tr>
+<tr class="odd">
+<td align="left">Western Adirondacks</td>
+<td align="center">164.5671</td>
+</tr>
+<tr class="even">
+<td align="left">Western New York</td>
+<td align="center">270.4626</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Run 10 prop t-test
+prop.test(NY_totals$n, NY_totals$total,
+          p = NULL, alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  10-sample test for equality of proportions without continuity
+##  correction
+## 
+## data:  NY_totals$n out of NY_totals$total
+## X-squared = 383.72, df = 9, p-value &lt; 2.2e-16
+## alternative hypothesis: two.sided
+## sample estimates:
+##    prop 1    prop 2    prop 3    prop 4    prop 5    prop 6    prop 7    prop 8 
+## 0.2613792 0.1138211 0.2556622 0.2329893 0.1958584 0.4504669 0.2891048 0.2383695 
+##    prop 9   prop 10 
+## 0.1645671 0.2704626</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that overall abortion rates per 1000 live births differs across NY state
+regions.</p></li>
+</ul>
+<p>Because this suggests that abortion rates differs across NY state
+regions, we now can assess whether or not this holds true across
+counties.</p>
+</div>
+<div id="proportion-test---ny-state-counties" class="section level2">
+<h2>Proportion Test - NY State Counties</h2>
+<p><strong>Do overall abortion rates differ across NY state
+counties?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rates per 1000 live births is the same across all NY state
+counties.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rates per 1000 live births is not the same across all NY state
+counties.</p>
+<pre class="r"><code># Tidy data
+NY_totals_counties =
+  abortion_data %&gt;%
+  select(borough, total) %&gt;%
+  slice(-(1:2)) %&gt;%
+  mutate(
+    n = total,
+    total = 1000)
+
+NY_totals_counties %&gt;% 
+  select(-total) %&gt;%
+  head(10) %&gt;%
+  knitr::kable(caption = &quot;Proportion T-Test for NY across all Counties&quot;,
+  col.names = c(&quot;County&quot;, &quot;Abortions per 1000 live births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+<table>
+<caption>Proportion T-Test for NY across all Counties</caption>
+<thead>
+<tr class="header">
+<th align="left">County</th>
+<th align="center">Abortions per 1000 live births</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">623.3191</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">351.7053</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">537.4915</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">445.7356</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">275.5633</td>
+</tr>
+<tr class="even">
+<td align="left">Albany</td>
+<td align="center">378.9862</td>
+</tr>
+<tr class="odd">
+<td align="left">Allegany</td>
+<td align="center">137.5000</td>
+</tr>
+<tr class="even">
+<td align="left">Broome</td>
+<td align="center">307.6923</td>
+</tr>
+<tr class="odd">
+<td align="left">Cattaraugus</td>
+<td align="center">107.8788</td>
+</tr>
+<tr class="even">
+<td align="left">Cayuga</td>
+<td align="center">152.9255</td>
+</tr>
+</tbody>
+</table>
+<p>Only the first 10 counties are printed.</p>
+<pre class="r"><code># Run 58 prop t-test
+prop.test(NY_totals_counties$n, NY_totals_counties$total,
+          p = NULL, alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  58-sample test for equality of proportions without continuity
+##  correction
+## 
+## data:  NY_totals_counties$n out of NY_totals_counties$total
+## X-squared = 4503.5, df = 57, p-value &lt; 2.2e-16
+## alternative hypothesis: two.sided
+## sample estimates:
+##     prop 1     prop 2     prop 3     prop 4     prop 5     prop 6     prop 7 
+## 0.62331910 0.35170533 0.53749154 0.44573557 0.27556326 0.37898624 0.13750000 
+##     prop 8     prop 9    prop 10    prop 11    prop 12    prop 13    prop 14 
+## 0.30769231 0.10787879 0.15292553 0.09538003 0.28187919 0.19532909 0.09695291 
+##    prop 15    prop 16    prop 17    prop 18    prop 19    prop 20    prop 21 
+## 0.15240084 0.15742794 0.25214900 0.29788811 0.33763819 0.05539359 0.14598540 
+##    prop 22    prop 23    prop 25    prop 26    prop 27    prop 28    prop 29 
+## 0.21372549 0.15833333 0.16932907 0.12652608 0.10333333 0.11796733 0.14057508 
+##    prop 30    prop 31    prop 32    prop 33    prop 34    prop 35    prop 36 
+## 0.32086440 0.20341880 0.21589681 0.23537941 0.24350260 0.31288344 0.16701031 
+##    prop 37    prop 38    prop 39    prop 40    prop 41    prop 42    prop 43 
+## 0.18778891 0.07801418 0.11021070 0.30158730 0.11292346 0.33623910 0.08110470 
+##    prop 44    prop 45    prop 46    prop 47    prop 48    prop 49    prop 50 
+## 0.11811812 0.16569201 0.41196979 0.25609756 0.09036145 0.11294766 0.18146718 
+##    prop 51    prop 52    prop 53    prop 54    prop 55    prop 56    prop 57 
+## 0.17732151 0.28620296 0.09493671 0.18402282 0.30000000 0.23264540 0.17741935 
+##    prop 58    prop 59 
+## 0.18263811 0.32919443</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that overall abortion rates per 1000 live births differs across NY state
+counties.</p></li>
+</ul>
+</div>
+<div id="chi-square-test---race-and-ny-state-counties"
+class="section level2">
+<h2>Chi Square Test - Race and NY State Counties</h2>
+<p>Due to missing data, a chi-squared analysis was not run for race and
+NY state regions.</p>
+<p><strong>Do overall abortion rates differ across NY state counties by
+race?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each race category are the same across all NY
+state counties.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each race category are not the same across
+all NY state counties.</p>
+<pre class="r"><code># Tidy data
+NY_race_clean = 
+  abortion_data %&gt;%
+  slice(-(1:2)) %&gt;%
+  select(-(age_less_20:nh_total)) %&gt;% select(-(h_white_only_ratio:region)) %&gt;%
+  drop_na() %&gt;%
+  mutate(
+    hispanic = h_total*1000,
+    nh_white_only = nh_white_only_ratio*1000,
+    nh_black_only = nh_black_only_ratio*1000,
+    nh_other = nh_other_ratio*1000
+  ) %&gt;%
+  select(-(nh_white_only_ratio:h_total))
+
+NY_race_clean %&gt;% 
+  head(10) %&gt;%
+  knitr::kable(caption = &quot;Chi-Square Test for Race and Counties&quot;, col.names = c(&quot;County&quot;, &quot;Hispanic&quot;, &quot;Non-Hispanic White&quot;, &quot;Non-Hispanic Black&quot;, &quot;Non-Hispanic Other&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;,&#39;c&#39;,&#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+<table>
+<caption>Chi-Square Test for Race and Counties</caption>
+<thead>
+<tr class="header">
+<th align="left">County</th>
+<th align="center">Hispanic</th>
+<th align="center">Non-Hispanic White</th>
+<th align="center">Non-Hispanic Black</th>
+<th align="center">Non-Hispanic Other</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">500200</td>
+<td align="center">369800</td>
+<td align="center">734300</td>
+<td align="center">419300</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">393100</td>
+<td align="center">88600</td>
+<td align="center">837700</td>
+<td align="center">162500</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">519800</td>
+<td align="center">320800</td>
+<td align="center">1228300</td>
+<td align="center">253200</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">329400</td>
+<td align="center">155000</td>
+<td align="center">895100</td>
+<td align="center">273100</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">311700</td>
+<td align="center">137900</td>
+<td align="center">692200</td>
+<td align="center">142900</td>
+</tr>
+<tr class="even">
+<td align="left">Albany</td>
+<td align="center">402700</td>
+<td align="center">257000</td>
+<td align="center">919600</td>
+<td align="center">140600</td>
+</tr>
+<tr class="odd">
+<td align="left">Broome</td>
+<td align="center">482800</td>
+<td align="center">221900</td>
+<td align="center">803900</td>
+<td align="center">152900</td>
+</tr>
+<tr class="even">
+<td align="left">Cattaraugus</td>
+<td align="center">41200</td>
+<td align="center">91500</td>
+<td align="center">625000</td>
+<td align="center">13300</td>
+</tr>
+<tr class="odd">
+<td align="left">Cayuga</td>
+<td align="center">243900</td>
+<td align="center">99200</td>
+<td align="center">500000</td>
+<td align="center">218800</td>
+</tr>
+<tr class="even">
+<td align="left">Chautauqua</td>
+<td align="center">64800</td>
+<td align="center">65900</td>
+<td align="center">333300</td>
+<td align="center">137300</td>
+</tr>
+</tbody>
+</table>
+<p>Only the first 10 counties are printed.</p>
+<pre class="r"><code>NY_race_clean =
+  NY_race_clean %&gt;%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(NY_race_clean)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  NY_race_clean
+## X-squared = 7989625, df = 135, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 135)
+x_crit</code></pre>
+<pre><code>## [1] 163.1161</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that overall abortion rates in each race category across counties is
+different.</p></li>
+</ul>
+</div>
+<div id="chi-square-test---finance-plans-and-ny-state-regions"
+class="section level2">
+<h2>Chi Square Test - Finance Plans and NY State Regions</h2>
+<p><strong>Do overall abortion rates differ across NY state regions by
+finance plan?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each finance plan category are the same
+across all NY state regions.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each finance plan category are not the same
+across all NY state regions.</p>
+<pre class="r"><code># Tidy data
+NY_finance_clean = 
+  NY_finance %&gt;%
+  mutate(
+    medicaid = medicaid*1000,
+    self_pay = self_pay*1000,
+    other_insurance = other_insurance*1000,
+    not_stated = not_stated*1000
+  ) %&gt;%
+  select(-total)
+
+NY_finance_clean %&gt;%
+  knitr::kable(caption = &quot;Chi-Square Test Finance Plan and Regions&quot;, col.names = c(&quot;Region&quot;, &quot;Medicaid&quot;, &quot;Self-Pay&quot;, &quot;Other Insurance&quot;, &quot;Not Stated&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;), format = &quot;simple&quot; )</code></pre>
+<table>
+<caption>Chi-Square Test Finance Plan and Regions</caption>
+<thead>
+<tr class="header">
+<th align="left">Region</th>
+<th align="center">Medicaid</th>
+<th align="center">Self-Pay</th>
+<th align="center">Other Insurance</th>
+<th align="center">Not Stated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Central New York</td>
+<td align="center">307848.2</td>
+<td align="center">1019047.62</td>
+<td align="center">5209677</td>
+<td align="center">8481012.7</td>
+</tr>
+<tr class="even">
+<td align="left">Eastern Adirondacks</td>
+<td align="center">135566.2</td>
+<td align="center">18181.82</td>
+<td align="center">1045455</td>
+<td align="center">333333.3</td>
+</tr>
+<tr class="odd">
+<td align="left">Finger Lakes</td>
+<td align="center">240162.6</td>
+<td align="center">123173.28</td>
+<td align="center">1886076</td>
+<td align="center">20950000.0</td>
+</tr>
+<tr class="even">
+<td align="left">Hudson Valley</td>
+<td align="center">175379.7</td>
+<td align="center">3315789.47</td>
+<td align="center">2962085</td>
+<td align="center">9240000.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Long Island</td>
+<td align="center">171955.0</td>
+<td align="center">6869791.67</td>
+<td align="center">10124294</td>
+<td align="center">9162162.2</td>
+</tr>
+<tr class="even">
+<td align="left">New York City</td>
+<td align="center">401740.7</td>
+<td align="center">8801213.96</td>
+<td align="center">19924433</td>
+<td align="center">1477876.1</td>
+</tr>
+<tr class="odd">
+<td align="left">Saratoga</td>
+<td align="center">375307.1</td>
+<td align="center">827338.13</td>
+<td align="center">15058824</td>
+<td align="center">3484848.5</td>
+</tr>
+<tr class="even">
+<td align="left">Westchester/Rockland</td>
+<td align="center">162220.0</td>
+<td align="center">5190000.00</td>
+<td align="center">8300885</td>
+<td align="center">49450000.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Western Adirondacks</td>
+<td align="center">224686.3</td>
+<td align="center">206030.15</td>
+<td align="center">1729508</td>
+<td align="center">821052.6</td>
+</tr>
+<tr class="even">
+<td align="left">Western New York</td>
+<td align="center">315989.7</td>
+<td align="center">1031250.00</td>
+<td align="center">1051360</td>
+<td align="center">814433.0</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>NY_finance_clean =
+  NY_finance_clean %&gt;%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(NY_finance_clean)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  NY_finance_clean
+## X-squared = 90277426, df = 27, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 27)
+x_crit</code></pre>
+<pre><code>## [1] 40.11327</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that overall abortion rates in each finance category across regions is
+different.</p></li>
+</ul>
+</div>
+<div id="chi-square-test---finance-plan-and-ny-state-counties"
+class="section level2">
+<h2>Chi Square Test - Finance Plan and NY State Counties</h2>
+<p><strong>Do overall abortion rates differ across NY state counties by
+finance plan?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each finance plan category are the same
+across all NY state counties.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each finance plan category are not the same
+across all NY state counties.</p>
+<pre class="r"><code># Tidy data
+NY_finance_counties = 
+  abortion_data %&gt;%
+  slice(-(1:2)) %&gt;%
+  select(-(age_less_20:nh_total)) %&gt;% select(-(h_white_only_ratio:region)) %&gt;%
+  drop_na() %&gt;%
+  mutate(
+    hispanic = h_total*1000,
+    nh_white_only = nh_white_only_ratio*1000,
+    nh_black_only = nh_black_only_ratio*1000,
+    nh_other = nh_other_ratio*1000
+  ) %&gt;%
+  select(-(nh_white_only_ratio:h_total))
+
+NY_finance_counties %&gt;% 
+  head(10) %&gt;%
+  knitr::kable(caption = &quot;Chi-Square Test for Race and Counties&quot;, col.names = c(&quot;County&quot;, &quot;Hispanic&quot;, &quot;Non-Hispanic White&quot;, &quot;Non-Hispanic Black&quot;, &quot;Non-Hispanic Other&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+<table>
+<caption>Chi-Square Test for Race and Counties</caption>
+<thead>
+<tr class="header">
+<th align="left">County</th>
+<th align="center">Hispanic</th>
+<th align="center">Non-Hispanic White</th>
+<th align="center">Non-Hispanic Black</th>
+<th align="center">Non-Hispanic Other</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">500200</td>
+<td align="center">369800</td>
+<td align="center">734300</td>
+<td align="center">419300</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">393100</td>
+<td align="center">88600</td>
+<td align="center">837700</td>
+<td align="center">162500</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">519800</td>
+<td align="center">320800</td>
+<td align="center">1228300</td>
+<td align="center">253200</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">329400</td>
+<td align="center">155000</td>
+<td align="center">895100</td>
+<td align="center">273100</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">311700</td>
+<td align="center">137900</td>
+<td align="center">692200</td>
+<td align="center">142900</td>
+</tr>
+<tr class="even">
+<td align="left">Albany</td>
+<td align="center">402700</td>
+<td align="center">257000</td>
+<td align="center">919600</td>
+<td align="center">140600</td>
+</tr>
+<tr class="odd">
+<td align="left">Broome</td>
+<td align="center">482800</td>
+<td align="center">221900</td>
+<td align="center">803900</td>
+<td align="center">152900</td>
+</tr>
+<tr class="even">
+<td align="left">Cattaraugus</td>
+<td align="center">41200</td>
+<td align="center">91500</td>
+<td align="center">625000</td>
+<td align="center">13300</td>
+</tr>
+<tr class="odd">
+<td align="left">Cayuga</td>
+<td align="center">243900</td>
+<td align="center">99200</td>
+<td align="center">500000</td>
+<td align="center">218800</td>
+</tr>
+<tr class="even">
+<td align="left">Chautauqua</td>
+<td align="center">64800</td>
+<td align="center">65900</td>
+<td align="center">333300</td>
+<td align="center">137300</td>
+</tr>
+</tbody>
+</table>
+<p>Only the first 10 counties are printed.</p>
+<pre class="r"><code>NY_finance_counties =
+  NY_finance_counties %&gt;%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(NY_finance_counties)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  NY_finance_counties
+## X-squared = 7989625, df = 135, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 135)
+x_crit</code></pre>
+<pre><code>## [1] 163.1161</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that overall abortion rates in each finance category across counties is
+different.</p></li>
+</ul>
+</div>
+<div id="chi-square-test---age-and-ny-state-counties"
+class="section level2">
+<h2>Chi Square Test - Age and NY State Counties</h2>
+<p>Due to missing data, a chi-squared analysis was not run for race and
+NY state regions.</p>
+<p><strong>Do overall abortion rates differ across NY state counties by
+age?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each age category are the same across all NY
+state counties.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each age category are not the same across all
+NY state counties.</p>
+<pre class="r"><code># Tidy data
+NY_age_clean = 
+  abortion_data %&gt;%
+  slice(-(1:2)) %&gt;%
+  select(-(nh_total:region)) %&gt;%
+  drop_na() %&gt;%
+  mutate(
+    age_less_20 = age_less_20*1000,
+    age_20_24 = age_20_24*1000,
+    age_25_29 = age_25_29*1000,
+    age_30_34 = age_30_34*1000,
+    age_35_39 = age_35_39*1000,
+    age_plus_40 = age_plus_40*1000
+  )
+
+NY_age_clean %&gt;% 
+  head(10) %&gt;%
+  knitr::kable(caption = &quot;Chi-Square Test for Age and Counties&quot;, col.names = c(&quot;County&quot;, &quot;&lt; 20 years&quot;, &quot;20-24 years&quot;, &quot;25-29 years&quot;, &quot;30-34 years&quot;, &quot;35-39 years&quot;, &quot;40+ years&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;), format = &quot;simple&quot; )</code></pre>
+<table>
+<caption>Chi-Square Test for Age and Counties</caption>
+<thead>
+<tr class="header">
+<th align="left">County</th>
+<th align="center">&lt; 20 years</th>
+<th align="center">20-24 years</th>
+<th align="center">25-29 years</th>
+<th align="center">30-34 years</th>
+<th align="center">35-39 years</th>
+<th align="center">40+ years</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">1291900</td>
+<td align="center">860800</td>
+<td align="center">605000</td>
+<td align="center">497100</td>
+<td align="center">443100</td>
+<td align="center">447800</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">1388400</td>
+<td align="center">515300</td>
+<td align="center">412600</td>
+<td align="center">251800</td>
+<td align="center">210500</td>
+<td align="center">242800</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">1964900</td>
+<td align="center">1768600</td>
+<td align="center">988100</td>
+<td align="center">312200</td>
+<td align="center">256500</td>
+<td align="center">312000</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">1780100</td>
+<td align="center">915600</td>
+<td align="center">476500</td>
+<td align="center">282900</td>
+<td align="center">275700</td>
+<td align="center">396400</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">1252200</td>
+<td align="center">721700</td>
+<td align="center">307000</td>
+<td align="center">145700</td>
+<td align="center">130000</td>
+<td align="center">231900</td>
+</tr>
+<tr class="even">
+<td align="left">Albany</td>
+<td align="center">1346900</td>
+<td align="center">825500</td>
+<td align="center">394500</td>
+<td align="center">200400</td>
+<td align="center">215200</td>
+<td align="center">381000</td>
+</tr>
+<tr class="odd">
+<td align="left">Allegany</td>
+<td align="center">357100</td>
+<td align="center">214300</td>
+<td align="center">61200</td>
+<td align="center">107100</td>
+<td align="center">109100</td>
+<td align="center">166700</td>
+</tr>
+<tr class="even">
+<td align="left">Broome</td>
+<td align="center">821100</td>
+<td align="center">463700</td>
+<td align="center">312200</td>
+<td align="center">183200</td>
+<td align="center">187800</td>
+<td align="center">172400</td>
+</tr>
+<tr class="odd">
+<td align="left">Cattaraugus</td>
+<td align="center">236800</td>
+<td align="center">82600</td>
+<td align="center">114900</td>
+<td align="center">107000</td>
+<td align="center">86000</td>
+<td align="center">187500</td>
+</tr>
+<tr class="even">
+<td align="left">Cayuga</td>
+<td align="center">620700</td>
+<td align="center">186700</td>
+<td align="center">150600</td>
+<td align="center">95200</td>
+<td align="center">76900</td>
+<td align="center">150000</td>
+</tr>
+</tbody>
+</table>
+<p>Only the first 10 counties are printed.</p>
+<pre class="r"><code>NY_age_clean =
+  NY_age_clean %&gt;%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(NY_age_clean)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  NY_age_clean
+## X-squared = 10730198, df = 275, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 275)
+x_crit</code></pre>
+<pre><code>## [1] 314.6784</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that overall abortion rates in each age category across counties is
+different.</p></li>
+</ul>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
