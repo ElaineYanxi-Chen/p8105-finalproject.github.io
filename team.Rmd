@@ -8,6 +8,11 @@ We are all second year Masters of Public Health (MPH) students at Columbia Unive
 
 <img src="images/Maisie.png" style = "width:25%"> 
 
+Maisie is an Epidemiology student with a focus on Applied Biostatistics and Public Health Data Science. Born in China and raised in Canada. Maisie is interested in applying her data science and biostatistics knowledge in telling stories through data. In her free time, she loves badminton, hiking, drawing, and watching cdramas.
+
+Here is her [Github](https://github.com/Maisie66) if you want to look at some of her other projects and feel free to connect with her over email at ms6360@cumc.columbia.edu or over [LinkedIn](https://www.linkedin.com/in/maisie-mengxi-sun/).
+
+
 ## Ayako Sekiya 
 
 <img src="images/Ayako.png" style = "width:25%"> 
@@ -38,4 +43,3 @@ Here is her [Github](https://github.com/yandaisy) if you want to look at some of
 <img src="images/Kasturi.jpg" style = "width:25%"> 
 
 Kasturi is an Epidemiology student with a certificate in Chronic Disease Epidemiology. Born and raised in India, she moved to the US to attend grad school. She is passionate about making public health and healthcare services more equitable and accessible, using data and research to support decision-making. In her free time, she loves to explore new places to eat, have picnics in Central Park and hangout with her friends! Here is her [Github](https://github.com/kb3246) if you want to look at some of her other projects and feel free to connect with her over email at kb3246@cumc.columbia.edu or over [LinkedIn](https://www.linkedin.com/in/kasturi-bhamidipati-58a1791bb/).
-
