@@ -427,8 +427,10 @@ div.tocify {
 </div>
 
 
+<p> </p>
 <div id="motivation" class="section level1">
 <h1>Motivation</h1>
+<hr />
 <p>In 2019, many conservative states raced to enact an unprecedented
 wave on bans on abortions that have severely restricted women’s
 reproductive rights. These restrictions have culminated with the recent
@@ -452,9 +454,11 @@ compare the differences across the boroughs (for New York City) and
 counties (for New York State). Several variables that we are considering
 are age, race/ethnicity, and financial plans. We are also interested on
 how the total rate of abortion changes over years from 2014 to 2019.</p>
+<p> </p>
 </div>
 <div id="additional-resources-related-work" class="section level1">
 <h1>Additional Resources/ Related Work</h1>
+<hr />
 <p>Reproductive rights are basic human rights, and women should be
 allowed to have full autonomy on decisions regarding their bodies. They
 should be allowed to exercise their rights and make decisions freely and
@@ -489,9 +493,11 @@ Funds</a></p></li>
 href="https://lozierinstitute.org/abortion-reporting-new-york-city-2019/">Abortion
 Reporting: New York City (2019)</a></p></li>
 </ul>
+<p> </p>
 </div>
 <div id="initial-questions" class="section level1">
 <h1>Initial questions</h1>
+<hr />
 <p>Originally, we wanted to conduct a comparative analysis of abortion
 rates in New York and Mississippi from 2017-2020 with the following
 questions:</p>
@@ -504,13 +510,15 @@ New York and Mississippi look like?</li>
 while accounting for age, race/ethnicity, method, and insurance
 plan?</li>
 </ul>
+</div>
+<div id="final-research-questions" class="section level1">
+<h1>Final Research Questions</h1>
+<hr />
 <p>We were unable to find a comprehensive dataset that included
 individual level data needed to answer these questions. Therefore,
 decided to focus on conducting an analysis of rates of abortion between
 boroughs in New York City in 2019. Our research questions thus changed
 as follows:</p>
-<div id="final-research-questions" class="section level2">
-<h2>Final Research Questions:</h2>
 <ul>
 <li>What does the distribution of rates of abortion between boroughs
 within New York City look like in 2019?
@@ -527,10 +535,11 @@ State in 2019?
 State while accounting for age, race/ethnicity, and finance plans?</li>
 </ul></li>
 </ul>
-</div>
+<p> </p>
 </div>
 <div id="data" class="section level1">
 <h1>Data</h1>
+<hr />
 <div id="source" class="section level2">
 <h2>Source</h2>
 <p>For this project, we will use data from <a
@@ -591,10 +600,11 @@ City include:</p>
 being:</p>
 <p>Data on New York State were obtained from the same dataset, and
 counties were recoded into regions based on categories set by New York
-State using <code>transform</code>. Some counties had very few abortion
-numbers, which would not provide a sufficient sample size when
-stratifying based on covariates. As a result, the categorizing the
-regions will ensure a sufficient sample size.</p>
+State using <code>transform</code> or <code>case_when</code>. Some
+counties had very few abortion numbers, which would not provide a
+sufficient sample size when stratifying based on covariates. As a
+result, the categorizing the regions will ensure a sufficient sample
+size.</p>
 <p>The final regions included in the dataset for New York State
 includes:</p>
 <ul>
@@ -4510,11 +4520,13 @@ Westchester/Rockland
 </tbody>
 </table>
 </div>
+<p> </p>
 </div>
 </div>
 </div>
 <div id="exploratory-analysis" class="section level1">
 <h1>Exploratory analysis</h1>
+<hr />
 <p>Our exploratory analysis was split into two categories - <a
 href="ny_exploratory_analysis.html">New York State</a> and <a
 href="nyc_exploratory_analysis.html">New York City</a>. We analyzed how
@@ -4525,6 +4537,7 @@ have been made using <code>ggplot</code>. For interactive plots, head
 over to the individual exploratory analyses pages linked above!</p>
 <div id="nyc-analysis-results" class="section level2">
 <h2>NYC Analysis Results:</h2>
+<p> </p>
 <div id="age-1" class="section level4">
 <h4>Age:</h4>
 <p><img src="report_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
@@ -4572,10 +4585,12 @@ and possible restrictions by the health insurance plan to cover
 abortions. Medicaid had the lowest abortion rates across all financial
 plans, and the rates were lowest with 287 induced abortions per 1000
 live births.</p>
+<p> </p>
 </div>
 </div>
 <div id="ny-state-analysis-results" class="section level2">
 <h2>NY State Analysis Results</h2>
+<p> </p>
 <div id="age-2" class="section level4">
 <h4>Age</h4>
 <p><img src="report_files/figure-html/unnamed-chunk-5-1.png" width="90%" /></p>
@@ -4614,10 +4629,12 @@ Within New York City, highest rates are found among those that are
 enrolled in <code>Other Category</code> insurance plans with a rate of
 150.1k induced abortions per 1000 live births. Lowest rates of abortion
 are found among those that are enrolled in Medicaid.</p>
+<p> </p>
 </div>
 </div>
 <div id="comparing-nyc-and-ny-state" class="section level2">
 <h2>Comparing NYC and NY State</h2>
+<p> </p>
 <div id="ny-vs-nyc-age" class="section level4">
 <h4>NY vs NYC Age</h4>
 <p><img src="report_files/figure-html/unnamed-chunk-8-1.png" width="90%" /></p>
@@ -4653,16 +4670,999 @@ induced abortions per 1000 live births. Rates were lowest for those with
 Medicaid in both New York City and New York State and was lower for
 those in New York State with 325.66 induced abortions per 1000 live
 births.</p>
+<p> </p>
 </div>
 </div>
 </div>
 <div id="statistical-analysis" class="section level1">
 <h1>Statistical Analysis</h1>
-<p>If you undertake formal statistical analyses, describe these in
-detail</p>
+<hr />
+<div id="abortion-trends-in-ny-state" class="section level2">
+<h2>Abortion Trends in NY State</h2>
+<p> </p>
+<div id="proportion-test---ny-state-regions" class="section level4">
+<h4>Proportion Test - NY State Regions</h4>
+<p><strong>Do overall abortion rates differ across NY state
+regions?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rate per 1000 live births is the same across all NY state
+regions.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rate per 1000 live births is not the same across all NY state
+regions.</p>
+<table>
+<caption>Proportion T-Test for NY across all Regions</caption>
+<thead>
+<tr class="header">
+<th align="left">Region</th>
+<th align="center">Abortions per 1000 live births</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Central New York</td>
+<td align="center">261.3792</td>
+</tr>
+<tr class="even">
+<td align="left">Eastern Adirondacks</td>
+<td align="center">113.8211</td>
+</tr>
+<tr class="odd">
+<td align="left">Finger Lakes</td>
+<td align="center">255.6622</td>
+</tr>
+<tr class="even">
+<td align="left">Hudson Valley</td>
+<td align="center">232.9893</td>
+</tr>
+<tr class="odd">
+<td align="left">Long Island</td>
+<td align="center">195.8584</td>
+</tr>
+<tr class="even">
+<td align="left">New York City</td>
+<td align="center">450.4669</td>
+</tr>
+<tr class="odd">
+<td align="left">Saratoga</td>
+<td align="center">289.1048</td>
+</tr>
+<tr class="even">
+<td align="left">Westchester/Rockland</td>
+<td align="center">238.3695</td>
+</tr>
+<tr class="odd">
+<td align="left">Western Adirondacks</td>
+<td align="center">164.5671</td>
+</tr>
+<tr class="even">
+<td align="left">Western New York</td>
+<td align="center">270.4626</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## 
+##  10-sample test for equality of proportions without continuity
+##  correction
+## 
+## data:  NY_totals$n out of NY_totals$total
+## X-squared = 383.72, df = 9, p-value &lt; 2.2e-16
+## alternative hypothesis: two.sided
+## sample estimates:
+##    prop 1    prop 2    prop 3    prop 4    prop 5    prop 6    prop 7    prop 8 
+## 0.2613792 0.1138211 0.2556622 0.2329893 0.1958584 0.4504669 0.2891048 0.2383695 
+##    prop 9   prop 10 
+## 0.1645671 0.2704626</code></pre>
+<p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong> The data provides sufficient evidence to
+support the hypothesis that overall abortion rates per 1000 live births
+differs across NY state regions.Because this suggests that abortion
+rates differs across NY state regions, we now can assess whether or not
+this holds true across counties.</p>
+</div>
+<div id="proportion-test---ny-state-counties" class="section level4">
+<h4>Proportion Test - NY State Counties</h4>
+<p><strong>Do overall abortion rates differ across NY state
+counties?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rates per 1000 live births is the same across all NY state
+counties.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rates per 1000 live births is not the same across all NY state
+counties.</p>
+<table>
+<caption>Proportion T-Test for NY across all Counties</caption>
+<thead>
+<tr class="header">
+<th align="left">County</th>
+<th align="center">Abortions per 1000 live births</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">623.3191</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">351.7053</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">537.4915</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">445.7356</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">275.5633</td>
+</tr>
+<tr class="even">
+<td align="left">Albany</td>
+<td align="center">378.9862</td>
+</tr>
+<tr class="odd">
+<td align="left">Allegany</td>
+<td align="center">137.5000</td>
+</tr>
+<tr class="even">
+<td align="left">Broome</td>
+<td align="center">307.6923</td>
+</tr>
+<tr class="odd">
+<td align="left">Cattaraugus</td>
+<td align="center">107.8788</td>
+</tr>
+<tr class="even">
+<td align="left">Cayuga</td>
+<td align="center">152.9255</td>
+</tr>
+</tbody>
+</table>
+<p>Only the first 10 counties are printed.</p>
+<pre><code>## 
+##  58-sample test for equality of proportions without continuity
+##  correction
+## 
+## data:  NY_totals_counties$n out of NY_totals_counties$total
+## X-squared = 4503.5, df = 57, p-value &lt; 2.2e-16
+## alternative hypothesis: two.sided
+## sample estimates:
+##     prop 1     prop 2     prop 3     prop 4     prop 5     prop 6     prop 7 
+## 0.62331910 0.35170533 0.53749154 0.44573557 0.27556326 0.37898624 0.13750000 
+##     prop 8     prop 9    prop 10    prop 11    prop 12    prop 13    prop 14 
+## 0.30769231 0.10787879 0.15292553 0.09538003 0.28187919 0.19532909 0.09695291 
+##    prop 15    prop 16    prop 17    prop 18    prop 19    prop 20    prop 21 
+## 0.15240084 0.15742794 0.25214900 0.29788811 0.33763819 0.05539359 0.14598540 
+##    prop 22    prop 23    prop 25    prop 26    prop 27    prop 28    prop 29 
+## 0.21372549 0.15833333 0.16932907 0.12652608 0.10333333 0.11796733 0.14057508 
+##    prop 30    prop 31    prop 32    prop 33    prop 34    prop 35    prop 36 
+## 0.32086440 0.20341880 0.21589681 0.23537941 0.24350260 0.31288344 0.16701031 
+##    prop 37    prop 38    prop 39    prop 40    prop 41    prop 42    prop 43 
+## 0.18778891 0.07801418 0.11021070 0.30158730 0.11292346 0.33623910 0.08110470 
+##    prop 44    prop 45    prop 46    prop 47    prop 48    prop 49    prop 50 
+## 0.11811812 0.16569201 0.41196979 0.25609756 0.09036145 0.11294766 0.18146718 
+##    prop 51    prop 52    prop 53    prop 54    prop 55    prop 56    prop 57 
+## 0.17732151 0.28620296 0.09493671 0.18402282 0.30000000 0.23264540 0.17741935 
+##    prop 58    prop 59 
+## 0.18263811 0.32919443</code></pre>
+<p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong> The data provides sufficient evidence to
+support the hypothesis that overall abortion rates per 1000 live births
+differs across NY state counties.</p>
+</div>
+<div id="chi-square-test---race-and-ny-state-counties"
+class="section level4">
+<h4>Chi Square Test - Race and NY State Counties</h4>
+<p>Due to missing data, a chi-squared analysis was not run for race and
+NY state regions.</p>
+<p><strong>Do overall abortion rates differ across NY state counties by
+race?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each race category are the same across all NY
+state counties.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each race category are not the same across
+all NY state counties.</p>
+<table>
+<caption>Chi-Square Test for Race and Counties</caption>
+<thead>
+<tr class="header">
+<th align="left">County</th>
+<th align="center">Hispanic</th>
+<th align="center">Non-Hispanic White</th>
+<th align="center">Non-Hispanic Black</th>
+<th align="center">Non-Hispanic Other</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">500200</td>
+<td align="center">369800</td>
+<td align="center">734300</td>
+<td align="center">419300</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">393100</td>
+<td align="center">88600</td>
+<td align="center">837700</td>
+<td align="center">162500</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">519800</td>
+<td align="center">320800</td>
+<td align="center">1228300</td>
+<td align="center">253200</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">329400</td>
+<td align="center">155000</td>
+<td align="center">895100</td>
+<td align="center">273100</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">311700</td>
+<td align="center">137900</td>
+<td align="center">692200</td>
+<td align="center">142900</td>
+</tr>
+<tr class="even">
+<td align="left">Albany</td>
+<td align="center">402700</td>
+<td align="center">257000</td>
+<td align="center">919600</td>
+<td align="center">140600</td>
+</tr>
+<tr class="odd">
+<td align="left">Broome</td>
+<td align="center">482800</td>
+<td align="center">221900</td>
+<td align="center">803900</td>
+<td align="center">152900</td>
+</tr>
+<tr class="even">
+<td align="left">Cattaraugus</td>
+<td align="center">41200</td>
+<td align="center">91500</td>
+<td align="center">625000</td>
+<td align="center">13300</td>
+</tr>
+<tr class="odd">
+<td align="left">Cayuga</td>
+<td align="center">243900</td>
+<td align="center">99200</td>
+<td align="center">500000</td>
+<td align="center">218800</td>
+</tr>
+<tr class="even">
+<td align="left">Chautauqua</td>
+<td align="center">64800</td>
+<td align="center">65900</td>
+<td align="center">333300</td>
+<td align="center">137300</td>
+</tr>
+</tbody>
+</table>
+<p>Only the first 10 counties are printed.</p>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  NY_race_clean
+## X-squared = 7989625, df = 135, p-value &lt; 2.2e-16</code></pre>
+<pre><code>## [1] 163.1161</code></pre>
+<p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong> The data provides sufficient evidence to
+support the hypothesis that overall abortion rates in each race category
+across counties is different.</p>
+</div>
+<div id="chi-square-test---finance-plans-and-ny-state-regions"
+class="section level4">
+<h4>Chi Square Test - Finance Plans and NY State Regions</h4>
+<p><strong>Do overall abortion rates differ across NY state regions by
+finance plan?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each finance plan category are the same
+across all NY state regions.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each finance plan category are not the same
+across all NY state regions.</p>
+<table>
+<caption>Chi-Square Test Finance Plan and Regions</caption>
+<thead>
+<tr class="header">
+<th align="left">Region</th>
+<th align="center">Medicaid</th>
+<th align="center">Self-Pay</th>
+<th align="center">Other Insurance</th>
+<th align="center">Not Stated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Central New York</td>
+<td align="center">307848.2</td>
+<td align="center">1019047.62</td>
+<td align="center">5209677</td>
+<td align="center">8481012.7</td>
+</tr>
+<tr class="even">
+<td align="left">Eastern Adirondacks</td>
+<td align="center">135566.2</td>
+<td align="center">18181.82</td>
+<td align="center">1045455</td>
+<td align="center">333333.3</td>
+</tr>
+<tr class="odd">
+<td align="left">Finger Lakes</td>
+<td align="center">240162.6</td>
+<td align="center">123173.28</td>
+<td align="center">1886076</td>
+<td align="center">20950000.0</td>
+</tr>
+<tr class="even">
+<td align="left">Hudson Valley</td>
+<td align="center">175379.7</td>
+<td align="center">3315789.47</td>
+<td align="center">2962085</td>
+<td align="center">9240000.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Long Island</td>
+<td align="center">171955.0</td>
+<td align="center">6869791.67</td>
+<td align="center">10124294</td>
+<td align="center">9162162.2</td>
+</tr>
+<tr class="even">
+<td align="left">New York City</td>
+<td align="center">401740.7</td>
+<td align="center">8801213.96</td>
+<td align="center">19924433</td>
+<td align="center">1477876.1</td>
+</tr>
+<tr class="odd">
+<td align="left">Saratoga</td>
+<td align="center">375307.1</td>
+<td align="center">827338.13</td>
+<td align="center">15058824</td>
+<td align="center">3484848.5</td>
+</tr>
+<tr class="even">
+<td align="left">Westchester/Rockland</td>
+<td align="center">162220.0</td>
+<td align="center">5190000.00</td>
+<td align="center">8300885</td>
+<td align="center">49450000.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Western Adirondacks</td>
+<td align="center">224686.3</td>
+<td align="center">206030.15</td>
+<td align="center">1729508</td>
+<td align="center">821052.6</td>
+</tr>
+<tr class="even">
+<td align="left">Western New York</td>
+<td align="center">315989.7</td>
+<td align="center">1031250.00</td>
+<td align="center">1051360</td>
+<td align="center">814433.0</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  NY_finance_clean
+## X-squared = 90277426, df = 27, p-value &lt; 2.2e-16</code></pre>
+<pre><code>## [1] 40.11327</code></pre>
+<p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong> The data provides sufficient evidence to
+support the hypothesis that overall abortion rates in each finance
+category across regions is different.</p>
+</div>
+<div id="chi-square-test---finance-plan-and-ny-state-counties"
+class="section level4">
+<h4>Chi Square Test - Finance Plan and NY State Counties</h4>
+<p><strong>Do overall abortion rates differ across NY state counties by
+finance plan?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each finance plan category are the same
+across all NY state counties.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each finance plan category are not the same
+across all NY state counties.</p>
+<table>
+<caption>Chi-Square Test for Race and Counties</caption>
+<thead>
+<tr class="header">
+<th align="left">County</th>
+<th align="center">Hispanic</th>
+<th align="center">Non-Hispanic White</th>
+<th align="center">Non-Hispanic Black</th>
+<th align="center">Non-Hispanic Other</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">500200</td>
+<td align="center">369800</td>
+<td align="center">734300</td>
+<td align="center">419300</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">393100</td>
+<td align="center">88600</td>
+<td align="center">837700</td>
+<td align="center">162500</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">519800</td>
+<td align="center">320800</td>
+<td align="center">1228300</td>
+<td align="center">253200</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">329400</td>
+<td align="center">155000</td>
+<td align="center">895100</td>
+<td align="center">273100</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">311700</td>
+<td align="center">137900</td>
+<td align="center">692200</td>
+<td align="center">142900</td>
+</tr>
+<tr class="even">
+<td align="left">Albany</td>
+<td align="center">402700</td>
+<td align="center">257000</td>
+<td align="center">919600</td>
+<td align="center">140600</td>
+</tr>
+<tr class="odd">
+<td align="left">Broome</td>
+<td align="center">482800</td>
+<td align="center">221900</td>
+<td align="center">803900</td>
+<td align="center">152900</td>
+</tr>
+<tr class="even">
+<td align="left">Cattaraugus</td>
+<td align="center">41200</td>
+<td align="center">91500</td>
+<td align="center">625000</td>
+<td align="center">13300</td>
+</tr>
+<tr class="odd">
+<td align="left">Cayuga</td>
+<td align="center">243900</td>
+<td align="center">99200</td>
+<td align="center">500000</td>
+<td align="center">218800</td>
+</tr>
+<tr class="even">
+<td align="left">Chautauqua</td>
+<td align="center">64800</td>
+<td align="center">65900</td>
+<td align="center">333300</td>
+<td align="center">137300</td>
+</tr>
+</tbody>
+</table>
+<p>Only the first 10 counties are printed.</p>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  NY_finance_counties
+## X-squared = 7989625, df = 135, p-value &lt; 2.2e-16</code></pre>
+<pre><code>## [1] 163.1161</code></pre>
+<p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong> The data provides sufficient evidence to
+support the hypothesis that overall abortion rates in each finance
+category across counties is different.</p>
+</div>
+<div id="chi-square-test---age-and-ny-state-counties"
+class="section level4">
+<h4>Chi Square Test - Age and NY State Counties</h4>
+<p>Due to missing data, a chi-squared analysis was not run for race and
+NY state regions.</p>
+<p><strong>Do overall abortion rates differ across NY state counties by
+age?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each age category are the same across all NY
+state counties.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each age category are not the same across all
+NY state counties.</p>
+<table>
+<caption>Chi-Square Test for Age and Counties</caption>
+<thead>
+<tr class="header">
+<th align="left">County</th>
+<th align="center">&lt; 20 years</th>
+<th align="center">20-24 years</th>
+<th align="center">25-29 years</th>
+<th align="center">30-34 years</th>
+<th align="center">35-39 years</th>
+<th align="center">40+ years</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">1291900</td>
+<td align="center">860800</td>
+<td align="center">605000</td>
+<td align="center">497100</td>
+<td align="center">443100</td>
+<td align="center">447800</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">1388400</td>
+<td align="center">515300</td>
+<td align="center">412600</td>
+<td align="center">251800</td>
+<td align="center">210500</td>
+<td align="center">242800</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">1964900</td>
+<td align="center">1768600</td>
+<td align="center">988100</td>
+<td align="center">312200</td>
+<td align="center">256500</td>
+<td align="center">312000</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">1780100</td>
+<td align="center">915600</td>
+<td align="center">476500</td>
+<td align="center">282900</td>
+<td align="center">275700</td>
+<td align="center">396400</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">1252200</td>
+<td align="center">721700</td>
+<td align="center">307000</td>
+<td align="center">145700</td>
+<td align="center">130000</td>
+<td align="center">231900</td>
+</tr>
+<tr class="even">
+<td align="left">Albany</td>
+<td align="center">1346900</td>
+<td align="center">825500</td>
+<td align="center">394500</td>
+<td align="center">200400</td>
+<td align="center">215200</td>
+<td align="center">381000</td>
+</tr>
+<tr class="odd">
+<td align="left">Allegany</td>
+<td align="center">357100</td>
+<td align="center">214300</td>
+<td align="center">61200</td>
+<td align="center">107100</td>
+<td align="center">109100</td>
+<td align="center">166700</td>
+</tr>
+<tr class="even">
+<td align="left">Broome</td>
+<td align="center">821100</td>
+<td align="center">463700</td>
+<td align="center">312200</td>
+<td align="center">183200</td>
+<td align="center">187800</td>
+<td align="center">172400</td>
+</tr>
+<tr class="odd">
+<td align="left">Cattaraugus</td>
+<td align="center">236800</td>
+<td align="center">82600</td>
+<td align="center">114900</td>
+<td align="center">107000</td>
+<td align="center">86000</td>
+<td align="center">187500</td>
+</tr>
+<tr class="even">
+<td align="left">Cayuga</td>
+<td align="center">620700</td>
+<td align="center">186700</td>
+<td align="center">150600</td>
+<td align="center">95200</td>
+<td align="center">76900</td>
+<td align="center">150000</td>
+</tr>
+</tbody>
+</table>
+<p>Only the first 10 counties are printed.</p>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  NY_age_clean
+## X-squared = 10730198, df = 275, p-value &lt; 2.2e-16</code></pre>
+<pre><code>## [1] 314.6784</code></pre>
+<p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong> The data provides sufficient evidence to
+support the hypothesis that overall abortion rates in each age category
+across counties is different.</p>
+<p> </p>
+</div>
+</div>
+<div id="abortion-trends-in-nyc" class="section level2">
+<h2>Abortion Trends in NYC</h2>
+<p> </p>
+<div id="proportion-t-test---boroughs" class="section level4">
+<h4>Proportion T-Test - Boroughs</h4>
+<p><strong>Do overall abortion rates differ across
+boroughs?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rate per 1000 live births is the same across all boroughs.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rate per 1000 live births is not the same across all
+boroughs.</p>
+<table>
+<caption>Proportion T-Test for NYC across all Boroughs</caption>
+<thead>
+<tr class="header">
+<th align="left">Borough</th>
+<th align="center">Abortion Rate per 1000 live births</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">623.3191</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">351.7053</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">537.4915</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">445.7356</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">275.5633</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## 
+##  5-sample test for equality of proportions without continuity correction
+## 
+## data:  abortion_totals_borough$n out of abortion_totals_borough$total
+## X-squared = 314.57, df = 4, p-value &lt; 2.2e-16
+## alternative hypothesis: two.sided
+## sample estimates:
+##    prop 1    prop 2    prop 3    prop 4    prop 5 
+## 0.6233191 0.3517053 0.5374915 0.4457356 0.2755633</code></pre>
+<p>From the above results, the p-value is <strong>less than the 5% level
+of significance</strong>. Therefore, we <strong>reject the null
+hypothesis</strong>. The data provides sufficient evidence to support
+the hypothesis that overall abortion rates per 1000 births live differs
+across boroughs.</p>
+</div>
+<div id="chi-square-test---race-and-boroughs" class="section level4">
+<h4>Chi Square Test - Race and Boroughs</h4>
+<p><strong>Do overall abortion rates differ across boroughs by
+race?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rate in each race category are the same across all
+boroughs.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rate in each race category are not the same across all
+boroughs.</p>
+<table>
+<caption>Chi-Square Test for Race and Boroughs</caption>
+<thead>
+<tr class="header">
+<th align="left">Borough</th>
+<th align="center">Hispanic</th>
+<th align="center">Non-Hispanic White</th>
+<th align="center">Non-Hispanic Black</th>
+<th align="center">Non-Hispanic Other</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">500200</td>
+<td align="center">369800</td>
+<td align="center">734300</td>
+<td align="center">419300</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">393100</td>
+<td align="center">88600</td>
+<td align="center">837700</td>
+<td align="center">162500</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">519800</td>
+<td align="center">320800</td>
+<td align="center">1228300</td>
+<td align="center">253200</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">329400</td>
+<td align="center">155000</td>
+<td align="center">895100</td>
+<td align="center">273100</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">311700</td>
+<td align="center">137900</td>
+<td align="center">692200</td>
+<td align="center">142900</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  abortion_race_clean
+## X-squared = 349146, df = 12, p-value &lt; 2.2e-16</code></pre>
+<pre><code>## [1] 21.02607</code></pre>
+<p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, we <strong>reject the
+null hypothesis.</strong> The data provides sufficient evidence to
+support the hypothesis that the abortion rate in each race category
+across boroughs is different.</p>
+</div>
+<div id="chi-square-test---finance-plan-and-boroughs"
+class="section level4">
+<h4>Chi Square Test - Finance Plan and Boroughs</h4>
+<p><strong>Do overall abortion rates differ across boroughs by finance
+plan?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each finance plan category are the same
+across all boroughs.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortions rates in each finance plan category are not the same
+across all boroughs.</p>
+<table>
+<caption>Chi-Square Test for Finance Plan and Boroughs</caption>
+<thead>
+<tr class="header">
+<th align="left">Borough</th>
+<th align="center">Medicaid</th>
+<th align="center">Self-Pay</th>
+<th align="center">Other Insurance</th>
+<th align="center">Not Stated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">488454.1</td>
+<td align="center">6150943</td>
+<td align="center">31915094</td>
+<td align="center">1498069.5</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">286998.5</td>
+<td align="center">8644444</td>
+<td align="center">19678414</td>
+<td align="center">2058823.5</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">708360.2</td>
+<td align="center">31285714</td>
+<td align="center">62864407</td>
+<td align="center">576576.6</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">408648.3</td>
+<td align="center">6299180</td>
+<td align="center">33990991</td>
+<td align="center">3519480.5</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">323994.6</td>
+<td align="center">7259259</td>
+<td align="center">1676976</td>
+<td align="center">2142857.1</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  abortion_finance_clean
+## X-squared = 28441079, df = 12, p-value &lt; 2.2e-16</code></pre>
+<pre><code>## [1] 21.02607</code></pre>
+<p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong> The data provides sufficient evidence to
+support the hypothesis that the abortion rates in each finance category
+across borough is different.</p>
+</div>
+<div id="chi-square-test---age-and-boroughs" class="section level4">
+<h4>Chi Square Test - Age and Boroughs</h4>
+<p><strong>Do overall abortion rates differ across boroughs by
+age?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each age category are the same across all
+boroughs.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each age category are not the same across all
+boroughs.</p>
+<table>
+<caption>Chi-Square Test for Age and Boroughs</caption>
+<thead>
+<tr class="header">
+<th align="left">Borough</th>
+<th align="center">&lt; 20 years</th>
+<th align="center">20-24 years</th>
+<th align="center">25-29 years</th>
+<th align="center">30-34 years</th>
+<th align="center">35-39 years</th>
+<th align="center">40+ years</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">1291900</td>
+<td align="center">860800</td>
+<td align="center">605000</td>
+<td align="center">497100</td>
+<td align="center">443100</td>
+<td align="center">447800</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">1388400</td>
+<td align="center">515300</td>
+<td align="center">412600</td>
+<td align="center">251800</td>
+<td align="center">210500</td>
+<td align="center">242800</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">1964900</td>
+<td align="center">1768600</td>
+<td align="center">988100</td>
+<td align="center">312200</td>
+<td align="center">256500</td>
+<td align="center">312000</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">1780100</td>
+<td align="center">915600</td>
+<td align="center">476500</td>
+<td align="center">282900</td>
+<td align="center">275700</td>
+<td align="center">396400</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">1252200</td>
+<td align="center">721700</td>
+<td align="center">307000</td>
+<td align="center">145700</td>
+<td align="center">130000</td>
+<td align="center">231900</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  abortion_age_clean
+## X-squared = 881655, df = 20, p-value &lt; 2.2e-16</code></pre>
+<pre><code>## [1] 31.41043</code></pre>
+<p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong> The data provides sufficient evidence to
+support the hypothesis that the overall abortion rate in each age
+category across borough is different.</p>
+<p> </p>
+</div>
+</div>
+<div id="abortions-rates-comparing-nyc-and-ny-state"
+class="section level2">
+<h2>Abortions Rates Comparing NYC and NY State</h2>
+<p> </p>
+<div id="proportion-t-test" class="section level4">
+<h4>Proportion T-test</h4>
+<p><strong>Do overall abortion rates differ between NYC and NY
+state?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rate per 1000 births is the same between NYC and NY state.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rate per 1000 births differs between NYC and NY state.</p>
+<table>
+<caption>Proportion T-Test for NYC and NY State</caption>
+<thead>
+<tr class="header">
+<th align="left">Region</th>
+<th align="center">Abortion Rate per 1000 births</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">New York State</td>
+<td align="center">336.5029</td>
+</tr>
+<tr class="even">
+<td align="left">New York City</td>
+<td align="center">450.4669</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## 
+##  2-sample test for equality of proportions with continuity correction
+## 
+## data:  abortion_totals$n out of abortion_totals$total
+## X-squared = 26.735, df = 1, p-value = 2.334e-07
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.15749190 -0.07043623
+## sample estimates:
+##    prop 1    prop 2 
+## 0.3365029 0.4504669</code></pre>
+<p>From the above results, the p-value is <strong>less than the 5% level
+of significance.</strong> Therefore, we <strong>reject the null
+hypothesis.</strong> The data provides sufficient evidence to support
+the hypothesis that the abortion rate per 1000 births differs between
+NYC and NY state.</p>
+<p> </p>
+</div>
+</div>
 </div>
 <div id="limiations" class="section level1">
 <h1>Limiations</h1>
+<hr />
 <p>There were a couple of limitations in our project including the
 amount of limited abortion data in some of the counties. For the race
 dataset specifically, some of the data was noted as suppressed due to
@@ -4678,6 +5678,7 @@ the plans.</p>
 </div>
 <div id="discussion" class="section level1">
 <h1>Discussion</h1>
+<hr />
 <p>What were your findings? Are they what you expect? What insights into
 the data can you make?</p>
 </div>

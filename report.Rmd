@@ -38,8 +38,10 @@ merged = read_csv("data/master.csv") %>%
   janitor::clean_names()
 ```
 
-# Motivation
+&nbsp; 
 
+# Motivation
+***
 
 In 2019, many conservative states raced to enact an unprecedented wave on bans on abortions that have severely restricted women’s reproductive rights. These restrictions have culminated with the recent Supreme Court overturning of Roe v. Wade, a landmark supreme court case granting a women’s right to an abortion. 
 
@@ -51,7 +53,10 @@ Since then, access to abortion has been significantly compromised and even banne
 
 Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the number of induced abortions per 1,000 live birth in New York City and New York State and compare the differences across the boroughs (for New York City) and counties (for New York State). Several variables that we are considering are age, race/ethnicity, and financial plans. We are also interested on how the total rate of abortion changes over years from 2014 to 2019. 
 
+&nbsp; 
+
 # Additional Resources/ Related Work
+***
 
 Reproductive rights are basic human rights, and women should be allowed to have full autonomy on decisions regarding their bodies. They should be allowed to exercise their rights and make decisions freely and responsibly. Reproductive justice goes far beyond the right to abortion; the issue is inextricably bound to discrimination and inequality. As residents of New York City, we wanted to analyze the trends in abortion, and how it might be affected by factors such as race/ethnicity, financial plan status and age. 
 
@@ -73,17 +78,20 @@ Here's some recent information on abortion clinics/ laws/ and facts:
 
 - [Abortion Reporting: New York City (2019)](https://lozierinstitute.org/abortion-reporting-new-york-city-2019/)
 
-# Initial questions
+&nbsp; 
 
+# Initial questions
+***
 Originally, we wanted to conduct a comparative analysis of abortion rates in New York and Mississippi from 2017-2020 with the following questions:
 
 * Have abortion rates changed over time (2017 to 2020) in New York and Mississippi?
 * What does the distribution of abortion rates between counties within New York and Mississippi look like?
 * Are abortion rates different in New York compared to Mississippi while accounting for age, race/ethnicity, method, and insurance plan?
 
-We were unable to find a comprehensive dataset that included individual level data needed to answer these questions. Therefore, decided to focus on conducting an analysis of rates of abortion between boroughs in New York City in 2019. Our research questions thus changed as follows:
 
-## Final Research Questions:
+# Final Research Questions
+***
+We were unable to find a comprehensive dataset that included individual level data needed to answer these questions. Therefore, decided to focus on conducting an analysis of rates of abortion between boroughs in New York City in 2019. Our research questions thus changed as follows:
 
 * What does the distribution of rates of abortion between boroughs within New York City look like in 2019?
   * Are abortion rates different among boroughs in New York City while accounting for age, race/ethnicity, and finance plans in 2019?
@@ -91,7 +99,10 @@ We were unable to find a comprehensive dataset that included individual level da
 * How do abortion rates differ within regions/counties of New York State in 2019?
   * Are abortion rates different among regions/counties of New York State while accounting for age, race/ethnicity, and finance plans?
 
+&nbsp; 
+
 # Data
+***
 
 ## Source
 
@@ -127,9 +138,10 @@ We renamed variable names for the different counties in New York City to the nam
 - `Staten Island` 
 
 From the same dataset, there are 62 counties in New York State, being:
+
 `r merged %>% pull(borough) %>% rownames()`
 
-Data on New York State were obtained from the same dataset, and counties were recoded into regions based on categories set by New York State using `transform`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when stratifying based on covariates. As a result, the categorizing the regions will ensure a sufficient sample size. 
+Data on New York State were obtained from the same dataset, and counties were recoded into regions based on categories set by New York State using `transform` or `case_when`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when stratifying based on covariates. As a result, the categorizing the regions will ensure a sufficient sample size. 
 
 The final regions included in the dataset for New York State includes:
 
@@ -203,13 +215,16 @@ final_table=
 final_table
 ```
 
+&nbsp; 
 
 # Exploratory analysis
+***
 
 Our exploratory analysis was split into two categories - [New York State](ny_exploratory_analysis.html) and [New York City](nyc_exploratory_analysis.html). We analyzed how abortion rates may have different across different categories of our covariates (Age, Race/Ethnicity and Financial Plan Status), using plots created via `plotly`. In this report, all plots seen here have been made using `ggplot`. For interactive plots, head over to the individual exploratory analyses pages linked above! 
 
 ## NYC Analysis Results:
 
+&nbsp; 
 
 #### Age:
 
@@ -317,7 +332,11 @@ finance_plan_nyc %>%
 
 From the bar plots, those who were categorized as having Other Insurance had the highest abortion rates across all financial plans in NYC with a rate of 62.86k induced abortions per 1000 live births. When calculating abortion rates for financial plans, we manually calculated these rates from (induced abortions/ live births)*1000 as they were not provided like in other data sets. A huge flaw in these numbers is that those who have induced abortions and those who give births tend to use different insurance plans. People who give birth are unlikely to use `Other Insurance` in comparison to those who have induced abortions due to the inherent differences in procedures. Those who used Self Pay for induced abortions had a relatively high abortion rates as well. This would make sense as well given the nature of the procedure and possible restrictions by the health insurance plan to cover abortions. Medicaid had the lowest abortion rates across all financial plans, and the rates were lowest with 287 induced abortions per 1000 live births.
 
+&nbsp; 
+
 ## NY State Analysis Results 
+
+&nbsp; 
 
 #### Age 
 
@@ -427,7 +446,11 @@ finance_nys =
 
 Highest rates of abortion are found among those enrolled in the `Not Stated` insurance category, followed by the `Other Insurance` category. The highest rate of abortion, when stratified by insurance enrollment, is found among those residing in the Capital/Saratoga region, and reporting as `Not Stated` insurance category with 168.1k induced abortions per 1000 live births. Within New York City, highest rates are found among those that are enrolled in `Other Category` insurance plans with a rate of 150.1k induced abortions per 1000 live births. Lowest rates of abortion are found among those that are enrolled in Medicaid. 
 
+&nbsp; 
+
 ## Comparing NYC and NY State
+
+&nbsp; 
 
 #### NY vs NYC Age
 
@@ -536,16 +559,483 @@ finance_plan_total %>%
 
 Rates were highest for those with Other Insurance in both New York City and New York State and was higher in New York City with 19.92k induced abortions per 1000 live births. Rates were lowest for those with Medicaid in both New York City and New York State and was lower for those in New York State with 325.66 induced abortions per 1000 live births. 
 
+&nbsp; 
+
 # Statistical Analysis
+***
+
+## Abortion Trends in NY State
+
+&nbsp; 
+
+#### Proportion Test - NY State Regions
+
+**Do overall abortion rates differ across NY state regions?**
+
+**$H_0$**: The abortion rate per 1000 live births is the same across all NY state regions.
+
+**$H_1$**: The abortion rate per 1000 live births is not the same across all NY state regions.
+
+```{r data_NY, message=FALSE, include=FALSE}
+NY_year = read_csv("data/NY_year.csv")
+```
+
+```{r tidy_NY}
+# Tidy data
+NY_totals =
+  NY_year %>%
+  select(borough, total) %>%
+  slice(1:10) %>%
+  mutate(
+    n = total,
+    total = 1000)
+
+NY_totals %>% 
+  select(-total) %>%
+  knitr::kable(caption = "Proportion T-Test for NY across all Regions",
+  col.names = c("Region", "Abortions per 1000 live births"), align = c('l', 'c'), format = "simple")
+```
+
+```{r prop_NY}
+# Run 10 prop t-test
+prop.test(NY_totals$n, NY_totals$total,
+          p = NULL, alternative = "two.sided")
+```
 
 
-If you undertake formal statistical analyses, describe these in detail
+From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1000 live births differs across NY state regions.Because this suggests that abortion rates differs across NY state regions, we now can assess whether or not this holds true across counties.
+
+#### Proportion Test - NY State Counties
+
+**Do overall abortion rates differ across NY state counties?**
+
+**$H_0$**: The abortion rates per 1000 live births is the same across all NY state counties.
+
+**$H_1$**: The abortion rates per 1000 live births is not the same across all NY state counties.
+
+```{r tidy_NY_counties}
+# Tidy data
+NY_totals_counties =
+  merged %>%
+  select(borough, total) %>%
+  slice(-(1:2)) %>%
+  mutate(
+    n = total,
+    total = 1000)
+
+NY_totals_counties %>% 
+  select(-total) %>%
+  head(10) %>%
+  knitr::kable(caption = "Proportion T-Test for NY across all Counties",
+  col.names = c("County", "Abortions per 1000 live births"), align = c('l', 'c'), format = "simple")
+```
+
+Only the first 10 counties are printed.
+
+```{r prop_NY_counties}
+# Run 58 prop t-test
+prop.test(NY_totals_counties$n, NY_totals_counties$total,
+          p = NULL, alternative = "two.sided")
+```
+
+From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1000 live births differs across NY state counties.
+
+#### Chi Square Test - Race and NY State Counties
+
+Due to missing data, a chi-squared analysis was not run for race and NY state regions.
+
+**Do overall abortion rates differ across NY state counties by race?**
+
+**$H_0$**: The expected abortion rates in each race category are the same across all NY state counties.
+
+**$H_1$**: The expected abortion rates in each race category are not the same across all NY state counties.
+
+```{r NY_tidy_race_counties}
+# Tidy data
+NY_race_clean = 
+  merged %>%
+  slice(-(1:2)) %>%
+  select(-(age_less_20:nh_total)) %>% select(-(h_white_only_ratio:region)) %>%
+  drop_na() %>%
+  mutate(
+    hispanic = h_total*1000,
+    nh_white_only = nh_white_only_ratio*1000,
+    nh_black_only = nh_black_only_ratio*1000,
+    nh_other = nh_other_ratio*1000
+  ) %>%
+  select(-(nh_white_only_ratio:h_total))
+
+NY_race_clean %>% 
+  head(10) %>%
+  knitr::kable(caption = "Chi-Square Test for Race and Counties", col.names = c("County", "Hispanic", "Non-Hispanic White", "Non-Hispanic Black", "Non-Hispanic Other"), align = c('l', 'c', 'c', 'c', 'c','c','c'), format = "simple")
+```
+
+Only the first 10 counties are printed.
+
+```{r NY_chi-sq_race_counties}
+NY_race_clean =
+  NY_race_clean %>%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(NY_race_clean)
+```
+
+```{r NY_x_crit_race_counties}
+x_crit = qchisq(0.95, 135)
+x_crit
+```
+
+From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates in each race category across counties is different.
+
+#### Chi Square Test - Finance Plans and NY State Regions
+
+**Do overall abortion rates differ across NY state regions by finance plan?**
+
+**$H_0$**: The expected abortion rates in each finance plan category are the same across all NY state regions.
+
+**$H_1$**: The expected abortion rates in each finance plan category are not the same across all NY state regions.
+
+```{r data_NY_finance, include=FALSE, message=FALSE}
+NY_finance = read_csv("data/NY_finance.csv")
+```
+
+```{r NY_tidy_finance}
+# Tidy data
+NY_finance_clean = 
+  NY_finance %>%
+  mutate(
+    medicaid = medicaid*1000,
+    self_pay = self_pay*1000,
+    other_insurance = other_insurance*1000,
+    not_stated = not_stated*1000
+  ) %>%
+  select(-total)
+
+NY_finance_clean %>%
+  knitr::kable(caption = "Chi-Square Test Finance Plan and Regions", col.names = c("Region", "Medicaid", "Self-Pay", "Other Insurance", "Not Stated"), align = c('l', 'c', 'c', 'c', 'c'), format = "simple" )
+```
+
+```{r NY_chi-sq_finance}
+NY_finance_clean =
+  NY_finance_clean %>%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(NY_finance_clean)
+```
+
+```{r NY_x_crit_finance}
+x_crit = qchisq(0.95, 27)
+x_crit
+```
+
+From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates in each finance category across regions is different.
+
+#### Chi Square Test - Finance Plan and NY State Counties
+
+**Do overall abortion rates differ across NY state counties by finance plan?**
+
+**$H_0$**: The expected abortion rates in each finance plan category are the same across all NY state counties.
+
+**$H_1$**: The expected abortion rates in each finance plan category are not the same across all NY state counties.
+
+```{r NY_finance_counties}
+# Tidy data
+NY_finance_counties = 
+  merged %>%
+  slice(-(1:2)) %>%
+  select(-(age_less_20:nh_total)) %>% select(-(h_white_only_ratio:region)) %>%
+  drop_na() %>%
+  mutate(
+    hispanic = h_total*1000,
+    nh_white_only = nh_white_only_ratio*1000,
+    nh_black_only = nh_black_only_ratio*1000,
+    nh_other = nh_other_ratio*1000
+  ) %>%
+  select(-(nh_white_only_ratio:h_total))
+
+NY_finance_counties %>% 
+  head(10) %>%
+  knitr::kable(caption = "Chi-Square Test for Race and Counties", col.names = c("County", "Hispanic", "Non-Hispanic White", "Non-Hispanic Black", "Non-Hispanic Other"), align = c('l', 'c', 'c', 'c', 'c'), format = "simple")
+```
+
+Only the first 10 counties are printed.
+
+```{r NY_chi-sq_finance_counties}
+NY_finance_counties =
+  NY_finance_counties %>%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(NY_finance_counties)
+```
+
+```{r NY_x_crit_finance_counties}
+x_crit = qchisq(0.95, 135)
+x_crit
+```
+
+From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates in each finance category across counties is different.
+
+#### Chi Square Test - Age and NY State Counties
+
+Due to missing data, a chi-squared analysis was not run for race and NY state regions.
+
+**Do overall abortion rates differ across NY state counties by age?**
+
+**$H_0$**: The expected abortion rates in each age category are the same across all NY state counties.
+
+**$H_1$**: The expected abortion rates in each age category are not the same across all NY state counties.
+
+```{r NY_tidy_age_counties}
+# Tidy data
+NY_age_clean = 
+  merged %>%
+  slice(-(1:2)) %>%
+  select(-(nh_total:region)) %>%
+  drop_na() %>%
+  mutate(
+    age_less_20 = age_less_20*1000,
+    age_20_24 = age_20_24*1000,
+    age_25_29 = age_25_29*1000,
+    age_30_34 = age_30_34*1000,
+    age_35_39 = age_35_39*1000,
+    age_plus_40 = age_plus_40*1000
+  )
+
+NY_age_clean %>% 
+  head(10) %>%
+  knitr::kable(caption = "Chi-Square Test for Age and Counties", col.names = c("County", "< 20 years", "20-24 years", "25-29 years", "30-34 years", "35-39 years", "40+ years"), align = c('l', 'c', 'c', 'c', 'c', 'c', 'c'), format = "simple" )
+```
+
+Only the first 10 counties are printed.
+
+```{r NY_chi-sq_age_counties}
+NY_age_clean =
+  NY_age_clean %>%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(NY_age_clean)
+```
+
+```{r NY_x_crit_age}
+x_crit = qchisq(0.95, 275)
+x_crit
+```
+
+From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates in each age category across counties is different.
+
+&nbsp; 
+
+## Abortion Trends in NYC
+
+&nbsp; 
+
+#### Proportion T-Test - Boroughs
+
+**Do overall abortion rates differ across boroughs?**
+
+**$H_0$**: The abortion rate per 1000 live births is the same across all boroughs.
+
+**$H_1$**: The abortion rate per 1000 live births is not the same across all boroughs.
+
+```{r tidy_borough}
+# Tidy data
+abortion_totals_borough =
+  merged %>%
+  select(borough, total) %>%
+  slice(3:7) %>%
+  mutate(
+    n = total,
+    total = 1000)
+
+abortion_totals_borough %>%
+  select (-total) %>%
+  knitr::kable(caption = "Proportion T-Test for NYC across all Boroughs", col.names = c("Borough", "Abortion Rate per 1000 live births"), align = c('l', 'c'), format = "simple")
+```
+
+```{r prop_boroughs}
+# Run 5 prop t-test
+prop.test(abortion_totals_borough$n, abortion_totals_borough$total,
+          p = NULL, alternative = "two.sided")
+```
+
+From the above results, the p-value is **less than the 5% level of significance**. Therefore, we **reject the null hypothesis**. The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1000 births live differs across boroughs.
+
+#### Chi Square Test - Race and Boroughs
+
+**Do overall abortion rates differ across boroughs by race?**
+
+**$H_0$**: The expected abortion rate in each race category are the same across all boroughs.
+
+**$H_1$**: The expected abortion rate in each race category are not the same across all boroughs.
+
+```{r tidy_race}
+# Tidy data
+abortion_race_clean = 
+  merged %>%
+  slice(3:7) %>%
+  select(-(age_less_20:nh_total)) %>% select(-(h_white_only_ratio:region)) %>%
+  mutate(
+    hispanic = h_total*1000,
+    nh_white_only = nh_white_only_ratio*1000,
+    nh_black_only = nh_black_only_ratio*1000,
+    nh_other = nh_other_ratio*1000
+  ) %>%
+  select(-(nh_white_only_ratio:h_total))
+
+abortion_race_clean %>% 
+  knitr::kable(caption = "Chi-Square Test for Race and Boroughs", col.names = c("Borough", "Hispanic", "Non-Hispanic White", "Non-Hispanic Black", "Non-Hispanic Other"), align = c('l', 'c', 'c', 'c', 'c'), format = "simple")
+```
+
+```{r chi-sq_race}
+abortion_race_clean =
+  abortion_race_clean %>%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(abortion_race_clean)
+```
+
+```{r x_crit_race}
+x_crit = qchisq(0.95, 12)
+x_crit
+```
+
+From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, we **reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that the abortion rate in each race category across boroughs is different. 
+
+#### Chi Square Test - Finance Plan and Boroughs
+
+**Do overall abortion rates differ across boroughs by finance plan?**
+
+**$H_0$**: The expected abortion rates in each finance plan category are the same across all boroughs.
+
+**$H_1$**: The expected abortions rates in each finance plan category are not the same across all boroughs.
+
+```{r tidy_finance}
+# Tidy data
+abortion_finance_clean = 
+  merged %>%
+  slice(3:7) %>%
+  select(-(age_less_20:h_black_only_ratio)) %>%
+  mutate(
+    medicaid = medicaid*1000,
+    self_pay = self_pay*1000,
+    other_insurance = other_insurance*1000,
+    not_stated = not_stated*1000
+  ) %>%
+  select(-(total:region))
+
+abortion_finance_clean %>% 
+  knitr::kable(caption = "Chi-Square Test for Finance Plan and Boroughs", col.names = c("Borough", "Medicaid", "Self-Pay", "Other Insurance", "Not Stated"), align = c('l', 'c', 'c', 'c', 'c'), format = "simple" )
+```
+
+```{r chi-squ_finance}
+abortion_finance_clean =
+  abortion_finance_clean %>%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(abortion_finance_clean)
+```
+
+```{r x_crit_finance}
+x_crit = qchisq(0.95, 12)
+x_crit
+```
+
+From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that the abortion rates in each finance category across borough is different.
+
+#### Chi Square Test - Age and Boroughs
+
+**Do overall abortion rates differ across boroughs by age?**
+
+**$H_0$**: The expected abortion rates in each age category are the same across all boroughs.
+
+**$H_1$**: The expected abortion rates in each age category are not the same across all boroughs.
+
+```{r tidy_age}
+# Tidy data
+abortion_age_clean = 
+  merged %>%
+  slice(3:7) %>%
+  select(-(nh_total:region)) %>%
+  mutate(
+    age_less_20 = age_less_20*1000,
+    age_20_24 = age_20_24*1000,
+    age_25_29 = age_25_29*1000,
+    age_30_34 = age_30_34*1000,
+    age_35_39 = age_35_39*1000,
+    age_plus_40 = age_plus_40*1000
+  )
+
+abortion_age_clean %>% 
+  knitr::kable(caption = "Chi-Square Test for Age and Boroughs", col.names = c("Borough", "< 20 years", "20-24 years", "25-29 years", "30-34 years", "35-39 years", "40+ years"), align = c('l', 'c', 'c', 'c', 'c', 'c', 'c'), format = "simple" )
+```
+
+```{r chi-sq_age}
+abortion_age_clean =
+  abortion_age_clean %>%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(abortion_age_clean)
+```
+
+```{r x_crit_age}
+x_crit = qchisq(0.95, 20)
+x_crit
+```
+
+From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that the overall abortion rate in each age category across borough is different.
+
+&nbsp; 
+
+## Abortions Rates Comparing NYC and NY State
+
+&nbsp; 
+
+#### Proportion T-test
+
+**Do overall abortion rates differ between NYC and NY state?**
+
+**$H_0$**: The abortion rate per 1000 births is the same between NYC and NY state.
+
+**$H_1$**: The abortion rate per 1000 births differs between NYC and NY state.
+
+```{r tidy_totals}
+# Tidy data
+abortion_totals =
+  merged %>%
+  select(borough, total) %>%
+  head(2) %>%
+  mutate(
+    n = total,
+    total = 1000)
+
+abortion_totals %>% 
+  select (-total) %>%
+  knitr::kable(caption = "Proportion T-Test for NYC and NY State", col.names = c("Region", "Abortion Rate per 1000 births"), align = c('l', 'c'), format = "simple")
+```
+
+```{r prop}
+# Run prop t-test
+prop.test(abortion_totals$n, abortion_totals$total,
+          p = NULL, alternative = "two.sided")
+```
+
+From the above results, the p-value is **less than the 5% level of significance.** Therefore, we **reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that the abortion rate per 1000 births differs between NYC and NY state.
+
+&nbsp; 
 
 # Limiations 
+***
 
 There were a couple of limitations in our project including the amount of limited abortion data in some of the counties. For the race dataset specifically, some of the data was noted as suppressed due to confidentiality. As a result, we had to omit Eastern and Western Adirondacks from our statistical analysis, despite the possibility that there might be valuable information in these regions. Similarly, for the financial plan dataset, there were some plans that had very small cell counts. The plans with small cell counts were eventually omitted as they were not included in the live birth data set, the denominator to calculate abortion rates. As a result, the statistical analysis for financial plan may not show the full scale of the differences between the plans. 
 
 # Discussion
-
+***
 
 What were your findings? Are they what you expect? What insights into the data can you make?
