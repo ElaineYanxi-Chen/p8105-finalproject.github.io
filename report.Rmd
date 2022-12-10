@@ -43,40 +43,13 @@ merged = read_csv("data/master.csv") %>%
 # Motivation
 ***
 
-In 2019, many conservative states raced to enact an unprecedented wave on bans on abortions that have severely restricted women’s reproductive rights. These restrictions have culminated with the recent Supreme Court overturning of Roe v. Wade, a landmark supreme court case granting a women’s right to an abortion. 
+In 2019, many states raced to enact an unprecedented wave on bans on abortions that have severely restricted Women’s reproductive rights. These restrictions have culminated with the recent Supreme Court overturning of Roe v. Wade, a landmark supreme court case granting a Women’s right to an abortion. 
 
 <img src="images/2019_abortion.jpg" style = "width:70%">
 
 Source: [Guttmacher Institute](https://www.guttmacher.org/article/2019/12/state-policy-trends-2019-wave-abortion-bans-some-states-are-fighting-back)
 
-Since then, access to abortion has been significantly compromised and even banned in several states across the country. Those that are likely to be most impacted by this decision are individuals that belong to under-served and marginalized communities. Changes in policies could potentially lead to a variation in abortion trends in the country over time. We want to explore these trends to understand the implications of the policy change in the country concerning reproductive rights. 
-
-Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the number of induced abortions per 1,000 live birth in New York City and New York State and compare the differences across the boroughs (for New York City) and counties (for New York State). Several variables that we are considering are age, race/ethnicity, and financial plans. We are also interested on how the total rate of abortion changes over years from 2014 to 2019. 
-
-&nbsp; 
-
-# Additional Resources/ Related Work
-***
-
-Reproductive rights are basic human rights, and women should be allowed to have full autonomy on decisions regarding their bodies. They should be allowed to exercise their rights and make decisions freely and responsibly. Reproductive justice goes far beyond the right to abortion; the issue is inextricably bound to discrimination and inequality. As residents of New York City, we wanted to analyze the trends in abortion, and how it might be affected by factors such as race/ethnicity, financial plan status and age. 
-
-Here's some recent information on abortion clinics/ laws/ and facts:
-
-- In New York City, call the NYC Abortion Access Hub at [1-877-NYC-AHUB](tel:18776922482) or [1-877-692-2482](tel:18776922482)
-
-- [AbortionFinder.org](https://www.abortionfinder.org/)
-
-- [Planned Parenthood](https://www.plannedparenthood.org/abortion-access)
-
-- [after Roe Fell: Abortion Laws by State](https://reproductiverights.org/maps/abortion-laws-by-state/)
-
-- [Guttmacher Institute](https://www.guttmacher.org/state-policy/explore/overview-abortion-laws)
-
-- [What's Next for Abortion Rights in New York?](https://www.nytimes.com/2022/07/08/nyregion/abortion-new-york-roe.html)
-
-- [National Network of Abortion Funds](https://abortionfunds.org/) 
-
-- [Abortion Reporting: New York City (2019)](https://lozierinstitute.org/abortion-reporting-new-york-city-2019/)
+Our year of interest is 2019, which is the most recent dataset provided by New York State and pre-COVID.  We will be focusing on the number of induced abortions per 1,000 live birth in New York City and New York State and compare the differences across the boroughs (for New York City), counties (for New York State), and between New York City and New York State. Variables we are considering are age, race/ethnicity, and financial plans. Those that are likely to be most impacted by this decision are individuals that belong to under-served and marginalized communities, and we wanted to better understand possible disparities in access to abortions. 
 
 &nbsp; 
 
@@ -91,7 +64,7 @@ Originally, we wanted to conduct a comparative analysis of abortion rates in New
 
 # Final Research Questions
 ***
-We were unable to find a comprehensive dataset that included individual level data needed to answer these questions. Therefore, decided to focus on conducting an analysis of rates of abortion between boroughs in New York City in 2019. Our research questions thus changed as follows:
+We were unable to find a comprehensive dataset that included individual level data needed to answer these questions. Therefore, decided to focus on conducting an analysis of rates of abortion in New York City and New York State in 2019. Our research questions thus changed as follows:
 
 * What does the distribution of rates of abortion between boroughs within New York City look like in 2019?
   * Are abortion rates different among boroughs in New York City while accounting for age, race/ethnicity, and finance plans in 2019?
@@ -129,6 +102,7 @@ We first imported the data sets representing rates of abortion from the Vital St
 For the finance plans data set, we imported the number of induced abortion and number of live births in order to calculate the rates of abortion manually. The equation we used is as follow:
 
 $$Abortion\ Rate\ per\ 1000\ Live\ Births\ = \frac{Count}{Number\ of\ Live\ Births} \times 1000$$
+
 We renamed variable names for the different counties in New York City to the name of the boroughs. Final variable names in our dataset for the New York City include:
 
 - `Manhattan`
@@ -137,9 +111,11 @@ We renamed variable names for the different counties in New York City to the nam
 - `Queens`
 - `Staten Island` 
 
-From the same dataset, we included `New York State` total, `New York City` total and any county with released abortion rate data. Therefore, the dataset includes the following variables: `r merged %>% pull(borough)`. One note to be aware of is that Essex and Hamilton data are combined in the dataset due to the formatting released by New York State, thus we have `Essex/Hamilton` as a variable
+From the same dataset, we included `New York State` total, `New York City` total and any county with released abortion rate data. Therefore, the dataset includes the following variables: `r merged %>% pull(borough)`to analyze data for New York state. 
 
-Data on New York State were obtained from the same dataset, and counties were recoded into regions based on categories set by New York State using `transform` or `case_when`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when stratifying based on covariates. As a result, the categorizing the regions will ensure a sufficient sample size. 
+One note is that Essex County and Hamilton County data are combined in the dataset provided by New York City, thus having `Essex/Hamilton` as a combined variable, rather than seperate variables.
+
+Counties were recoded into regions based on categories set by New York State using `transform` or `case_when`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when stratifying based on covariates. As a result, the categorizing of the regions will ensure a sufficient sample size for some of the analyses.
 
 The final regions included in the dataset for New York State includes:
 
@@ -218,7 +194,7 @@ final_table
 # Exploratory analysis
 ***
 
-Our exploratory analysis was split into two categories - [New York State](ny_exploratory_analysis.html) and [New York City](nyc_exploratory_analysis.html). We analyzed how abortion rates may have different across different categories of our covariates (Age, Race/Ethnicity and Financial Plan Status), using plots created via `plotly`. In this report, all plots seen here have been made using `ggplot`. For interactive plots, head over to the individual exploratory analyses pages linked above! 
+Our exploratory analysis was split into two categories - [New York State](ny_exploratory_analysis.html) and [New York City](nyc_exploratory_analysis.html). We analyzed how abortion rates may differ across different categories of our covariates (Age, Race/Ethnicity and Financial Plan Status), using plots created via `plotly`. In this report, all plots seen here have been made using `ggplot`. For interactive plots, head over to the individual exploratory analyses pages linked above! 
 
 ## NYC Analysis Results:
 
@@ -1031,9 +1007,37 @@ From the above results, the p-value is **less than the 5% level of significance.
 # Limiations 
 ***
 
-There were a couple of limitations in our project including the amount of limited abortion data in some of the counties. For the race dataset specifically, some of the data was noted as suppressed due to confidentiality. As a result, we had to omit Eastern and Western Adirondacks from our statistical analysis, despite the possibility that there might be valuable information in these regions. Similarly, for the financial plan dataset, there were some plans that had very small cell counts. The plans with small cell counts were eventually omitted as they were not included in the live birth data set, the denominator to calculate abortion rates. As a result, the statistical analysis for financial plan may not show the full scale of the differences between the plans. 
+There were a couple of limitations in our project including the amount of limited abortion data in some of the counties. For the race dataset specifically, some of the data was noted as suppressed due to confidentiality. As a result, we had to omit Eastern and Western Adirondacks from our statistical analysis, despite the possibility that there might be valuable information in these regions. Similarly, for the financial plan dataset, there were some finance plans that had very small cell counts. The plans with small cell counts were eventually omitted as they were not included in the live birth data set, the denominator to calculate abortion rates. As a result, the statistical analysis for financial plan may not show the full scale of the differences between the plans. 
 
 # Discussion
 ***
 
 What were your findings? Are they what you expect? What insights into the data can you make?
+
+&nbsp; 
+
+# Additional Resources/ Related Work
+***
+
+From a public health stand point, reproductive rights are basic human rights, and women should be allowed to have full autonomy on decisions regarding their bodies. However, the issue at hand is very complicated, and it is important to consider both sides of the argument. 
+
+Regardless of the stance people take on abortions, studies and past data has found that reproductive justice is inextricably bound to discrimination and inequality. As residents of New York City, we wanted to analyze the trends in abortion, and how it might be affected by factors such as race/ethnicity, financial plan status and age to better understand differences in trends. 
+
+Here is some recent information on abortion clinics/ laws/ and facts:
+
+- In New York City, call the NYC Abortion Access Hub at [1-877-NYC-AHUB](tel:18776922482) or [1-877-692-2482](tel:18776922482)
+
+- [AbortionFinder.org](https://www.abortionfinder.org/)
+
+- [Planned Parenthood](https://www.plannedparenthood.org/abortion-access)
+
+- [after Roe Fell: Abortion Laws by State](https://reproductiverights.org/maps/abortion-laws-by-state/)
+
+- [Guttmacher Institute](https://www.guttmacher.org/state-policy/explore/overview-abortion-laws)
+
+- [What's Next for Abortion Rights in New York?](https://www.nytimes.com/2022/07/08/nyregion/abortion-new-york-roe.html)
+
+- [National Network of Abortion Funds](https://abortionfunds.org/) 
+
+- [Abortion Reporting: New York City (2019)](https://lozierinstitute.org/abortion-reporting-new-york-city-2019/)
+
