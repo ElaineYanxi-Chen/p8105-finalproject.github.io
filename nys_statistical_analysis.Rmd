@@ -1,5 +1,5 @@
 ---
-title: "NY State Statistical Analaysis"
+title: "NY State Statistical Analysis"
 output: 
   html_document: 
     toc: true

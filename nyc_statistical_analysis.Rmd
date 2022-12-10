@@ -104,7 +104,7 @@ x_crit
 
 - The data provides sufficient evidence to support the hypothesis that the abortion rate in each race category across boroughs is different. 
 
-### *Chi Square Test - Finance Plan and Boroughs*
+### Chi Square Test - Finance Plan and Boroughs
 
 **Do overall abortion rates differ across boroughs by finance plan?**
 
@@ -150,7 +150,7 @@ x_crit
 
 - The data provides sufficient evidence to support the hypothesis that the abortion rates in each finance category across borough is different.
 
-### *Chi Square Test - Age and Boroughs*
+### Chi Square Test - Age and Boroughs
 
 **Do overall abortion rates differ across boroughs by age?**
 
