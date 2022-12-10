@@ -134,6 +134,7 @@ From the bar plots, it is evident that those who age less than 20 have the highe
 &nbsp; 
 
 ### Race
+***
 
 ```{r}
 race_nyc = 

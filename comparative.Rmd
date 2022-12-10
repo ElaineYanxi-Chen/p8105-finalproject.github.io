@@ -119,7 +119,7 @@ race_total %>%
 race_total
 ```
 
-It is evident that those who identified as Non-Hispanic Black Only had the highest abortion rates across all boroughs in NYC. Among those who identified as Non_Hispanic_Black, rates were highest in Manhattan with 851.7 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion rates in NYC. The lowest rates across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a rates of 142.9 induced abortions per 1,000 live births. 
+It is evident that those who identified as Non-Hispanic Black Only had the highest abortion rates across all boroughs in NYC. Among those who identified as Non-Hispanic Black, rates were highest in Manhattan with 851.7 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion rates in NYC. The lowest rates across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a rates of 142.9 induced abortions per 1,000 live births. 
 
 &nbsp; 
 
@@ -153,3 +153,4 @@ finance_plan_total %>%
 ```
 
 Rates were highest for those with Other Insurance in both New York City and New York State and was higher in New York City with 19.92k induced abortions per 1000 live births. Rates were lowest for those with Medicaid in both New York City and New York State and was lower for those in New York State with 325.66 induced abortions per 1000 live births. 
+
