@@ -350,12 +350,30 @@ div.tocify {
       <a href="ny_exploratory_analysis.html">New York State Analysis</a>
     </li>
     <li>
-      <a href="nyc_exploratory_analysis.html">New York City</a>
+      <a href="nyc_exploratory_analysis.html">New York City Analysis</a>
+    </li>
+    <li>
+      <a href="comparative.html">Comparative Analysis</a>
     </li>
   </ul>
 </li>
-<li>
-  <a href="statistical_analysis.html">Statistical Analysis</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Statistical Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="nys_statistical_analysis.html">NYS Statistical Analysis</a>
+    </li>
+    <li>
+      <a href="nyc_statistical_analysis.html">NYC Statistical Analysis</a>
+    </li>
+    <li>
+      <a href="comparative_statistical_analysis.html">Comparative Statistical Analysis</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="report.html">Report</a>
@@ -426,22 +444,25 @@ to be most impacted by this decision are individuals that belong to
 under-served and marginalized communities. Changes in policies could
 potentially lead to a variation in abortion trends in the country over
 time. We want to explore these trends to understand the implications of
-policy change in the country concerning reproductive rights.</p>
+the policy change in the country concerning reproductive rights.</p>
 <p>Our year of interest is 2019, which is the most recent dataset
-provided by New York State. We will be focusing on the numbers of
-induced abortions in New York City and New York State and compare the
-differences across the boroughs/ counties.</p>
+provided by New York State. We will be focusing on the number of induced
+abortions per 1,000 live birth in New York City and New York State and
+compare the differences across the boroughs (for New York City) and
+counties (for New York State). Several variables that we are considering
+are age, race/ethnicity, and financial plans. We are also interested on
+how the total rate of abortion changes over years from 2014 to 2019.</p>
 </div>
 <div id="additional-resources-related-work" class="section level1">
 <h1>Additional Resources/ Related Work</h1>
 <p>Reproductive rights are basic human rights, and women should be
 allowed to have full autonomy on decisions regarding their bodies. They
-should be allowed to make decisions freely and responsibly and exercise
-their rights. Reproductive justice goes far beyond the right to
-abortion; the issue is inextricably bound to discrimination and
-inequality. As residents of New York City, we wanted to analyze the
-trends in abortion, and how it might be affected by factors such as
-race/ethnicity, financial plan status and age.</p>
+should be allowed to exercise their rights and make decisions freely and
+responsibly. Reproductive justice goes far beyond the right to abortion;
+the issue is inextricably bound to discrimination and inequality. As
+residents of New York City, we wanted to analyze the trends in abortion,
+and how it might be affected by factors such as race/ethnicity,
+financial plan status and age.</p>
 <p>Here’s some recent information on abortion clinics/ laws/ and
 facts:</p>
 <ul>
@@ -475,34 +496,35 @@ Reporting: New York City (2019)</a></p></li>
 rates in New York and Mississippi from 2017-2020 with the following
 questions:</p>
 <ul>
-<li>Have abortion rates changed over time (2017 to 2020)?</li>
+<li>Have abortion rates changed over time (2017 to 2020) in New York and
+Mississippi?</li>
 <li>What does the distribution of abortion rates between counties within
 New York and Mississippi look like?</li>
 <li>Are abortion rates different in New York compared to Mississippi
 while accounting for age, race/ethnicity, method, and insurance
 plan?</li>
 </ul>
-<p>We were unable to find a comprehensive dataset that included every
-factor we were looking for, and decided to focus on conducting an
-analysis of abortion numbers between boroughs in New York City in 2019.
-As a result we have developed new research questions as listed as
-following for our project:</p>
+<p>We were unable to find a comprehensive dataset that included
+individual level data needed to answer these questions. Therefore,
+decided to focus on conducting an analysis of rates of abortion between
+boroughs in New York City in 2019. Our research questions thus changed
+as follows:</p>
 <div id="final-research-questions" class="section level2">
 <h2>Final Research Questions:</h2>
 <ul>
-<li>What does the distribution of abortion between boroughs within New
-York City look like in 2019?
+<li>What does the distribution of rates of abortion between boroughs
+within New York City look like in 2019?
 <ul>
-<li>Are abortion rates different in New York City while accounting for
-age, race/ethnicity, method, and insurance plan in 2019?</li>
+<li>Are abortion rates different among boroughs in New York City while
+accounting for age, race/ethnicity, and finance plans in 2019?</li>
 </ul></li>
 <li>How do abortion rates differ between New York City and New York
 State in 2019?</li>
-<li>How do abortion rates differ within regions of New York State in
-2019?
+<li>How do abortion rates differ within regions/counties of New York
+State in 2019?
 <ul>
-<li>Are abortion rates different in New York City while accounting for
-age, race/ethnicity, method, and insurance plan?</li>
+<li>Are abortion rates different among regions/counties of New York
+State while accounting for age, race/ethnicity, and finance plans?</li>
 </ul></li>
 </ul>
 </div>
@@ -513,10 +535,11 @@ age, race/ethnicity, method, and insurance plan?</li>
 <h2>Source</h2>
 <p>For this project, we will use data from <a
 href="https://www.health.ny.gov/statistics/vital_statistics/">Vital
-Statistics of New York State 2014-2019</a> (Individual data sets) which
-consists of group-level data from New York City and New York State.</p>
+Statistics of New York State 2014-2019</a> which consists of group-level
+data from New York City and New York State for age, race/ethnicity, and
+finance plans, each being its own data set.</p>
 <ul>
-<li><p>The data wered collected from the New York State Bureau of Vital
+<li><p>The data were collected from the New York State Bureau of Vital
 Records who maintains a registry of all births, marriages,
 divorces/dissolutions of marriage, deaths, induced termination of
 pregnancy/abortions, and fetal deaths that have occurred in New York
@@ -535,23 +558,28 @@ York State from other states and Canada.</p></li>
 <ul>
 <li><p>New York City includes five counties: Bronx, Kings (Brooklyn),
 New York (Manhattan), Queens, and Richmond (Staten Island).</p></li>
-<li><p>New York State encompasses the remaining 57 counties, outside of
+<li><p>New York State encompasses all 62 counties, including five from
 New York City.</p></li>
 </ul></li>
 </ul>
 <p>From the Vital Statistics of New York State 2019, we will use data
-from the <em>Induced Abortions</em> and <em>Live Births</em>
-section.</p>
+from the <em>Induced Abortions</em> and <em>Live Births</em> section in
+order to find information on finance plans.</p>
 </div>
 <div id="data-scraping-and-cleaning" class="section level2">
 <h2>Data Scraping and Cleaning</h2>
-<p>We first imported the data sets from the Vital Statistics of New York
-State 2019 webpage. We cleaned the data and merged the data to create a
-final master spreadsheet, which we will be pulling from for each of our
-analyses.</p>
-<p>We renamed variable names for the different counties in New York City
-to the name of the boroughs. Final variable names in our dataset for the
-boroughs include:</p>
+<p>We first imported the data sets representing rates of abortion from
+the Vital Statistics of New York State 2019 webpage. We cleaned and
+merged the data appropriately to create a final master spreadsheet,
+which we will be pulling from for each of our analyses.</p>
+<p>For the finance plans data set, we imported the number of induced
+abortion and number of live births in order to calculate the rates of
+abortion manually. The equation we used is as follow:</p>
+<p><span class="math display">\[Abortion\ Rate\ per\ 1000\ Live\ Births\
+= \frac{Count}{Number\ of\ Live\ Births} \times 1000\]</span> We renamed
+variable names for the different counties in New York City to the name
+of the boroughs. Final variable names in our dataset for the New York
+City include:</p>
 <ul>
 <li><code>Manhattan</code></li>
 <li><code>Bronx</code></li>
@@ -559,6 +587,8 @@ boroughs include:</p>
 <li><code>Queens</code></li>
 <li><code>Staten Island</code></li>
 </ul>
+<p>From the same dataset, there are 62 counties in New York State,
+being:</p>
 <p>Data on New York State were obtained from the same dataset, and
 counties were recoded into regions based on categories set by New York
 State using <code>transform</code>. Some counties had very few abortion
@@ -581,11 +611,6 @@ includes:</p>
 </ul>
 <p>The regions were created based on this <a
 href="https://statejobs.ny.gov/assets/help/regionMapText.cfm">website</a></p>
-<p>Abortion rates were calculated for regions within NY State, while for
-NYC they were already available as rates. Rates were calculated by using
-the following formula:</p>
-<p><span class="math display">\[Abortion\ Rate\ per\ 1000\ Live\ Births\
-= \frac{Count}{Number\ of\ Live\ Births} \times 1000\]</span></p>
 <p>Specific data cleaning processes for the covariates are listed
 below.</p>
 <div id="age" class="section level4">
@@ -700,6 +725,130 @@ Not Stated
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+New York State
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:center;">
+336.5
+</td>
+<td style="text-align:center;">
+1012.9
+</td>
+<td style="text-align:center;">
+588.8
+</td>
+<td style="text-align:center;">
+378.4
+</td>
+<td style="text-align:center;">
+214.6
+</td>
+<td style="text-align:center;">
+203.4
+</td>
+<td style="text-align:center;">
+269.1
+</td>
+<td style="text-align:center;">
+334.1
+</td>
+<td style="text-align:center;">
+142.9
+</td>
+<td style="text-align:center;">
+758.5
+</td>
+<td style="text-align:center;">
+202.1
+</td>
+<td style="text-align:center;">
+344.4
+</td>
+<td style="text-align:center;">
+189.0
+</td>
+<td style="text-align:center;">
+534.6
+</td>
+<td style="text-align:center;">
+325.7
+</td>
+<td style="text-align:center;">
+3755.0
+</td>
+<td style="text-align:left;">
+10322.6
+</td>
+<td style="text-align:left;">
+3252.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+New York City
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:center;">
+450.5
+</td>
+<td style="text-align:center;">
+1491.4
+</td>
+<td style="text-align:center;">
+792.2
+</td>
+<td style="text-align:center;">
+526.8
+</td>
+<td style="text-align:center;">
+302.8
+</td>
+<td style="text-align:center;">
+264.2
+</td>
+<td style="text-align:center;">
+323.0
+</td>
+<td style="text-align:center;">
+459.4
+</td>
+<td style="text-align:center;">
+165.6
+</td>
+<td style="text-align:center;">
+851.7
+</td>
+<td style="text-align:center;">
+243.2
+</td>
+<td style="text-align:center;">
+428.1
+</td>
+<td style="text-align:center;">
+167.7
+</td>
+<td style="text-align:center;">
+570.6
+</td>
+<td style="text-align:center;">
+401.7
+</td>
+<td style="text-align:center;">
+8801.2
+</td>
+<td style="text-align:left;">
+19924.4
+</td>
+<td style="text-align:left;">
+1477.9
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Bronx
@@ -2066,68 +2215,6 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-Genesee
-</td>
-<td style="text-align:left;">
-Finger Lakes
-</td>
-<td style="text-align:center;">
-72.1
-</td>
-<td style="text-align:center;">
-333.3
-</td>
-<td style="text-align:center;">
-82.6
-</td>
-<td style="text-align:center;">
-73.2
-</td>
-<td style="text-align:center;">
-26.2
-</td>
-<td style="text-align:center;">
-88.2
-</td>
-<td style="text-align:center;">
-250.0
-</td>
-<td style="text-align:center;">
-66.3
-</td>
-<td style="text-align:center;">
-41.5
-</td>
-<td style="text-align:center;">
-375.0
-</td>
-<td style="text-align:center;">
-43.5
-</td>
-<td style="text-align:center;">
-142.9
-</td>
-<td style="text-align:center;">
-357.1
-</td>
-<td style="text-align:center;">
-0.0
-</td>
-<td style="text-align:center;">
-70.0
-</td>
-<td style="text-align:center;">
-1000.0
-</td>
-<td style="text-align:left;">
-55.6
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Greene
 </td>
 <td style="text-align:left;">
@@ -2186,6 +2273,68 @@ NA
 </td>
 <td style="text-align:left;">
 333.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hamilton/Essex
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+106.1
+</td>
+<td style="text-align:center;">
+27.5
+</td>
+<td style="text-align:center;">
+48.1
+</td>
+<td style="text-align:center;">
+19.2
+</td>
+<td style="text-align:center;">
+142.9
+</td>
+<td style="text-align:center;">
+53.6
+</td>
+<td style="text-align:center;">
+46.0
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
 </td>
 </tr>
 <tr>
@@ -4356,130 +4505,6 @@ Westchester/Rockland
 </td>
 <td style="text-align:left;">
 59066.7
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Wyoming
-</td>
-<td style="text-align:left;">
-Western New York
-</td>
-<td style="text-align:center;">
-92.7
-</td>
-<td style="text-align:center;">
-222.2
-</td>
-<td style="text-align:center;">
-80.0
-</td>
-<td style="text-align:center;">
-56.0
-</td>
-<td style="text-align:center;">
-123.7
-</td>
-<td style="text-align:center;">
-100.0
-</td>
-<td style="text-align:center;">
-200.0
-</td>
-<td style="text-align:center;">
-84.5
-</td>
-<td style="text-align:center;">
-76.0
-</td>
-<td style="text-align:center;">
-NA
-</td>
-<td style="text-align:center;">
-0.0
-</td>
-<td style="text-align:center;">
-307.7
-</td>
-<td style="text-align:center;">
-111.1
-</td>
-<td style="text-align:center;">
-NA
-</td>
-<td style="text-align:center;">
-106.9
-</td>
-<td style="text-align:center;">
-285.7
-</td>
-<td style="text-align:left;">
-800.0
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Yates
-</td>
-<td style="text-align:left;">
-Finger Lakes
-</td>
-<td style="text-align:center;">
-77.9
-</td>
-<td style="text-align:center;">
-333.3
-</td>
-<td style="text-align:center;">
-57.1
-</td>
-<td style="text-align:center;">
-97.1
-</td>
-<td style="text-align:center;">
-50.6
-</td>
-<td style="text-align:center;">
-48.8
-</td>
-<td style="text-align:center;">
-222.2
-</td>
-<td style="text-align:center;">
-76.9
-</td>
-<td style="text-align:center;">
-64.8
-</td>
-<td style="text-align:center;">
-NA
-</td>
-<td style="text-align:center;">
-0.0
-</td>
-<td style="text-align:center;">
-111.1
-</td>
-<td style="text-align:center;">
-NA
-</td>
-<td style="text-align:center;">
-0.0
-</td>
-<td style="text-align:center;">
-79.2
-</td>
-<td style="text-align:center;">
-0.0
-</td>
-<td style="text-align:left;">
-1666.7
-</td>
-<td style="text-align:left;">
-3000.0
 </td>
 </tr>
 </tbody>
