@@ -19,7 +19,9 @@ abortion_data = read_csv("data/master.csv")
 
 ## Abortion Trends in NYC
 
-### *Proportion T-Test - Boroughs*
+&nbsp; 
+
+### Proportion T-Test - Boroughs
 
 **Do overall abortion rates differ across boroughs?**
 
@@ -54,7 +56,9 @@ prop.test(abortion_totals_borough$n, abortion_totals_borough$total,
 
 - The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1000 births live differs across boroughs.
 
-### *Chi Square Test - Race and Boroughs*
+&nbsp; 
+
+### Chi Square Test - Race and Boroughs
 
 **Do overall abortion rates differ across boroughs by race?**
 
