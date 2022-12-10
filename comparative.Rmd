@@ -8,6 +8,8 @@ output:
       smooth_scroll: true
 ---
 
+&nbsp; 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
@@ -46,7 +48,10 @@ data = read_csv(file = "./data/master.csv") %>%
 
 From the master spreadsheet, we selected the columns and rows we will be using to analyze induced abortions by covariate categories. We first used `pivot_longer` to reformat the data and used `plotly` to create interactive plots. 
 
-#### NY vs NYC Age
+&nbsp; 
+
+### NY vs NYC Age
+***
 
 ```{r}
 age_total = 
@@ -81,7 +86,10 @@ age_total
 
 From the bar plots, it is evident that those in New York City have higher abortion rates compared to those in New York State across all age categories. Rates seem to decrease as age categories increase for New York City; however, for New York State, rates decrease from the <20 to 35-39 age categories, and increase among those who are 40+. Rates were highest among those who were <20 years for both New York City and New York State. Those <20 years in New York State had the highest rates across all categories of 1491.4 abortions per 1000 live births.
 
-#### NY vs. NYC Race
+&nbsp; 
+
+### NY vs. NYC Race
+***
 
 ```{r}
 race_total = 
@@ -113,7 +121,10 @@ race_total
 
 It is evident that those who identified as Non-Hispanic Black Only had the highest abortion rates across all boroughs in NYC. Among those who identified as Non_Hispanic_Black, rates were highest in Manhattan with 851.7 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion rates in NYC. The lowest rates across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a rates of 142.9 induced abortions per 1,000 live births. 
 
-#### NY vs. NYC Financial Plans
+&nbsp; 
+
+### NY vs. NYC Financial Plans
+***
 
 ```{r}
 finance_plan_total= 

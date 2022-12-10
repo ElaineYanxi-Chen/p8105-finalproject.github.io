@@ -8,6 +8,8 @@ output:
       smooth_scroll: true
 ---
 
+&nbsp; 
+
 ```{r setup, message=FALSE, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
@@ -17,9 +19,12 @@ library(tidyverse)
 abortion_data = read_csv("data/master.csv")
 ```
 
-# Abortion Trends in NY State
+## Abortion Trends in NY State
 
-## Proportion Test - NY State Regions
+&nbsp; 
+
+### Proportion Test - NY State Regions
+***
 
 **Do overall abortion rates differ across NY state regions?**
 
@@ -61,7 +66,10 @@ prop.test(NY_totals$n, NY_totals$total,
 
 Because this suggests that abortion rates differs across NY state regions, we now can assess whether or not this holds true across counties.
 
-## Proportion Test - NY State Counties
+&nbsp; 
+
+### Proportion Test - NY State Counties
+***
 
 **Do overall abortion rates differ across NY state counties?**
 
@@ -100,7 +108,10 @@ prop.test(NY_totals_counties$n, NY_totals_counties$total,
 
 - The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1000 live births differs across NY state counties.
 
-## Chi Square Test - Race and NY State Counties
+&nbsp; 
+
+### Chi Square Test - Race and NY State Counties
+***
 
 Due to missing data, a chi-squared analysis was not run for race and NY state regions.
 
@@ -152,7 +163,10 @@ x_crit
 
 - The data provides sufficient evidence to support the hypothesis that overall abortion rates in each race category across counties is different.
 
-## Chi Square Test - Finance Plans and NY State Regions
+&nbsp; 
+
+### Chi Square Test - Finance Plans and NY State Regions
+***
 
 **Do overall abortion rates differ across NY state regions by finance plan?**
 
@@ -200,7 +214,10 @@ x_crit
 
 - The data provides sufficient evidence to support the hypothesis that overall abortion rates in each finance category across regions is different.
 
-## Chi Square Test - Finance Plan and NY State Counties
+&nbsp; 
+
+### Chi Square Test - Finance Plan and NY State Counties
+***
 
 **Do overall abortion rates differ across NY state counties by finance plan?**
 
@@ -250,7 +267,10 @@ x_crit
 
 - The data provides sufficient evidence to support the hypothesis that overall abortion rates in each finance category across counties is different.
 
-## Chi Square Test - Age and NY State Counties
+&nbsp; 
+
+### Chi Square Test - Age and NY State Counties
+***
 
 Due to missing data, a chi-squared analysis was not run for race and NY state regions.
 
