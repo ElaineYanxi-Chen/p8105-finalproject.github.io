@@ -1,0 +1,59 @@
+---
+title: "Comparative Statistical Analysis"
+output: 
+  html_document: 
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+
+```{r setup, message=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r data, message=FALSE, include=FALSE}
+abortion_data = read_csv("data/master.csv")
+```
+
+```{r data_NY, message=FALSE, include=FALSE}
+NY_year = read_csv("data/NY_year.csv")
+```
+
+# Abortions Rates Comparing NYC and NY State
+
+## Proportion T-test
+
+**Do overall abortion rates differ between NYC and NY state?**
+
+**$H_0$**: The abortion rate per 1000 births is the same between NYC and NY state.
+
+**$H_1$**: The abortion rate per 1000 births differs between NYC and NY state.
+
+```{r tidy_totals}
+# Tidy data
+abortion_totals =
+  abortion_data %>%
+  select(borough, total) %>%
+  head(2) %>%
+  mutate(
+    n = total,
+    total = 1000)
+
+abortion_totals %>% 
+  select (-total) %>%
+  knitr::kable(caption = "Proportion T-Test for NYC and NY State", col.names = c("Region", "Abortion Rate per 1000 births"), align = c('l', 'c'), format = "simple")
+```
+
+```{r prop}
+# Run prop t-test
+prop.test(abortion_totals$n, abortion_totals$total,
+          p = NULL, alternative = "two.sided")
+```
+
+**Inference:**
+
+- From the above results, the p-value is **less than the 5% level of significance.** Therefore, we **reject the null hypothesis.** 
+
+- The data provides sufficient evidence to support the hypothesis that the abortion rate per 1000 births differs between NYC and NY state.

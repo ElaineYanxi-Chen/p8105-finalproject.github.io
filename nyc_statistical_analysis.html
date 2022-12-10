@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>NYC Statistical Analysis</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Overview</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Exploratory Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ny_exploratory_analysis.html">New York State Analysis</a>
+    </li>
+    <li>
+      <a href="nyc_exploratory_analysis.html">New York City Analysis</a>
+    </li>
+    <li>
+      <a href="comparative.html">Comparative Analysis</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="statistical_analysis.html">Statistical Analysis</a>
+</li>
+<li>
+  <a href="report.html">Report</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="team.html">Our Team</a>
+    </li>
+    <li>
+      <a href="proposal.html">Project Proposal</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="mailto:&lt;yc4017@cumc.columbia.edu&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/ElaineYanxi-Chen/p8105-finalproject.github.io.git">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">NYC Statistical Analysis</h1>
+
+</div>
+
+
+<div id="abortion-trends-in-nyc" class="section level2">
+<h2>Abortion Trends in NYC</h2>
+<div id="proportion-t-test---boroughs" class="section level3">
+<h3><em>Proportion T-Test - Boroughs</em></h3>
+<p><strong>Do overall abortion rates differ across
+boroughs?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+abortion rate per 1000 live births is the same across all boroughs.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+abortion rate per 1000 live births is not the same across all
+boroughs.</p>
+<pre class="r"><code># Tidy data
+abortion_totals_borough =
+  abortion_data %&gt;%
+  select(borough, total) %&gt;%
+  slice(3:7) %&gt;%
+  mutate(
+    n = total,
+    total = 1000)
+
+abortion_totals_borough %&gt;%
+  select (-total) %&gt;%
+  knitr::kable(caption = &quot;Proportion T-Test for NYC across all Boroughs&quot;, col.names = c(&quot;Borough&quot;, &quot;Abortion Rate per 1000 live births&quot;), align = c(&#39;l&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+<table>
+<caption>Proportion T-Test for NYC across all Boroughs</caption>
+<thead>
+<tr class="header">
+<th align="left">Borough</th>
+<th align="center">Abortion Rate per 1000 live births</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">623.3191</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">351.7053</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">537.4915</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">445.7356</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">275.5633</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Run 5 prop t-test
+prop.test(abortion_totals_borough$n, abortion_totals_borough$total,
+          p = NULL, alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  5-sample test for equality of proportions without continuity correction
+## 
+## data:  abortion_totals_borough$n out of abortion_totals_borough$total
+## X-squared = 314.57, df = 4, p-value &lt; 2.2e-16
+## alternative hypothesis: two.sided
+## sample estimates:
+##    prop 1    prop 2    prop 3    prop 4    prop 5 
+## 0.6233191 0.3517053 0.5374915 0.4457356 0.2755633</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, the p-value is <strong>less than the 5%
+level of significance</strong>. Therefore, we <strong>reject the null
+hypothesis</strong>.</p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that overall abortion rates per 1000 births live differs across
+boroughs.</p></li>
+</ul>
+</div>
+<div id="chi-square-test---race-and-boroughs" class="section level3">
+<h3><em>Chi Square Test - Race and Boroughs</em></h3>
+<p><strong>Do overall abortion rates differ across boroughs by
+race?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rate in each race category are the same across all
+boroughs.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rate in each race category are not the same across all
+boroughs.</p>
+<pre class="r"><code># Tidy data
+abortion_race_clean = 
+  abortion_data %&gt;%
+  slice(3:7) %&gt;%
+  select(-(age_less_20:nh_total)) %&gt;% select(-(h_white_only_ratio:region)) %&gt;%
+  mutate(
+    hispanic = h_total*1000,
+    nh_white_only = nh_white_only_ratio*1000,
+    nh_black_only = nh_black_only_ratio*1000,
+    nh_other = nh_other_ratio*1000
+  ) %&gt;%
+  select(-(nh_white_only_ratio:h_total))
+
+abortion_race_clean %&gt;% 
+  knitr::kable(caption = &quot;Chi-Square Test for Race and Boroughs&quot;, col.names = c(&quot;Borough&quot;, &quot;Hispanic&quot;, &quot;Non-Hispanic White&quot;, &quot;Non-Hispanic Black&quot;, &quot;Non-Hispanic Other&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;), format = &quot;simple&quot;)</code></pre>
+<table>
+<caption>Chi-Square Test for Race and Boroughs</caption>
+<thead>
+<tr class="header">
+<th align="left">Borough</th>
+<th align="center">Hispanic</th>
+<th align="center">Non-Hispanic White</th>
+<th align="center">Non-Hispanic Black</th>
+<th align="center">Non-Hispanic Other</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">500200</td>
+<td align="center">369800</td>
+<td align="center">734300</td>
+<td align="center">419300</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">393100</td>
+<td align="center">88600</td>
+<td align="center">837700</td>
+<td align="center">162500</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">519800</td>
+<td align="center">320800</td>
+<td align="center">1228300</td>
+<td align="center">253200</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">329400</td>
+<td align="center">155000</td>
+<td align="center">895100</td>
+<td align="center">273100</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">311700</td>
+<td align="center">137900</td>
+<td align="center">692200</td>
+<td align="center">142900</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>abortion_race_clean =
+  abortion_race_clean %&gt;%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(abortion_race_clean)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  abortion_race_clean
+## X-squared = 349146, df = 12, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 12)
+x_crit</code></pre>
+<pre><code>## [1] 21.02607</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, we <strong>reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that the abortion rate in each race category across boroughs is
+different.</p></li>
+</ul>
+</div>
+<div id="chi-square-test---finance-plan-and-boroughs"
+class="section level3">
+<h3><em>Chi Square Test - Finance Plan and Boroughs</em></h3>
+<p><strong>Do overall abortion rates differ across boroughs by finance
+plan?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each finance plan category are the same
+across all boroughs.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortions rates in each finance plan category are not the same
+across all boroughs.</p>
+<pre class="r"><code># Tidy data
+abortion_finance_clean = 
+  abortion_data %&gt;%
+  slice(3:7) %&gt;%
+  select(-(age_less_20:h_black_only_ratio)) %&gt;%
+  mutate(
+    medicaid = medicaid*1000,
+    self_pay = self_pay*1000,
+    other_insurance = other_insurance*1000,
+    not_stated = not_stated*1000
+  ) %&gt;%
+  select(-(total:region))
+
+abortion_finance_clean %&gt;% 
+  knitr::kable(caption = &quot;Chi-Square Test for Finance Plan and Boroughs&quot;, col.names = c(&quot;Borough&quot;, &quot;Medicaid&quot;, &quot;Self-Pay&quot;, &quot;Other Insurance&quot;, &quot;Not Stated&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;), format = &quot;simple&quot; )</code></pre>
+<table>
+<caption>Chi-Square Test for Finance Plan and Boroughs</caption>
+<thead>
+<tr class="header">
+<th align="left">Borough</th>
+<th align="center">Medicaid</th>
+<th align="center">Self-Pay</th>
+<th align="center">Other Insurance</th>
+<th align="center">Not Stated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">488454.1</td>
+<td align="center">6150943</td>
+<td align="center">31915094</td>
+<td align="center">1498069.5</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">286998.5</td>
+<td align="center">8644444</td>
+<td align="center">19678414</td>
+<td align="center">2058823.5</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">708360.2</td>
+<td align="center">31285714</td>
+<td align="center">62864407</td>
+<td align="center">576576.6</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">408648.3</td>
+<td align="center">6299180</td>
+<td align="center">33990991</td>
+<td align="center">3519480.5</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">323994.6</td>
+<td align="center">7259259</td>
+<td align="center">1676976</td>
+<td align="center">2142857.1</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>abortion_finance_clean =
+  abortion_finance_clean %&gt;%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(abortion_finance_clean)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  abortion_finance_clean
+## X-squared = 28441079, df = 12, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 12)
+x_crit</code></pre>
+<pre><code>## [1] 21.02607</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that the abortion rates in each finance category across borough is
+different.</p></li>
+</ul>
+</div>
+<div id="chi-square-test---age-and-boroughs" class="section level3">
+<h3><em>Chi Square Test - Age and Boroughs</em></h3>
+<p><strong>Do overall abortion rates differ across boroughs by
+age?</strong></p>
+<p><strong><span class="math inline">\(H_0\)</span></strong>: The
+expected abortion rates in each age category are the same across all
+boroughs.</p>
+<p><strong><span class="math inline">\(H_1\)</span></strong>: The
+expected abortion rates in each age category are not the same across all
+boroughs.</p>
+<pre class="r"><code># Tidy data
+abortion_age_clean = 
+  abortion_data %&gt;%
+  slice(3:7) %&gt;%
+  select(-(nh_total:region)) %&gt;%
+  mutate(
+    age_less_20 = age_less_20*1000,
+    age_20_24 = age_20_24*1000,
+    age_25_29 = age_25_29*1000,
+    age_30_34 = age_30_34*1000,
+    age_35_39 = age_35_39*1000,
+    age_plus_40 = age_plus_40*1000
+  )
+
+abortion_age_clean %&gt;% 
+  knitr::kable(caption = &quot;Chi-Square Test for Age and Boroughs&quot;, col.names = c(&quot;Borough&quot;, &quot;&lt; 20 years&quot;, &quot;20-24 years&quot;, &quot;25-29 years&quot;, &quot;30-34 years&quot;, &quot;35-39 years&quot;, &quot;40+ years&quot;), align = c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;), format = &quot;simple&quot; )</code></pre>
+<table>
+<caption>Chi-Square Test for Age and Boroughs</caption>
+<thead>
+<tr class="header">
+<th align="left">Borough</th>
+<th align="center">&lt; 20 years</th>
+<th align="center">20-24 years</th>
+<th align="center">25-29 years</th>
+<th align="center">30-34 years</th>
+<th align="center">35-39 years</th>
+<th align="center">40+ years</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bronx</td>
+<td align="center">1291900</td>
+<td align="center">860800</td>
+<td align="center">605000</td>
+<td align="center">497100</td>
+<td align="center">443100</td>
+<td align="center">447800</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="center">1388400</td>
+<td align="center">515300</td>
+<td align="center">412600</td>
+<td align="center">251800</td>
+<td align="center">210500</td>
+<td align="center">242800</td>
+</tr>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="center">1964900</td>
+<td align="center">1768600</td>
+<td align="center">988100</td>
+<td align="center">312200</td>
+<td align="center">256500</td>
+<td align="center">312000</td>
+</tr>
+<tr class="even">
+<td align="left">Queens</td>
+<td align="center">1780100</td>
+<td align="center">915600</td>
+<td align="center">476500</td>
+<td align="center">282900</td>
+<td align="center">275700</td>
+<td align="center">396400</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="center">1252200</td>
+<td align="center">721700</td>
+<td align="center">307000</td>
+<td align="center">145700</td>
+<td align="center">130000</td>
+<td align="center">231900</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>abortion_age_clean =
+  abortion_age_clean %&gt;%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(abortion_age_clean)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  abortion_age_clean
+## X-squared = 881655, df = 20, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>x_crit = qchisq(0.95, 20)
+x_crit</code></pre>
+<pre><code>## [1] 31.41043</code></pre>
+<p><strong>Inference:</strong></p>
+<ul>
+<li><p>From the above results, <strong><span
+class="math inline">\(X^2\)</span> is greater than the test-statistic at
+the 5% level of significance</strong>. Therefore, <strong>we reject the
+null hypothesis.</strong></p></li>
+<li><p>The data provides sufficient evidence to support the hypothesis
+that the overall abortion rate in each age category across borough is
+different.</p></li>
+</ul>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
