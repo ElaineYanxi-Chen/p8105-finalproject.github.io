@@ -49,8 +49,7 @@ Source: [Guttmacher Institute](https://www.guttmacher.org/article/2019/12/state-
 
 Since then, access to abortion has been significantly compromised and even banned in several states across the country. Those that are likely to be most impacted by this decision are individuals that belong to under-served and marginalized communities. Changes in policies could potentially lead to a variation in abortion trends in the country over time. We want to explore these trends to understand the implications of the policy change in the country concerning reproductive rights. 
 
-Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the numbers of induced abortions in New York City and New York State and compare the differences across the boroughs and counties. Different variables that we are interested are age, race, and financial plans. We are also interested on how the total rate of abortion changes over years from 2014 to 2019. 
-
+Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the number of induced abortions per 1,000 live birth in New York City and New York State and compare the differences across the boroughs (for New York City) and counties (for New York State). Several variables that we are considering are age, race/ethnicity, and financial plans. We are also interested on how the total rate of abortion changes over years from 2014 to 2019. 
 
 # Additional Resources/ Related Work
 
@@ -78,30 +77,27 @@ Here's some recent information on abortion clinics/ laws/ and facts:
 
 Originally, we wanted to conduct a comparative analysis of abortion rates in New York and Mississippi from 2017-2020 with the following questions:
 
-* Have abortion rates changed over time (2017 to 2020)?
+* Have abortion rates changed over time (2017 to 2020) in New York and Mississippi?
 * What does the distribution of abortion rates between counties within New York and Mississippi look like?
 * Are abortion rates different in New York compared to Mississippi while accounting for age, race/ethnicity, method, and insurance plan?
 
-We were unable to find a comprehensive dataset that included every factor we were looking for, and decided to focus on conducting an analysis of abortion numbers between boroughs in New York City in 2019. As a result we have developed new research questions as listed as following for our project:
-
+We were unable to find a comprehensive dataset that included individual level data needed to answer these questions. Therefore, decided to focus on conducting an analysis of rates of abortion between boroughs in New York City in 2019. Our research questions thus changed as follows:
 
 ## Final Research Questions:
 
-
-* What does the distribution of abortion between boroughs within New York City look like in 2019?
-  * Are abortion rates different in New York City while accounting for age, race/ethnicity, method, and insurance plan in 2019?
+* What does the distribution of rates of abortion between boroughs within New York City look like in 2019?
+  * Are abortion rates different among boroughs in New York City while accounting for age, race/ethnicity, and finance plans in 2019?
 * How do abortion rates differ between New York City and New York State in 2019?
-* How do abortion rates differ within regions of New York State in 2019?
-  * Are abortion rates different in New York City while accounting for age, race/ethnicity, method, and insurance plan?
+* How do abortion rates differ within regions/counties of New York State in 2019?
+  * Are abortion rates different among regions/counties of New York State while accounting for age, race/ethnicity, and finance plans?
 
 # Data
 
-
 ## Source
 
-For this project, we will use data from [Vital Statistics of New York State 2014-2019](https://www.health.ny.gov/statistics/vital_statistics/) (Individual data sets) which consists of group-level data from New York City and New York State. 
+For this project, we will use data from [Vital Statistics of New York State 2014-2019](https://www.health.ny.gov/statistics/vital_statistics/) which consists of group-level data from New York City and New York State for age, race/ethnicity, and finance plans, each being its own data set. 
 
-- The data wered collected from the New York State Bureau of Vital Records who maintains a registry of all births, marriages, divorces/dissolutions of marriage, deaths, induced termination of pregnancy/abortions, and fetal deaths that have occurred in New York State. 
+- The data were collected from the New York State Bureau of Vital Records who maintains a registry of all births, marriages, divorces/dissolutions of marriage, deaths, induced termination of pregnancy/abortions, and fetal deaths that have occurred in New York State. 
 
 - The [New York City Department of Health and Mental Hygiene](https://www.health.ny.gov/health_care/medicaid/redesign/ehr/registry/nycdohmh.htm) sends data on on live births, deaths, fetal deaths, induced terminations of pregnancy/abortions (abortion), marriages, and divorces/dissolutions of marriage recorded in New York City to the New York State Department of Health. 
 
@@ -111,15 +107,18 @@ For this project, we will use data from [Vital Statistics of New York State 2014
 
   - New York City includes five counties: Bronx, Kings (Brooklyn), New York (Manhattan), Queens, and Richmond (Staten Island). 
 
-  - New York State encompasses the remaining 57 counties, outside of New York City.
+  - New York State encompasses all 62 counties, including five from New York City.
 
-From the Vital Statistics of New York State 2019, we will use data from the *Induced Abortions* and *Live Births* section. 
+From the Vital Statistics of New York State 2019, we will use data from the *Induced Abortions* and *Live Births* section in order to find information on finance plans. 
 
 ## Data Scraping and Cleaning 
 
-We first imported the data sets from the Vital Statistics of New York State 2019 webpage. We cleaned the data and merged the data to create a final master spreadsheet, which we will be pulling from for each of our analyses.
+We first imported the data sets representing rates of abortion from the Vital Statistics of New York State 2019 webpage. We cleaned and merged the data appropriately to create a final master spreadsheet, which we will be pulling from for each of our analyses.
 
-We renamed variable names for the different counties in New York City to the name of the boroughs. Final variable names in our dataset for the boroughs include:
+For the finance plans data set, we imported the number of induced abortion and number of live births in order to calculate the rates of abortion manually. The equation we used is as follow:
+
+$$Abortion\ Rate\ per\ 1000\ Live\ Births\ = \frac{Count}{Number\ of\ Live\ Births} \times 1000$$
+We renamed variable names for the different counties in New York City to the name of the boroughs. Final variable names in our dataset for the New York City include:
 
 - `Manhattan`
 - `Bronx`
@@ -143,10 +142,6 @@ The final regions included in the dataset for New York State includes:
 - `New York City`
 
 The regions were created based on this [website](https://statejobs.ny.gov/assets/help/regionMapText.cfm)
-
-Abortion rates were calculated for regions within NY State, while for NYC they were already available as rates. Rates were calculated by using the following formula: 
-
-$$Abortion\ Rate\ per\ 1000\ Live\ Births\ = \frac{Count}{Number\ of\ Live\ Births} \times 1000$$
 
 Specific data cleaning processes for the covariates are listed below.
 

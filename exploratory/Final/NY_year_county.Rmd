@@ -38,12 +38,19 @@ scale_fill_discrete = scale_fill_viridis_d
 
 ```{r data_import_age, echo = FALSE}
 url = "https://www.health.ny.gov/statistics/vital_statistics/2019/table22.htm"
+<<<<<<< HEAD
+=======
 
+>>>>>>> 1ac171948c757a558632ebdbc0ee4e87b88da996
 induced_abortion_2019 = 
   read_html(url) %>%
   html_table(header = FALSE) %>%
   first() %>%
   janitor::clean_names()
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1ac171948c757a558632ebdbc0ee4e87b88da996
 
 clean_2019 = 
   induced_abortion_2019 %>%
@@ -187,9 +194,25 @@ clean_2014 =
 Merge into one dataset.
 
 ```{r}
+<<<<<<< HEAD
+final_year = 
+  reduce(full_join, by='borough')
+
+  full_join(clean_2019, clean_2018, clean_2017, clean_2016, clean_2015, clean_2014, by = "borough")
+```
+
+
+
+data cleaning
+=======
 merged_data=
 bind_rows(clean_2019, clean_2018, clean_2017, clean_2016, clean_2015, clean_2014)
+>>>>>>> 1ac171948c757a558632ebdbc0ee4e87b88da996
 
 write_csv(merged_data, file = "data/NY_year_county.csv")
 
 ```
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1ac171948c757a558632ebdbc0ee4e87b88da996

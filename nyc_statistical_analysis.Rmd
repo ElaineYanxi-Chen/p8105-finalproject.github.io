@@ -1,0 +1,199 @@
+---
+title: "NYC Statistical Analysis"
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+
+```{r setup, message=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r data, message=FALSE, include=FALSE}
+abortion_data = read_csv("data/master.csv")
+```
+
+## Abortion Trends in NYC
+
+&nbsp; 
+
+### Proportion T-Test - Boroughs
+
+**Do overall abortion rates differ across boroughs?**
+
+**$H_0$**: The abortion rate per 1000 live births is the same across all boroughs.
+
+**$H_1$**: The abortion rate per 1000 live births is not the same across all boroughs.
+
+```{r tidy_borough}
+# Tidy data
+abortion_totals_borough =
+  abortion_data %>%
+  select(borough, total) %>%
+  slice(3:7) %>%
+  mutate(
+    n = total,
+    total = 1000)
+
+abortion_totals_borough %>%
+  select (-total) %>%
+  knitr::kable(caption = "Proportion T-Test for NYC across all Boroughs", col.names = c("Borough", "Abortion Rate per 1000 live births"), align = c('l', 'c'), format = "simple")
+```
+
+```{r prop_boroughs}
+# Run 5 prop t-test
+prop.test(abortion_totals_borough$n, abortion_totals_borough$total,
+          p = NULL, alternative = "two.sided")
+```
+
+**Inference:**
+
+- From the above results, the p-value is **less than the 5% level of significance**. Therefore, we **reject the null hypothesis**. 
+
+- The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1000 births live differs across boroughs.
+
+&nbsp; 
+
+### Chi Square Test - Race and Boroughs
+
+**Do overall abortion rates differ across boroughs by race?**
+
+**$H_0$**: The expected abortion rate in each race category are the same across all boroughs.
+
+**$H_1$**: The expected abortion rate in each race category are not the same across all boroughs.
+
+```{r tidy_race}
+# Tidy data
+abortion_race_clean = 
+  abortion_data %>%
+  slice(3:7) %>%
+  select(-(age_less_20:nh_total)) %>% select(-(h_white_only_ratio:region)) %>%
+  mutate(
+    hispanic = h_total*1000,
+    nh_white_only = nh_white_only_ratio*1000,
+    nh_black_only = nh_black_only_ratio*1000,
+    nh_other = nh_other_ratio*1000
+  ) %>%
+  select(-(nh_white_only_ratio:h_total))
+
+abortion_race_clean %>% 
+  knitr::kable(caption = "Chi-Square Test for Race and Boroughs", col.names = c("Borough", "Hispanic", "Non-Hispanic White", "Non-Hispanic Black", "Non-Hispanic Other"), align = c('l', 'c', 'c', 'c', 'c'), format = "simple")
+```
+
+```{r chi-sq_race}
+abortion_race_clean =
+  abortion_race_clean %>%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(abortion_race_clean)
+```
+
+```{r x_crit_race}
+x_crit = qchisq(0.95, 12)
+x_crit
+```
+
+**Inference:** 
+
+- From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, we **reject the null hypothesis.** 
+
+- The data provides sufficient evidence to support the hypothesis that the abortion rate in each race category across boroughs is different. 
+
+### *Chi Square Test - Finance Plan and Boroughs*
+
+**Do overall abortion rates differ across boroughs by finance plan?**
+
+**$H_0$**: The expected abortion rates in each finance plan category are the same across all boroughs.
+
+**$H_1$**: The expected abortions rates in each finance plan category are not the same across all boroughs.
+
+```{r tidy_finance}
+# Tidy data
+abortion_finance_clean = 
+  abortion_data %>%
+  slice(3:7) %>%
+  select(-(age_less_20:h_black_only_ratio)) %>%
+  mutate(
+    medicaid = medicaid*1000,
+    self_pay = self_pay*1000,
+    other_insurance = other_insurance*1000,
+    not_stated = not_stated*1000
+  ) %>%
+  select(-(total:region))
+
+abortion_finance_clean %>% 
+  knitr::kable(caption = "Chi-Square Test for Finance Plan and Boroughs", col.names = c("Borough", "Medicaid", "Self-Pay", "Other Insurance", "Not Stated"), align = c('l', 'c', 'c', 'c', 'c'), format = "simple" )
+```
+
+```{r chi-squ_finance}
+abortion_finance_clean =
+  abortion_finance_clean %>%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(abortion_finance_clean)
+```
+
+```{r x_crit_finance}
+x_crit = qchisq(0.95, 12)
+x_crit
+```
+
+**Inference:**
+
+- From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** 
+
+- The data provides sufficient evidence to support the hypothesis that the abortion rates in each finance category across borough is different.
+
+### *Chi Square Test - Age and Boroughs*
+
+**Do overall abortion rates differ across boroughs by age?**
+
+**$H_0$**: The expected abortion rates in each age category are the same across all boroughs.
+
+**$H_1$**: The expected abortion rates in each age category are not the same across all boroughs.
+
+```{r tidy_age}
+# Tidy data
+abortion_age_clean = 
+  abortion_data %>%
+  slice(3:7) %>%
+  select(-(nh_total:region)) %>%
+  mutate(
+    age_less_20 = age_less_20*1000,
+    age_20_24 = age_20_24*1000,
+    age_25_29 = age_25_29*1000,
+    age_30_34 = age_30_34*1000,
+    age_35_39 = age_35_39*1000,
+    age_plus_40 = age_plus_40*1000
+  )
+
+abortion_age_clean %>% 
+  knitr::kable(caption = "Chi-Square Test for Age and Boroughs", col.names = c("Borough", "< 20 years", "20-24 years", "25-29 years", "30-34 years", "35-39 years", "40+ years"), align = c('l', 'c', 'c', 'c', 'c', 'c', 'c'), format = "simple" )
+```
+
+```{r chi-sq_age}
+abortion_age_clean =
+  abortion_age_clean %>%
+  select(-borough)
+
+# Run chi-square test
+chisq.test(abortion_age_clean)
+```
+
+```{r x_crit_age}
+x_crit = qchisq(0.95, 20)
+x_crit
+```
+
+**Inference:**
+
+- From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** 
+
+- The data provides sufficient evidence to support the hypothesis that the overall abortion rate in each age category across borough is different.
+

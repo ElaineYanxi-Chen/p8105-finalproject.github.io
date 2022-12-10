@@ -9,10 +9,18 @@ navbar:
       menu: 
         - text: "New York State Analysis"
           href: ny_exploratory_analysis.html
-        - text: "New York City"
+        - text: "New York City Analysis"
           href: nyc_exploratory_analysis.html
+        - text: "Comparative Analysis"
+          href: comparative.html
     - text: "Statistical Analysis"
-      href: statistical_analysis.html
+      menu: 
+        - text: "NYS Statistical Analysis"
+          href: nys_statistical_analysis.html
+        - text: "NYC Statistical Analysis"
+          href: nyc_statistical_analysis.html
+        - text: "Comparative Statistical Analysis"
+          href: comparative_statistical_analysis.html
     - text: "Report"
       href: report.html
     - text: "About"
