@@ -37,13 +37,13 @@ First, we want to look at the overall trends in abortion rates in the five borou
 abortion_year = read_csv("data/abortion_year_borough.csv")
 
 abortion_year %>% 
-  filter(borough == "Total") %>% 
+  filter(borough == "New York City") %>% 
   mutate(borough = fct_reorder(borough, total)) %>% 
   select(year, total) %>% 
   knitr::kable(caption = "Tota")
 
 city_year = abortion_year %>% 
-  filter(borough == "Total") %>% 
+  filter(borough == "New York City") %>% 
   mutate(borough = fct_reorder(borough, total)) %>% 
   plot_ly(y = ~total, x = ~year, color = ~borough, type = "scatter", mode = "line", colors = "viridis")
 
