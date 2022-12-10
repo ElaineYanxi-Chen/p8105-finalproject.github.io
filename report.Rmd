@@ -137,9 +137,7 @@ We renamed variable names for the different counties in New York City to the nam
 - `Queens`
 - `Staten Island` 
 
-From the same dataset, there are 62 counties in New York State, being:
-
-`r merged %>% pull(borough) %>% rownames()`
+From the same dataset, we included `New York State` total, `New York City` total and any county with released abortion rate data. Therefore, the dataset includes the following variables: `r merged %>% pull(borough)`. One note to be aware of is that Essex and Hamilton data are combined in the dataset due to the formatting released by New York State, thus we have `Essex/Hamilton` as a variable
 
 Data on New York State were obtained from the same dataset, and counties were recoded into regions based on categories set by New York State using `transform` or `case_when`. Some counties had very few abortion numbers, which would not provide a sufficient sample size when stratifying based on covariates. As a result, the categorizing the regions will ensure a sufficient sample size. 
 
