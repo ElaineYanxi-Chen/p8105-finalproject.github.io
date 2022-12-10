@@ -93,7 +93,7 @@ clean_2018 =
 
 ## Induced Abortions in Years (2017)
 ```{r data_import_2017}
-url = "https://www.health.ny.gov/statistics/vital_statistics/2018/table22.htm"
+url = "https://www.health.ny.gov/statistics/vital_statistics/2017/table22.htm"
 induced_abortion_2017 = 
   read_html(url) %>%
   html_table(header = FALSE) %>%
