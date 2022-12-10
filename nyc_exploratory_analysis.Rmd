@@ -36,8 +36,12 @@ First, we want to look at the overall trends in abortion rates in the five borou
 ```{r}
 abortion_year = read_csv("data/abortion_year_borough.csv")
 
+<<<<<<< HEAD
 table = 
   abortion_year %>% 
+=======
+abortion_year %>% 
+>>>>>>> 9006b89d9cd2c416c56f34c609fc8a952e7edb67
   filter(borough == "New York City") %>% 
   mutate(borough = fct_reorder(borough, total)) %>% 
   select(year, total) %>% 

@@ -116,7 +116,7 @@ race_nyc %>%
 race_nyc
 ```
 
-From the bar plots, it is evident that those who identified as Non-Hispanic Black had the highest abortion ratios across all boroughs in NYC. Among those who identified as Non_Hispanic_Black, ratios were highest in Manhattan with 1,228.3 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion ratios in NYC. The lowest ratio across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a ratio of 88.6 induced abortions per 1,000 live births. 
+From the bar plots, it is evident that those who identified as Non-Hispanic Black Only had the highest abortion ratios across all boroughs in NYC. Among those who identified as Non-Hispanic Black Only, rates were highest in Manhattan with 1,228.3 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion ratios in NYC. The lowest rates across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a rates of 88.6 induced abortions per 1,000 live births. 
 
 #### NYC Financial Plans
 
@@ -148,19 +148,11 @@ finance_plan_nyc %>%
 finance_plan_nyc
 ```
 
-From the bar plots, those who were categorized as having other_insurance had the highest abortion ratios across all financial plans in NYC. When calculating abortion ratios for financial plans, we manually calculated these ratios from (induced abortions/ live births)*1000 as they were not provided like in other data sets. A huge flaw in these numbers is that those who have induced abortions and those who give births tend to use different insurance plans. People who give birth are unlikely to use `other_insurance` in comparison to those who have induced abortions due to the inherent differnces in procedures. Those who used `self_pay` for induced abortions had a relatively high abortion ratio as well. This would make sense as well given the nature of the procedure and possible restrictions by the health insurance plan to cover abortions. 
-
-## NY graphs
-
-#### NY Age
-
-#### NY Race
-
-#### NY Financial Plans
+From the bar plots, those who were categorized as having Other Insurance had the highest abortion rates across all financial plans in NYC with a rate of 62.86k induced abortions per 1000 live births. When calculating abortion rates for financial plans, we manually calculated these rates from (induced abortions/ live births)*1000 as they were not provided like in other data sets. A huge flaw in these numbers is that those who have induced abortions and those who give births tend to use different insurance plans. People who give birth are unlikely to use `other_insurance` in comparison to those who have induced abortions due to the inherent differences in procedures. Those who used Self Pay for induced abortions had a relatively high abortion rates as well. This would make sense as well given the nature of the procedure and possible restrictions by the health insurance plan to cover abortions. Medicaid had the lowest abortion rates across all financial plans, and the rates were lowest with 287 induced abortions per 1000 live births. 
 
 ## NY vs NYC graphs
 
-## NY vs NYC Age
+#### NY vs NYC Age
 
 ```{r}
 age_total = 
@@ -193,7 +185,7 @@ age_total %>%
 age_total
 ```
 
-From the bar plots, it is evident that those in New York City have a higher abortion ratio compared to those in New York State across all age categories. Generally, these ratios seem to decrease as age categories increase.Ratios were highest among those in the `age_less_20` category for both New York City and New York State.
+From the bar plots, it is evident that those in New York City have higher abortion rates compared to those in New York State across all age categories. Rates seem to decrease as age categories increase for New York City; however, for New York State, rates decrease from the <20 to 35-39 age categories, and increase among those who are 40+. Rates were highest among those who were <20 years for both New York City and New York State. Those <20 years in New York State had the highest rates across all categories of 1491.4 abortions per 1000 live births.
 
 #### NY vs. NYC Race
 
@@ -225,7 +217,7 @@ race_total %>%
 race_total
 ```
 
-From the bar plots, it is evident that those who identified as Non-Hispanic Black had the highest abortion ratios across all boroughs in NYC. Among those who identified as Non_Hispanic_Black, ratios were highest in Manhattan with 1,228.3 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion ratios in NYC. The lowest ratio across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a ratio of 88.6 induced abortions per 1,000 live births. 
+It is evident that those who identified as Non-Hispanic Black Only had the highest abortion rates across all boroughs in NYC. Among those who identified as Non_Hispanic_Black, rates were highest in Manhattan with 851.7 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion rates in NYC. The lowest rates across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a rates of 142.9 induced abortions per 1,000 live births. 
 
 #### NY vs. NYC Financial Plans
 
@@ -256,3 +248,5 @@ finance_plan_total %>%
 
 finance_plan_total
 ```
+
+Rates were highest for those with Other Insurance in both New York City and New York State and was higher in New York City with 19.92k induced abortions per 1000 live births. Rates were lowest for those with Medicaid in both New York City and New York State and was lower for those in New York State with 325.66 induced abortions per 1000 live births. 

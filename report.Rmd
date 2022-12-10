@@ -49,8 +49,7 @@ Source: [Guttmacher Institute](https://www.guttmacher.org/article/2019/12/state-
 
 Since then, access to abortion has been significantly compromised and even banned in several states across the country. Those that are likely to be most impacted by this decision are individuals that belong to under-served and marginalized communities. Changes in policies could potentially lead to a variation in abortion trends in the country over time. We want to explore these trends to understand the implications of the policy change in the country concerning reproductive rights. 
 
-Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the numbers of induced abortions in New York City and New York State and compare the differences across the boroughs and counties. Different variables that we are interested are age, race, and financial plans. We are also interested on how the total rate of abortion changes over years from 2014 to 2019. 
-
+Our year of interest is 2019, which is the most recent dataset provided by New York State. We will be focusing on the number of induced abortions per 1,000 live birth in New York City and New York State and compare the differences across the boroughs (for New York City) and counties (for New York State). Different variables that we are interested in are age, race, and financial plans. We are also interested on how the total rate of abortion changes over years from 2014 to 2019. 
 
 # Additional Resources/ Related Work
 
