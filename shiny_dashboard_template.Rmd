@@ -21,30 +21,6 @@ scale_fill_discrete = scale_fill_viridis_d
 ```
 
 
-
-```{r data import, include = FALSE}
-merged_data = read_csv("data/master.csv")
-
-merged_data = 
-  merged_data %>% 
-    pivot_longer(
-      age_less_20:age_plus_40,
-      names_to = "age", 
-      values_to = "abortion",
-      names_prefix = "age_"
-    ) %>% 
-    mutate(
-      age = replace(age, age == "less_20", "<20"),
-      age = replace(age, age == "20_24", "20-24"),
-      age = replace(age, age == "25_29", "25-29"),
-      age = replace(age, age == "30_34", "30-34"),
-      age = replace(age, age == "35_39", "35-39"),
-      age = replace(age, age == "plus_40", "40+"),
-      age = factor(age)
-    )
-```
-
-
 ```{r map data import, include=FALSE}
 ny_counties <-
   counties(state = "36", cb = TRUE, resolution = "20m") %>% 
@@ -66,11 +42,60 @@ ny_year_geo <-
 ```
 
 
+```{r age data import, include = FALSE}
+merged_data = read_csv("data/master.csv")
+
+merged_age = 
+  merged_data %>% 
+  select(borough, age_less_20:age_plus_40) %>% 
+    pivot_longer(
+      age_less_20:age_plus_40,
+      names_to = "age", 
+      values_to = "abortion",
+      names_prefix = "age_"
+    ) %>% 
+    mutate(
+      age = replace(age, age == "less_20", "<20"),
+      age = replace(age, age == "20_24", "20-24"),
+      age = replace(age, age == "25_29", "25-29"),
+      age = replace(age, age == "30_34", "30-34"),
+      age = replace(age, age == "35_39", "35-39"),
+      age = replace(age, age == "plus_40", "40+"),
+      age = factor(age)
+    )
+```
+
+
+```{r race data import, include=FALSE}
+merged_race = 
+  merged_data %>% 
+  select(borough, nh_white_only_ratio:h_total) %>% 
+  pivot_longer(
+      nh_white_only_ratio:h_total,
+      names_to = "race", 
+      values_to = "abortion"
+    ) %>% 
+    mutate(
+      race = replace(race, race == "nh_white_only_ratio", "Non-Hispanic White"),
+      race = replace(race, race == "nh_black_only_ratio", "Non-Hispanic Black"),
+      race = replace(race, race == "nh_other_ratio", "Non-Hispanic Other"),
+      race = replace(race, race == "h_total", "Hispanic"),
+      race = factor(race)
+    )
+```
+
+
 Column {.sidebar}
 -----------------------------------------------------------------------
 
 ```{r sidebar}
-age = merged_data %>% distinct(age) %>% pull()
+sliderInput(
+  inputId = "year_choice",
+  label = h3("Year"),
+  min = 2014, max = 2019, value = 2014
+)
+
+age = merged_age %>% distinct(age) %>% pull()
 
 selectInput(
   inputId = "age_choice",
@@ -79,10 +104,13 @@ selectInput(
   selected = "<20"
 )
 
-sliderInput(
-  inputId = "year_choice",
-  label = h3("Year"),
-  min = 2014, max = 2019, value = 2014
+race = merged_race %>% distinct(race) %>% pull()
+
+radioButtons(
+  inputId = "race_choice",
+  label = h3("Race"),
+  choices = race,
+  selected = "Non-Hispanic White"
 )
 ```
 
@@ -92,7 +120,7 @@ Column {data-width=650}
 ### Chart A
 
 
-```{r}
+```{r map}
 renderPlotly({
   ny_year_geo %>% 
     filter(year == input[["year_choice"]]) %>% 
@@ -102,16 +130,14 @@ renderPlotly({
 ```
 
 
-
-
 Column {data-width=350}
 -----------------------------------------------------------------------
 
 ### Chart B
 
-```{r}
+```{r age}
 renderPlotly({
-  merged_data %>% 
+  merged_age %>% 
     filter(age == input[["age_choice"]]) %>% 
     mutate(borough = fct_reorder(borough, abortion)) %>% 
     plot_ly(x = ~borough, y = ~abortion, color = ~borough, colors = "viridis", type = "bar") %>% 
@@ -125,9 +151,17 @@ renderPlotly({
 
 ### Chart C
 
-```{r}
-renderPrint({
-input[["age_choice"]]
-})
+```{r race}
+renderPlotly({
+  merged_race %>% 
+    filter(race == input[["race_choice"]]) %>% 
+    mutate(borough = fct_reorder(borough, abortion)) %>% 
+    plot_ly(x = ~borough, y = ~abortion, color = ~borough, colors = "viridis", type = "bar") %>% 
+    layout(
+      title = 'Abortions Ratios in New York State Counties', 
+      xaxis = list(title = "County"),
+      yaxis = list(title = 'Number of Induced Abortions 
+                   per 1,000 Live Births'))
+}) 
 ```
 
