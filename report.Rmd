@@ -136,7 +136,7 @@ The regions were created based on this [website](https://statejobs.ny.gov/assets
 
 Specific data cleaning processes for the covariates are listed below.
 
-#### Age
+### Age
 
 Age was categorized as follows:
 
@@ -147,7 +147,7 @@ Age was categorized as follows:
 - `age_35_39`
 - `age_plus_40`
 
-#### Race/Ethnicity
+### Race/Ethnicity
 
 Race/Ethnicity was categorized as follows:
 
@@ -158,7 +158,7 @@ Race/Ethnicity was categorized as follows:
 
 Ethnicity is distinguished from race and is based on the ethnicity of the mother. Ethnicity distinguishes individuals of Spanish origin regardless of race. Race was self-reported. 
  
-#### Financial Plan Status
+### Financial Plan Status
 
 The final variable names include:
 
@@ -202,7 +202,7 @@ Our exploratory analysis was split into two categories - [New York State](ny_exp
 
 &nbsp; 
 
-#### Age:
+### Age:
 
 ```{r}
 age_nyc = 
@@ -239,7 +239,7 @@ age_nyc %>%
 
 From the bar plots, it is evident that those who are less than 20 years of age have the highest abortion rates across the boroughs in New York City in 2019. These rates decrease as age categories increase. When comparing between boroughs, Manhattan had the highest abortion rates in categories `<20` and `25-29`. Staten Island had the lowest abortion rates overall, except for category `20-24`. The highest abortion rate across all boroughs and age categories was for Manhattan for `< 20` with 1,964.9 induced abortions per 1,000 live births. The lowest abortion rate across all boroughs and age categories was in Staten Island for `35-39` with 130 induced abortions per 1,000 live births. 
 
-#### Race/Ethnicity:
+### Race/Ethnicity:
 
 ```{r}
 race_nyc = 
@@ -273,7 +273,7 @@ race_nyc %>%
 
 From the bar plots, it is evident that those who identified as Non-Hispanic Black had the highest abortion rates across all boroughs in NYC. Among those who identified as Non-Hispanic Black, abortion rates were highest in Manhattan with 1,228.3 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion rates in NYC. The lowest rates across all boroughs and race groups was for those who identified as Non-Hispanic White and lived in Brooklyn with a rates of 88.6 induced abortions per 1,000 live births. 
 
-#### Financial Plan Status:
+### Financial Plan Status:
 
 ```{r}
 finance_plan_nyc= 
@@ -313,7 +313,7 @@ From the bar plots, those who were categorized as having Other Insurance had the
 
 &nbsp; 
 
-#### Age 
+### Age 
 
 ```{r}
 age_nys = 
@@ -351,7 +351,7 @@ age_nys
 
 From the above plot, it is evident that within different categories of age, the highest abortion rate per 1,000 live births is among those that are below 20 years of age. We see a decline in induced abortion rates among older people across all regions within New York State. The highest abortion rate is found among those in New York City who are less than 20 years of age with 7,677.5 induces abortions per 1,000 live births. While New York city has higher abortion rates across most age categories, we see that among those that are 35+, higher rates of abortion are found among those in the Finger Lakes, Capital/Saratoga, and Central New York regions.
 
-#### Race/Ethnicity
+### Race/Ethnicity
 
 ```{r}
 race_nys = 
@@ -386,7 +386,7 @@ race_nys
 
 When looking at abortion rates within different race/ethnicity categories, we observe that the highest rates of abortion are among those who identify as Non-Hispanic Black. The highest abortion rate is among those residing in New York City and identify as Non-Hispanic Black with 4,638.1 induced abortions per 1,000 live births. Hispanic individuals also have high abortion rates, with the highest abortion rate within this category among those that reside in the Capital/ Saratoga region (3,698.2 per 1000 live births). 
 
-#### Financial Plan Status
+### Financial Plan Status
 
 ```{r}
 finance_nys = 
@@ -426,7 +426,7 @@ Highest abortion rates are found among those enrolled in the `Not Stated` insura
 
 &nbsp; 
 
-#### NY vs NYC Age
+### NY vs NYC Age
 
 ```{r}
 age_total = 
@@ -464,7 +464,7 @@ age_total %>%
 
 From the bar plots, it is evident that those in New York City have higher abortion rates compared to those in New York State across all age categories. Rates seem to decrease as age categories increase for New York City. However, for New York State, rates decrease from the <20 to 35-39 age categories, and increase among those who are 40+. Rates were highest among those who were <20 years for both New York City and New York State. Those <20 years in New York State had the highest rates across all categories of 1,491.4 abortions per 1,000 live births.
 
-#### NY vs. NYC Race
+### NY vs. NYC Race
 
 ```{r}
 race_total = 
@@ -499,7 +499,7 @@ race_total %>%
 
 It is evident that those who identified as Non-Hispanic Black had the highest abortion rates across all boroughs in New York City. Among those who identified as Non-Hispanic Black, rates were highest in Manhattan with 851.7 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion rates in New York City. The lowest rates across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a rates of 142.9 induced abortions per 1,000 live births. 
 
-#### NY vs. NYC Financial Plans
+### NY vs. NYC Financial Plans
 
 ```{r}
 finance_plan_total= 
@@ -544,7 +544,7 @@ Because our final tidy dataset reports abortion rates standardized by 1000 live 
 
 &nbsp; 
 
-#### Proportion Test - NY State Regions
+### Proportion Test - NY State Regions
 
 **Do overall abortion rates differ across NY state regions?**
 
@@ -580,7 +580,7 @@ prop.test(NY_totals$n, NY_totals$total,
 
 From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1,000 live births differs across NY state regions. Because this suggests that abortion rates differs across NY state regions, we now can assess whether or not this holds true across counties.
 
-#### Proportion Test - NY State Counties
+### Proportion Test - NY State Counties
 
 **Do overall abortion rates differ across NY state counties?**
 
@@ -615,7 +615,7 @@ prop.test(NY_totals_counties$n, NY_totals_counties$total,
 
 From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1,000 live births differs across NY state counties.
 
-#### Chi Square Test - Race and NY State Counties
+### Chi Square Test - Race and NY State Counties
 
 Due to missing data, a chi-squared analysis was not run for race and NY state regions.
 
@@ -663,7 +663,7 @@ x_crit
 
 From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates in each race category across counties is different.
 
-#### Chi Square Test - Finance Plans and NY State Regions
+### Chi Square Test - Finance Plans and NY State Regions
 
 **Do overall abortion rates differ across NY state regions by finance plan?**
 
@@ -707,7 +707,7 @@ x_crit
 
 From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates in each finance category across regions is different.
 
-#### Chi Square Test - Finance Plan and NY State Counties
+### Chi Square Test - Finance Plan and NY State Counties
 
 **Do overall abortion rates differ across NY state counties by finance plan?**
 
@@ -753,7 +753,7 @@ x_crit
 
 From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that overall abortion rates in each finance category across counties is different.
 
-#### Chi Square Test - Age and NY State Counties
+### Chi Square Test - Age and NY State Counties
 
 Due to missing data, a chi-squared analysis was not run for race and NY state regions.
 
@@ -808,7 +808,7 @@ From the above results, **$X^2$ is greater than the test-statistic at the 5% lev
 
 &nbsp; 
 
-#### Proportion T-Test - Boroughs
+### Proportion T-Test - Boroughs
 
 **Do overall abortion rates differ across boroughs?**
 
@@ -839,7 +839,7 @@ prop.test(abortion_totals_borough$n, abortion_totals_borough$total,
 
 From the above results, the p-value is **less than the 5% level of significance**. Therefore, we **reject the null hypothesis**. The data provides sufficient evidence to support the hypothesis that overall abortion rates per 1000 births live differs across boroughs.
 
-#### Chi Square Test - Race and Boroughs
+### Chi Square Test - Race and Boroughs
 
 **Do overall abortion rates differ across boroughs by race?**
 
@@ -881,7 +881,7 @@ x_crit
 
 From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, we **reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that the abortion rate in each race category across boroughs is different. 
 
-#### Chi Square Test - Finance Plan and Boroughs
+### Chi Square Test - Finance Plan and Boroughs
 
 **Do overall abortion rates differ across boroughs by finance plan?**
 
@@ -923,7 +923,7 @@ x_crit
 
 From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** The data provides sufficient evidence to support the hypothesis that the abortion rates in each finance category across borough is different.
 
-#### Chi Square Test - Age and Boroughs
+### Chi Square Test - Age and Boroughs
 
 **Do overall abortion rates differ across boroughs by age?**
 
@@ -972,7 +972,7 @@ From the above results, **$X^2$ is greater than the test-statistic at the 5% lev
 
 &nbsp; 
 
-#### Proportion T-test
+### Proportion T-test
 
 **Do overall abortion rates differ between NYC and NY state?**
 
