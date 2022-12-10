@@ -36,14 +36,14 @@ First, we want to look at the overall trends in abortion rates in the five borou
 ```{r}
 abortion_year = read_csv("data/abortion_year_borough.csv")
 
-table = 
+year_table_nyc = 
   abortion_year %>% 
   filter(borough == "New York City") %>% 
   mutate(borough = fct_reorder(borough, total)) %>% 
   select(year, total) %>% 
   knitr::kable(caption = "Abortion Rates in New York City (2014-2019)", col.names = c("Year", "Abortion rate per 1000 live births"), align = 'lc', format = "simple")
 
-table
+year_table_nyc
 
 city_year = abortion_year %>% 
   filter(borough == "New York City") %>% 
