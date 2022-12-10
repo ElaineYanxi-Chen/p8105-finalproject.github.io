@@ -1,6 +1,14 @@
 ---
 title: "New York City Exploratory Analysis "
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
+
+&nbsp; 
 
 ```{r, message = FALSE, echo = FALSE}
 library(tidyverse)
@@ -27,9 +35,10 @@ scale_fill_discrete = scale_fill_viridis_d
 ```
 
 
-## Five Boroughs of New York City
+&nbsp; 
 
 ### Total
+***
 
 First, we want to look at the overall trends in abortion rates in the five boroughs of New York City (Manhattan, Bronx, Queens, Brooklyn, Staten Island) across the years 2014 - 2019.
 
@@ -78,13 +87,17 @@ borough_year_plot = abortion_year %>%
 borough_year_plot
 ```
 
+When looking at abortion rates by borough, we see that the Bronx has the highest overall abortion rates, starting with a rate of 770 per 1000 live births in 2014, to a rate of 623 abortions per 1000 live births in 2019. 
 
 ```{r}
 data = read_csv(file = "./data/master.csv") %>%
   janitor::clean_names()
 ```
 
-#### Age
+&nbsp; 
+
+### Age
+***
 
 ```{r}
 age_nyc = 
@@ -118,7 +131,10 @@ age_nyc %>%
 
 From the bar plots, it is evident that those who age less than 20 have the highest abortion ratios across the boroughs in NYC in 2019. These ratios eem to decrease as age categories increase. When comparing between boroughs, Manhattan had the highest abortion ratios in categories `<20` and `25-29`. Staten Island had the lowest abortion ratios overall, except for category `20-24`. The highest abortion rate across all boroughs and age categories was for Manhattan for `< 20` with 1964.9 induced abortions per 1,000 live births. The lowest abortion ratio across all boroughs and age categories was in Staten Island for `35-39` with 130 induced abortions per 1,000 live births. 
 
-#### Race
+&nbsp; 
+
+### Race
+***
 
 ```{r}
 race_nyc = 
@@ -149,7 +165,10 @@ race_nyc %>%
 
 From the bar plots, it is evident that those who identified as Non-Hispanic Black Only had the highest abortion ratios across all boroughs in NYC. Among those who identified as Non-Hispanic Black Only, rates were highest in Manhattan with 1,228.3 induced abortions per 1,000 live births. Those who identified as Non-Hispanic White and Non-Hispanic Other had some of the lowest abortion ratios in NYC. The lowest rates across all boroughs and race groups was for those who identified as Non-Hispanic White only and lived in Brooklyn with a rates of 88.6 induced abortions per 1,000 live births. 
 
-#### Financial Plans
+&nbsp; 
+
+### Financial Plans
+***
 
 ```{r}
 finance_plan_nyc= 

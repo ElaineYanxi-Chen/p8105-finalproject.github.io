@@ -8,6 +8,8 @@ output:
       smooth_scroll: true
 ---
 
+&nbsp; 
+
 ```{r setup, message=FALSE, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
@@ -21,9 +23,12 @@ abortion_data = read_csv("data/master.csv")
 NY_year = read_csv("data/NY_year.csv")
 ```
 
-# Abortions Rates Comparing NYC and NY State
+## Abortions Rates Comparing NYC and NY State
 
-## Proportion T-test
+&nbsp; 
+
+### Proportion T-test
+***
 
 **Do overall abortion rates differ between NYC and NY state?**
 

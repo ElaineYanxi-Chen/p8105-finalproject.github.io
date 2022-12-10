@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
@@ -239,6 +242,75 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
 
 </head>
 
@@ -246,6 +318,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -279,12 +361,30 @@ $(document).ready(function () {
       <a href="ny_exploratory_analysis.html">New York State Analysis</a>
     </li>
     <li>
-      <a href="nyc_exploratory_analysis.html">New York City</a>
+      <a href="nyc_exploratory_analysis.html">New York City Analysis</a>
+    </li>
+    <li>
+      <a href="comparative.html">Comparative Analysis</a>
     </li>
   </ul>
 </li>
-<li>
-  <a href="statistical_analysis.html">Statistical Analysis</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Statistical Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="nys_statistical_analysis.html">NYS Statistical Analysis</a>
+    </li>
+    <li>
+      <a href="nyc_statistical_analysis.html">NYC Statistical Analysis</a>
+    </li>
+    <li>
+      <a href="comparative_statistical_analysis.html">Comparative Statistical Analysis</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="report.html">Report</a>
@@ -338,10 +438,12 @@ $(document).ready(function () {
 </div>
 
 
+<p> </p>
 <div id="total" class="section level3">
-<h3><em>Total</em></h3>
-<div id="htmlwidget-ba76805e6f72a45388aa" style="width:90%;height:576px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ba76805e6f72a45388aa">{"x":{"visdat":{"14bfb59f3d062":["function () ","plotlyVisDat"]},"cur_data":"14bfb59f3d062","attrs":{"14bfb59f3d062":{"y":{},"x":{},"mode":"line","color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Abortion Rates from 2014-2019 by Regions in NYS","xaxis":{"domain":[0,1],"automargin":true,"title":"Year"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Abortions per 1,000 Live Births"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[113.821138211382,115.079365079365,144.421629021218,149.601063829787,130.9963099631,191.19579500657],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Eastern Adirondacks","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"line":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[164.567140176896,146.694759020279,161.045314109166,154.351184346035,160.601465756887,159.974984365228],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Western Adirondacks","marker":{"color":"rgba(72,40,120,1)","line":{"color":"rgba(72,40,120,1)"}},"textfont":{"color":"rgba(72,40,120,1)"},"error_y":{"color":"rgba(72,40,120,1)"},"error_x":{"color":"rgba(72,40,120,1)"},"line":{"color":"rgba(72,40,120,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[238.369488705446,135.947464797626,139.156134062755,172.955162165654,188.166582021331,242.236417683891],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Westchester/Rockland","marker":{"color":"rgba(62,74,137,1)","line":{"color":"rgba(62,74,137,1)"}},"textfont":{"color":"rgba(62,74,137,1)"},"error_y":{"color":"rgba(62,74,137,1)"},"error_x":{"color":"rgba(62,74,137,1)"},"line":{"color":"rgba(62,74,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[255.662244374404,202.229065845432,202.003093011267,176.846075729,206.872221830241,224.371373307544],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Finger Lakes","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"line":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[195.858438950066,228.020670429047,227.285046412359,213.408907968876,231.083776595745,244.591567191627],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Long Island","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"line":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[261.379247183808,233.790861477334,250.179468772434,256.30472854641,248.371765534237,241.28845826959],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Central New York","marker":{"color":"rgba(31,158,137,1)","line":{"color":"rgba(31,158,137,1)"}},"textfont":{"color":"rgba(31,158,137,1)"},"error_y":{"color":"rgba(31,158,137,1)"},"error_x":{"color":"rgba(31,158,137,1)"},"line":{"color":"rgba(31,158,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[270.462633451957,277.985196829764,269.528455284553,228.333763218984,245.594230166196,251.888382545727],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Western New York","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"line":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[289.10482414653,264.2954390742,269.719251336898,247.841965471448,298.632844671389,298.750811161583],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Saratoga","marker":{"color":"rgba(109,205,89,1)","line":{"color":"rgba(109,205,89,1)"}},"textfont":{"color":"rgba(109,205,89,1)"},"error_y":{"color":"rgba(109,205,89,1)"},"error_x":{"color":"rgba(109,205,89,1)"},"line":{"color":"rgba(109,205,89,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[232.989330068218,260.463876299653,291.002431775196,299.131229995428,306.861848124428,283.109145075381],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Hudson Valley","marker":{"color":"rgba(180,222,44,1)","line":{"color":"rgba(180,222,44,1)"}},"textfont":{"color":"rgba(180,222,44,1)"},"error_y":{"color":"rgba(180,222,44,1)"},"error_x":{"color":"rgba(180,222,44,1)"},"line":{"color":"rgba(180,222,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[450.466949201296,434.015637028037,463.761045156394,494.816433566434,505.230954843158,543.753576033954],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"New York City","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"line":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<h3>Total</h3>
+<hr />
+<div id="htmlwidget-8d278ab740527db9c769" style="width:90%;height:576px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8d278ab740527db9c769">{"x":{"visdat":{"183cf5725738a":["function () ","plotlyVisDat"]},"cur_data":"183cf5725738a","attrs":{"183cf5725738a":{"y":{},"x":{},"mode":"line","color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Abortion Rates from 2014-2019 by Regions in NYS","xaxis":{"domain":[0,1],"automargin":true,"title":"Year"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Abortions per 1,000 Live Births"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[113.821138211382,115.079365079365,144.421629021218,149.601063829787,130.9963099631,191.19579500657],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Eastern Adirondacks","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"line":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[164.567140176896,146.694759020279,161.045314109166,154.351184346035,160.601465756887,159.974984365228],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Western Adirondacks","marker":{"color":"rgba(72,40,120,1)","line":{"color":"rgba(72,40,120,1)"}},"textfont":{"color":"rgba(72,40,120,1)"},"error_y":{"color":"rgba(72,40,120,1)"},"error_x":{"color":"rgba(72,40,120,1)"},"line":{"color":"rgba(72,40,120,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[238.369488705446,135.947464797626,139.156134062755,172.955162165654,188.166582021331,242.236417683891],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Westchester/Rockland","marker":{"color":"rgba(62,74,137,1)","line":{"color":"rgba(62,74,137,1)"}},"textfont":{"color":"rgba(62,74,137,1)"},"error_y":{"color":"rgba(62,74,137,1)"},"error_x":{"color":"rgba(62,74,137,1)"},"line":{"color":"rgba(62,74,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[255.662244374404,202.229065845432,202.003093011267,176.846075729,206.872221830241,224.371373307544],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Finger Lakes","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"line":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[195.858438950066,228.020670429047,227.285046412359,213.408907968876,231.083776595745,244.591567191627],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Long Island","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"line":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[261.379247183808,233.790861477334,250.179468772434,256.30472854641,248.371765534237,241.28845826959],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Central New York","marker":{"color":"rgba(31,158,137,1)","line":{"color":"rgba(31,158,137,1)"}},"textfont":{"color":"rgba(31,158,137,1)"},"error_y":{"color":"rgba(31,158,137,1)"},"error_x":{"color":"rgba(31,158,137,1)"},"line":{"color":"rgba(31,158,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[270.462633451957,277.985196829764,269.528455284553,228.333763218984,245.594230166196,251.888382545727],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Western New York","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"line":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[289.10482414653,264.2954390742,269.719251336898,247.841965471448,298.632844671389,298.750811161583],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Saratoga","marker":{"color":"rgba(109,205,89,1)","line":{"color":"rgba(109,205,89,1)"}},"textfont":{"color":"rgba(109,205,89,1)"},"error_y":{"color":"rgba(109,205,89,1)"},"error_x":{"color":"rgba(109,205,89,1)"},"line":{"color":"rgba(109,205,89,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[232.989330068218,260.463876299653,291.002431775196,299.131229995428,306.861848124428,283.109145075381],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"Hudson Valley","marker":{"color":"rgba(180,222,44,1)","line":{"color":"rgba(180,222,44,1)"}},"textfont":{"color":"rgba(180,222,44,1)"},"error_y":{"color":"rgba(180,222,44,1)"},"error_x":{"color":"rgba(180,222,44,1)"},"line":{"color":"rgba(180,222,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[450.466949201296,434.015637028037,463.761045156394,494.816433566434,505.230954843158,543.753576033954],"x":[2019,2018,2017,2016,2015,2014],"mode":"line","type":"scatter","name":"New York City","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"line":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 <table>
 <caption>Abortion Rates in New York State by Region
 (2014-2019)</caption>
@@ -443,54 +545,67 @@ $(document).ready(function () {
 </table>
 <p>From the plot above, it is evident that, on average, New York City
 has higher rates of abortions compared to the rest of the regions within
-New York State.</p>
-<p>We also wanted to take a look at what’s happening at the individual
-county-level. To find out more about county-level trends, head over to
-the <a href="">dashboard</a> that we created!</p>
+New York State. We also wanted to take a look at what’s happening at the
+individual county-level. To find out more about county-level trends,
+head over to the <a href="">dashboard</a> that we created!</p>
+<p> </p>
 </div>
-<div id="age" class="section level2">
-<h2>Age</h2>
-<div id="htmlwidget-35a241d04ba4248143bd" style="width:90%;height:576px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-35a241d04ba4248143bd">{"x":{"visdat":{"14bfb497e675a":["function () ","plotlyVisDat"]},"cur_data":"14bfb497e675a","attrs":{"14bfb497e675a":{"x":{},"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Induced Abortions in NY State by Age","xaxis":{"domain":[0,1],"automargin":true,"title":"Age (Years)","type":"category","categoryorder":"array","categoryarray":["<20","20-24","25-29","30-34","35-39","40+"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Abortions per 1,000 Live Births"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[7344.9,4453.8,2617.6,1539.1,2011.6,3763.2],"type":"bar","name":"Capital/Saratoga","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[5799.4,2794.1,1621.9,1163.3,1312.1,2539.8],"type":"bar","name":"Central New York","marker":{"color":"rgba(72,40,120,1)","line":{"color":"rgba(72,40,120,1)"}},"textfont":{"color":"rgba(72,40,120,1)"},"error_y":{"color":"rgba(72,40,120,1)"},"error_x":{"color":"rgba(72,40,120,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["20-24","25-29","30-34","35-39","40+"],"y":[430.5,280.2,144.9,174.4,409.6],"type":"bar","name":"Eastern Adirondacks","marker":{"color":"rgba(62,74,137,1)","line":{"color":"rgba(62,74,137,1)"}},"textfont":{"color":"rgba(62,74,137,1)"},"error_y":{"color":"rgba(62,74,137,1)"},"error_x":{"color":"rgba(62,74,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[3725.6,2105.6,1439.7,838.3,1482.9,1666.1],"type":"bar","name":"Finger Lakes","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[4621.2,2382.8,1427.4,1021.4,1113,1361.9],"type":"bar","name":"Hudson Valley","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[1733.4,1191.7,493.5,209,190.4,302.7],"type":"bar","name":"Long Island","marker":{"color":"rgba(31,158,137,1)","line":{"color":"rgba(31,158,137,1)"}},"textfont":{"color":"rgba(31,158,137,1)"},"error_y":{"color":"rgba(31,158,137,1)"},"error_x":{"color":"rgba(31,158,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[7677.5,4782,2789.2,1489.7,1315.8,1630.9],"type":"bar","name":"New York City","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[1689.8,1012.3,551.4,240.2,228,296.5],"type":"bar","name":"Westchester/Rockland","marker":{"color":"rgba(109,205,89,1)","line":{"color":"rgba(109,205,89,1)"}},"textfont":{"color":"rgba(109,205,89,1)"},"error_y":{"color":"rgba(109,205,89,1)"},"error_x":{"color":"rgba(109,205,89,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39"],"y":[2386.4,1194.4,784.7,574.9,548.8],"type":"bar","name":"Western Adirondacks","marker":{"color":"rgba(180,222,44,1)","line":{"color":"rgba(180,222,44,1)"}},"textfont":{"color":"rgba(180,222,44,1)"},"error_y":{"color":"rgba(180,222,44,1)"},"error_x":{"color":"rgba(180,222,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[2336.9,1489.5,896.6,685.2,802.3,926.2],"type":"bar","name":"Western New York","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["20-24","25-29","30-34","35-39","40+"],"y":[1487.1,932.7,565.5,486.8,735],"type":"bar","name":"NA","marker":{"color":"transparent","line":{"color":"transparent"}},"textfont":{"color":"transparent"},"error_y":{"color":"transparent"},"error_x":{"color":"transparent"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-<p>From the above plot, it is evident that within different categories
-of age, the highest abortion rate per 1000 live births is among those
-that are below 20 years of age. We see a decline in induced abortion
-rates among older people across all regions within New York State. The
-highest abortion rate is found among those in New York City who are
-&lt;20 years. While New York city has higher abortion rates across most
-age categories, we see that among those that are 35+, higher rates of
-abortion are found among those in the Finger Lakes, Capital/Saratoga,
-and Central New York regions.</p>
+<div id="age" class="section level3">
+<h3>Age</h3>
+<hr />
+<div id="htmlwidget-a2810b2e22356a0c55dc" style="width:90%;height:576px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a2810b2e22356a0c55dc">{"x":{"visdat":{"183cf47419219":["function () ","plotlyVisDat"]},"cur_data":"183cf47419219","attrs":{"183cf47419219":{"x":{},"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Induced Abortions in NY State by Age","xaxis":{"domain":[0,1],"automargin":true,"title":"Age (Years)","type":"category","categoryorder":"array","categoryarray":["<20","20-24","25-29","30-34","35-39","40+"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Abortions per 1,000 Live Births"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[7344.9,4453.8,2617.6,1539.1,2011.6,3763.2],"type":"bar","name":"Capital/Saratoga","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[5799.4,2794.1,1621.9,1163.3,1312.1,2539.8],"type":"bar","name":"Central New York","marker":{"color":"rgba(72,40,120,1)","line":{"color":"rgba(72,40,120,1)"}},"textfont":{"color":"rgba(72,40,120,1)"},"error_y":{"color":"rgba(72,40,120,1)"},"error_x":{"color":"rgba(72,40,120,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["20-24","25-29","30-34","35-39","40+"],"y":[430.5,280.2,144.9,174.4,409.6],"type":"bar","name":"Eastern Adirondacks","marker":{"color":"rgba(62,74,137,1)","line":{"color":"rgba(62,74,137,1)"}},"textfont":{"color":"rgba(62,74,137,1)"},"error_y":{"color":"rgba(62,74,137,1)"},"error_x":{"color":"rgba(62,74,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[3725.6,2105.6,1439.7,838.3,1482.9,1666.1],"type":"bar","name":"Finger Lakes","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[4621.2,2382.8,1427.4,1021.4,1113,1361.9],"type":"bar","name":"Hudson Valley","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[1733.4,1191.7,493.5,209,190.4,302.7],"type":"bar","name":"Long Island","marker":{"color":"rgba(31,158,137,1)","line":{"color":"rgba(31,158,137,1)"}},"textfont":{"color":"rgba(31,158,137,1)"},"error_y":{"color":"rgba(31,158,137,1)"},"error_x":{"color":"rgba(31,158,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[7677.5,4782,2789.2,1489.7,1315.8,1630.9],"type":"bar","name":"New York City","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[1689.8,1012.3,551.4,240.2,228,296.5],"type":"bar","name":"Westchester/Rockland","marker":{"color":"rgba(109,205,89,1)","line":{"color":"rgba(109,205,89,1)"}},"textfont":{"color":"rgba(109,205,89,1)"},"error_y":{"color":"rgba(109,205,89,1)"},"error_x":{"color":"rgba(109,205,89,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39"],"y":[2386.4,1194.4,784.7,574.9,548.8],"type":"bar","name":"Western Adirondacks","marker":{"color":"rgba(180,222,44,1)","line":{"color":"rgba(180,222,44,1)"}},"textfont":{"color":"rgba(180,222,44,1)"},"error_y":{"color":"rgba(180,222,44,1)"},"error_x":{"color":"rgba(180,222,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[2336.9,1489.5,896.6,685.2,802.3,926.2],"type":"bar","name":"Western New York","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["<20","20-24","25-29","30-34","35-39","40+"],"y":[2504.3,1381,905.2,517.4,467.6,592.1],"type":"bar","name":"NA","marker":{"color":"transparent","line":{"color":"transparent"}},"textfont":{"color":"transparent"},"error_y":{"color":"transparent"},"error_x":{"color":"transparent"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>From the above plot, the highest abortion rate per 1000 live births
+is generally among those that are below 20 years of age when comparing
+different categories of age. We see a decline in induced abortion rates
+among older people across most regions within New York State, but some
+rates start to increase for age categories 35-39 and 40+. The highest
+abortion rate across all categories is among those in New York City and
+less than 20 years old with 7,677.5 induced abortions per 1000 live
+births. The second highest abortion rates across all categories is in
+the Capital/Saratoga region for those less than 20 years old with 7344.9
+induced abortions per 1000 live births. While New York city has higher
+abortion rates across most age categories, we see that among those who
+are 40+, higher rates of abortion are found among those in the Finger
+Lakes, Capital/Saratoga, and Central New York regions when compared to
+New York City.</p>
+<p> </p>
 </div>
-<div id="raceethnicity" class="section level2">
-<h2>Race/Ethnicity</h2>
-<div id="htmlwidget-b0421e0677ff1c30f21b" style="width:90%;height:576px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b0421e0677ff1c30f21b">{"x":{"visdat":{"14bfb62507dd1":["function () ","plotlyVisDat"]},"cur_data":"14bfb62507dd1","attrs":{"14bfb62507dd1":{"x":{},"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Induced Abortions in NY State by Race/Ethnicity","xaxis":{"domain":[0,1],"automargin":true,"title":"Race","type":"category","categoryorder":"array","categoryarray":["Hispanic","Non-Hispanic Black Only","Non-Hispanic Other","Non-Hispanic White Only"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Abortions per 1,000 Live Births"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Hispanic","Non-Hispanic White Only"],"y":[3698.2,2190.5],"type":"bar","name":"Capital/Saratoga","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Other","Non-Hispanic White Only"],"y":[1733.4,1421.8,1327.6],"type":"bar","name":"Central New York","marker":{"color":"rgba(72,40,120,1)","line":{"color":"rgba(72,40,120,1)"}},"textfont":{"color":"rgba(72,40,120,1)"},"error_y":{"color":"rgba(72,40,120,1)"},"error_x":{"color":"rgba(72,40,120,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Non-Hispanic Other","Non-Hispanic White Only"],"y":[345.4,274.1],"type":"bar","name":"Eastern Adirondacks","marker":{"color":"rgba(62,74,137,1)","line":{"color":"rgba(62,74,137,1)"}},"textfont":{"color":"rgba(62,74,137,1)"},"error_y":{"color":"rgba(62,74,137,1)"},"error_x":{"color":"rgba(62,74,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Other","Non-Hispanic White Only"],"y":[1205.5,1096.6,1058.7],"type":"bar","name":"Finger Lakes","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Black Only","Non-Hispanic Other","Non-Hispanic White Only"],"y":[2141.5,4638.1,1179.1,1049.1],"type":"bar","name":"Hudson Valley","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Black Only","Non-Hispanic Other","Non-Hispanic White Only"],"y":[354.8,1244.5,223.9,242.8],"type":"bar","name":"Long Island","marker":{"color":"rgba(31,158,137,1)","line":{"color":"rgba(31,158,137,1)"}},"textfont":{"color":"rgba(31,158,137,1)"},"error_y":{"color":"rgba(31,158,137,1)"},"error_x":{"color":"rgba(31,158,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Black Only","Non-Hispanic Other","Non-Hispanic White Only"],"y":[2054.2,4387.6,1251,1072.1],"type":"bar","name":"New York City","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Black Only","Non-Hispanic Other","Non-Hispanic White Only"],"y":[408.1,1171.9,188.6,172.5],"type":"bar","name":"Westchester/Rockland","marker":{"color":"rgba(109,205,89,1)","line":{"color":"rgba(109,205,89,1)"}},"textfont":{"color":"rgba(109,205,89,1)"},"error_y":{"color":"rgba(109,205,89,1)"},"error_x":{"color":"rgba(109,205,89,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Non-Hispanic Other","Non-Hispanic White Only"],"y":[299.5,415.9],"type":"bar","name":"Western Adirondacks","marker":{"color":"rgba(180,222,44,1)","line":{"color":"rgba(180,222,44,1)"}},"textfont":{"color":"rgba(180,222,44,1)"},"error_y":{"color":"rgba(180,222,44,1)"},"error_x":{"color":"rgba(180,222,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Other","Non-Hispanic White Only"],"y":[1151.2,465.5,621.7],"type":"bar","name":"Western New York","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Non-Hispanic Other","Non-Hispanic White Only"],"y":[445.3,354.5],"type":"bar","name":"NA","marker":{"color":"transparent","line":{"color":"transparent"}},"textfont":{"color":"transparent"},"error_y":{"color":"transparent"},"error_x":{"color":"transparent"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-<p>When looking at abortion rates within different race/ethnicity
-categories, we observe that the highest rates of abortion are among
-those who identify as Non-Hispanic Black. The highest rate of abortion
-is among those residing in New York City and identify as Non-Hispanic
-Black. Hispanic individuals also seem to have high rates of abortion,
-and the highest rate of abortion within this category is among those
-that reside in the Capital/ Saratoga region.</p>
+<div id="raceethnicity" class="section level3">
+<h3>Race/Ethnicity</h3>
+<hr />
+<div id="htmlwidget-5f729fb6b2c1eed04ba3" style="width:90%;height:576px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5f729fb6b2c1eed04ba3">{"x":{"visdat":{"183cf2a19a83c":["function () ","plotlyVisDat"]},"cur_data":"183cf2a19a83c","attrs":{"183cf2a19a83c":{"x":{},"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Induced Abortions in NY State by Race/Ethnicity","xaxis":{"domain":[0,1],"automargin":true,"title":"Race","type":"category","categoryorder":"array","categoryarray":["Hispanic","Non-Hispanic Black Only","Non-Hispanic Other","Non-Hispanic White Only"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Abortions per 1,000 Live Births"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Hispanic","Non-Hispanic White Only"],"y":[3698.2,2190.5],"type":"bar","name":"Capital/Saratoga","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Other","Non-Hispanic White Only"],"y":[1733.4,1421.8,1327.6],"type":"bar","name":"Central New York","marker":{"color":"rgba(72,40,120,1)","line":{"color":"rgba(72,40,120,1)"}},"textfont":{"color":"rgba(72,40,120,1)"},"error_y":{"color":"rgba(72,40,120,1)"},"error_x":{"color":"rgba(72,40,120,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Non-Hispanic Other","Non-Hispanic White Only"],"y":[345.4,274.1],"type":"bar","name":"Eastern Adirondacks","marker":{"color":"rgba(62,74,137,1)","line":{"color":"rgba(62,74,137,1)"}},"textfont":{"color":"rgba(62,74,137,1)"},"error_y":{"color":"rgba(62,74,137,1)"},"error_x":{"color":"rgba(62,74,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Other","Non-Hispanic White Only"],"y":[1205.5,1096.6,1058.7],"type":"bar","name":"Finger Lakes","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Black Only","Non-Hispanic Other","Non-Hispanic White Only"],"y":[2141.5,4638.1,1179.1,1049.1],"type":"bar","name":"Hudson Valley","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Black Only","Non-Hispanic Other","Non-Hispanic White Only"],"y":[354.8,1244.5,223.9,242.8],"type":"bar","name":"Long Island","marker":{"color":"rgba(31,158,137,1)","line":{"color":"rgba(31,158,137,1)"}},"textfont":{"color":"rgba(31,158,137,1)"},"error_y":{"color":"rgba(31,158,137,1)"},"error_x":{"color":"rgba(31,158,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Black Only","Non-Hispanic Other","Non-Hispanic White Only"],"y":[2054.2,4387.6,1251,1072.1],"type":"bar","name":"New York City","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Black Only","Non-Hispanic Other","Non-Hispanic White Only"],"y":[408.1,1171.9,188.6,172.5],"type":"bar","name":"Westchester/Rockland","marker":{"color":"rgba(109,205,89,1)","line":{"color":"rgba(109,205,89,1)"}},"textfont":{"color":"rgba(109,205,89,1)"},"error_y":{"color":"rgba(109,205,89,1)"},"error_x":{"color":"rgba(109,205,89,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Non-Hispanic Other","Non-Hispanic White Only"],"y":[299.5,415.9],"type":"bar","name":"Western Adirondacks","marker":{"color":"rgba(180,222,44,1)","line":{"color":"rgba(180,222,44,1)"}},"textfont":{"color":"rgba(180,222,44,1)"},"error_y":{"color":"rgba(180,222,44,1)"},"error_x":{"color":"rgba(180,222,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Other","Non-Hispanic White Only"],"y":[1151.2,465.5,621.7],"type":"bar","name":"Western New York","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hispanic","Non-Hispanic Black Only","Non-Hispanic Other","Non-Hispanic White Only"],"y":[772.5,1610.2,445.3,308.5],"type":"bar","name":"NA","marker":{"color":"transparent","line":{"color":"transparent"}},"textfont":{"color":"transparent"},"error_y":{"color":"transparent"},"error_x":{"color":"transparent"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>The highest rate of abortion is among those residing in Hudson Valley
+and identify as Non-Hispanic Black with 4638.1 induced abortions per
+1000 live births. Non-Hispanic Blacks residing in New York City have the
+second highest rate as well with 4387.6 induced abortions per 1000 live
+births. There were many regions that are missing data in the plot
+because the data is missing for some counties in the original data set.
+For the statistical analysis, we will conduct statistical tests by
+county to get finer comparisons with more datapoints.</p>
+<p> </p>
 </div>
-<div id="finacial-plan-status" class="section level2">
-<h2>Finacial Plan Status</h2>
-<div id="htmlwidget-b295ded9fe96685a30e7" style="width:90%;height:576px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b295ded9fe96685a30e7">{"x":{"visdat":{"14bfb13ec6753":["function () ","plotlyVisDat"]},"cur_data":"14bfb13ec6753","attrs":{"14bfb13ec6753":{"x":{},"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Induced Abortions in NY State by Financial Plan Status","xaxis":{"domain":[0,1],"automargin":true,"title":"Type of Financial Plan","type":"category","categoryorder":"array","categoryarray":["Medicaid","Not Stated","Other Insurance","Self Pay"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Abortions per 1,000 Live Births"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Medicaid","Self Pay"],"y":[3002.18848524938,24056.5040650407],"type":"bar","name":"Capital/Saratoga","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Not Stated","Other Insurance","Self Pay"],"y":[2276.18739889201,168131.41923436,61576.1904761905,9374.20634920635],"type":"bar","name":"Central New York","marker":{"color":"rgba(72,40,120,1)","line":{"color":"rgba(72,40,120,1)"}},"textfont":{"color":"rgba(72,40,120,1)"},"error_y":{"color":"rgba(72,40,120,1)"},"error_x":{"color":"rgba(72,40,120,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Not Stated","Other Insurance","Self Pay"],"y":[544.85619814087,1100.7326007326,20300,325],"type":"bar","name":"Eastern Adirondacks","marker":{"color":"rgba(62,74,137,1)","line":{"color":"rgba(62,74,137,1)"}},"textfont":{"color":"rgba(62,74,137,1)"},"error_y":{"color":"rgba(62,74,137,1)"},"error_x":{"color":"rgba(62,74,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Other Insurance","Self Pay"],"y":[1462.16261973426,35077.1803103264,2051.31636700264],"type":"bar","name":"Finger Lakes","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Other Insurance","Self Pay"],"y":[1104.62353577039,43523.3333333333,27424.774056353],"type":"bar","name":"Hudson Valley","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Not Stated","Other Insurance","Self Pay"],"y":[355.537849134725,21706.6666666667,21052.4307518372,15083.1424644984],"type":"bar","name":"Long Island","marker":{"color":"rgba(31,158,137,1)","line":{"color":"rgba(31,158,137,1)"}},"textfont":{"color":"rgba(31,158,137,1)"},"error_y":{"color":"rgba(31,158,137,1)"},"error_x":{"color":"rgba(31,158,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Not Stated","Other Insurance","Self Pay"],"y":[2216.45563575799,9795.8072663955,150125.882152208,59639.5417135133],"type":"bar","name":"New York City","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Not Stated","Other Insurance","Self Pay"],"y":[339.557539720469,79666.6666666667,13867.6697530864,14435.5495251018],"type":"bar","name":"Westchester/Rockland","marker":{"color":"rgba(109,205,89,1)","line":{"color":"rgba(109,205,89,1)"}},"textfont":{"color":"rgba(109,205,89,1)"},"error_y":{"color":"rgba(109,205,89,1)"},"error_x":{"color":"rgba(109,205,89,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Not Stated","Other Insurance","Self Pay"],"y":[1164.08414660235,8228.43822843823,22640.5550970768,1324.84583105273],"type":"bar","name":"Western Adirondacks","marker":{"color":"rgba(180,222,44,1)","line":{"color":"rgba(180,222,44,1)"}},"textfont":{"color":"rgba(180,222,44,1)"},"error_y":{"color":"rgba(180,222,44,1)"},"error_x":{"color":"rgba(180,222,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Other Insurance","Self Pay"],"y":[1114.10505622743,5820.01187756138,5073.46237507875],"type":"bar","name":"Western New York","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-<p>Highest rates of abortion are found among those enrolled in the
-<code>Not Stated</code> insurance category, followed by the
-<code>Other Insurance</code> category. The highest rate of abortion,
-when stratified by insurance enrollment, is found among those residing
-in the Capital/Saratoga region, and reporting as <code>Not Stated</code>
-insurance category. Within New York City, highest rates are found among
-those that are enrolled in <code>Other Category</code> insurance plans.
-Lowest rates of abortion are found among those that are enrolled in
-Medicaid.</p>
+<div id="finacial-plan-status" class="section level3">
+<h3>Finacial Plan Status</h3>
+<hr />
+<div id="htmlwidget-c8d8e2db8b72adf4882a" style="width:90%;height:576px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c8d8e2db8b72adf4882a">{"x":{"visdat":{"183cf59f6a3cb":["function () ","plotlyVisDat"]},"cur_data":"183cf59f6a3cb","attrs":{"183cf59f6a3cb":{"x":{},"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Induced Abortions in NY State by Financial Plan Status","xaxis":{"domain":[0,1],"automargin":true,"title":"Type of Financial Plan","type":"category","categoryorder":"array","categoryarray":["Medicaid","Not Stated","Other Insurance","Self Pay"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Abortions per 1,000 Live Births"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Medicaid","Self Pay"],"y":[3002.18848524938,24056.5040650407],"type":"bar","name":"Capital/Saratoga","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Not Stated","Other Insurance","Self Pay"],"y":[2276.18739889201,168131.41923436,61576.1904761905,9374.20634920635],"type":"bar","name":"Central New York","marker":{"color":"rgba(72,40,120,1)","line":{"color":"rgba(72,40,120,1)"}},"textfont":{"color":"rgba(72,40,120,1)"},"error_y":{"color":"rgba(72,40,120,1)"},"error_x":{"color":"rgba(72,40,120,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Not Stated","Other Insurance","Self Pay"],"y":[544.85619814087,1100.7326007326,20300,325],"type":"bar","name":"Eastern Adirondacks","marker":{"color":"rgba(62,74,137,1)","line":{"color":"rgba(62,74,137,1)"}},"textfont":{"color":"rgba(62,74,137,1)"},"error_y":{"color":"rgba(62,74,137,1)"},"error_x":{"color":"rgba(62,74,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Other Insurance","Self Pay"],"y":[1462.16261973426,35077.1803103264,2051.31636700264],"type":"bar","name":"Finger Lakes","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Other Insurance","Self Pay"],"y":[1104.62353577039,43523.3333333333,27424.774056353],"type":"bar","name":"Hudson Valley","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Not Stated","Other Insurance","Self Pay"],"y":[355.537849134725,21706.6666666667,21052.4307518372,15083.1424644984],"type":"bar","name":"Long Island","marker":{"color":"rgba(31,158,137,1)","line":{"color":"rgba(31,158,137,1)"}},"textfont":{"color":"rgba(31,158,137,1)"},"error_y":{"color":"rgba(31,158,137,1)"},"error_x":{"color":"rgba(31,158,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Not Stated","Other Insurance","Self Pay"],"y":[2216.45563575799,9795.8072663955,150125.882152208,59639.5417135133],"type":"bar","name":"New York City","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Not Stated","Other Insurance","Self Pay"],"y":[339.557539720469,79666.6666666667,13867.6697530864,14435.5495251018],"type":"bar","name":"Westchester/Rockland","marker":{"color":"rgba(109,205,89,1)","line":{"color":"rgba(109,205,89,1)"}},"textfont":{"color":"rgba(109,205,89,1)"},"error_y":{"color":"rgba(109,205,89,1)"},"error_x":{"color":"rgba(109,205,89,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Not Stated","Other Insurance","Self Pay"],"y":[1164.08414660235,8228.43822843823,22640.5550970768,1324.84583105273],"type":"bar","name":"Western Adirondacks","marker":{"color":"rgba(180,222,44,1)","line":{"color":"rgba(180,222,44,1)"}},"textfont":{"color":"rgba(180,222,44,1)"},"error_y":{"color":"rgba(180,222,44,1)"},"error_x":{"color":"rgba(180,222,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Other Insurance","Self Pay"],"y":[1114.10505622743,5820.01187756138,5073.46237507875],"type":"bar","name":"Western New York","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Medicaid","Not Stated","Other Insurance","Self Pay"],"y":[727.403757963022,4730.26355503507,30247.0617078683,12556.2340408676],"type":"bar","name":"NA","marker":{"color":"transparent","line":{"color":"transparent"}},"textfont":{"color":"transparent"},"error_y":{"color":"transparent"},"error_x":{"color":"transparent"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>Highest rates of abortion are found among those did not report an
+insurance plan and those who reported as having other insurance. The
+highest rate of abortion, when stratified by insurance enrollment, is
+found among those residing in the Capital/Saratoga region, and reporting
+as <code>Not Stated</code> insurance category with 168.13k induced
+abortions per 1000 live births. Lowest rates of abortion are found among
+those that are enrolled in Medicaid. There were some regions that are
+missing data in the plot because the data is missing for some counties
+in the original data set.</p>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -528,6 +643,35 @@ $(document).ready(function () {
 });
 </script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
