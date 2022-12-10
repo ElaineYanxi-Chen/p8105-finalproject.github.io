@@ -278,9 +278,7 @@ merge_final =
         borough == "Queens" ~ "New York City",
         borough == "Staten Island" ~ "New York City"
       )
-    ) %>%
-  filter(borough != "Hamilton/Essex")
-  
+    )
 
 write_csv(merge_final, file = "data/master.csv")
 
