@@ -39,6 +39,7 @@ NY_year = read_csv("data/NY_year.csv")
 
 plot_borough_year = 
   NY_year %>% 
+  drop_na() %>% 
   mutate(borough = fct_reorder(borough, total)) %>% 
   plot_ly(
     y = ~total, x = ~year, color = ~borough, 
@@ -99,7 +100,7 @@ age_plot_nys =
 age_plot_nys
 ```
 
-From the above plot, it is evident that within different categories of age, the highest abortion rate per 1000 live births is among those that are below 20 years of age. We see a decline in induced abortion rates among older people across all regions within New York State. The highest abortion rate is found among those in New York City who are <20 years. While New York city has higher abortion rates across most age categories, we see that among those that are 35+, higher rates of abortion are found among those in the Finger Lakes, Capital/Saratoga, and Central New York regions.
+From the above plot, the highest abortion rate per 1000 live births is generally among those that are below 20 years of age when comparing different categories of age. We see a decline in induced abortion rates among older people across most regions within New York State, but some rates start to increase for age categories 35-39 and 40+. The highest abortion rate across all categories is among those in New York City and less than 20 years old with 7,677.5 induced abortions per 1000 live births. The second highest abortion rates across all categories is in the Capital/Saratoga region for those less than 20 years old with 7344.9 induced abortions per 1000 live births. While New York city has higher abortion rates across most age categories, we see that among those who are 40+, higher rates of abortion are found among those in the Finger Lakes, Capital/Saratoga, and Central New York regions when compared to New York City.
 
 #### Race/Ethnicity
 
@@ -132,7 +133,7 @@ race_plot_nys =
 race_plot_nys
 ```
 
-When looking at abortion rates within different race/ethnicity categories, we observe that the highest rates of abortion are among those who identify as Non-Hispanic Black. The highest rate of abortion is among those residing in New York City and identify as Non-Hispanic Black. Hispanic individuals also seem to have high rates of abortion, and the highest rate of abortion within this category is among those that reside in the Capital/ Saratoga region. 
+The highest rate of abortion is among those residing in Hudson Valley and identify as Non-Hispanic Black with 4638.1 induced abortions per 1000 live births. Non-Hispanic Blacks residing in New York City have the second highest rate as well with 4387.6 induced abortions per 1000 live births. There were many regions that are missing data in the plot because the data is missing for some counties in the original data set. For the statistical analysis, we will conduct statistical tests by county to get finer comparisons with more datapoints. 
 
 #### Finacial Plan Status
 
@@ -165,11 +166,4 @@ finance_plot_nys=
 finance_plot_nys
 ```
 
-Highest rates of abortion are found among those enrolled in the `Not Stated` insurance category, followed by the `Other Insurance` category. The highest rate of abortion, when stratified by insurance enrollment, is found among those residing in the Capital/Saratoga region, and reporting as `Not Stated` insurance category. Within New York City, highest rates are found among those that are enrolled in `Other Category` insurance plans. Lowest rates of abortion are found among those that are enrolled in Medicaid. 
-
-
-
-
-
-
-
+Highest rates of abortion are found among those did not report an insurance plan and thsoe who reported as having other insurance. The highest rate of abortion, when stratified by insurance enrollment, is found among those residing in the Capital/Saratoga region, and reporting as `Not Stated` insurance category with 168.13k induced abortions per 1000 live births. Lowest rates of abortion are found among those that are enrolled in Medicaid. There were some regions that are missing data in the plot because the data is missing for some counties in the original data set.
