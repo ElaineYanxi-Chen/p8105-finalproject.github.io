@@ -36,14 +36,17 @@ First, we want to look at the overall trends in abortion rates in the five borou
 ```{r}
 abortion_year = read_csv("data/abortion_year_borough.csv")
 
-abortion_year %>% 
-  filter(borough == "Total") %>% 
+table = 
+  abortion_year %>% 
+  filter(borough == "New York City") %>% 
   mutate(borough = fct_reorder(borough, total)) %>% 
   select(year, total) %>% 
-  knitr::kable(caption = "Tota")
+  knitr::kable(caption = "Abortion Rates in New York City (2014-2019)", col.names = c("Year", "Abortion rate per 1000 live births"), align = 'lc', format = "simple")
+
+table
 
 city_year = abortion_year %>% 
-  filter(borough == "Total") %>% 
+  filter(borough == "New York City") %>% 
   mutate(borough = fct_reorder(borough, total)) %>% 
   plot_ly(y = ~total, x = ~year, color = ~borough, type = "scatter", mode = "line", colors = "viridis")
 
@@ -53,22 +56,26 @@ city_year
 From the data points and graph, it is evident that abortion rates are overall decreasing over the years. For our project, we will be analyzing data from 2019 which is the most recent dataset. 
 
 ```{r}
-abortion_year %>% 
-  filter(!borough == "Total") %>% 
+borough_year= 
+  abortion_year %>% 
+  filter(!borough == "New York State") %>%
+  filter(!borough == "New York City") %>%
   mutate(borough = fct_reorder(borough, total)) %>% 
   select(year, borough, total) %>% 
   pivot_wider(
     names_from = "borough",
-    values_from = "total"
-  ) %>% 
-  knitr::kable()
+    values_from = "total") %>% 
+  knitr::kable(caption = "Abortion Rates in New York City by Boroughs (2014-2019)", col.names = c("Year", "Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island"), align = 'lccccc', format = "simple")
 
-borough_year = abortion_year %>% 
-  filter(!borough == "Total") %>% 
+borough_year
+
+borough_year_plot = abortion_year %>% 
+  filter(!borough == "New York State") %>%
+  filter(!borough == "New York City") %>%
   mutate(borough = fct_reorder(borough, total)) %>% 
   plot_ly(y = ~total, x = ~year, color = ~borough, type = "scatter", mode = "line", colors = "viridis")
 
-borough_year
+borough_year_plot
 ```
 
 
