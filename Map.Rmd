@@ -44,9 +44,9 @@ ny_abortion =
   transform(borough = gsub(pattern = "St Lawrence", replacement = "St. Lawrence", borough)) %>% 
   rename(name = borough) %>% 
   mutate(total = round(total, digits = 0)) %>% 
-  select(name, everything())
+  select(-region)
 
-ny_total_geo = full_join(ny_counties, ny_abortion, by = "name")
+ny_total_geo <-  full_join(ny_counties, ny_abortion, by = "name")
 
 test <- ggplot(data = ny_total_geo, aes(fill = total)) + 
   geom_sf() + 
@@ -72,8 +72,5 @@ test2 %>%
   ggplotly(tooltip = "text") %>%
   style(hoverlabel = list(bgcolor = "white"), hoveron = "fill")
 ```
-
-
-## Incorporating year data
 
 

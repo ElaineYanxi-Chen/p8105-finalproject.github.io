@@ -10,7 +10,16 @@ runtime: shiny
 ```{r setup, include = FALSE}
 library(tidyverse)
 library(plotly)
+library(tigris)
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
 ```
+
 
 
 ```{r data import, include = FALSE}
@@ -36,6 +45,27 @@ merged_data =
 ```
 
 
+```{r map data import, include=FALSE}
+ny_counties <-
+  counties(state = "36", cb = TRUE, resolution = "20m") %>% 
+  janitor::clean_names()
+
+ny_abortion_year = 
+  read_csv(file = "data/NY_year_county.csv") %>%
+  transform(borough = gsub(pattern = "Brooklyn", replacement = "Kings", borough)) %>%
+  transform(borough = gsub(pattern = "Manhattan", replacement = "New York", borough)) %>%
+  transform(borough = gsub(pattern = "Staten Island", replacement = "Richmond", borough)) %>%
+  transform(borough = gsub(pattern = "Essex/Hamilton", replacement = "Essex", borough)) %>%
+  transform(borough = gsub(pattern = "St Lawrence", replacement = "St. Lawrence", borough)) %>% 
+  rename(name = borough) 
+
+ny_year_geo <- 
+  full_join(ny_counties, ny_abortion_year, by = "name") %>%
+  select(name, total, year, geometry) %>% 
+  filter(name != "Hamilton/Essex") %>% filter(name != "New York State") %>% filter(name != "New York City")
+```
+
+
 Column {.sidebar}
 -----------------------------------------------------------------------
 
@@ -49,6 +79,11 @@ selectInput(
   selected = "<20"
 )
 
+sliderInput(
+  inputId = "year_choice",
+  label = h3("Year"),
+  min = 2014, max = 2019, value = 2014
+)
 ```
 
 Column {data-width=650}
@@ -56,8 +91,25 @@ Column {data-width=650}
 
 ### Chart A
 
-```{r}
 
+```{r}
+renderPlotly({
+  ny_year_geo %>% 
+    filter(year == input[["year_choice"]]) %>% 
+      ggplot() +
+        geom_sf(aes(fill = total, text = paste(name, total), colors = "viridis"))            
+})
+```
+
+
+
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
 renderPlotly({
   merged_data %>% 
     filter(age == input[["age_choice"]]) %>% 
@@ -69,17 +121,6 @@ renderPlotly({
       yaxis = list(title = 'Number of Induced Abortions 
                    per 1,000 Live Births'))
 }) 
-```
-
-Column {data-width=350}
------------------------------------------------------------------------
-
-### Chart B
-
-```{r}
-renderPrint({
-input[["age_choice"]]
-})
 ```
 
 ### Chart C
