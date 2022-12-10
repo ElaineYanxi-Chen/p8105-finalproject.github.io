@@ -11,6 +11,7 @@ runtime: shiny
 library(tidyverse)
 library(plotly)
 library(tigris)
+library(shiny)
 theme_set(theme_minimal() + theme(legend.position = "bottom"))
 options(
   ggplot2.continuous.colour = "viridis",

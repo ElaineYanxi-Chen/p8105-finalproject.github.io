@@ -46,7 +46,10 @@ ny_abortion =
   mutate(total = round(total, digits = 0)) %>% 
   select(-region)
 
-ny_total_geo <-  full_join(ny_counties, ny_abortion, by = "name")
+ny_total_geo <-  
+  full_join(ny_counties, ny_abortion, by = "name") %>% 
+  select(name, total, geometry) %>% 
+  filter(name != "Hamilton/Essex") %>% filter(name != "New York State") %>% filter(name != "New York City")
 
 test <- ggplot(data = ny_total_geo, aes(fill = total)) + 
   geom_sf() + 
