@@ -18,7 +18,7 @@ The goal of our project is to explore the trends in abortion rates in New York C
 
 ### Screencast
 
-<iframe src="https://www.youtube.com/watch?v=QJOzUpNaD6Y" height="405" width="720" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay" data-external="1"></iframe>
+<iframe src="https://www.youtube.com/embed?v=dPL1251xpdk" height="405" width="720" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay" data-external="1"></iframe>
 
 *For best quality, please use Google Chrome.*
 
