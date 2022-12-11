@@ -44,11 +44,13 @@ We want to explore these trends to understand the implications of policy change 
 - Much like the exploratory analysis, the statistical analysis is also split into three sections: 
   - [New York State](nys_statistical_analysis.html) statistical analysis
   - [New York City](nyc_statistical_analysis.html) statistical analysis 
-  - [Comparat](comparative_statistical_analysis.html.html) statistical analysis 
+  - [Comparative](comparative_statistical_analysis.html.html) statistical analysis 
+  
 - We perform statistical tests such a the proportion t-test and chi-square tests, to test whether there are significant differences in abortion trends between boroughs, counties and across categories of the covariates. 
 
 #### Dashboard 
 
+We created an interactive [Dashboard](https://kasturi-b.shinyapps.io/shiny_dashboard_template/) which has a map that displays the total rates of abortion for counties in New York State. You can observe how the rates change over time (2014-2019). Further, the dashboard also has two barplots that show the the distribution of abortion rates for each county by race/ethnicity and age. 
 
 You can also take a look at our [project report](report.html) for more details on our project! 
 

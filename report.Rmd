@@ -43,13 +43,13 @@ merged = read_csv("data/master.csv") %>%
 # Motivation
 ***
 
-In 2019, many states raced to enact an unprecedented wave of bans on abortions that have severely restricted Women’s reproductive rights. These restrictions have culminated to the recent Supreme Court overturning of Roe v. Wade, a landmark supreme court case granting a Women’s right to an abortion. 
+In 2019, many states raced to enact an unprecedented wave of bans on abortions that have severely restricted Women’s reproductive rights. These restrictions have culminated to the recent Supreme Court overturning of Roe v. Wade, a landmark supreme court case granting a women’s right to an abortion. 
 
 <img src="images/2019_abortion.jpg" style = "width:70%">
 
 Source: [Guttmacher Institute](https://www.guttmacher.org/article/2019/12/state-policy-trends-2019-wave-abortion-bans-some-states-are-fighting-back)
 
-Our year of interest is 2019, which is the most recent dataset provided by New York State and final year before the COVID-19 pandemic. We will be focusing on the number of induced abortions per 1,000 live births in New York City and New York State and compare the differences across boroughs (for New York City), counties (for New York State), and between New York City and New York State. Variables we are considering are age, race/ethnicity, and financial plans (a.k.a. insurance plans). Those that are likely to be most impacted by this decision are individuals that belong to under-served and marginalized communities. We wanted to better understand disparities in abortion access.
+Our year of interest is 2019, which is the most recent dataset provided by New York State and the final year before the COVID-19 pandemic. We will be focusing on the number of induced abortions per 1,000 live births in New York City and New York State and compare the differences across boroughs (for New York City), counties (for New York State), and between New York City and New York State. Variables we are considering are age, race/ethnicity, and financial plans (a.k.a. insurance plans). Those that are likely to be most impacted by this decision are individuals that belong to under-served and marginalized communities. We wanted to better understand disparities in abortion access.
 
 &nbsp; 
 
@@ -1022,7 +1022,7 @@ These insights are useful for state and local governments to determine where and
 # Additional Resources/ Related Work
 ***
 
-From a public health stand point, reproductive rights are basic human rights, and women should be allowed to have full autonomy on decisions regarding their bodies. However, the issue at hand is very complicated, and it is important to consider both sides of the argument. 
+From a public health stand point, reproductive rights are basic human rights, and women should be allowed to have full autonomy on decisions regarding their bodies. The issue at hand, however, is very complicated and nuanced, with opposing views and beliefs.
 
 Regardless of the stance people take on abortions, studies and past data has found that reproductive justice is inextricably bound to discrimination and inequality. As residents of New York City, we wanted to analyze the trends in abortion, and how it might be affected by factors such as race/ethnicity, financial plan status and age to better understand differences in trends. 
 

@@ -4,4 +4,6 @@ title: "About"
 
 ### About this site
 
-This is the website for the final project for p8105 Data Science I course. 
+This is our repo for the final project for the P8105 Data Science course. 
+
+Head on over to our website using this [link](https://elaineyanxi-chen.github.io/p8105-finalproject.github.io/index.html)!
