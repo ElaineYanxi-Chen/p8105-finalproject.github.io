@@ -62,3 +62,5 @@ prop.test(abortion_totals$n, abortion_totals$total,
 - From the above results, the p-value is **less than the 5% level of significance.** Therefore, we **reject the null hypothesis.** 
 
 - The data provides sufficient evidence to support the hypothesis that the abortion rate per 1000 births differs between NYC and NY state.
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div> 

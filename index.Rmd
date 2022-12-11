@@ -63,6 +63,8 @@ You can also take a look at our [project report](report.html) for more details o
 
 ***
 
- <center><font size ="2"> *Kasturi Bhamidipati | Elaine Chen | Ayako Sekiya | Maisie Sun | Daisy Yan* </font></center>
+ <center><font size ="2"> Kasturi Bhamidipati | Elaine Chen | Ayako Sekiya | Maisie Sun | Daisy Yan </font></center>
 
 ***
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div> 

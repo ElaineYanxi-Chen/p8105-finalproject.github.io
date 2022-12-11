@@ -322,3 +322,5 @@ x_crit
 - From the above results, **$X^2$ is greater than the test-statistic at the 5% level of significance**. Therefore, **we reject the null hypothesis.** 
 
 - The data provides sufficient evidence to support the hypothesis that overall abortion rates in each age category across counties is different.
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div> 

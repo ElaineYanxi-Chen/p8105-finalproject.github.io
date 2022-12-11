@@ -207,3 +207,5 @@ x_crit
 
 - The data provides sufficient evidence to support the hypothesis that the overall abortion rate in each age category across borough is different.
 
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div> 
+

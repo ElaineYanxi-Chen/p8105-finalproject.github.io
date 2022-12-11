@@ -197,3 +197,5 @@ finance_plan_nyc %>%
 ```
 
 From the bar plots, those who were categorized as having Other Insurance had the highest abortion rates across all financial plans in NYC with a rate of 62.86k induced abortions per 1000 live births. When calculating abortion rates for financial plans, we manually calculated these rates from (induced abortions/ live births)*1000 as they were not provided like in other data sets. A huge flaw in these numbers is that those who have induced abortions and those who give births tend to use different insurance plans. People who give birth are unlikely to use `Other Insurance` in comparison to those who have induced abortions due to the inherent differences in procedures. Those who used Self Pay for induced abortions had a relatively high abortion rates as well. This would make sense as well given the nature of the procedure and possible restrictions by the health insurance plan to cover abortions. Medicaid had the lowest abortion rates across all financial plans, and the rates were lowest with 287 induced abortions per 1000 live births.
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div> 

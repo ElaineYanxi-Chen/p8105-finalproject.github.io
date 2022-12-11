@@ -154,3 +154,4 @@ finance_plan_total %>%
 
 Rates were highest for those with Other Insurance in both New York City and New York State and was higher in New York City with 19.92k induced abortions per 1000 live births. Rates were lowest for those with Medicaid in both New York City and New York State and was lower for those in New York State with 325.66 induced abortions per 1000 live births. 
 
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div> 
