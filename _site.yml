@@ -35,6 +35,8 @@ navbar:
       href: mailto:<yc4017@cumc.columbia.edu>
     - icon: fa-github fa-lg
       href: https://github.com/ElaineYanxi-Chen/p8105-finalproject.github.io.git
+    - icon: fa-brands fa-youtube
+      href: https://www.youtube.com/watch?v=dPL1251xpdk
 output:
   html_document:
     theme: journal 
