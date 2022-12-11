@@ -46,7 +46,7 @@ We want to explore these trends to understand the implications of policy change 
 - Much like the exploratory analysis, the statistical analysis is also split into three sections: 
   - [New York State](nys_statistical_analysis.html) statistical analysis
   - [New York City](nyc_statistical_analysis.html) statistical analysis 
-  - [Comparative](comparative_statistical_analysis.html.html) statistical analysis 
+  - [Comparative](comparative_statistical_analysis.html) statistical analysis 
   
 - We perform statistical tests such a the proportion t-test and chi-square tests, to test whether there are significant differences in abortion trends between boroughs, counties and across categories of the covariates. 
 
